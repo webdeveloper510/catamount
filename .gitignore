@@ -1,0 +1,17 @@
+/.idea
+/.vscode
+/vendor/srmklive/paypal/tests/Mocks/samples/sample2.pdf
+/vendor/srmklive/paypal/tests/Mocks/samples/sample.pdf 
+/.env
+/storage/logs
+/vendor
+/storage/app/public
+/public/agreement
+/public/floor_images
+/public/upload
+/extra
+/bondcrm
+node_modules
+/catamount
+/volo
+/*.zip

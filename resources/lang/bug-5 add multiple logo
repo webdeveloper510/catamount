@@ -1,0 +1,279 @@
+1.homesection.blade.php
+	
+	please set this code ----(https://we.tl/t-0PfVBk4Skd)
+	
+	instead of this
+	<div class="col-md-6">
+            <div class="form-group">
+                {{ Form::label('Logo', __('Logo'), ['class' => 'form-label']) }}
+                <div class="logo-content mt-4">
+                    <img id="image1" src="{{ $logo.'/'. $settings['home_logo'] }}"
+                        class="big-logo img_setting" width="150px">
+                </div>
+                <div class="choose-files mt-5">
+                    <label for="home_logo">
+                        <div class=" bg-primary dark_logo_update" style="cursor: pointer;"> <i class="ti ti-upload px-1">
+                            </i>{{ __('Choose file here') }}
+                        </div>
+                        <input type="file" name="home_logo" id="home_logo" class="form-control file" data-filename="home_logo">
+                    </label>
+                </div>
+                @error('home_logo')
+                <div class="row">
+                    <span class="invalid-logo" role="alert">
+                        <strong class="text-danger">{{ $message }}</strong>
+                    </span>
+                </div>
+                @enderror
+            </div>
+        </div>
+	
+	
+2.HomeController.php in replace store function
+
+    public function store(Request $request)
+    {
+	$uploadedFiles = $request->all()   ;
+     
+	if( $request->home_banner){
+	    $home_banner = "home_banner." . $request->home_banner->getClientOriginalExtension();
+	    $dir        = 'uploads/landing_page_image';
+	    $path = LandingPageSetting::upload_file($request,'home_banner',$home_banner,$dir,[]);
+	    if($path['flag']==0){
+	        return redirect()->back()->with('error', __($path['msg']));
+	    }
+	    $data['home_banner'] = $home_banner;
+	}
+	$temp_logo=explode(",",$request->savedlogo);
+	
+	$stored_home_logo = LandingPageSetting::settings()['home_logo'];
+	$home_logo = array_intersect($temp_logo, explode(",",$stored_home_logo));
+
+       
+	if($request->home_logo){
+	   
+	    $files = $request->home_logo;
+	   
+	   
+	    foreach($files as $key =>$file){
+	        
+	        $file_data = $file['home_logo'];
+	   
+	        
+	        $file_name = md5(time()) . "_" . $file_data->getClientOriginalName();
+	        $dir        = 'uploads/landing_page_image/';
+	        
+	        $path = LandingPageSetting::keyWiseUpload_file($request,'home_logo',$file_name,$dir,$key,[]);
+
+	       
+
+	        if($path['flag'] == 1){
+	            $url = $path['url'];
+	            $home_logo[]=$url;
+
+	        }else{
+	           
+	            return redirect()->back()->with('error', __($path['msg']));
+	        }
+	        
+	    }
+	   
+	}
+	
+	$data['home_logo'] =implode(",",array_filter($home_logo));
+       
+	$data['home_status']= 'on';
+	$data['home_offer_text']= $request->home_offer_text;
+	$data['home_title']= $request->home_title;
+	$data['home_heading']= $request->home_heading;
+	$data['home_description']= $request->home_description;
+	$data['home_trusted_by']= $request->home_trusted_by;
+	$data['home_live_demo_link']= $request->home_live_demo_link;
+	$data['home_buy_now_link']= $request->home_buy_now_link;
+	foreach($data as $key => $value){
+
+	    LandingPageSetting::updateOrCreate(['name' =>  $key],['value' => $value]);
+	}
+	return redirect()->back()->with(['success'=> 'Setting update successfully']);
+    }
+	
+	
+3. LandingPageSetting.php
+
+	please add this function
+
+    	    public static function keyWiseUpload_file($request, $key_name, $name, $path, $data_key, $custom_validation = [])
+	    {
+		
+		$multifile = [
+		    $key_name => $request->file($key_name)[$data_key][$key_name],
+		];
+		
+
+		try {
+		    $settings = Utility::getStorageSetting();
+
+
+		    if (!empty($settings['storage_setting'])) {
+
+		        if ($settings['storage_setting'] == 'wasabi') {
+
+		            config(
+		                [
+		                    'filesystems.disks.wasabi.key' => $settings['wasabi_key'],
+		                    'filesystems.disks.wasabi.secret' => $settings['wasabi_secret'],
+		                    'filesystems.disks.wasabi.region' => $settings['wasabi_region'],
+		                    'filesystems.disks.wasabi.bucket' => $settings['wasabi_bucket'],
+		                    'filesystems.disks.wasabi.endpoint' => 'https://s3.' . $settings['wasabi_region'] . '.wasabisys.com'
+		                ]
+		            );
+
+		            $max_size = !empty($settings['wasabi_max_upload_size']) ? $settings['wasabi_max_upload_size'] : '2048';
+		            $mimes =  !empty($settings['wasabi_storage_validation']) ? $settings['wasabi_storage_validation'] : '';
+		        } else if ($settings['storage_setting'] == 's3') {
+		            config(
+		                [
+		                    'filesystems.disks.s3.key' => $settings['s3_key'],
+		                    'filesystems.disks.s3.secret' => $settings['s3_secret'],
+		                    'filesystems.disks.s3.region' => $settings['s3_region'],
+		                    'filesystems.disks.s3.bucket' => $settings['s3_bucket'],
+		                    'filesystems.disks.s3.use_path_style_endpoint' => false,
+		                ]
+		            );
+		            $max_size = !empty($settings['s3_max_upload_size']) ? $settings['s3_max_upload_size'] : '2048';
+		            $mimes =  !empty($settings['s3_storage_validation']) ? $settings['s3_storage_validation'] : '';
+		        } else {
+		            $max_size = !empty($settings['local_storage_max_upload_size']) ? $settings['local_storage_max_upload_size'] : '2048';
+
+		            $mimes =  !empty($settings['local_storage_validation']) ? $settings['local_storage_validation'] : '';
+		        }
+
+
+		        $file = $request->$key_name;
+
+
+		        if (count($custom_validation) > 0) {
+		            $validation = $custom_validation;
+		        } else {
+
+		            $validation = [
+		                'mimes:' . $mimes,
+		                'max:' . $max_size,
+		            ];
+		        }
+
+		        $validator = \Validator::make($multifile, [
+		            $key_name => $validation
+		        ]);
+
+
+		        if ($validator->fails()) {
+		            $res = [
+		                'flag' => 0,
+		                'msg' => $validator->messages()->first(),
+		            ];
+		            return $res;
+		        } else {
+
+		            $name = $name;
+
+		            if ($settings['storage_setting'] == 'local') {
+
+		                \Storage::disk()->putFileAs(
+		                    $path,
+		                    $request->file($key_name)[$data_key][$key_name],
+		                    $name
+		                );
+
+
+		                $path = $name;
+		            } else if ($settings['storage_setting'] == 'wasabi') {
+
+		                $path = \Storage::disk('wasabi')->putFileAs(
+		                    $path,
+		                    $file,
+		                    $name
+		                );
+
+		                // $path = $path.$name;
+
+		            } else if ($settings['storage_setting'] == 's3') {
+
+		                $path = \Storage::disk('s3')->putFileAs(
+		                    $path,
+		                    $file,
+		                    $name
+		                );
+		            }
+
+
+		            $res = [
+		                'flag' => 1,
+		                'msg'  => 'success',
+		                'url'  => $path
+		            ];
+		            return $res;
+		        }
+		    } else {
+		        $res = [
+		            'flag' => 0,
+		            'msg' => __('Please set proper configuration for storage.'),
+		        ];
+		        return $res;
+		    }
+		} catch (\Exception $e) {
+		    $res = [
+		        'flag' => 0,
+		        'msg' => $e->getMessage(),
+		    ];
+		    return $res;
+		}
+	    }	
+		
+4.landingpage.blade.php
+    PLEASE SET THIS
+	    @foreach (explode(',', $settings['home_logo']) as $k => $home_logo )
+                    
+		<div class="col-auto">
+		    <img src="{{ $logo.'/'. $home_logo }}" alt="" class="img-fluid"
+			style="width: 130px;">
+		</div>
+	    @endforeach
+    
+    instead of this
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+	    <div class="col-auto">
+		<img src="{{ $logo.'/'. $settings['home_logo'] }}" alt="" class="img-fluid"
+		    style="width: 130px;">
+	    </div>
+
+
+
+
+
+                   
+                   
+
