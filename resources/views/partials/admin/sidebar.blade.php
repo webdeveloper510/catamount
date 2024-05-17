@@ -66,7 +66,7 @@ $category= explode(',',$settings['campaign_type']);
                 @if(Gate::check('Manage Lead') || Gate::check('Manage Meeting'))
                 <a href="#eventtype-settings" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse19')">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext">{{ __('Events') }}</span>
+                    <span class="dash-mtext">{{ __('Trainings') }}</span>
                 </a>
 
                 <!-- <a href="#venue-settings" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse19')">
@@ -140,13 +140,13 @@ $category= explode(',',$settings['campaign_type']);
                 'event.userinfo'||\Request::route()->getName()=='categ')
                 <a href="{{route('siteusers')}}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'siteusers' ?'active' : ''}}">
                     <span class="fa-stack fa-lg pull-left"><i class="ti ti-users"></i></span>
-                    <span class="dash-mtext">{{ __('All Customers') }} </span></a>
+                    <span class="dash-mtext">{{ __('All Clients') }} </span></a>
 
                 <a href="{{route('event_customers')}}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'event_customers' ?'active' : ''}}">
-                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Event Customers"></i></span>
-                    <span class="dash-mtext">{{ __('Events ') }} </span></a>
+                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Event Clients"></i></span>
+                    <span class="dash-mtext">{{ __('Trainings') }} </span></a>
                 <a href="{{route('lead_customers')}}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'lead_customers' ?'active' : ''}}">
-                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Lead Customers"></i></span>
+                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Lead Clients"></i></span>
                     <span class="dash-mtext">{{ __('Leads') }} </span></a>
 
                 @if(isset($category) && !empty($category))
@@ -161,7 +161,7 @@ $category= explode(',',$settings['campaign_type']);
                 @if(\Request::route()->getName() == 'meeting.index')
                 <a href="#useradd-1" class="list-group-item list-group-item-action"><span
                         class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext">{{ __('Events') }} </span></a>
+                    <span class="dash-mtext">{{ __('Trainings') }} </span></a>
 
                 </a>
                 @endif
@@ -180,12 +180,12 @@ $category= explode(',',$settings['campaign_type']);
 
                 <a href="{{ route('report.eventanalytic') }}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'report.eventanalytic' ?'active' : ''}}"><span
                         class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext">{{ __('Events') }} </span></a>
+                    <span class="dash-mtext">{{ __('Trainings') }} </span></a>
 
                 </a>
                 <a href="{{ route('report.customersanalytic') }}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'report.customersanalytic' ?'active' : ''}}"><span
                         class="fa-stack fa-lg pull-left"><i class="fa fa-users"></i></span>
-                    <span class="dash-mtext">{{ __('Customers') }} </span></a>
+                    <span class="dash-mtext">{{ __('Clients') }} </span></a>
 
                 </a>
                 <a href="{{ route('report.billinganalytic') }}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'report.billinganalytic' ?'active' : ''}}"><span

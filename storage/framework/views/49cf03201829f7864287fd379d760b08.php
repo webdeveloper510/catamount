@@ -97,4 +97,4 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <?php echo $__env->yieldPushContent('css-page'); ?>
 </head>
-<?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/partials/admin/head.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/partials/admin/head.blade.php ENDPATH**/ ?>

@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Events') }}
+{{ __('Trainings') }}
 @endsection
 @section('title')
-{{ __('Events') }}
+{{ __('Trainings') }}
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item">{{ __('Events') }}</li>
+<li class="breadcrumb-item">{{ __('Trainings') }}</li>
 @endsection
 @section('action-btn')
 @can('Create Meeting')
@@ -34,11 +34,11 @@
                                     <table id="datatable" class="table datatable align-items-center">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name">{{ __('Event') }} <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name">{{ __('Trainings') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="status">{{ __('Status') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Date Start') }} <span class="opticy"> dddd</span></th>
-                                                <th scope="col" class="sort" data-sort="completion">{{ __('Event') }}
+                                                <th scope="col" class="sort" data-sort="completion">{{ __('Trainings') }}
                                                 <span class="opticy"> dddd</span> </th>
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Assigned Staff') }} <span class="opticy"> dddd</span></th>
@@ -53,7 +53,7 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('meeting.edit', $meeting->id) }}" data-size="md"
-                                                        data-title="{{ __('Event Details') }}"
+                                                        data-title="{{ __('Training Details') }}"
                                                         class="action-item text-primary" style=" color: #1551c9 !important;">
                                                         @if($meeting->attendees_lead != 0)
                                                         {{ucfirst(\App\Models\Lead::where('id',$meeting->attendees_lead)->pluck('leadname')->first())}}
@@ -110,7 +110,7 @@
                                                         <a href="#" data-size="md"
                                                             data-url="{{ route('meeting.share', $meeting->id) }}"
                                                             data-ajax-popup="true" data-bs-toggle="tooltip"
-                                                            data-title="{{ __('Event Details') }}"
+                                                            data-title="{{ __('Training Details') }}"
                                                             title="{{ __('Share') }}"
                                                             class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-share"></i>
@@ -151,7 +151,7 @@
                                                         <a href="#" data-size="md"
                                                             data-url="{{ route('meeting.show', $meeting->id) }}"
                                                             data-ajax-popup="true" data-bs-toggle="tooltip"
-                                                            data-title="{{ __('Event Details') }}"
+                                                            data-title="{{ __('Training Details') }}"
                                                             title="{{ __('Quick View') }}"
                                                             class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-eye"></i>

@@ -119,4 +119,4 @@ $LangName->fullName = 'English';
 }
 </style>
 
-</html><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/layouts/auth.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/layouts/auth.blade.php ENDPATH**/ ?>

@@ -73,7 +73,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                 'lead.userinfo'||\Request::route()->getName() ==
                 'event.userinfo'||\Request::route()->getName()=='categ' ? ' active' : ''); ?>">
                                         <a href="<?php echo e(route('siteusers')); ?>" class="dash-link">
-                                            <span class="dash-mtext"><?php echo e(__('Customers')); ?></span>
+                                            <span class="dash-mtext"><?php echo e(__('Clients')); ?></span>
                                         </a>
                                     </li>
 
@@ -100,7 +100,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         class="dash-item <?php echo e(\Request::route()->getName() == 'meeting.index' || \Request::route()->getName() == 'meeting.show' || \Request::route()->getName() == 'meeting.edit' ? ' active' : ''); ?>">
                                         <a href="<?php echo e(array_key_exists('meeting',$defaultView) ? route($defaultView['meeting']) : route('meeting.index')); ?>"
                                             class="dash-link">
-                                            <span class="dash-mtext"><?php echo e(__('Events')); ?></span>
+                                            <span class="dash-mtext"><?php echo e(__('Trainings')); ?></span>
                                         </a>
                                     </li>
                                     <?php endif; ?>
@@ -260,4 +260,4 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
 
         <?php echo $__env->make('partials.admin.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-</div><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/partials/admin/header.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/partials/admin/header.blade.php ENDPATH**/ ?>

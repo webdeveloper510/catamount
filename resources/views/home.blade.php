@@ -44,7 +44,7 @@ h6 {
                                         <i class="fa fa-tasks"></i>
                                     </div>
                                     <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Active/Upcoming Events') }}</h6>
+                                        <h6 class="mb-3">{{ __('Active/Upcoming Trainings') }}</h6>
                                         <h3 class="mb-0">{{ @$upcoming }} </h3>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@ h6 {
                     </div>
                     <div class="col-sm">
                         <div class="inner_col">
-                            <h5 class="card-title mb-2">Active/Upcoming Events</h5>
+                            <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
                                 @foreach($activeEvent as $event)
 
@@ -157,7 +157,7 @@ h6 {
                                             <a href="javascript:void(0);" data-size="md"
                                                 data-url="{{ route('meeting.show', $event['id']) }}"
                                                 data-ajax-popup="true" data-bs-toggle="tooltip"
-                                                data-title="{{ __('Event Details') }}" title="{{ __('Quick View') }}"
+                                                data-title="{{ __('Training Details') }}" title="{{ __('Quick View') }}"
                                                 class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                 <i class="ti ti-eye"></i>
                                             </a>
@@ -170,7 +170,7 @@ h6 {
                             @can('Create Meeting')
                             <div class="col-12 text-end mt-3">
                                 <a href="{{ route('meeting.create',['meeting',0]) }}">
-                                    <button data-bs-toggle="tooltip" title="{{ __('Create Event') }}"
+                                    <button data-bs-toggle="tooltip" title="{{ __('Create Training') }}"
                                         class="btn btn-sm btn-primary btn-icon m-1">
                                         <i class="ti ti-plus"></i></button>
                                 </a>
