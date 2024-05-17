@@ -15,7 +15,7 @@ $campaign_type = explode(',',$settings['campaign_type']);
         <ul class="nav nav-tabs tabActive" style="border-bottom: none">
             <li class="badge rounded p-2 m-1 px-3 bg-primary">
                 <a style="color: white;font-size: larger;" data-toggle="tab" href="#barmenu0" class="active">Individual
-                    Customer</a>
+                Clients</a>
             </li>
             <li class="badge rounded p-2 m-1 px-3 bg-primary">
                 <a style="color: white;    font-size: larger;" data-toggle="tab" href="#barmenu1" class="">Bulk
