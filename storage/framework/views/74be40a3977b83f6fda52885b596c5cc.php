@@ -45,7 +45,7 @@ h6 {
                                         <i class="fa fa-tasks"></i>
                                     </div>
                                     <div class="right_side">
-                                        <h6 class="mb-3"><?php echo e(__('Active/Upcoming Events')); ?></h6>
+                                        <h6 class="mb-3"><?php echo e(__('Active/Upcoming Trainings')); ?></h6>
                                         <h3 class="mb-0"><?php echo e(@$upcoming); ?> </h3>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ h6 {
                     </div>
                     <div class="col-sm">
                         <div class="inner_col">
-                            <h5 class="card-title mb-2">Active/Upcoming Events</h5>
+                            <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
                                 <?php $__currentLoopData = $activeEvent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
@@ -164,7 +164,7 @@ h6 {
                                             <a href="javascript:void(0);" data-size="md"
                                                 data-url="<?php echo e(route('meeting.show', $event['id'])); ?>"
                                                 data-ajax-popup="true" data-bs-toggle="tooltip"
-                                                data-title="<?php echo e(__('Event Details')); ?>" title="<?php echo e(__('Quick View')); ?>"
+                                                data-title="<?php echo e(__('Training Details')); ?>" title="<?php echo e(__('Quick View')); ?>"
                                                 class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                 <i class="ti ti-eye"></i>
                                             </a>
@@ -177,7 +177,7 @@ h6 {
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Meeting')): ?>
                             <div class="col-12 text-end mt-3">
                                 <a href="<?php echo e(route('meeting.create',['meeting',0])); ?>">
-                                    <button data-bs-toggle="tooltip" title="<?php echo e(__('Create Event')); ?>"
+                                    <button data-bs-toggle="tooltip" title="<?php echo e(__('Create Training')); ?>"
                                         class="btn btn-sm btn-primary btn-icon m-1">
                                         <i class="ti ti-plus"></i></button>
                                 </a>
@@ -395,4 +395,4 @@ $(document).ready(function() {
 })
 </script>
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/home.blade.php ENDPATH**/ ?>

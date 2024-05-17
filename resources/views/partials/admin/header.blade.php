@@ -73,7 +73,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                 'lead.userinfo'||\Request::route()->getName() ==
                 'event.userinfo'||\Request::route()->getName()=='categ' ? ' active' : '' }}">
                                         <a href="{{route('siteusers')}}" class="dash-link">
-                                            <span class="dash-mtext">{{ __('Customers') }}</span>
+                                            <span class="dash-mtext">{{ __('Clients') }}</span>
                                         </a>
                                     </li>
 
@@ -100,7 +100,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         class="dash-item {{ \Request::route()->getName() == 'meeting.index' || \Request::route()->getName() == 'meeting.show' || \Request::route()->getName() == 'meeting.edit' ? ' active' : '' }}">
                                         <a href="{{ array_key_exists('meeting',$defaultView) ? route($defaultView['meeting']) : route('meeting.index') }}"
                                             class="dash-link">
-                                            <span class="dash-mtext">{{ __('Events') }}</span>
+                                            <span class="dash-mtext">{{ __('Trainings') }}</span>
                                         </a>
                                     </li>
                                     @endcan

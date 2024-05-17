@@ -60,4 +60,4 @@
         </div>
     </body>
 </html>
-<?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/errors/minimal.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/errors/minimal.blade.php ENDPATH**/ ?>

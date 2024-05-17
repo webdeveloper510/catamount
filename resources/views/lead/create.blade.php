@@ -20,12 +20,11 @@ $additional_items = json_decode($settings['additional_items'],true);
 
 @endphp
 <style>
-    
-.fa-asterisk{
-    font-size: xx-small;
-    position: absolute;
-    padding: 1px;
-}
+    .fa-asterisk {
+        font-size: xx-small;
+        position: absolute;
+        padding: 1px;
+    }
 </style>
 {{Form::open(array('url'=>'lead','method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))}}
 <input type="hidden" name="storedid" value="">
@@ -33,7 +32,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('lead_name',__('Lead Name'),['class'=>'form-label']) }}
-            <span class="text-sm"> 
+            <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             {{Form::text('lead_name',null,array('class'=>'form-control','placeholder'=>__('Enter Lead Name'),'required'=>'required'))}}
@@ -51,7 +50,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('name',__('Name'),['class'=>'form-label']) }}
-            <span class="text-sm"> 
+            <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             {{Form::text('name',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
@@ -65,21 +64,32 @@ $additional_items = json_decode($settings['additional_items'],true);
     </div> -->
     <div class="col-6 need_full">
         <div class="form-group ">
-            {{Form::label('name',__('Phone'),['class'=>'form-label']) }}
-            <span class="text-sm"> 
+            {{Form::label('name',__('Primary contact'),['class'=>'form-label']) }}
+            <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             <div class="intl-tel-input">
-                <input type="tel" id="phone-input" name="phone" class="phone-input form-control"
-                    placeholder="Enter Phone" maxlength="16">
-                <input type="hidden" name="countrycode" id="country-code">
+                <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Primary contact" maxlength="16">
+                <input type="hidden" name="primary_countrycode" id="primary-country-code">
+            </div>
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group ">
+            {{Form::label('name',__('Secondary contact'),['class'=>'form-label']) }}
+            <!-- <span class="text-sm">
+                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+            </span> -->
+            <div class="intl-tel-input">
+                <input type="tel" id="phone-input1" name="secondary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
+                <input type="hidden" name="secondary_countrycode" id="secondary-country-code">
             </div>
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('email',__('Email'),['class'=>'form-label']) }}
-            <span class="text-sm"> 
+            <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             {{Form::text('email',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))}}
@@ -98,12 +108,12 @@ $additional_items = json_decode($settings['additional_items'],true);
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
-        <h5 style="margin-left: 14px;">{{ __('Event Details') }}</h5>
+        <h5 style="margin-left: 14px;">{{ __('Training Details') }}</h5>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('type',__('Event Type'),['class'=>'form-label']) }}
-            <span class="text-sm"> 
+            {{Form::label('type',__('Training Type'),['class'=>'form-label']) }}
+            <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             <select name="type" id="type" class="form-control" required>
@@ -117,7 +127,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     @if(isset($venue) && !empty($venue))
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('venue_selection', __('Venue'), ['class' => 'form-label']) }}
+            {{ Form::label('venue_selection', __('Mode of Trainings'), ['class' => 'form-label']) }}
             <div>
                 @foreach($venue as $key => $label)
                 {{ Form::checkbox('venue[]', $label, false, ['id' => 'venue' . ($key + 1)]) }}
@@ -129,8 +139,8 @@ $additional_items = json_decode($settings['additional_items'],true);
     @endif
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('start_date', __('Date of Event'), ['class' => 'form-label']) }}
-            <span class="text-sm"> 
+            {{ Form::label('start_date', __('Date of Training'), ['class' => 'form-label']) }}
+            <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             {!! Form::date('start_date', date('Y-m-d'), ['class' => 'form-control','required' =>'required']) !!}
@@ -152,7 +162,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     @if(isset($function) && !empty($function))
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('function', __('Function'), ['class' => 'form-label']) }}
+            {{ Form::label('function', __('Product & Services'), ['class' => 'form-label']) }}
             <div>
                 @foreach($function as $key => $value)
                 <div class="form-check" style="    padding-left: 2.75em !important;">
@@ -167,13 +177,12 @@ $additional_items = json_decode($settings['additional_items'],true);
     <div class="col-6 need_full" id="mailFunctionSection">
         @if(isset($function) && !empty($function))
         @foreach($function as $key =>$value)
-        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}"
-            id="function_package" style="display: none;">
+        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
             {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
             @foreach($value['package'] as $k => $package)
             <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
                 {!! Form::checkbox('package_'.str_replace(' ', '', strtolower($value['function'])).'[]',$package,
-                     null,
+                null,
                 ['id' => 'package_' . $key.$k, 'data-function' => $value['function'], 'class' => 'form-check-input'])
                 !!}
                 {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
@@ -186,24 +195,23 @@ $additional_items = json_decode($settings['additional_items'],true);
     @if(isset($additional_items) && !empty($additional_items))
     <div class="col-6 need_full" id="additionalSection">
         <div class="form-group">
-        {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
-        @foreach($additional_items as $ad_key =>$ad_value)
-        @foreach($ad_value as $fun_key =>$packageVal)
-        <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}"
-            id="ad_package" style="display:none;">
-            {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
-            @foreach($packageVal as $pac_key =>$item)
-            <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
-                {!! Form::checkbox('additional_'.str_replace(' ', '_', strtolower($fun_key)).'[]',$pac_key, null,
-                ['data-function' => $fun_key, 'class' => 'form-check-input']) !!}
-                {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
+            {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
+            @foreach($additional_items as $ad_key =>$ad_value)
+            @foreach($ad_value as $fun_key =>$packageVal)
+            <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display:none;">
+                {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
+                @foreach($packageVal as $pac_key =>$item)
+                <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
+                    {!! Form::checkbox('additional_'.str_replace(' ', '_', strtolower($fun_key)).'[]',$pac_key, null,
+                    ['data-function' => $fun_key, 'class' => 'form-check-input']) !!}
+                    {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
+                </div>
+                @endforeach
             </div>
             @endforeach
+            @endforeach
         </div>
-        @endforeach
-        @endforeach
     </div>
-                </div>
     @endif
 
     @endif
@@ -274,8 +282,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-            <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0'
-                class="form-control" value="{{old('guest_count')}}">
+            <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="{{old('guest_count')}}">
         </div>
     </div>
     <div class="col-6 need_full">
@@ -302,180 +309,196 @@ $additional_items = json_decode($settings['additional_items'],true);
     {{Form::submit(__('Save'),array('class'=>'btn btn-primary '))}}
 </div>
 <style>
-.iti.iti--allow-dropdown.iti--separate-dial-code {
-    width: 100%;
-}
+    .iti.iti--allow-dropdown.iti--separate-dial-code {
+        width: 100%;
+    }
 </style>
 <script>
- $(document).ready(function() {  
-    $("input[type='text'][name='lead_name'],input[type='text'][name='name'], input[type='text'][name='email'], select[name='type'],input[type='tel'][name='phone']").focusout(function() {  
-          
-        var input = $(this);
-        var errorMessage = '';
-        if (input.attr('name') === 'email' && input.val() !== '') {
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(input.val())) {
-                errorMessage = 'Invalid email address.';
+    $(document).ready(function() {
+        $("input[type='text'][name='lead_name'],input[type='text'][name='name'], input[type='text'][name='email'], select[name='type'],input[type='tel'][name='primary_contact'][name='secondary_contact']").focusout(function() {
+
+            var input = $(this);
+            var errorMessage = '';
+            if (input.attr('name') === 'email' && input.val() !== '') {
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(input.val())) {
+                    errorMessage = 'Invalid email address.';
+                }
+            } else if (input.val() == '') {
+                errorMessage = 'This field is required.';
             }
-        } else if (input.val() == '') {
-            errorMessage = 'This field is required.';
-        }
-        
-        if(errorMessage  != '') {  
-            input.css('border', 'solid 2px red');
-        } 
-        else { 
-            // If it is not blank. 
-            input.css('border', 'solid 2px black');
-        }
-        
-        // Remove any existing error message
-        input.next('.validation-error').remove();
-        
-        // Append the error message if it exists
-        if(errorMessage != '') {
-            input.after('<div class="validation-error text-danger" style="padding:2px;">' + errorMessage + '</div>');
-        }
-    }); 
-});
 
+            if (errorMessage != '') {
+                input.css('border', 'solid 2px red');
+            } else {
+                // If it is not blank. 
+                input.css('border', 'solid 2px black');
+            }
 
-$(document).ready(function() {
-    var input = document.querySelector("#phone-input");
-    var iti = window.intlTelInput(input, {
-        separateDialCode: true,
+            // Remove any existing error message
+            input.next('.validation-error').remove();
+
+            // Append the error message if it exists
+            if (errorMessage != '') {
+                input.after('<div class="validation-error text-danger" style="padding:2px;">' + errorMessage + '</div>');
+            }
+        });
     });
 
-    var indiaCountryCode = iti.getSelectedCountryData().iso2;
-    var countryCode = iti.getSelectedCountryData().dialCode;
-    $('#country-code').val(countryCode);
-    if (indiaCountryCode !== 'us') {
-        iti.setCountry('us');
-    }
-});
-// $(document).ready(function() {
-//     $('#start_date, #end_date').change(function() {
-//         var startDate = new Date($('#start_date').val());
-//         var endDate = new Date($('#end_date').val());
 
-//         if ($(this).attr('id') === 'start_date' && endDate < startDate) {
-//             $('#end_date').val($('#start_date').val());
-//         } else if ($(this).attr('id') === 'end_date' && endDate < startDate) {
-//             $('#start_date').val($('#end_date').val());
-//         }
-//     });
-// });
-</script>
-<script>
-const isNumericInput = (event) => {
-    const key = event.keyCode;
-    return ((key >= 48 && key <= 57) || // Allow number line
-        (key >= 96 && key <= 105) // Allow number pad
-    );
-};
-const isModifierKey = (event) => {
-    const key = event.keyCode;
-    return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
-        (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
-        (key > 36 && key < 41) || // Allow left, up, right, down
-        (
-            // Allow Ctrl/Command + A,C,V,X,Z
-            (event.ctrlKey === true || event.metaKey === true) &&
-            (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
-        )
-};
-const enforceFormat = (event) => {
-    // Input must be of a valid number format or a modifier key, and not longer than ten digits
-    if (!isNumericInput(event) && !isModifierKey(event)) {
-        event.preventDefault();
-    }
-};
-const formatToPhone = (event) => {
-    if (isModifierKey(event)) {
-        return;
-    }
-    // I am lazy and don't like to type things more than once
-    const target = event.target;
-    const input = event.target.value.replace(/\D/g, '').substring(0, 10); // First ten digits of input only
-    const zip = input.substring(0, 3);
-    const middle = input.substring(3, 6);
-    const last = input.substring(6, 10);
+    $(document).ready(function() {
+        /* Primary contact */
+        var input = document.querySelector("#phone-input");
+        var iti = window.intlTelInput(input, {
+            separateDialCode: true,
+        });
 
-    if (input.length > 6) {
-        target.value = `(${zip}) ${middle} - ${last}`;
-    } else if (input.length > 3) {
-        target.value = `(${zip}) ${middle}`;
-    } else if (input.length > 0) {
-        target.value = `(${zip}`;
-    }
-};
-const inputElement = document.getElementById('phone-input');
-inputElement.addEventListener('keydown', enforceFormat);
-inputElement.addEventListener('keyup', formatToPhone);
-</script>
-<script>
-jQuery(function() {
-    $('input[name = lead_name]').keyup(function() {
-        var value = $(this).val();
-        $('input[name = "name"]').val(value);
+        var indiaCountryCode = iti.getSelectedCountryData().iso2;
+        var countryCode = iti.getSelectedCountryData().dialCode;
+        $('#primary-country-code').val(countryCode);
+        if (indiaCountryCode !== 'us') {
+            iti.setCountry('us');
+        }
+        /* Secondry contact */
+        var input1 = document.querySelector("#phone-input1");
+        var iti1 = window.intlTelInput(input1, {
+            separateDialCode: true,
+        });
+
+        var indiaCountryCode1 = iti1.getSelectedCountryData().iso2;
+        var countryCode1 = iti1.getSelectedCountryData().dialCode;
+        $('#secondary-country-code').val(countryCode1);
+        if (indiaCountryCode1 !== 'us') {
+            iti1.setCountry('us');
+        }
     });
-});
-jQuery(function() {
-    $('input[name="function[]"]').change(function() {
-        $('div#mailFunctionSection > div').hide();
-        $('input[name="function[]"]:checked').each(function() {
-            var funVal = $(this).val();
-            $('div#mailFunctionSection > div').each(function() {
-                var attr_value = $(this).data('main-value');
-                if (attr_value == funVal) {
-                    $(this).show();
-                }
+    // $(document).ready(function() {
+    //     $('#start_date, #end_date').change(function() {
+    //         var startDate = new Date($('#start_date').val());
+    //         var endDate = new Date($('#end_date').val());
+
+    //         if ($(this).attr('id') === 'start_date' && endDate < startDate) {
+    //             $('#end_date').val($('#start_date').val());
+    //         } else if ($(this).attr('id') === 'end_date' && endDate < startDate) {
+    //             $('#start_date').val($('#end_date').val());
+    //         }
+    //     });
+    // });
+</script>
+<script>
+    const isNumericInput = (event) => {
+        const key = event.keyCode;
+        return ((key >= 48 && key <= 57) || // Allow number line
+            (key >= 96 && key <= 105) // Allow number pad
+        );
+    };
+    const isModifierKey = (event) => {
+        const key = event.keyCode;
+        return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
+            (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
+            (key > 36 && key < 41) || // Allow left, up, right, down
+            (
+                // Allow Ctrl/Command + A,C,V,X,Z
+                (event.ctrlKey === true || event.metaKey === true) &&
+                (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
+            )
+    };
+    const enforceFormat = (event) => {
+        // Input must be of a valid number format or a modifier key, and not longer than ten digits
+        if (!isNumericInput(event) && !isModifierKey(event)) {
+            event.preventDefault();
+        }
+    };
+    const formatToPhone = (event) => {
+        if (isModifierKey(event)) {
+            return;
+        }
+        // I am lazy and don't like to type things more than once
+        const target = event.target;
+        const input = event.target.value.replace(/\D/g, '').substring(0, 10); // First ten digits of input only
+        const zip = input.substring(0, 3);
+        const middle = input.substring(3, 6);
+        const last = input.substring(6, 10);
+
+        if (input.length > 6) {
+            target.value = `(${zip}) ${middle} - ${last}`;
+        } else if (input.length > 3) {
+            target.value = `(${zip}) ${middle}`;
+        } else if (input.length > 0) {
+            target.value = `(${zip}`;
+        }
+    };
+    const inputElement = document.getElementById('phone-input');
+    inputElement.addEventListener('keydown', enforceFormat);
+    inputElement.addEventListener('keyup', formatToPhone);
+    const inputElement1 = document.getElementById('phone-input1');
+    inputElement1.addEventListener('keydown', enforceFormat);
+    inputElement1.addEventListener('keyup', formatToPhone);
+</script>
+<script>
+    jQuery(function() {
+        $('input[name = lead_name]').keyup(function() {
+            var value = $(this).val();
+            $('input[name = "name"]').val(value);
+        });
+    });
+    jQuery(function() {
+        $('input[name="function[]"]').change(function() {
+            $('div#mailFunctionSection > div').hide();
+            $('input[name="function[]"]:checked').each(function() {
+                var funVal = $(this).val();
+                $('div#mailFunctionSection > div').each(function() {
+                    var attr_value = $(this).data('main-value');
+                    if (attr_value == funVal) {
+                        $(this).show();
+                    }
+                });
             });
         });
     });
-});
-jQuery(function() {
-    $('div#mailFunctionSection input[type=checkbox]').change(function() {
-        $('div#additionalSection > div').hide();
-        $('div#mailFunctionSection input[type=checkbox]:checked').each(function() {
-            var funcValue = $(this).val();
-            $('div#additionalSection > div').each(function() {
-                var ad_val = $(this).data('additional-index');
-                if (funcValue == ad_val) {
-                    $(this).show();
-                }
+    jQuery(function() {
+        $('div#mailFunctionSection input[type=checkbox]').change(function() {
+            $('div#additionalSection > div').hide();
+            $('div#mailFunctionSection input[type=checkbox]:checked').each(function() {
+                var funcValue = $(this).val();
+                $('div#additionalSection > div').each(function() {
+                    var ad_val = $(this).data('additional-index');
+                    if (funcValue == ad_val) {
+                        $(this).show();
+                    }
+                });
             });
         });
     });
-});
-jQuery(function() {
-    $('input[type=radio][name = baropt]').change(function() {
-        $('div#barpacakgeoptions').hide();
-        var value = $(this).val();
-        if (value == 'Package Choice') {
-            $('div#barpacakgeoptions').show();
-        }
+    jQuery(function() {
+        $('input[type=radio][name = baropt]').change(function() {
+            $('div#barpacakgeoptions').hide();
+            var value = $(this).val();
+            if (value == 'Package Choice') {
+                $('div#barpacakgeoptions').show();
+            }
+        });
     });
-});
-$(document).ready(function() {
-    var storedId = localStorage.getItem('clickedLinkId');
-    $.ajax({
-        url: "{{ route('getcontactinfo') }}",
-        type: 'POST',
-        data: {
-            "customerid": storedId,
-            "_token": "{{ csrf_token() }}",
-        },
-        success: function(data) {
-            localStorage.removeItem('clickedLinkId');
-            $('input[name="lead_name"]').val(data[0].name);
-            $('input[name="name"]').val(data[0].name);
-            $('input[name="phone"]').val(data[0].phone);
-            $('input[name="email"]').val(data[0].email);
-            $('input[name="lead_address"]').val(data[0].address);
-            $('input[name="company_name"]').val(data[0].organization);
-        }
-    });
-})
+    $(document).ready(function() {
+        var storedId = localStorage.getItem('clickedLinkId');
+        $.ajax({
+            url: "{{ route('getcontactinfo') }}",
+            type: 'POST',
+            data: {
+                "customerid": storedId,
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(data) {
+                localStorage.removeItem('clickedLinkId');
+                $('input[name="lead_name"]').val(data[0].name);
+                $('input[name="name"]').val(data[0].name);
+                $('input[name="primary_contact"]').val(data[0].primary_contact);
+                $('input[name="secondary_contact"]').val(data[0].secondary_contact);
+                $('input[name="email"]').val(data[0].email);
+                $('input[name="lead_address"]').val(data[0].address);
+                $('input[name="company_name"]').val(data[0].organization);
+            }
+        });
+    })
 </script>
 {{Form::close()}}

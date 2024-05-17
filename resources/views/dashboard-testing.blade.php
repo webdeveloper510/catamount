@@ -24,7 +24,7 @@
                                             <i class="fas fa-address-card"></i>
                                         </div>
                                         <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Total Lead') }}</h6>
+                                        <h6 class="mb-3">{{ __('Total Trainings') }}</h6>
                                         <h3 class="mb-0">{{ $data['totalLead'] }}</h3>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="inner_col">  
-                                <h5 class="card-title mb-2">Active Leads</h5>
+                                <h5 class="card-title mb-2">Active Trainings</h5>
                                 @foreach($activeLeads as $lead)
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
@@ -167,7 +167,7 @@
                         </div>    
                         <div class="col-sm">
                             <div class="inner_col">   
-                                <h5 class="card-title mb-2">Lost Leads</h5>
+                                <h5 class="card-title mb-2">Lost Trainings</h5>
                                 @foreach($lostLeads as $lead)
                                 <div class="card">
                                     <div class="card-body">  

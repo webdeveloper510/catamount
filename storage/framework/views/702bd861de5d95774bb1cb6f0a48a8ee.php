@@ -278,4 +278,4 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
             <?php endif; ?>
         </div>
     </div>
-</div><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/lead/view.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/lead/view.blade.php ENDPATH**/ ?>

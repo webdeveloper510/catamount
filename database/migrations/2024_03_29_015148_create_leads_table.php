@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('leadname')->nullable();
             $table->string('name')->nullable();
             $table->string('email');
-            $table->string('phone')->nullable();
+            $table->string('primary_contact')->nullable();
+            $table->string('secondary_contact')->nullable();
             $table->string('company_name')->nullable();
             $table->string('relationship')->nullable();
             $table->integer('guest_count')->default(0);

@@ -1,9 +1,7 @@
-{{-- <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.css'
-    media="screen" />
-<script src='https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.js'></script> --}}
 
-<link rel='stylesheet' href='{{asset('css/cookieconsent.css')}}' media="screen" />
-<script src="{{ asset('js/cookieconsent.js') }}"></script>
+
+<link rel='stylesheet' href='<?php echo e(asset('css/cookieconsent.css')); ?>' media="screen" />
+<script src="<?php echo e(asset('js/cookieconsent.js')); ?>"></script>
 <script>
     let language_code = document.documentElement.getAttribute('lang');
     let languages = {};
@@ -96,7 +94,7 @@
             if (!getCookie('cookie_consent_logged')) {
                 var cookie = cookie.level;
                 $.ajax({
-                    url: '{{ route("cookie-consent") }}',
+                    url: '<?php echo e(route("cookie-consent")); ?>',
                     datType: 'json',
                     data: {
                         cookie: cookie,
@@ -159,4 +157,4 @@
         }
 
     });
-</script>
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/layouts/cookie_consent.blade.php ENDPATH**/ ?>
