@@ -73,29 +73,30 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
 <div class="row">
     <div class="col-lg-12">
         <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
-        {{ Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data']) }}
+        <?php echo e(Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data'])); ?>
+
 
         <div class="">
             <dl class="row">
-                <input type="hidden" name="lead" value="{{ $lead->id }}">
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Name')}}</span></dt>
+                <input type="hidden" name="lead" value="<?php echo e($lead->id); ?>">
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Name')); ?></span></dt>
                 <dd class="col-md-6">
-                    <input type="text" name="name" class="form-control" value="{{ $lead->name }}" readonly>
+                    <input type="text" name="name" class="form-control" value="<?php echo e($lead->name); ?>" readonly>
                 </dd>
 
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Recipient')}}</span></dt>
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Recipient')); ?></span></dt>
                 <dd class="col-md-6">
-                    <input type="email" name="email" class="form-control" value="{{ $lead->email }}" required>
+                    <input type="email" name="email" class="form-control" value="<?php echo e($lead->email); ?>" required>
                 </dd>
 
-                <dt class="col-md-12"><span class="h6  mb-0">{{__('Subject')}}</span></dt>
+                <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Subject')); ?></span></dt>
                 <dd class="col-md-12"><input type="text" name="subject" id="Subject" class="form-control" required></dd>
 
-                <dt class="col-md-12"><span class="h6  mb-0">{{__('Content')}}</span></dt>
+                <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Content')); ?></span></dt>
                 <dd class="col-md-12"><textarea name="emailbody" id="emailbody" cols="30" rows="10" class="form-control"
                         required></textarea></dd>
 
-                <dt class="col-md-12"><span class="h6  mb-0">{{__('Upload Document')}}</span></dt>
+                <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Upload Document')); ?></span></dt>
                 <dd class="col-md-12"><input type="file" name="attachment" id="attachment" class="form-control"></dd>
             </dl>
       
@@ -104,12 +105,12 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
             <!-- <hr> -->
             <div class="col-12  p-0 modaltitle pb-3 mb-3 flex-title">
                 <!-- <hr class="mt-2 mb-2"> -->
-                <h5 class="bb">{{ __('Estimated Billing Details') }}</h5>
+                <h5 class="bb"><?php echo e(__('Estimated Billing Details')); ?></h5>
                 <span class="h6 mb-0" style="float:right;   
-">{{__('Guest Count')}} : {{ $lead->guest_count }}</span>
+"><?php echo e(__('Guest Count')); ?> : <?php echo e($lead->guest_count); ?></span>
             </div>
             <dl class="row">
-                <!-- <dt class="col-md-12"><span class="h6  mb-0">{{__('Guest Count')}} : {{ $lead->guest_count }}</span></dt>
+                <!-- <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Guest Count')); ?> : <?php echo e($lead->guest_count); ?></span></dt>
                <hr class="mt-2 mb-2"> -->
                 <!-- <div class="col-md-12"> -->
 
@@ -118,31 +119,31 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
                     <table class="table table-share">
                         <thead>
                             <tr>
-                                <th>{{__('Description')}} </th>
-                                <th>{{__('Cost(per person)')}} </th>
-                                <th>{{__('Quantity')}} </th>
-                                <th>{{__('Notes')}} </th>
+                                <th><?php echo e(__('Description')); ?> </th>
+                                <th><?php echo e(__('Cost(per person)')); ?> </th>
+                                <th><?php echo e(__('Quantity')); ?> </th>
+                                <th><?php echo e(__('Notes')); ?> </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($labels as $key=> $label)
+                            <?php $__currentLoopData = $labels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=> $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td>{{ucfirst($label)}}</td>
+                                <td><?php echo e(ucfirst($label)); ?></td>
                                 <td>
-                                    <input type="text" name="billing[{{$key}}][cost]"
-                                        value="{{ isset($leaddata[$key.'_cost']) ? $leaddata[$key.'_cost'] : '' }}"
+                                    <input type="text" name="billing[<?php echo e($key); ?>][cost]"
+                                        value="<?php echo e(isset($leaddata[$key.'_cost']) ? $leaddata[$key.'_cost'] : ''); ?>"
                                         class="form-control dlr">
                                 </td>
                                 <td>
-                                    <input type="number" name="billing[{{$key}}][quantity]" min='0' class="form-control"
-                                        value="{{$leaddata[$key] ?? ''}}" required>
+                                    <input type="number" name="billing[<?php echo e($key); ?>][quantity]" min='0' class="form-control"
+                                        value="<?php echo e($leaddata[$key] ?? ''); ?>" required>
                                 </td>
                                 <td>
-                                    <input type="text" name="billing[{{$key}}][notes]" class="form-control"
-                                        value="{{ isset($key) && ($key !== 'hotel_rooms') ? $leaddata[$key] ?? '' : ''  }}">
+                                    <input type="text" name="billing[<?php echo e($key); ?>][notes]" class="form-control"
+                                        value="<?php echo e(isset($key) && ($key !== 'hotel_rooms') ? $leaddata[$key] ?? '' : ''); ?>">
                                 </td>
                             </tr>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
 </div>
@@ -158,14 +159,16 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="getDataUrlAndCopy(this)"
-                data-url="{{route('lead.signedproposal',urlencode(encrypt($lead->id)))}}" title='Copy To Clipboard'>
+                data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
                 <i class="ti ti-copy"></i>
             </button>
-            {{Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))}}
+            <?php echo e(Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))); ?>
+
         </div>
 
     </div>
-    {{Form::close()}}
+    <?php echo e(Form::close()); ?>
+
 </div>
 
 <style>
@@ -213,3 +216,4 @@ function hideNotification() {
     notification.style.display = 'none';
 }
 </script>
+<?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/lead/share_proposal.blade.php ENDPATH**/ ?>

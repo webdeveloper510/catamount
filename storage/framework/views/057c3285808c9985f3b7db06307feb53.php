@@ -43,13 +43,13 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
     <div class="container mt-5">
         <div class="row card">
             <div class="col-md-12">
-                <form method="POST" action="{{route('lead.proposalresponse',urlencode(encrypt($lead->id)))}}" id='formdata'>
-                    @csrf
+                <form method="POST" action="<?php echo e(route('lead.proposalresponse',urlencode(encrypt($lead->id)))); ?>" id='formdata'>
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="proposal" value="<?= isset($_GET['prop']) ? $_GET['prop'] : '' ?>">
                     <div class="row">
                         <div class="col-sm-12 mt-4 border-new">
                             <div class="img-section">
-                                <img class="logo-img center-new" src="{{ URL::asset('storage/uploads/logo/3_logo-light.png')}}" style="width: auto;">
+                                <img class="logo-img center-new" src="<?php echo e(URL::asset('storage/uploads/logo/3_logo-light.png')); ?>" style="width: auto;">
                             </div>
                         </div>
                         <div class="col-sm-12 border-new">
@@ -96,7 +96,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                         <!-- <div class="col-sm-6">
                             <strong>The Bond 1786</strong><br>
                             <div class="mt-3 auuthsig">
-                                <img src="{{$base64Image}}" style="margin-left: 100px;width: 40%;">
+                                <img src="<?php echo e($base64Image); ?>" style="margin-left: 100px;width: 40%;">
                             </div>
                             <h5 class="mt-2">Authorised Signature</h5>
                         </div> -->
@@ -123,7 +123,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                         <div class="col-md-6">
                             <strong>The Bond 1786</strong><br>
                             <div class="mt-3 auuthsig">
-                                <img src="{{$base64Image}}" style="margin-left: 100px;width: 40%;">
+                                <img src="<?php echo e($base64Image); ?>" style="margin-left: 100px;width: 40%;">
                             </div>
                             <h5 class="mt-2">Authorised Signature</h5>
                         </div>
@@ -169,8 +169,8 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
         --bs-gutter-x: -9rem;
     }
 </style>
-@include('partials.admin.head')
-@include('partials.admin.footer')
+<?php echo $__env->make('partials.admin.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('partials.admin.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -192,4 +192,4 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
             }
         });
     });
-</script>
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/lead/proposal.blade.php ENDPATH**/ ?>
