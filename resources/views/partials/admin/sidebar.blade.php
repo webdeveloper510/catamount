@@ -92,7 +92,7 @@ $category= explode(',',$settings['campaign_type']);
                 @can('Manage Payment')
                 <a href="#billing-setting" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse20')">
                     <span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span>
-                    <span class="dash-mtext">{{ __('Invoice') }}</span>
+                    <span class="dash-mtext">{{ __('Billing') }}</span>
                 </a>
                 @endcan
                 @if (\Auth::user()->type == 'owner')

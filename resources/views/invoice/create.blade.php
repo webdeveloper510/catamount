@@ -1,13 +1,11 @@
 @php
-    $plansettings = App\Models\Utility::plansettings();
+$plansettings = App\Models\Utility::plansettings();
 @endphp
 {{Form::open(array('url'=>'invoice','method'=>'post','enctype'=>'multipart/form-data'))}}
 <div class="row">
     @if (isset($plansettings['enable_chatgpt']) && $plansettings['enable_chatgpt'] == 'on')
     <div class="text-end">
-        <a href="#" data-size="md" class="btn btn-sm btn-primary" data-ajax-popup-over="true" data-size="md"
-            data-title="{{ __('Generate content with AI') }}" data-url="{{ route('generate', ['invoice']) }}"
-            data-toggle="tooltip" title="{{ __('Generate') }}">
+        <a href="#" data-size="md" class="btn btn-sm btn-primary" data-ajax-popup-over="true" data-size="md" data-title="{{ __('Generate content with AI') }}" data-url="{{ route('generate', ['invoice']) }}" data-toggle="tooltip" title="{{ __('Generate') }}">
             <i class="fas fa-robot"></span><span class="robot">{{ __('Generate With AI') }}</span></i>
         </a>
     </div>
@@ -19,34 +17,34 @@
         </div>
     </div>
     @if($type == 'salesorder')
-        <div class="col-6">
-            <div class="form-group">
-                {{Form::label('salesorder',__('Sales Orders'),['class'=>'form-label']) }}
-                {!!Form::select('salesorder', $salesorder,$id,array('id'=>'salesorder','class' => 'form-control')) !!}
-            </div>
+    <div class="col-6">
+        <div class="form-group">
+            {{Form::label('salesorder',__('Sales Orders'),['class'=>'form-label']) }}
+            {!!Form::select('salesorder', $salesorder,$id,array('id'=>'salesorder','class' => 'form-control')) !!}
         </div>
+    </div>
     @else
-        <div class="col-6">
-            <div class="form-group">
-                {{Form::label('salesorder',__('Sales Orders'),['class'=>'form-label']) }}
-                {!!Form::select('salesorder', $salesorder, null,array('id'=>'salesorder','class' => 'form-control')) !!}
-            </div>
+    <div class="col-6">
+        <div class="form-group">
+            {{Form::label('salesorder',__('Sales Orders'),['class'=>'form-label']) }}
+            {!!Form::select('salesorder', $salesorder, null,array('id'=>'salesorder','class' => 'form-control')) !!}
         </div>
+    </div>
     @endif
     @if($type == 'quote')
-        <div class="col-6">
-            <div class="form-group">
-                {{Form::label('quote',__('Quote'),['class'=>'form-label']) }}
-                {!!Form::select('quote', $quote, $id,array('class' => 'form-control')) !!}
-            </div>
+    <div class="col-6">
+        <div class="form-group">
+            {{Form::label('quote',__('Quote'),['class'=>'form-label']) }}
+            {!!Form::select('quote', $quote, $id,array('class' => 'form-control')) !!}
         </div>
+    </div>
     @else
-        <div class="col-6">
-            <div class="form-group">
-                {{Form::label('quote',__('Quote'),['class'=>'form-label']) }}
-                {!!Form::select('quote', $quote, null,array('class' => 'form-control')) !!}
-            </div>
+    <div class="col-6">
+        <div class="form-group">
+            {{Form::label('quote',__('Quote'),['class'=>'form-label']) }}
+            {!!Form::select('quote', $quote, null,array('class' => 'form-control')) !!}
         </div>
+    </div>
     @endif
     <div class="col-6">
         <div class="form-group">
@@ -64,7 +62,7 @@
 
     <div class="col-6">
         <div class="form-group">
-            {{Form::label('date_invoice',__('Date Invoice'),['class'=>'form-label']) }}
+            {{Form::label('date_invoice',__('Date Billing'),['class'=>'form-label']) }}
             {{Form::date('date_quoted',date('Y-m-d'),array('class'=>'form-control datepicker','required'=>'required'))}}
 
         </div>
@@ -85,8 +83,8 @@
         <div class="form-group">
             {{Form::label('billing_address',__('Billing Address'),['class'=>'form-label']) }}
             <div class="action-btn bg-primary float-end">
-            <a class="mx-3 btn btn-sm d-inline-flex align-items-center text-white " id="billing_data" data-toggle="tooltip" data-placement="top" title="Same As Billing Address"><i class="fas fa-copy"></i></a>
-            <span class="clearfix"></span>
+                <a class="mx-3 btn btn-sm d-inline-flex align-items-center text-white " id="billing_data" data-toggle="tooltip" data-placement="top" title="Same As Billing Address"><i class="fas fa-copy"></i></a>
+                <span class="clearfix"></span>
             </div>
             {{Form::text('billing_address',null,array('id'=>'billing_address','class'=>'form-control','placeholder'=>__('Billing Address'),'required'=>'required'))}}
         </div>
@@ -147,37 +145,34 @@
     {{-- <div class="col-6">
         <div class="form-group">
             {{Form::label('tax',__('Tax'),['class'=>'form-label']) }}
-            {{ Form::select('tax[]', $tax,null, array('class' => 'form-control select2','id'=>'choices-multiple2','multiple'=>'')) }}
-        </div>
-    </div> --}}
-    <div class="col-6">
-        <div class="form-group">
-            {{Form::label('shipping_provider',__('Shipping Provider'),['class'=>'form-label']) }}
-            {!!Form::select('shipping_provider', $shipping_provider, null,array('class' => 'form-control','required'=>'required')) !!}
-        </div>
+    {{ Form::select('tax[]', $tax,null, array('class' => 'form-control select2','id'=>'choices-multiple2','multiple'=>'')) }}
+</div>
+</div> --}}
+<div class="col-6">
+    <div class="form-group">
+        {{Form::label('shipping_provider',__('Shipping Provider'),['class'=>'form-label']) }}
+        {!!Form::select('shipping_provider', $shipping_provider, null,array('class' => 'form-control','required'=>'required')) !!}
     </div>
-    <div class="col-12">
-        <div class="form-group">
-            {{Form::label('Assign User',__('Assign User'),['class'=>'form-label']) }}
-            {!! Form::select('user', $user, null,array('class' => 'form-control','required' => 'required')) !!}
-        </div>
+</div>
+<div class="col-12">
+    <div class="form-group">
+        {{Form::label('Assign User',__('Assign User'),['class'=>'form-label']) }}
+        {!! Form::select('user', $user, null,array('class' => 'form-control','required' => 'required')) !!}
     </div>
-    <div class="col-12">
-        <div class="form-group">
-            {{Form::label('description',__('Description'),['class'=>'form-label']) }}
-            {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Description')))}}
-        </div>
+</div>
+<div class="col-12">
+    <div class="form-group">
+        {{Form::label('description',__('Description'),['class'=>'form-label']) }}
+        {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Description')))}}
     </div>
+</div>
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn  btn-light"
-        data-bs-dismiss="modal">Close</button>
-        {{Form::submit(__('Save'),array('class'=>'btn btn-primary'))}}{{Form::close()}}
+    <button type="button" class="btn  btn-light" data-bs-dismiss="modal">Close</button>
+    {{Form::submit(__('Save'),array('class'=>'btn btn-primary'))}}{{Form::close()}}
 </div>
 
 </div>
 </div>
 {{Form::close()}}
-
-
