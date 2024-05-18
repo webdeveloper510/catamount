@@ -92,7 +92,7 @@ $category= explode(',',$settings['campaign_type']);
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Payment')): ?>
                 <a href="#billing-setting" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse20')">
                     <span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span>
-                    <span class="dash-mtext"><?php echo e(__('Invoice')); ?></span>
+                    <span class="dash-mtext"><?php echo e(__('Billing')); ?></span>
                 </a>
                 <?php endif; ?>
                 <?php if(\Auth::user()->type == 'owner'): ?>

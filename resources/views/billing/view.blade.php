@@ -73,7 +73,7 @@ $total += $p->amount;
             @can('Manage Payment')
             <div class="action-btn bg-warning ms-2">
                 <a href="{{ route('billing.estimateview',urlencode(encrypt($event->id)))}}"> 
-                <button  data-bs-toggle="tooltip"title="{{ __('View Invoice') }}" class="btn btn-sm btn-secondary btn-icon m-1">
+                <button  data-bs-toggle="tooltip"title="{{ __('View Billing') }}" class="btn btn-sm btn-secondary btn-icon m-1">
                 <i class="fa fa-print"></i></button>
             </a>
             </div>

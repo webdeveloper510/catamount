@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Invoice') }}
+{{ __('Billing') }}
 @endsection
 @section('title')
-{{ __('Invoice') }}
+{{ __('Billing') }}
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item">{{ __('Invoice') }}</li>
+<li class="breadcrumb-item">{{ __('Billing') }}</li>
 @endsection
 @section('content')
 <div class="container-field">
@@ -39,7 +39,7 @@
                                             @foreach ($events as $event)
                                             <tr>
                                                 <td>
-                                                    <a href="" data-size="md" data-title="{{ __('Invoice Details') }}"
+                                                    <a href="" data-size="md" data-title="{{ __('Billing Details') }}"
                                                         class="action-item text-primary">
                                                         <a href="{{route('meeting.detailview',urlencode(encrypt($event->id)))}}"
                                                             data-size="md" title="{{ __('Detailed view ') }}"
@@ -104,7 +104,7 @@
                                                                 data-url="{{ route('billing.create',['billing',$event->id]) }}"
                                                                 data-bs-toggle="tooltip" title="{{__('Create')}}"
                                                                 data-ajax-popup="true"
-                                                                data-title="{{__('Invoice Details')}}"
+                                                                data-title="{{__('Billing Details')}}"
                                                                 class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                                 <i class="ti ti-plus"></i>
                                                             </a>
@@ -159,7 +159,7 @@
                                                             data-url="{{ route('billing.show',$event->id) }}"
                                                             data-bs-toggle="tooltip" title="{{__('Quick View')}}"
                                                             data-ajax-popup="true"
-                                                            data-title="{{__('Invoice Details')}}"
+                                                            data-title="{{__('Billing Details')}}"
                                                             class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-eye"></i>
                                                         </a>

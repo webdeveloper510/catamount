@@ -115,7 +115,7 @@
                                      @endcan
                                      @can('Edit Invoice')
                                      <div class="action-btn bg-info ms-2">
-                                         <a href="{{ route('invoice.edit', $invoice->id) }}" data-bs-toggle="tooltip" title="{{ __('Details') }}" class="mx-3 btn btn-sm align-items-center text-white " data-title="{{ __('Edit Invoice') }}"><i class="ti ti-edit"></i></a>
+                                         <a href="{{ route('invoice.edit', $invoice->id) }}" data-bs-toggle="tooltip" title="{{ __('Details') }}" class="mx-3 btn btn-sm align-items-center text-white " data-title="{{ __('Edit Billing') }}"><i class="ti ti-edit"></i></a>
                                      </div>
                                      @endcan
                                      @can('Delete Invoice')

@@ -108,7 +108,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                     <li
                                         class="dash-item {{ \Request::route()->getName() == 'billing' || \Request::route()->getName() == 'billing.index' ? ' active' : '' }}">
                                         <a href="{{ route('billing.index') }}" class="dash-link">
-                                            <span class="dash-mtext">{{ __('Invoice') }}</span>
+                                            <span class="dash-mtext">{{ __('Billing') }}</span>
                                         </a>
                                     </li>
                                     @endcan
