@@ -636,17 +636,22 @@ class LeadController extends Controller
     public function proposalview($id)
     {
         $id = decrypt(urldecode($id));
+        $auth = auth()->user();
         $lead = Lead::find($id);
         $settings = Utility::settings();
         $venue = explode(',', $settings['venue']);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
-        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items'));
+        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'auth'));
     }
     public function proposal_resp(Request $request, $id)
     {
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
+        $auth = auth()->user();
+
+        $agreement = htmlspecialchars($request->agreement);
+        $remarks = htmlspecialchars($request->remarks);
 
         if (!empty($request->imageData)) {
             $image = $this->uploadSignature($request->imageData);
@@ -663,6 +668,8 @@ class LeadController extends Controller
         $proposals['lead_id'] = $id;
         $proposals['image'] = $image;
         $proposals['notes'] = $request->comments;
+        $proposals['agreement'] = $agreement;
+        $proposals['remarks'] = $remarks;
         $proposals['proposal_id'] = isset($request->proposal) && ($request->proposal != '') ? $request->proposal : '';
         $proposals->save();
         $lead = Lead::find($id);
@@ -674,11 +681,13 @@ class LeadController extends Controller
         $data = [
             'proposal' => $proposals,
             'lead' => $lead,
+            'auth' => $auth,
             'fixed_cost' => $fixed_cost,
             'settings' => $settings,
             'additional_items' => $additional_items
         ];
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
+
         try {
             $filename = 'proposal_' . time() . '.pdf'; // You can adjust the filename as needed
             $folder = 'Proposal_response/' . $id;
