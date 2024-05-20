@@ -179,8 +179,9 @@ class LeadController extends Controller
                 $customer->ref_id = $lead->id;
                 $customer->name = $request->name;
                 $customer->email = $request->email ?? '';
-                $customer->primary_contact = $primary_contact;
-                $customer->secondary_contact = $secondary_contact;
+                // $customer->primary_contact = $primary_contact;
+                // $customer->secondary_contact = $secondary_contact;
+                $customer->phone = $phone;
                 $customer->address = $request->lead_address ?? '';
                 $customer->category = 'lead';
                 $customer->type = $request->type ?? '';
