@@ -49,7 +49,7 @@ class DashboardController extends Controller
                 $data['totalUser']          = User::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalAccount']       = Account::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalContact']       = Contact::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalLead']          = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status',1)->count();                 
+                $data['totalLead']          = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->count();
                 $data['totalSalesorder']    = $totalSalesOrder = SalesOrder::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalInvoice']       = $totalInvoice = Invoice::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalQuote']         = $totalQuote = Quote::where('created_by', \Auth::user()->creatorId())->count();
@@ -59,8 +59,7 @@ class DashboardController extends Controller
 
                 $date = today()->format('Y-m-d');
 
-                $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->
-                where('lead_status', 1)->get();
+                $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->get();
                 $revenue = Meeting::all();
                 $events_revenue = 0;
                 foreach ($revenue as $key => $value) {
@@ -69,11 +68,11 @@ class DashboardController extends Controller
                 $paymentlogs = PaymentLogs::all();
                 $events_revenue_generated = 0;
                 foreach ($paymentlogs as $key => $value) {
-                    $events_revenue_generated += $value->amount;  
+                    $events_revenue_generated += $value->amount;
                     # code...
                 }
 
-                $lostLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('proposal_status', '==',3)->take(4)->get(); 
+                $lostLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('proposal_status', '==', 3)->take(4)->get();
                 $activeEvent = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>=', $date)->get();
                 $pastEvents = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '<', $date)->take(4)->get();
 
@@ -83,14 +82,15 @@ class DashboardController extends Controller
                 $blockeddate = Blockdate::all();
                 $settings = Utility::settings();
                 $venue = $settings['venue'];
-                $venue_dropdown = explode(",",$venue);                          
+                $venue_dropdown = explode(",", $venue);
                 $statuss  = Invoice::$status;
 
                 $eventinvoice = Billing::pluck('event_id')->toArray();
-                
+
                 foreach ($eventinvoice as  $value) {
-                    $events[]= Meeting::find($value);
+                    $events[] = Meeting::find($value);
                 }
+                $events = isset($events) ? $events : [];
                 $invoices = [];
                 foreach ($statuss as $id => $status) {
                     $invoice                   = $total = Invoice::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
@@ -150,16 +150,16 @@ class DashboardController extends Controller
                 // } else {
                 //     $storage_limit = 0;
                 // }
-                return view('home', compact('venue_dropdown','blockeddate','events_revenue','events','events_revenue_generated','data','users','plan','upcoming','completed','totalevent','activeLeads', 'lostLeads', 'activeEvent', 'pastEvents'));
+                return view('home', compact('venue_dropdown', 'blockeddate', 'events_revenue', 'events', 'events_revenue_generated', 'data', 'users', 'plan', 'upcoming', 'completed', 'totalevent', 'activeLeads', 'lostLeads', 'activeEvent', 'pastEvents'));
             }
         } else {
 
             if (!file_exists(storage_path() . "/installed")) {
                 header('location:install');
                 die;
-            } else {    
+            } else {
                 $settings = Utility::settings();
-                    return redirect('login');
+                return redirect('login');
             }
         }
     }
@@ -231,8 +231,7 @@ class DashboardController extends Controller
                 $arr['url']       = route('meeting.show', $meeting['id']);
                 $arrMeeting[]     = $arr;
             }
-        } 
-        else {
+        } else {
             foreach ($calls as $call) {
                 $arr['id']        = $call['id'];
                 $arr['title']     = $call['name'];
@@ -271,7 +270,7 @@ class DashboardController extends Controller
             }
         }
 
-        $calandar = array_merge($arrCall, $arrMeeting, $arrTask,$arrblock);
+        $calandar = array_merge($arrCall, $arrMeeting, $arrTask, $arrblock);
         return  str_replace('"[', '[', str_replace(']"', ']', json_encode($calandar)));
     }
     public function get_data(Request $request)
@@ -322,7 +321,7 @@ class DashboardController extends Controller
                 ];
             }
             foreach ($meetings as $val) {
-               
+
                 $end_date = date_create($val->end_date);
                 date_add($end_date, date_interval_create_from_date_string("1 days"));
                 $arrMeeting[] = [
@@ -356,24 +355,27 @@ class DashboardController extends Controller
         return $arrayJson;
     }
 
-    public function upcomingevents(){
+    public function upcomingevents()
+    {
         // echo "upcomingevents";
         // echo "<pre>";
         $date = today()->format('Y-m-d');
         // // $meeting = Meeting::all();
         $meetings = Meeting::where('start_date', '>=', $date)->get();
         // print_r($meeting);
-        return view('meeting.index',compact('meetings'));
+        return view('meeting.index', compact('meetings'));
     }
-    public function completedevents(){
+    public function completedevents()
+    {
         // echo "completedevents";
         // echo "<pre>";
         $date = today()->format('Y-m-d');
         // $meeting = Meeting::all();
         $meetings = Meeting::where('start_date', '<', $date)->get();
-        return view('meeting.index',compact('meetings'));
+        return view('meeting.index', compact('meetings'));
     }
-    public function pushnotify(){
+    public function pushnotify()
+    {
         return view('pushnotification');
     }
 }
