@@ -12,16 +12,11 @@ if (isset($proposal) && ($proposal['image'] != null)) {
     $sign = 'data:image/' . pathinfo($proposal['image'], PATHINFO_EXTENSION) . ';base64,' . $signed;
 }
 
-$data['lead'] = $lead->toArray();
-$data['auth'] = $auth->toArray();
-$data['proposal'] = $proposal->toArray();
-$data['settings'] = $settings;
-$data['fixed_cost'] = $fixed_cost;
-$data['additional_items'] = $additional_items;
+// $data['lead'] = $lead->toArray();
+// $data['proposal'] = $proposal->toArray();
+/* echo '<pre>';
+print_r($data); */
 
-echo '<pre>';
-print_r($data);
-echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,262 +27,235 @@ echo '</pre>';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proposal</title>
 </head>
+<style>
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    label,
+    span,
+    p {
+        font-family: "Open Sans", sans-serif;
+
+    }
+
+    .border-new {
+        border: 1px solid #000 !important;
+        padding: 15px 0;
+    }
+
+    .border-new1 {
+        padding: 10px 0 40px 0;
+    }
+
+    .input-new:nth-child(2) {
+        justify-content: center;
+    }
+
+    .center-new {
+        display: block;
+        margin: 3px auto;
+        text-align: center;
+        align-items: center;
+    }
+
+    .input-new {
+        padding: 0 10px;
+        display: flex;
+        /* column-gap: 20px; */
+        /* font-size: 18px; */
+    }
+
+    .input-new1 {
+        display: flex;
+        /* column-gap: 20px; */
+    }
+
+    .textarea {
+        padding: 0 10px;
+    }
+
+    .row {
+        --bs-gutter-x: -9rem;
+    }
+
+
+    /* WebKit-specific properties for PDF rendering */
+    @media print {
+        .row {
+            -webkit-print-color-adjust: exact;
+            /* Ensure color fidelity */
+            /* background: white; */
+            /* Set a white background */
+        }
+
+        h5 {
+            -webkit-margin-before: 0;
+            -webkit-margin-after: 0;
+            color: #333;
+        }
+
+        p {
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+        }
+
+        /* .container {
+            display: flex;
+            grid-template-columns: repeat(2, 1fr);
+        } */
+
+
+        /* .col-sm-6 {
+            max-width: 50%;
+        } */
+        /* .col-sm-6 {
+            width: calc(100%/2);
+        } */
+        .sidebyside {
+            display: flex !important;
+            width: 100% !important;
+        }
+
+        .col-sm-6 {
+            width: 49.7% !important;
+            float: left;
+        }
+    }
+
+    .sidebyside {
+        display: flex !important;
+        width: 100% !important;
+    }
+
+    .col-sm-6 {
+        width: 49.7% !important;
+        float: left;
+    }
+</style>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 ">
-                <div class="img-section" style="width:30%; margin: 0 auto;display:flex;text-align: center;">
-                    <img class="logo-img" src="<?php echo e(URL::asset('storage/uploads/logo/3_logo-light.png')); ?>" style="width:40%;">
+            <div class="col-sm-12 mt-4 border-new">
+                <div class="img-section">
+                    <img class="logo-img center-new" src="<?php echo e(URL::asset('storage/uploads/logo/3_logo-light.png')); ?>" style="width: auto;margin:0 250px">
+                </div>
+            </div>
+            <div class="col-sm-12 border-new">
+                <h4 class="center-new"><?php echo e(__('Proposal Acceptance Agreement')); ?></h4>
+            </div>
+            <div class="col-sm-12 border-new">
+                <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
+                <h5 class="center-new input-new">
+                    <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($auth->email)); ?>
+
+                </h5>
+                <h5 class="center-new">Feel free to call our office at (518) 623-2352 with any questions</h5>
+            </div>
+            <div class="col-sm-12 border-new">
+                <h5 class="input-new">
+                    <label for="client"><?php echo e(__('Client')); ?>: </label><?php echo e(__($lead->name)); ?>
+
+                </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sidebyside">
+                <div class="col-sm-6 border-new">
+                    <h5 class="input-new">
+                        <label for="phone"><?php echo e(__('Phone')); ?>: </label><?php echo e(__($lead->primary_contact)); ?>
+
+                    </h5>
+                </div>
+                <div class="col-sm-6 border-new">
+                    <h5 class="input-new">
+                        <label for="email2"><?php echo e(__('Email')); ?>: </label><?php echo e(__($lead->email)); ?>
+
+                    </h5>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="text-align: center;">
-                <span>The Bond 1786</span><br>
-                <span>Venue Rental Proposal & Banquet Event Order</span>
+            <div class="col-sm-12 border-new">
+                <h5 class="input-new">
+                    <label for="servicesDate"><?php echo e(__('Date of service')); ?>: </label><?php echo e(__($lead->start_date)); ?>
+
+                </h5>
             </div>
-        </div>
-        <div class="row ">
-            <div class="col-md-6">
-                <dl>
-                    <span><?php echo e(__('Name')); ?>: <?php echo e($lead->name); ?></span><br>
-                    <span><?php echo e(__('Phone & Email')); ?>: <?php echo e($lead->phone); ?> , <?php echo e($lead->email); ?></span><br>
-                    <span><?php echo e(__('Address')); ?>: <?php echo e($lead->lead_address); ?></span><br>
-                    <span><?php echo e(__('Event Date')); ?>:<?php echo e(\Carbon\Carbon::parse($lead->start_date)->format('d M, Y')); ?></span>
-                </dl>
+            <div class="col-sm-12 border-new">
+                <h5 class="input-new">
+                    <label for="services"><?php echo e(__('Services')); ?>: </label><?php echo e(__($lead->type)); ?>
+
+                </h5>
             </div>
-
-        </div>
-        <hr>
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <table class="table table-bordered" style="width:100%">
-                    <thead>
-                        <tr style="background-color:#d3ead3; text-align:center">
-                            <th>Event Date</th>
-                            <th>Time</th>
-                            <th>Venue</th>
-                            <th>Event</th>
-                            <th>Function</th>
-                            <th>Guest Count</th>
-                            <th>Room</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="text-align:center">
-
-                            <td>
-                                <?php echo e(\Carbon\Carbon::parse($lead->start_date)->format('d M, Y')); ?>
-
-                            </td>
-
-                            <td>
-                                <?php if($lead->start_time == $lead->end_time): ?>
-                                --
-                                <?php else: ?>
-                                <?php echo e(date('h:i A', strtotime($lead->start_time))); ?> -
-                                <?php echo e(date('h:i A', strtotime($lead->end_time))); ?>
-
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo e($lead->venue_selection); ?></td>
-                            <td><?php echo e($lead->type); ?></td>
-                            <td><?php echo e($lead->function); ?></td>
-                            <td><?php echo e($lead->guest_count); ?></td>
-                            <td><?php echo e($lead->rooms); ?></td>
-
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
+                <h5 class="input-new">
+                    <label for="agreement"><?php echo e(__('Agreement')); ?>: </label>
+                </h5>
+                <div class="textarea">
+                    <?= html_entity_decode($proposal->agreement) ?>
+                </div>
             </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <h5 class="headings"><b>Billing Summary - ESTIMATE</b></h5>
-                <table class="table table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">
-                                Name : <?php echo e(ucfirst($lead->name)); ?></th>
-                            <th colspan="2" style="padding:5px 0px;margin-left: 5px;font-size:13px"></th>
-                            <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">
-                                Date:<?php echo date("d/m/Y"); ?> </th>
-                            <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">
-                                Event: <?php echo e(ucfirst($lead->type)); ?></th>
-                        </tr>
-                        <tr style="background-color:#d3ead3; text-align:center">
-                            <th>Description</th>
-                            <th colspan="2"> Additional</th>
-                            <th>Cost</th>
-                            <th>Quantity</th>
-                            <th>Total Price</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Venue Rental</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e($billing['venue_rental']['cost'] ?? 0); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                <?php echo e($billing['venue_rental']['quantity'] ?? 1); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e($total[] = ($billing['venue_rental']['cost']?? 0)  * ($billing['venue_rental']['quantity'] ?? 1)); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                <?php echo e($lead->venue_selection); ?>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Brunch / Lunch /
-                                Dinner Package</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e($billing['food_package']['cost'] ?? 0); ?></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                <?php echo e($billing['food_package']['quantity'] ?? 1); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e($total[] =($billing['food_package']['cost'] ?? 0) * ($billing['food_package']['quantity'] ?? 1)); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                <?php echo e($lead->function); ?>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Hotel Rooms</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;"></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e($billing['hotel_rooms']['cost'] ?? 0); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                <?php echo e($billing['hotel_rooms']['quantity'] ?? 1); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-
-                                $<?php echo e($total[] = ($billing['hotel_rooms']['cost'] ?? 0) *  ($billing['hotel_rooms']['quantity'] ?? 1)); ?>
-
-
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        </tr>
-
-
-
-                        <tr>
-                            <td>-</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Total</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(array_sum($total)); ?>
-
-                            </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Sales, Occupancy
-                                Tax</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e(7* array_sum($total)/100); ?>
-
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">
-                                Service Charges & Gratuity</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e(20 * array_sum($total)/100); ?>
-
-                            </td>
-
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>-</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
-
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td style="background-color:#ffff00; padding:5px 5px; margin-left:5px;font-size:13px;">
-                                Grand Total / Estimated Total</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                $<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?>
-
-                            </td>
-
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td style="background-color:#d7e7d7; padding:5px 5px; margin-left:5px;font-size:13px;">
-                                Deposits on file</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="3" style="background-color:#d7e7d7;padding:5px 5px; margin-left:5px;font-size:13px;">No
-                                Deposits yet
-                            </td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="background-color:#ffff00;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">
-                                balance due</td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                            <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">
-                                $<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?>
-
-
-                            </td>
-                            <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <p><b>Customer Comments/Notes: <?php echo e($proposal->notes); ?></b></p>
+            <div class="col-sm-12 border-new">
+                <h5 class="input-new">
+                    <label for="signature"><?php echo e(__('Signature')); ?>: </label>
+                    <img src="<?php echo e(__($proposal->image)); ?>" alt="" srcset="">
+                </h5>
             </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-6" style="float:left;width:50%;">
-                <strong>Authorized Signature:</strong> <br>
-                <img src="<?php echo e($base64Image); ?>" style="width:30%; border-bottom:1px solid black;">
+            <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
+                <h5 class="input-new">
+                    <label for="remarks"><?php echo e(__('Remarks')); ?>: </label>
+                </h5>
+                <div class="textarea">
+                    <?= html_entity_decode($proposal->remarks) ?>
+                </div>
             </div>
-            <div class="col-md-6">
-                <strong style="margin-top:10px;">Signature:</strong><br>
-                <img src="<?php echo e(@$sign); ?>" style="width:30%; border-bottom:1px solid black;">
+            <div class="col-sm-12">
+                <h5 class="input-new">
+                    <label for="date"><?php echo e(__('Date')); ?>: </label>
+                </h5>
+            </div>
+            <div class="col-sm-12 border-new1">
+                <h5 class="input-new">
+                    <label for="scopeServices"><?php echo e(__('Scope of Services')); ?>: </label>
+                </h5>
+            </div>
+            <div class="col-sm-12">
+                <h5 class="input-new">
+                    <label for="schedule"><?php echo e(__('Schedule')); ?>: </label>
+                    <p>Catamount Consulting is prepared to proceed upon receiving the Proposal Acceptance Agreement</p>
+                </h5>
+            </div>
+            <div class="col-sm-12">
+                <h5 class="input-new">
+                    <label for="costBusinessTerms"><?php echo e(__('Cost and Business Terms')); ?>: </label>
+                    <p>The Proposal shall remain valid for the period of 60 days from the date of the proposal origination. </p>
+                </h5>
+            </div>
+            <div class="col-sm-12">
+                <h5 class="input-new">
+                    <label for="cencellation"><?php echo e(__('CANCELLATION')); ?>: </label>
+                    <p>Should the above testing be cancelled within 2 weeks of the testing date, there will be a cancellation fee of $ . If testing is rescheduled within 1 month, the cancellation fee will be</br>negotiated and mitigated.
+                    </p>
+                </h5>
+            </div>
+            <div class="col-sm-12">
+                <h5 class="input-new">We look forward to work with you. Please feel free to contact our office with any questions or concerns.</br>Respectfully,</h5>
+            </div>
+            <div class="col-sm-12">
+                <h5 class="input-new1"><label for="name"><?php echo e(__('Name')); ?>: </label><?php echo e(__($auth->name)); ?></h5>
+                <h5 class="input-new1"><label for="designation"><?php echo e(__('Designation')); ?>: </label><?php echo e(__($auth->type)); ?></h5>
+                <h5 class="input-new1"><label for="date"><?php echo e(__('Date')); ?>: </label><?php echo e(__(date('Y-m-d'))); ?></h5>
+                <h5 class="input-new1"><label for="to"><?php echo e(__('To')); ?></label></h5>
+                <h5 class="input-new1"><label for="name"><?php echo e(__('Name')); ?>: </label><?php echo e(__($lead->name)); ?></h5>
+                <h5 class="input-new1"><label for="designation"><?php echo e(__('Designation')); ?>: </label></h5>
+                <h5 class="input-new1"><label for="date"><?php echo e(__('Date')); ?>: </label><?php echo e(__($lead->start_date)); ?></h5>
             </div>
         </div>
     </div>
-</body><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/lead/signed_proposal.blade.php ENDPATH**/ ?>
+</body>
+
+</html><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/lead/signed_proposal.blade.php ENDPATH**/ ?>

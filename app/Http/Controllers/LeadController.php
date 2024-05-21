@@ -651,8 +651,8 @@ class LeadController extends Controller
         $id = decrypt(urldecode($id));
         $auth = auth()->user();
 
-        $agreement = htmlspecialchars($request->agreement);
-        $remarks = htmlspecialchars($request->remarks);
+        $agreement = htmlEntities($request->agreement);
+        $remarks = htmlEntities($request->remarks);
 
         if (!empty($request->imageData)) {
             $image = $this->uploadSignature($request->imageData);
@@ -672,7 +672,7 @@ class LeadController extends Controller
         $proposals['agreement'] = $agreement;
         $proposals['remarks'] = $remarks;
         $proposals['proposal_id'] = isset($request->proposal) && ($request->proposal != '') ? $request->proposal : '';
-        $proposals->save();
+        // $proposals->save();
         $lead = Lead::find($id);
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
 
