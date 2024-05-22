@@ -553,6 +553,7 @@ class LeadController extends Controller
     }
     public function view_proposal($id)
     {
+        $auth = auth()->user();
         $decryptedId = decrypt(urldecode($id));
         $lead = Lead::find($decryptedId);
         $settings = Utility::settings();
@@ -563,6 +564,7 @@ class LeadController extends Controller
         $proposal = Proposal::where('lead_id', $decryptedId)->first();
         $data = [
             'settings' => $settings,
+            'auth' => $auth,
             'proposal' => $proposal,
             'lead' => $lead,
             'fixed_cost' => $fixed_cost,
@@ -647,12 +649,18 @@ class LeadController extends Controller
     }
     public function proposal_resp(Request $request, $id)
     {
+        /* echo '<pre>';
+        print_r($request->all());
+        echo '</pre>';
+        die(); */
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
         $auth = auth()->user();
 
-        $agreement = htmlEntities($request->agreement);
-        $remarks = htmlEntities($request->remarks);
+        $agreement = html_entity_decode($request->agreement);
+        $remarks = html_entity_decode($request->remarks);
+
+        echo nl2br("{$agreement} \n {$remarks}");
 
         if (!empty($request->imageData)) {
             $image = $this->uploadSignature($request->imageData);
@@ -671,6 +679,12 @@ class LeadController extends Controller
         $proposals['notes'] = $request->comments;
         $proposals['agreement'] = $agreement;
         $proposals['remarks'] = $remarks;
+        $proposals['name'] = $request->name;
+        $proposals['designation'] = $request->designation;
+        $proposals['date'] = $request->date;
+        $proposals['to_name'] = $request->to_name;
+        $proposals['to_designation'] = $request->to_designation;
+        $proposals['to_date'] = $request->to_date;
         $proposals['proposal_id'] = isset($request->proposal) && ($request->proposal != '') ? $request->proposal : '';
         // $proposals->save();
         $lead = Lead::find($id);
@@ -703,7 +717,7 @@ class LeadController extends Controller
                 'message' => 'Failed to save PDF: ' . $e->getMessage(),
             ]);
         }
-        try {
+        /* try {
             config(
                 [
                     'mail.driver'       => $settings['mail_driver'],
@@ -728,7 +742,7 @@ class LeadController extends Controller
             //             ]
             //         );
             return redirect()->back()->with('success', 'Email Not Sent');
-        }
+        } */
         return $pdf->stream('proposal.pdf');
     }
     public function uploadSignature($signed)

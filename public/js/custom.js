@@ -386,6 +386,8 @@ $(document).ready(function () {
         });
     });
     $(".campaign_show_confirm").click(function (event) {
+        event.preventDefault();
+        var parentSpan = $(this).closest("span.badge");
         var url = $(this).data("url");
         var badgeContainer = $(this).closest(".badge");
         var badgeText = badgeContainer.text().trim();
@@ -420,9 +422,7 @@ $(document).ready(function () {
                             // console.log(result);
                             if (result == true) {
                                 swal.fire("Done!", result.message, "success");
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 1000);
+                                parentSpan.hide();
                             } else {
                                 swal.fire("Error!", result.message, "error");
                             }

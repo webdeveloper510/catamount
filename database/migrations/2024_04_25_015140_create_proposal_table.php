@@ -19,8 +19,14 @@ return new class extends Migration
             $table->integer('proposal_id');
             $table->string('image')->nullable();
             $table->string('notes')->nullable();
-            $table->string('agreement')->nullable();
-            $table->string('remarks')->nullable();
+            $table->text('agreement')->nullable();
+            $table->text('remarks')->nullable();
+            $table->string('name')->nullable();
+            $table->string('designation')->nullable();
+            $table->date('date')->nullable();
+            $table->string('to_name')->nullable();
+            $table->string('to_designation')->nullable();
+            $table->date('to_date')->nullable();
             $table->string('proposal_response')->nullable();
             $table->timestamps();
             $table->SoftDeletes();

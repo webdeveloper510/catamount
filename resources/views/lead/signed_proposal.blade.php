@@ -239,15 +239,64 @@ print_r($data); */
             <div class="col-sm-12">
                 <h5 class="input-new">We look forward to work with you. Please feel free to contact our office with any questions or concerns.</br>Respectfully,</h5>
             </div>
-            <div class="col-sm-12">
-                <h5 class="input-new1"><label for="name">{{__('Name')}}: </label>{{__($auth->name)}}</h5>
-                <h5 class="input-new1"><label for="designation">{{__('Designation')}}: </label>{{__($auth->type)}}</h5>
-                <h5 class="input-new1"><label for="date">{{__('Date')}}: </label>{{__(date('Y-m-d'))}}</h5>
-                <h5 class="input-new1"><label for="to">{{__('To')}}</label></h5>
-                <h5 class="input-new1"><label for="name">{{__('Name')}}: </label>{{__($lead->name)}}</h5>
-                <h5 class="input-new1"><label for="designation">{{__('Designation')}}: </label></h5>
-                <h5 class="input-new1"><label for="date">{{__('Date')}}: </label>{{__($lead->start_date)}}</h5>
+            <div class="table">
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+                    <tr style="background-color: #f8b332; color: white; text-align: left;">
+                        <th style="padding: 12px;">Label</th>
+                        <th style="padding: 12px;">Details</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;">Name</td>
+                        <td style="padding: 8px;">{{__($proposal->name)}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;">Designation</td>
+                        <td style="padding: 8px;">{{__($proposal->designation)}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;">Date</td>
+                        <td style="padding: 8px;">{{__($proposal->date)}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;">Name</td>
+                        <td style="padding: 8px;">{{__($proposal->to_name)}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;">Designation</td>
+                        <td style="padding: 8px;">{{__($proposal->to_designation)}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px;">Date</td>
+                        <td style="padding: 8px;">{{__($proposal->to_date)}}</td>
+                    </tr>
+                </table>
             </div>
+            <!-- <div class="details">
+                <h5 class="input-new1">
+                    <label for="name">{{__('Name')}}: </label>{{__($proposal->name)}}
+                </h5>
+                <h5 class="input-new1">
+                    <label for="designation">{{__('Designation')}}: </label>{{__($proposal->designation)}}
+                </h5>
+                <h5 class="input-new1">
+                    <label for="date">{{__('Date')}}: </label>{{__($proposal->date)}}
+                </h5>
+                <h5 class="input-new1">
+                    <label for="to">{{__('To')}}</label>
+                </h5>
+                <h5 class="input-new1">
+                    <label for="name">{{__('Name')}}: </label>{{__($proposal->to_name)}}
+                </h5>
+                <h5 class="input-new1">
+                    <label for="designation">{{__('Designation')}}: {{__($proposal->to_designation)}}</label>
+                </h5>
+                <h5 class="input-new1">
+                    <label for="date">{{__('Date')}}: </label>{{__($proposal->to_date)}}
+                </h5>
+            </div> -->
         </div>
     </div>
 </body>

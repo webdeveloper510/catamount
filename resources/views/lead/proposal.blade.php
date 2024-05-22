@@ -136,7 +136,7 @@ echo '</pre>'; */
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
-                                <label for="date">{{__('Date')}}:</label>
+                                <label for="date">{{__('Date')}}: {{__($lead->start_date)}}</label>
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new1">
@@ -166,14 +166,49 @@ echo '</pre>'; */
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">We look forward to work with you. Please feel free to contact our office with any questions or concerns.</br>Respectfully,</h5>
                         </div>
-                        <div class="col-sm-12 mt-5">
-                            <h5 class="input-new1"><label for="name">{{__('Name')}}:</label>{{__($auth->name)}}</h5>
-                            <h5 class="input-new1"><label for="designation">{{__('Designation')}}:</label>{{__($auth->type)}}</h5>
-                            <h5 class="input-new1"><label for="date">{{__('Date')}}:</label>{{__(date('Y-m-d'))}}</h5>
+                        <!-- <div class="col-sm-12 mt-5 details">
+                            <h5 class="input-new1"><label for="name">{{__('Name')}}: </label><input type="text" name="name" id="name" value="" /></h5>
+                            <h5 class="input-new1"><label for="designation">{{__('Designation')}}: </label><input type="text" name="designation" id="designation" value="" /></h5>
+                            <h5 class="input-new1"><label for="date">{{__('Date')}}: </label><input type="date" name="date" id="date" value="{{__(date('Y-m-d'))}}" /></h5>
                             <h5 class="input-new1"><label for="to">{{__('To')}}</label></h5>
-                            <h5 class="input-new1"><label for="name">{{__('Name')}}:</label>{{__($lead->name)}}</h5>
-                            <h5 class="input-new1"><label for="designation">{{__('Designation')}}:</label></h5>
-                            <h5 class="input-new1"><label for="date">{{__('Date')}}:</label>{{__($lead->start_date)}}</h5>
+                            <h5 class="input-new1"><label for="name">{{__('Name')}}: </label><input type="text" name="to_name" id="to_name" value="" /></h5>
+                            <h5 class="input-new1"><label for="designation">{{__('Designation')}}: </label><input type="text" name="to_designation" id="to_designation" value="" /></h5>
+                            <h5 class="input-new1"><label for="date">{{__('Date')}}: </label><input type="date" name="to_date" id="to_date" value="" /></h5>
+                        </div> -->
+                        <div class="table">
+                            <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+                                <tr style="background-color: #f8b332; color: white; text-align: left;">
+                                    <th style="padding: 12px;">Label</th>
+                                    <th style="padding: 12px;">Details</th>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px;">Name</td>
+                                    <td style="padding: 8px;"><input type="text" name="name" id="name" value="" /></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px;">Designation</td>
+                                    <td style="padding: 8px;"><input type="text" name="designation" id="designation" value="" /></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px;">Date</td>
+                                    <td style="padding: 8px;"><input type="date" name="date" id="date" value="{{__(date('Y-m-d'))}}" /></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px;">Name</td>
+                                    <td style="padding: 8px;"><input type="text" name="to_name" id="to_name" value="" /></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px;">Designation</td>
+                                    <td style="padding: 8px;"><input type="text" name="to_designation" id="to_designation" value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;">Date</td>
+                                    <td style="padding: 8px;"><input type="date" name="to_date" id="to_date" value="" /></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="row">
