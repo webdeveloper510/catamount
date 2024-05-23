@@ -29,40 +29,40 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 @endphp
 @section('content')
 <style>
-.floorimages {
-    height: 400px;
-    width: 100%;
-    margin: 0px !important;
-}
+    .floorimages {
+        height: 400px;
+        width: 100%;
+        margin: 0px !important;
+    }
 
-.selected-image {
-    border: 2px solid #3498db;
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
+    .selected-image {
+        border: 2px solid #3498db;
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
 
-.selected-image:hover {
-    border-color: #2980b9;
-    box-shadow: 0 0 15px rgba(41, 128, 185, 0.8);
-}
+    .selected-image:hover {
+        border-color: #2980b9;
+        box-shadow: 0 0 15px rgba(41, 128, 185, 0.8);
+    }
 
-.zoom {
-    background-color: none;
-    transition: transform .2s;
-}
+    .zoom {
+        background-color: none;
+        transition: transform .2s;
+    }
 
-.zoom:hover {
-    -ms-transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    transform: scale(1.2);
-}
+    .zoom:hover {
+        -ms-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        transform: scale(1.2);
+    }
 
-    
-.fa-asterisk{
-    font-size: xx-small;
-    position: absolute;
-    padding: 1px;
-}
+
+    .fa-asterisk {
+        font-size: xx-small;
+        position: absolute;
+        padding: 1px;
+    }
 </style>
 <div class="container-field">
     <div id="wrapper">
@@ -107,8 +107,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{ Form::label('lead', __('Lead'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {!! Form::select('lead', $attendees_lead, null, ['class' =>
                                                     'form-control']) !!}
                                                 </div>
@@ -117,8 +117,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{ Form::label('eventname', __('Training Name'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {{Form::text('eventname',null,array('class'=>'form-control','placeholder'=>__('Enter Training Name')))}}
                                                 </div>
                                             </div>
@@ -127,8 +127,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     {{Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) }}
                                                     @foreach($users as $user)
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="user[]"
-                                                            value="{{ $user->id }}" id="user_{{ $user->id }}">
+                                                        <input class="form-check-input" type="checkbox" name="user[]" value="{{ $user->id }}" id="user_{{ $user->id }}">
                                                         <label class="form-check-label" for="user_{{ $user->id }}">
                                                             {{ $user->name }} ({{ $user->type }})
                                                         </label>
@@ -172,8 +171,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{Form::label('name',__('Name'),['class'=>'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {{Form::text('name',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
                                                 </div>
                                                 @if ($errors->has('name'))
@@ -186,12 +185,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{Form::label('phone',__('Phone'),['class'=>'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     <div class="intl-tel-input">
-                                                        <input type="tel" id="phone-input" name="phone"
-                                                            class="phone-input form-control" placeholder="Enter Phone"
-                                                            maxlength="16" required>
+                                                        <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
                                                         <input type="hidden" name="countrycode" id="country-code">
                                                     </div>
                                                 </div>
@@ -201,8 +198,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{Form::label('email',__('Email'),['class'=>'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {{Form::text('email',null,array('class'=>'form-control','placeholder'=>__('Enter Email'),'required'=>'required'))}}
                                                 </div>
                                                 @if ($errors->has('email'))
@@ -229,7 +226,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="row">
                                                     <div class="col-12  p-0 modaltitle pb-3 mb-3">
                                                         <h5 style="margin-left: 14px;">
-                                                            {{ __('Other Contact Information') }}</h5>
+                                                            {{ __('Other Contact Information') }}
+                                                        </h5>
                                                     </div>
                                                     <div class="col-6 need_full">
                                                         <div class="form-group">
@@ -241,11 +239,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                         <div class="form-group">
                                                             {{Form::label('alter_phone',__('Phone'),['class'=>'form-label']) }}
                                                             <div class="intl-tel-input">
-                                                                <input type="tel" name="alter_phone"
-                                                                    class="phone-input form-control"
-                                                                    placeholder="Enter Phone">
-                                                                <input type="hidden" name="countrycode"
-                                                                    id="country-code">
+                                                                <input type="tel" name="alter_phone" class="phone-input form-control" placeholder="Enter Phone">
+                                                                <input type="hidden" name="countrycode" id="country-code">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -271,9 +266,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 </div>
                                             </div>
                                             <div class="col-12 text-end mt-3">
-                                                <button data-bs-toggle="tooltip" id="opencontact"
-                                                    title="{{ __('Add Contact') }}"
-                                                    class="btn btn-sm btn-primary btn-icon m-1">
+                                                <button data-bs-toggle="tooltip" id="opencontact" title="{{ __('Add Contact') }}" class="btn btn-sm btn-primary btn-icon m-1">
                                                     <i class="ti ti-plus"></i>
                                                 </button>
                                             </div>
@@ -281,8 +274,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             <div class="form-group col-md-6">
                                                 <label>{{ __('Synchronize in Google Calendar') }}</label>
                                                 <div class="form-check form-switch pt-2">
-                                                    <input id="switch-shadow" class="form-check-input" value="1"
-                                                        name="is_check" type="checkbox">
+                                                    <input id="switch-shadow" class="form-check-input" value="1" name="is_check" type="checkbox">
                                                     <label class="form-check-label" for="switch-shadow"></label>
                                                 </div>
                                             </div>
@@ -308,8 +300,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{Form::label('guest_count',__('Guest Count'),['class'=>'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {!! Form::number('guest_count', null,array('class' =>
                                                     'form-control','min'=> 0)) !!}
                                                 </div>
@@ -323,12 +315,11 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     <label for="venue_selection" class="form-label">Venue</label>
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     @foreach($venue as $key => $label)
                                                     <div>
-                                                        <input type="checkbox" name="venue[]" value="{{ $label }}"
-                                                            id="venue{{ $key + 1 }}">
+                                                        <input type="checkbox" name="venue[]" value="{{ $label }}" id="venue{{ $key + 1 }}">
                                                         <label for="{{ $label }}">{{ $label }}</label>
                                                     </div>
                                                     @endforeach
@@ -346,8 +337,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {!! Form::date('start_date', date('Y-m-d'), ['class' =>
                                                     'form-control',
                                                     'required' => 'required']) !!}
@@ -376,8 +367,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{ Form::label('start_time', __('Start Time'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {!! Form::input('time', 'start_time', null, ['class' =>
                                                     'form-control', 'required' => 'required']) !!}
                                                 </div>
@@ -392,8 +383,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{ Form::label('end_time', __('End Time'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     {!! Form::input('time', 'end_time', null, ['class' =>
                                                     'form-control', 'required' => 'required']) !!}
                                                 </div>
@@ -407,8 +398,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {{ Form::label('function', __('Function'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     @if(isset($function) && !empty($function))
                                                     @foreach($function as $key => $value)
                                                     <div class="form-check">
@@ -428,16 +419,13 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             <div class="col-6 need_full" id="mailFunctionSection">
                                                 @if(isset($function) && !empty($function))
                                                 @foreach($function as $key =>$value)
-                                                <div class="form-group" data-main-index="{{$key}}"
-                                                    data-main-value="{{$value['function']}}" id="function_package"
-                                                    style="display: none;">
+                                                <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
                                                     {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     @foreach($value['package'] as $k => $package)
-                                                    <div class="form-check" data-main-index="{{$k}}"
-                                                        data-main-package="{{$package}}">
+                                                    <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
                                                         {!! Form::checkbox('package_'.str_replace(' ', '',
                                                         strtolower($value['function'])).'[]',$package, null, ['id' =>
                                                         'package_' . $key.$k, 'data-function' => $value['function'],
@@ -455,13 +443,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
                                                 @foreach($additional_items as $ad_key =>$ad_value)
                                                 @foreach($ad_value as $fun_key =>$packageVal)
-                                                <div class="form-group" data-additional-index="{{$fun_key}}"
-                                                    data-additional-value="{{key($packageVal)}}" id="ad_package"
-                                                    style="display: none;">
+                                                <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display: none;">
                                                     {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
                                                     @foreach($packageVal as $pac_key =>$item)
-                                                    <div class="form-check" data-additional-index="{{$pac_key}}"
-                                                        data-additional-package="{{$pac_key}}">
+                                                    <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
                                                         {!! Form::checkbox('additional_'.str_replace(' ', '_',
                                                         strtolower($fun_key)).'[]',$pac_key, null, ['data-function' =>
                                                         $fun_key, 'class' => 'form-check-input']) !!}
@@ -480,15 +465,9 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     <label><b>Setup</b></label>
                                                     @foreach($setup as $s)
                                                     <div class="col-6 need_full mt-4">
-                                                        <input type="radio" id="image_{{ $loop->index }}"
-                                                            name="uploadedImage" class="form-check-input "
-                                                            value="{{ asset('floor_images/' . $s->image) }}"
-                                                            style="display:none;">
+                                                        <input type="radio" id="image_{{ $loop->index }}" name="uploadedImage" class="form-check-input " value="{{ asset('floor_images/' . $s->image) }}" style="display:none;">
                                                         <label for="image_{{ $loop->index }}" class="form-check-label">
-                                                            <img src="{{asset('floor_images/'.$s->image)}}"
-                                                                alt="Uploaded Image"
-                                                                class="img-thumbnail floorimages zoom"
-                                                                data-bs-toggle="tooltip" title="{{$s->Description}}">
+                                                            <img src="{{asset('floor_images/'.$s->image)}}" alt="Uploaded Image" class="img-thumbnail floorimages zoom" data-bs-toggle="tooltip" title="{{$s->Description}}">
                                                         </label>
                                                     </div>
                                                     @endforeach
@@ -522,8 +501,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <div class="form-group">
                                                     {!! Form::label('meal', 'Meal Preference') !!}
                                                     <span class="text-sm">
-                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                </span>
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
                                                     @foreach($meal as $key => $label)
                                                     <div>
                                                         {{ Form::radio('meal', $label , false, ['id' => $label]) }}
@@ -546,12 +525,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             <div class="col-6" id="barpacakgeoptions" style="display: none;">
                                                 @if(isset($bar_package) && !empty($bar_package))
                                                 @foreach($bar_package as $key =>$value)
-                                                <div class="form-group" data-main-index="{{$key}}"
-                                                    data-main-value="{{$value['bar']}}">
+                                                <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
                                                     {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
                                                     @foreach($value['barpackage'] as $k => $bar)
-                                                    <div class="form-check" data-main-index="{{$k}}"
-                                                        data-main-package="{{$bar}}">
+                                                    <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
                                                         {!! Form::radio('bar'.'_'.str_replace(' ', '',
                                                         strtolower($value['bar'])), $bar, false, ['id' => 'bar_' .
                                                         $key.$k, 'data-function' => $value['bar'], 'class' =>
@@ -593,8 +570,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
-                                                    <input type="file" name="atttachment" id="atttachment"
-                                                        class="form-control">
+                                                    <input type="file" name="atttachment" id="atttachment" class="form-control">
 
                                                 </div>
                                             </div>
@@ -617,135 +593,135 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 @endsection
 @push('script-page')
 <script>
-    $(document).ready(function(){
-    // Attach a keyup event listener to input fields
-    $('input').on('keyup', function(){
-        // Get the input value
-        var value = $(this).val();
-        // Check if the input value contains spaces
-        if(value.indexOf(' ') !== -1) {
-            // Display validation message
-            $('#validationMessage').text('Spaces are not allowed in this field').show();
-        } else {
-            // Hide validation message if no spaces are found
-            $('#validationMessage').hide();
-        }
-    });
-});
-$(document).ready(function() {
-    $("input[type='text'][name='lead_name'],input[type='text'][name='name'], input[type='text'][name='email'], select[name='type'],input[type='tel'][name='phone'],input[name='guest_count'],input[name='start_date'],input[name='start_time'],input[name='end_time']")
-        .focusout(function() {
-
-            var input = $(this);
-            var errorMessage = '';
-            if (input.attr('name') === 'email' && input.val() !== '') {
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(input.val())) {
-                    errorMessage = 'Invalid email address.';
-                }
-            } else if (input.val() == '') {
-                errorMessage = 'This field is required.';
-            }
-
-            if (errorMessage != '') {
-                input.css('border', 'solid 2px red');
+    $(document).ready(function() {
+        // Attach a keyup event listener to input fields
+        $('input').on('keyup', function() {
+            // Get the input value
+            var value = $(this).val();
+            // Check if the input value contains spaces
+            if (value.indexOf(' ') !== -1) {
+                // Display validation message
+                $('#validationMessage').text('Spaces are not allowed in this field').show();
             } else {
-                // If it is not blank. 
-                input.css('border', 'solid 2px black');
-            }
-
-            // Remove any existing error message
-            input.next('.validation-error').remove();
-
-            // Append the error message if it exists
-            if (errorMessage != '') {
-                input.after('<div class="validation-error text-danger" style="padding:2px;">' +
-                    errorMessage + '</div>');
+                // Hide validation message if no spaces are found
+                $('#validationMessage').hide();
             }
         });
-});
+    });
+    $(document).ready(function() {
+        $("input[type='text'][name='lead_name'],input[type='text'][name='name'], input[type='text'][name='email'], select[name='type'],input[type='tel'][name='primary_contact'],input[name='guest_count'],input[name='start_date'],input[name='start_time'],input[name='end_time']")
+            .focusout(function() {
+
+                var input = $(this);
+                var errorMessage = '';
+                if (input.attr('name') === 'email' && input.val() !== '') {
+                    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(input.val())) {
+                        errorMessage = 'Invalid email address.';
+                    }
+                } else if (input.val() == '') {
+                    errorMessage = 'This field is required.';
+                }
+
+                if (errorMessage != '') {
+                    input.css('border', 'solid 2px red');
+                } else {
+                    // If it is not blank. 
+                    input.css('border', 'solid 2px black');
+                }
+
+                // Remove any existing error message
+                input.next('.validation-error').remove();
+
+                // Append the error message if it exists
+                if (errorMessage != '') {
+                    input.after('<div class="validation-error text-danger" style="padding:2px;">' +
+                        errorMessage + '</div>');
+                }
+            });
+    });
 </script>
 
 <script>
-$(document).ready(function() {
-    // Retrieve leadId from localStorage
-    var leadId = localStorage.getItem('leadId');
+    $(document).ready(function() {
+        // Retrieve leadId from localStorage
+        var leadId = localStorage.getItem('leadId');
 
-    // Check if leadId exists in localStorage
-    if (leadId) {
-        $('select[name="lead"]').val(leadId);
-        // Use the leadId as needed, for example:
-        console.log('Lead ID:', leadId);
-        var venu = leadId;
-        $.ajax({
-            url: "{{ route('meeting.lead') }}",
-            type: 'POST',
-            data: {
-                "venue": venu,
-                "_token": "{{ csrf_token() }}",
-            },
-            success: function(data) {
-                // func_pack = json_decode(data.func_package);
-                venue_str = data.venue_selection;
-                venue_arr = venue_str.split(",");
-                func_str = data.function;
-                func_arr = func_str.split(",");
-                $('input[name ="company_name"]').val(data.company_name);
-                $('input[name ="name"]').val(data.name);
-                // Phone number formatting
-                // var phoneInput = $('input[name ="phone"]');
-                // phoneInput.val(data.phone);
-                // // phoneInput.trigger('input');
-                // // phoneInput.addEventListener('input', enforceFormat);
-                // // phoneInput.addEventListener('input', formatToPhone); 
-                $('input[name ="relationship"]').val(data.relationship);
-                $('input[name ="start_date"]').val(data.start_date);
-                // $('input[name ="end_date"]').val(data.end_date);
-                $('input[name ="start_time"]').val(data.start_time);
-                $('input[name ="end_time"]').val(data.end_time);
-                $('input[name ="rooms"]').val(data.rooms);
-                $('input[name ="email"]').val(data.email);
-                $('input[name ="lead_address"]').val(data.lead_address);
-                $("select[name='type'] option[value='" + data.type + "']").prop("selected",
-                    true);
-                $("input[name='bar'][value='" + data.bar + "']").prop('checked', true);
-                $("input[name='user[]'][value='" + data.assigned_user + "']").prop(
-                    'checked', true);
-                $.each(venue_arr, function(i, val) {
-                    $("input[name='venue[]'][value='" + val + "']").prop('checked',
+        // Check if leadId exists in localStorage
+        if (leadId) {
+            $('select[name="lead"]').val(leadId);
+            // Use the leadId as needed, for example:
+            console.log('Lead ID:', leadId);
+            var venu = leadId;
+            $.ajax({
+                url: "{{ route('meeting.lead') }}",
+                type: 'POST',
+                data: {
+                    "venue": venu,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data) {
+                    // func_pack = json_decode(data.func_package);
+                    venue_str = data.venue_selection;
+                    venue_arr = venue_str.split(",");
+                    func_str = data.function;
+                    func_arr = func_str.split(",");
+                    $('input[name ="company_name"]').val(data.company_name);
+                    $('input[name ="name"]').val(data.name);
+                    // Phone number formatting
+                    // var phoneInput = $('input[name ="phone"]');
+                    // phoneInput.val(data.phone);
+                    // // phoneInput.trigger('input');
+                    // // phoneInput.addEventListener('input', enforceFormat);
+                    // // phoneInput.addEventListener('input', formatToPhone); 
+                    $('input[name ="relationship"]').val(data.relationship);
+                    $('input[name ="start_date"]').val(data.start_date);
+                    // $('input[name ="end_date"]').val(data.end_date);
+                    $('input[name ="start_time"]').val(data.start_time);
+                    $('input[name ="end_time"]').val(data.end_time);
+                    $('input[name ="rooms"]').val(data.rooms);
+                    $('input[name ="email"]').val(data.email);
+                    $('input[name ="lead_address"]').val(data.lead_address);
+                    $("select[name='type'] option[value='" + data.type + "']").prop("selected",
                         true);
-                });
-
-                $.each(func_arr, function(i, val) {
-                    $("input[name='function[]'][value='" + val + "']").prop(
+                    $("input[name='bar'][value='" + data.bar + "']").prop('checked', true);
+                    $("input[name='user[]'][value='" + data.assigned_user + "']").prop(
                         'checked', true);
-                });
-                $('input[name ="guest_count"]').val(data.guest_count);
-                var checkedFunctions = $('input[name="function[]"]:checked').map(
-                    function() {
-                        return $(this).val();
-                    }).get();
-                var mailFunctionSection = document.getElementById('mailFunctionSection');
-                var divs = mailFunctionSection.querySelectorAll('.form-group');
-                divs.forEach(function(div) {
-                    var mainValue = div.getAttribute('data-main-value');
-                    if (checkedFunctions.includes(mainValue)) {
-                        div.style.display = 'block';
-                    } else {
-                        div.style.display = 'none';
-                    }
-                });
-            }
-        });
-        // Clear the leadId from localStorage (optional)
-        localStorage.removeItem('leadId');
-    }
-});
+                    $.each(venue_arr, function(i, val) {
+                        $("input[name='venue[]'][value='" + val + "']").prop('checked',
+                            true);
+                    });
+
+                    $.each(func_arr, function(i, val) {
+                        $("input[name='function[]'][value='" + val + "']").prop(
+                            'checked', true);
+                    });
+                    $('input[name ="guest_count"]').val(data.guest_count);
+                    var checkedFunctions = $('input[name="function[]"]:checked').map(
+                        function() {
+                            return $(this).val();
+                        }).get();
+                    var mailFunctionSection = document.getElementById('mailFunctionSection');
+                    var divs = mailFunctionSection.querySelectorAll('.form-group');
+                    divs.forEach(function(div) {
+                        var mainValue = div.getAttribute('data-main-value');
+                        if (checkedFunctions.includes(mainValue)) {
+                            div.style.display = 'block';
+                        } else {
+                            div.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            // Clear the leadId from localStorage (optional)
+            localStorage.removeItem('leadId');
+        }
+    });
 </script>
 <style>
-.iti.iti--allow-dropdown.iti--separate-dial-code {
-    width: 100%;
-}
+    .iti.iti--allow-dropdown.iti--separate-dial-code {
+        width: 100%;
+    }
 </style>
 <!-- <script>
 $(document).ready(function() {
@@ -759,244 +735,244 @@ $(document).ready(function() {
 });
 </script> -->
 <script>
-$(document).ready(function() {
-    var input = document.querySelector("#phone-input");
-    var iti = window.intlTelInput(input, {
-        separateDialCode: true,
-    });
+    $(document).ready(function() {
+        var input = document.querySelector("#phone-input");
+        var iti = window.intlTelInput(input, {
+            separateDialCode: true,
+        });
 
-    var indiaCountryCode = iti.getSelectedCountryData().iso2;
-    var countryCode = iti.getSelectedCountryData().dialCode;
-    $('#country-code').val(countryCode);
-    if (indiaCountryCode !== 'us') {
-        iti.setCountry('us');
-    }
-
-    // $('#start_date, #end_date').change(function() {
-    //     var startDate = new Date($('#start_date').val());
-    //     var endDate = new Date($('#end_date').val());
-
-    //     if ($(this).attr('id') === 'start_date' && endDate < startDate) {
-    //         $('#end_date').val($('#start_date').val());
-    //     } else if ($(this).attr('id') === 'end_date' && endDate < startDate) {
-    //         $('#start_date').val($('#end_date').val());
-    //     }
-    // });
-    $('input[name="uploadedImage"]').change(function() {
-        $('.floorimages').removeClass('selected-image');
-        if ($(this).is(':checked')) {
-            var imageId = $(this).attr('id');
-            $('label[for="' + imageId + '"] img').addClass('selected-image');
+        var indiaCountryCode = iti.getSelectedCountryData().iso2;
+        var countryCode = iti.getSelectedCountryData().dialCode;
+        $('#country-code').val(countryCode);
+        if (indiaCountryCode !== 'us') {
+            iti.setCountry('us');
         }
-    });
-});
-</script>
-<script>
-const isNumericInput = (event) => {
-    const key = event.keyCode;
-    return ((key >= 48 && key <= 57) || // Allow number line
-        (key >= 96 && key <= 105) // Allow number pad
-    );
-};
-const isModifierKey = (event) => {
-    const key = event.keyCode;
-    return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
-        (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
-        (key > 36 && key < 41) || // Allow left, up, right, down
-        (
-            // Allow Ctrl/Command + A,C,V,X,Z
-            (event.ctrlKey === true || event.metaKey === true) &&
-            (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
-        )
-};
-const enforceFormat = (event) => {
-    // Input must be of a valid number format or a modifier key, and not longer than ten digits
-    if (!isNumericInput(event) && !isModifierKey(event)) {
-        event.preventDefault();
-    }
-};
-const formatToPhone = (event) => {
-    if (isModifierKey(event)) {
-        return;
-    }
-    // I am lazy and don't like to type things more than once
-    const target = event.target;
-    const input = event.target.value.replace(/\D/g, '').substring(0, 10); // First ten digits of input only
-    const zip = input.substring(0, 3);
-    const middle = input.substring(3, 6);
-    const last = input.substring(6, 10);
 
-    if (input.length > 6) {
-        target.value = `(${zip}) ${middle} - ${last}`;
-    } else if (input.length > 3) {
-        target.value = `(${zip}) ${middle}`;
-    } else if (input.length > 0) {
-        target.value = `(${zip}`;
-    }
-};
-const inputElement = document.getElementById('phone-input');
-inputElement.addEventListener('keydown', enforceFormat);
-inputElement.addEventListener('keyup', formatToPhone);
-</script>
-<script>
-$(document).ready(function() {
-    $('form').submit(function(event) {
-        var isValid = true;
+        // $('#start_date, #end_date').change(function() {
+        //     var startDate = new Date($('#start_date').val());
+        //     var endDate = new Date($('#end_date').val());
 
-        // Iterate over each checked function
-        $('input[name="function[]"]:checked').each(function() {
-            var functionName = $(this).val();
-            var checkboxName = 'package_' + functionName.replace(/ /g, '').toLowerCase() + '[]';
-            // Check if at least one checkbox for this function is checked
-            if ($('input[name="' + checkboxName + '"]:checked').length === 0) {
-                // If no checkbox is checked for this function, set isValid to false
-                isValid = false;
-                return false; // Exit the loop
+        //     if ($(this).attr('id') === 'start_date' && endDate < startDate) {
+        //         $('#end_date').val($('#start_date').val());
+        //     } else if ($(this).attr('id') === 'end_date' && endDate < startDate) {
+        //         $('#start_date').val($('#end_date').val());
+        //     }
+        // });
+        $('input[name="uploadedImage"]').change(function() {
+            $('.floorimages').removeClass('selected-image');
+            if ($(this).is(':checked')) {
+                var imageId = $(this).attr('id');
+                $('label[for="' + imageId + '"] img').addClass('selected-image');
             }
         });
-        // If validation failed, prevent form submission
-        if (!isValid) {
+    });
+</script>
+<script>
+    const isNumericInput = (event) => {
+        const key = event.keyCode;
+        return ((key >= 48 && key <= 57) || // Allow number line
+            (key >= 96 && key <= 105) // Allow number pad
+        );
+    };
+    const isModifierKey = (event) => {
+        const key = event.keyCode;
+        return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
+            (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
+            (key > 36 && key < 41) || // Allow left, up, right, down
+            (
+                // Allow Ctrl/Command + A,C,V,X,Z
+                (event.ctrlKey === true || event.metaKey === true) &&
+                (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
+            )
+    };
+    const enforceFormat = (event) => {
+        // Input must be of a valid number format or a modifier key, and not longer than ten digits
+        if (!isNumericInput(event) && !isModifierKey(event)) {
             event.preventDefault();
-            show_toastr('Success', 'Select Food Package for selected Function', 'danger');
-            return false;
         }
-    });
-});
+    };
+    const formatToPhone = (event) => {
+        if (isModifierKey(event)) {
+            return;
+        }
+        // I am lazy and don't like to type things more than once
+        const target = event.target;
+        const input = event.target.value.replace(/\D/g, '').substring(0, 10); // First ten digits of input only
+        const zip = input.substring(0, 3);
+        const middle = input.substring(3, 6);
+        const last = input.substring(6, 10);
+
+        if (input.length > 6) {
+            target.value = `(${zip}) ${middle} - ${last}`;
+        } else if (input.length > 3) {
+            target.value = `(${zip}) ${middle}`;
+        } else if (input.length > 0) {
+            target.value = `(${zip}`;
+        }
+    };
+    const inputElement = document.getElementById('phone-input');
+    inputElement.addEventListener('keydown', enforceFormat);
+    inputElement.addEventListener('keyup', formatToPhone);
 </script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
+        $('form').submit(function(event) {
+            var isValid = true;
 
-    //$('input[name=newevent]').prop('checked', false);
-    $('input[name="newevent"]').on('click', function() {
-        $('#lead_select').hide();
-        $('#new_event').hide();
-        $('#event_option').show();
-        var selectedValue = $(this).val();
-        if (selectedValue == 'Existing Lead') {
-            $('#lead_select').show();
-        } else {
-            $('#new_event').show();
-            $('input#resetForm').trigger('click');
-        }
-    });
-    $('select[name= "lead"]').on('change', function() {
-        $("input[name='user[]'").prop('checked', false);
-        $("input[name='bar']").prop('checked', false);
-        $("input[name='user[]']").prop('checked', false);
-        $("input[name='venue[]']").prop('checked', false);
-        $("input[name='function[]']").prop('checked', false);
-        var venu = this.value;
-        $.ajax({
-            url: "{{ route('meeting.lead') }}",
-            type: 'POST',
-            data: {
-                "venue": venu,
-                "_token": "{{ csrf_token() }}",
-            },
-            success: function(data) {
-                console.log(data);
-                venue_str = data.venue_selection;
-                venue_arr = venue_str.split(",");
-                func_str = data.function;
-                func_arr = func_str.split(",");
-                $('input[name ="company_name"]').val(data.company_name);
-                $('input[name ="name"]').val(data.name);
-                $('input[name ="relationship"]').val(data.relationship);
-                $('input[name ="phone"]').val(data.phone);
-                $('input[name ="start_date"]').val(data.start_date);
-                // $('input[name ="end_date"]').val(data.end_date);
-                $('input[name ="start_time"]').val(data.start_time);
-                $('input[name ="end_time"]').val(data.end_time);
-                $('input[name ="spcl_request"]').val(data.spcl_req);
-                $('input[name ="allergies"]').val(data.allergies);
-                $('input[name ="rooms"]').val(data.rooms);
-                $('input[name ="email"]').val(data.email);
-                $('input[name ="lead_address"]').val(data.lead_address);
-                $("select[name='type'] option[value='" + data.type + "']").prop("selected",
-                    true);
-                $("input[name='baropt'][value='" + data.bar + "']").prop('checked', true);
-                $("input[name='user[]'][value='" + data.assigned_user + "']").prop(
-                    'checked', true);
-                $.each(venue_arr, function(i, val) {
-                    $("input[name='venue[]'][value='" + val + "']").prop('checked',
-                        true);
-                });
-
-                $.each(func_arr, function(i, val) {
-                    $("input[name='function[]'][value='" + val + "']").prop(
-                        'checked', true);
-                });
-                $('input[name ="guest_count"]').val(data.guest_count);
-                var checkedFunctions = $('input[name="function[]"]:checked').map(
-                    function() {
-                        return $(this).val();
-                    }).get();
-                var mailFunctionSection = document.getElementById('mailFunctionSection');
-                var divs = mailFunctionSection.querySelectorAll('.form-group');
-                divs.forEach(function(div) {
-                    var mainValue = div.getAttribute('data-main-value');
-                    if (checkedFunctions.includes(mainValue)) {
-                        div.style.display = 'block';
-                    } else {
-                        div.style.display = 'none';
-                    }
-                });
-            }
-        });
-    });
-
-    jQuery(function() {
-        $('input[name="function[]"]').change(function() {
-            $('div#mailFunctionSection > div').hide();
+            // Iterate over each checked function
             $('input[name="function[]"]:checked').each(function() {
-                var funVal = $(this).val();
-                $('div#mailFunctionSection > div').each(function() {
-                    var attr_value = $(this).data('main-value');
-                    if (attr_value == funVal) {
-                        $(this).show();
-                    }
-                });
+                var functionName = $(this).val();
+                var checkboxName = 'package_' + functionName.replace(/ /g, '').toLowerCase() + '[]';
+                // Check if at least one checkbox for this function is checked
+                if ($('input[name="' + checkboxName + '"]:checked').length === 0) {
+                    // If no checkbox is checked for this function, set isValid to false
+                    isValid = false;
+                    return false; // Exit the loop
+                }
             });
-        });
-    });
-    jQuery(function() {
-        $('div#mailFunctionSection input[type=checkbox]').change(function() {
-            $('div#additionalSection > div').hide();
-            $('div#mailFunctionSection input[type=checkbox]:checked').each(function() {
-                var funcValue = $(this).val();
-                $('div#additionalSection > div').each(function() {
-                    var ad_val = $(this).data('additional-index');
-                    if (funcValue == ad_val) {
-                        $(this).show();
-                    }
-                });
-            });
-        });
-    });
-    jQuery(function() {
-        $('input[type=radio][name = baropt]').change(function() {
-            $('div#barpacakgeoptions').hide();
-            var value = $(this).val();
-            if (value == 'Package Choice') {
-                $('div#barpacakgeoptions').show();
+            // If validation failed, prevent form submission
+            if (!isValid) {
+                event.preventDefault();
+                show_toastr('Success', 'Select Food Package for selected Function', 'danger');
+                return false;
             }
         });
     });
-});
-var scrollSpy = new bootstrap.ScrollSpy(document.body, {
-    target: '#useradd-sidenav',
-    offset: 300
-})
-document.getElementById('opencontact').addEventListener('click', function(event) {
-    var x = document.getElementById("contact-info");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-    event.stopPropagation();
-    event.preventDefault();
-});
+</script>
+<script>
+    $(document).ready(function() {
+
+        //$('input[name=newevent]').prop('checked', false);
+        $('input[name="newevent"]').on('click', function() {
+            $('#lead_select').hide();
+            $('#new_event').hide();
+            $('#event_option').show();
+            var selectedValue = $(this).val();
+            if (selectedValue == 'Existing Lead') {
+                $('#lead_select').show();
+            } else {
+                $('#new_event').show();
+                $('input#resetForm').trigger('click');
+            }
+        });
+        $('select[name= "lead"]').on('change', function() {
+            $("input[name='user[]'").prop('checked', false);
+            $("input[name='bar']").prop('checked', false);
+            $("input[name='user[]']").prop('checked', false);
+            $("input[name='venue[]']").prop('checked', false);
+            $("input[name='function[]']").prop('checked', false);
+            var venu = this.value;
+            $.ajax({
+                url: "{{ route('meeting.lead') }}",
+                type: 'POST',
+                data: {
+                    "venue": venu,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data) {
+                    console.log(data);
+                    venue_str = data.venue_selection;
+                    venue_arr = venue_str.split(",");
+                    func_str = data.function;
+                    func_arr = func_str.split(",");
+                    $('input[name ="company_name"]').val(data.company_name);
+                    $('input[name ="name"]').val(data.name);
+                    $('input[name ="relationship"]').val(data.relationship);
+                    $('input[name ="primary_contact"]').val(data.primary_contact);
+                    $('input[name ="start_date"]').val(data.start_date);
+                    // $('input[name ="end_date"]').val(data.end_date);
+                    $('input[name ="start_time"]').val(data.start_time);
+                    $('input[name ="end_time"]').val(data.end_time);
+                    $('input[name ="spcl_request"]').val(data.spcl_req);
+                    $('input[name ="allergies"]').val(data.allergies);
+                    $('input[name ="rooms"]').val(data.rooms);
+                    $('input[name ="email"]').val(data.email);
+                    $('input[name ="lead_address"]').val(data.lead_address);
+                    $("select[name='type'] option[value='" + data.type + "']").prop("selected",
+                        true);
+                    $("input[name='baropt'][value='" + data.bar + "']").prop('checked', true);
+                    $("input[name='user[]'][value='" + data.assigned_user + "']").prop(
+                        'checked', true);
+                    $.each(venue_arr, function(i, val) {
+                        $("input[name='venue[]'][value='" + val + "']").prop('checked',
+                            true);
+                    });
+
+                    $.each(func_arr, function(i, val) {
+                        $("input[name='function[]'][value='" + val + "']").prop(
+                            'checked', true);
+                    });
+                    $('input[name ="guest_count"]').val(data.guest_count);
+                    var checkedFunctions = $('input[name="function[]"]:checked').map(
+                        function() {
+                            return $(this).val();
+                        }).get();
+                    var mailFunctionSection = document.getElementById('mailFunctionSection');
+                    var divs = mailFunctionSection.querySelectorAll('.form-group');
+                    divs.forEach(function(div) {
+                        var mainValue = div.getAttribute('data-main-value');
+                        if (checkedFunctions.includes(mainValue)) {
+                            div.style.display = 'block';
+                        } else {
+                            div.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        jQuery(function() {
+            $('input[name="function[]"]').change(function() {
+                $('div#mailFunctionSection > div').hide();
+                $('input[name="function[]"]:checked').each(function() {
+                    var funVal = $(this).val();
+                    $('div#mailFunctionSection > div').each(function() {
+                        var attr_value = $(this).data('main-value');
+                        if (attr_value == funVal) {
+                            $(this).show();
+                        }
+                    });
+                });
+            });
+        });
+        jQuery(function() {
+            $('div#mailFunctionSection input[type=checkbox]').change(function() {
+                $('div#additionalSection > div').hide();
+                $('div#mailFunctionSection input[type=checkbox]:checked').each(function() {
+                    var funcValue = $(this).val();
+                    $('div#additionalSection > div').each(function() {
+                        var ad_val = $(this).data('additional-index');
+                        if (funcValue == ad_val) {
+                            $(this).show();
+                        }
+                    });
+                });
+            });
+        });
+        jQuery(function() {
+            $('input[type=radio][name = baropt]').change(function() {
+                $('div#barpacakgeoptions').hide();
+                var value = $(this).val();
+                if (value == 'Package Choice') {
+                    $('div#barpacakgeoptions').show();
+                }
+            });
+        });
+    });
+    var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+        target: '#useradd-sidenav',
+        offset: 300
+    })
+    document.getElementById('opencontact').addEventListener('click', function(event) {
+        var x = document.getElementById("contact-info");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+        event.stopPropagation();
+        event.preventDefault();
+    });
 </script>
 
 @endpush

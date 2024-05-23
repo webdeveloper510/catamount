@@ -639,13 +639,13 @@ class LeadController extends Controller
     public function proposalview($id)
     {
         $id = decrypt(urldecode($id));
-        $auth = auth()->user();
         $lead = Lead::find($id);
+        $users = User::find($lead->user_id);
         $settings = Utility::settings();
         $venue = explode(',', $settings['venue']);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
-        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'auth'));
+        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users'));
     }
     public function proposal_resp(Request $request, $id)
     {
@@ -655,7 +655,6 @@ class LeadController extends Controller
         die(); */
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
-        $auth = auth()->user();
 
         $agreement = html_entity_decode($request->agreement);
         $remarks = html_entity_decode($request->remarks);
@@ -690,13 +689,15 @@ class LeadController extends Controller
         $lead = Lead::find($id);
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
 
+        $usersDetail = User::find($lead->user_id);
+
         // die;
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
         $data = [
             'proposal' => $proposals,
             'lead' => $lead,
-            'auth' => $auth,
+            'usersDetail' => $usersDetail,
             'fixed_cost' => $fixed_cost,
             'settings' => $settings,
             'additional_items' => $additional_items
@@ -992,6 +993,14 @@ class LeadController extends Controller
         $id = $request->id;
         Lead::where('id', $id)->update([
             'lead_status' => $request->status
+        ]);
+        return true;
+    }
+    public function propstatus(Request $request)
+    {
+        $id = $request->id;
+        Lead::where('id', $id)->update([
+            'status' => $request->status
         ]);
         return true;
     }

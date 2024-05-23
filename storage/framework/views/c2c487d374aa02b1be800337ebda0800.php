@@ -14,8 +14,9 @@ if (isset($proposal) && ($proposal['image'] != null)) {
 
 // $data['lead'] = $lead->toArray();
 // $data['proposal'] = $proposal->toArray();
-/* echo '<pre>';
-print_r($data); */
+// $data['usersDetail'] = $usersDetail->toArray();
+// echo '<pre>';
+// print_r($data);
 
 ?>
 <!DOCTYPE html>
@@ -114,15 +115,9 @@ print_r($data); */
         /* .col-sm-6 {
             width: calc(100%/2);
         } */
-        .sidebyside,
-        .details {
+        .sidebyside {
             display: flex !important;
             width: 100% !important;
-        }
-
-        .details label {
-            width: 200px !important;
-            min-width: 200px !important;
         }
 
         .col-sm-6 {
@@ -156,7 +151,7 @@ print_r($data); */
             <div class="col-sm-12 border-new">
                 <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                 <h5 class="center-new input-new">
-                    <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($auth->email)); ?>
+                    <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($usersDetail->email)); ?>
 
                 </h5>
                 <h5 class="center-new">Feel free to call our office at (518) 623-2352 with any questions</h5>
@@ -221,7 +216,7 @@ print_r($data); */
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">
-                    <label for="date"><?php echo e(__('Date')); ?>: </label>
+                    <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                 </h5>
             </div>
             <div class="col-sm-12 border-new1">
@@ -253,21 +248,21 @@ print_r($data); */
             </div>
             <div class="table">
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-                    <tr style="background-color: #f8b332; color: white; text-align: left;">
+                    <tr style="color: #000; text-align: left;">
                         <th style="padding: 12px;">Label</th>
                         <th style="padding: 12px;">Details</th>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
-                        <td style="padding: 8px;"><?php echo e(__($proposal->name)); ?></td>
+                        <td style="padding: 8px;"><?php echo e(__($usersDetail->name)); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Designation</td>
-                        <td style="padding: 8px;"><?php echo e(__($proposal->designation)); ?></td>
+                        <td style="padding: 8px;"><?php echo e(__($usersDetail->type)); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;"><?php echo e(__($proposal->date)); ?></td>
+                        <td style="padding: 8px;"><?php echo e(__(date('Y-m-d'))); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
@@ -286,7 +281,7 @@ print_r($data); */
                     </tr>
                 </table>
             </div>
-            <div class="details">
+            <!-- <div class="details">
                 <h5 class="input-new1">
                     <label for="name"><?php echo e(__('Name')); ?>: </label><?php echo e(__($proposal->name)); ?>
 
@@ -313,7 +308,7 @@ print_r($data); */
                     <label for="date"><?php echo e(__('Date')); ?>: </label><?php echo e(__($proposal->to_date)); ?>
 
                 </h5>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>

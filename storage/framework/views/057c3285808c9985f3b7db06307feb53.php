@@ -9,14 +9,14 @@ $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
 $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 
-/* $data['lead'] = $lead->toArray();
-$data['auth'] = $auth->toArray();
-$data['venue'] = $venue;
-$data['settings'] = $settings;
-$data['fixed_cost'] = $fixed_cost;
-$data['additional_items'] = $additional_items;
+// $data['lead'] = $lead->toArray();
+// $data['users'] = $users->toArray();
+// $data['venue'] = $venue;
+// $data['settings'] = $settings;
+// $data['fixed_cost'] = $fixed_cost;
+// $data['additional_items'] = $additional_items;
 
-echo '<pre>';
+/* echo '<pre>';
 print_r($data);
 echo '</pre>'; */
 ?>
@@ -83,7 +83,7 @@ echo '</pre>'; */
                         <div class="col-sm-12 border-new">
                             <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                             <h5 class="center-new input-new">
-                                <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($auth->email)); ?>
+                                <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($users->email)); ?>
 
                             </h5>
                             <h5 class="center-new">Feel free to call our office at (518) 623-2352 with any questions</h5>
@@ -118,11 +118,11 @@ echo '</pre>'; */
 
                             </h5>
                         </div>
-                        <div class="col-sm-12 border-new border-new1">
+                        <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
                             <h5 class="input-new">
                                 <label for="agreement"><?php echo e(__('Agreement')); ?>:</label>
                             </h5>
-                            <textarea name="agreement" id="agreement" class="agreement"></textarea>
+                            <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
                         <div class="col-sm-12 border-new">
                             <div id="sig">
@@ -134,11 +134,11 @@ echo '</pre>'; */
                             </div>
                             <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear Signature</button>
                         </div>
-                        <div class="col-sm-12 border-new border-new1">
+                        <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
                             <h5 class="input-new">
                                 <label for="remarks"><?php echo e(__('Remarks')); ?>:</label>
                             </h5>
-                            <textarea name="remarks" id="remarks" class="remarks"></textarea>
+                            <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
@@ -183,21 +183,21 @@ echo '</pre>'; */
                         </div> -->
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-                                <tr style="background-color: #f8b332; color: white; text-align: left;">
+                                <tr style="color: #000; text-align: left;">
                                     <th style="padding: 12px;">Label</th>
                                     <th style="padding: 12px;">Details</th>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;"><input type="text" name="name" id="name" value="" /></td>
+                                    <td style="padding: 8px;"><?php echo e(__($users->name)); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;"><input type="text" name="designation" id="designation" value="" /></td>
+                                    <td style="padding: 8px;"><?php echo e(__($users->type)); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><input type="date" name="date" id="date" value="<?php echo e(__(date('Y-m-d'))); ?>" /></td>
+                                    <td style="padding: 8px;"><?php echo e(__(date('Y-m-d'))); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
@@ -270,12 +270,12 @@ echo '</pre>'; */
 </style>
 <?php echo $__env->make('partials.admin.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('partials.admin.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!-- <script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 <script>
-    jQuery('#agreement').richText();
-    jQuery('#remarks').richText();
+    //jQuery('#agreement').richText();
+    //jQuery('#remarks').richText();
     document.addEventListener('DOMContentLoaded', function() {
         var canvas = document.getElementById('signatureCanvas');
         var signaturePad = new SignaturePad(canvas);

@@ -152,7 +152,7 @@ Route::get('/meeting-upcoming',[DashboardController::class,'upcomingevents']);
 Route::get('/meeting-completed',[DashboardController::class,'completedevents']);
 
 // UPCOMING EVENTS AND COMPLETED EVENTS ROUTES //   >
-
+Route::post('lead/change_proposal_status/',[LeadController::class,'propstatus'])->name('lead.changeproposalstat');
 Route::get('lead/proposal-signed/{id}',[LeadController::class,'proposalview'])->name('lead.signedproposal');
 Route::get('billing/get-payment-link/{id}',[BillingController::class,'getpaymentlink'])->name('billing.getpaymentlink');
 Route::post('billing/share-payment-link/{id}',[BillingController::class,'sharepaymentlink'])->name('billing.sharepaymentlink');
