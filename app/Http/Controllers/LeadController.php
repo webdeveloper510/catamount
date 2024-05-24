@@ -648,7 +648,7 @@ class LeadController extends Controller
         return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users'));
     }
     public function proposal_resp(Request $request, $id)
-    {
+    { 
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
 
