@@ -41,7 +41,7 @@ $total += $p->amount;
             <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Venue')}}</span></dt>
             <dd class="col-md-6 need_half"><span class="">{{ $event->venue_selection }}</span></dd>
 
-            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Billing Amount')}}</span></dt>
+            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Invoice Amount')}}</span></dt>
             <dd class="col-md-6 need_half"><span class="">${{ number_format($event->total) }}</span></dd>
 
             <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__(' Amount Due')}}</span></dt>
@@ -73,7 +73,7 @@ $total += $p->amount;
             @can('Manage Payment')
             <div class="action-btn bg-warning ms-2">
                 <a href="{{ route('billing.estimateview',urlencode(encrypt($event->id)))}}"> 
-                <button  data-bs-toggle="tooltip"title="{{ __('View Billing') }}" class="btn btn-sm btn-secondary btn-icon m-1">
+                <button  data-bs-toggle="tooltip"title="{{ __('View Invoice') }}" class="btn btn-sm btn-secondary btn-icon m-1">
                 <i class="fa fa-print"></i></button>
             </a>
             </div>

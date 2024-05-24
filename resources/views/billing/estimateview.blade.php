@@ -2,7 +2,7 @@
 $total = [];
 $bar_pck = json_decode($event['bar_package'], true);
 ?>
-<h6>Billing Summary -Estimate</h6>
+<h6>Invoice Summary -Estimate</h6>
 <table>
     <thead>
         <tr>

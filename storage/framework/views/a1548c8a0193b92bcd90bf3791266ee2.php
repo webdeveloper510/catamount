@@ -108,7 +108,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                     <li
                                         class="dash-item <?php echo e(\Request::route()->getName() == 'billing' || \Request::route()->getName() == 'billing.index' ? ' active' : ''); ?>">
                                         <a href="<?php echo e(route('billing.index')); ?>" class="dash-link">
-                                            <span class="dash-mtext"><?php echo e(__('Billing')); ?></span>
+                                            <span class="dash-mtext"><?php echo e(__('Invoice')); ?></span>
                                         </a>
                                     </li>
                                     <?php endif; ?>

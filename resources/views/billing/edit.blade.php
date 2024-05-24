@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('page-title')
-    {{__('Billing')}}
+    {{__('Invoice')}}
 @endsection
 @section('title')
         <div class="page-header-title">
-            {{__('Billing')}}
+            {{__('Invoice')}}
         </div>
 @endsection
 

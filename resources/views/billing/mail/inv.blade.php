@@ -201,7 +201,7 @@
 
         </div>
         <div class="body-section">
-            <h3 class="heading">Billing Details</h3>
+            <h3 class="heading">Invoice Details</h3>
             <br>
             <table class="table-bordered">
 

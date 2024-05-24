@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Billing') }}
+{{ __('Invoice') }}
 @endsection
 @section('title')
-{{ __('Billing') }}
+{{ __('Invoice') }}
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item">{{ __('Billing') }}</li>
+<li class="breadcrumb-item">{{ __('Invoice') }}</li>
 @endsection
 @section('content')
 <div class="container-field">
@@ -29,7 +29,7 @@
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Payment Status') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="completion">
-                                                    {{ __('Billing Amount') }}<span class="opticy"> dddd</span></th>
+                                                    {{ __('Invoice Amount') }}<span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Paid Amount') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="text-end">{{ __('Action') }}<span class="opticy"> dddd</span> </th>
@@ -39,7 +39,7 @@
                                             @foreach ($events as $event)
                                             <tr>
                                                 <td>
-                                                    <a href="" data-size="md" data-title="{{ __('Billing Details') }}"
+                                                    <a href="" data-size="md" data-title="{{ __('Invoice Details') }}"
                                                         class="action-item text-primary">
                                                         <a href="{{route('meeting.detailview',urlencode(encrypt($event->id)))}}"
                                                             data-size="md" title="{{ __('Detailed view ') }}"
@@ -104,7 +104,7 @@
                                                                 data-url="{{ route('billing.create',['billing',$event->id]) }}"
                                                                 data-bs-toggle="tooltip" title="{{__('Create')}}"
                                                                 data-ajax-popup="true"
-                                                                data-title="{{__('Billing Details')}}"
+                                                                data-title="{{__('Invoice Details')}}"
                                                                 class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                                 <i class="ti ti-plus"></i>
                                                             </a>
@@ -159,7 +159,7 @@
                                                             data-url="{{ route('billing.show',$event->id) }}"
                                                             data-bs-toggle="tooltip" title="{{__('Quick View')}}"
                                                             data-ajax-popup="true"
-                                                            data-title="{{__('Billing Details')}}"
+                                                            data-title="{{__('Invoice Details')}}"
                                                             class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-eye"></i>
                                                         </a>

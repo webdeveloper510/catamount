@@ -92,7 +92,7 @@ $category= explode(',',$settings['campaign_type']);
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Payment')): ?>
                 <a href="#billing-setting" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse20')">
                     <span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span>
-                    <span class="dash-mtext"><?php echo e(__('Billing')); ?></span>
+                    <span class="dash-mtext"><?php echo e(__('Invoice')); ?></span>
                 </a>
                 <?php endif; ?>
                 <?php if(\Auth::user()->type == 'owner'): ?>
@@ -112,7 +112,7 @@ $category= explode(',',$settings['campaign_type']);
                 <?php if(\Request::route()->getName() == 'billing.index'): ?>
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span>
-                    <span class="dash-mtext"><?php echo e(__('Billing')); ?> </span></a>
+                    <span class="dash-mtext"><?php echo e(__('Invoice')); ?> </span></a>
                 <?php endif; ?>
                 <?php if(\Request::route()->getName() == 'calendernew.index'): ?>
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
@@ -123,7 +123,7 @@ $category= explode(',',$settings['campaign_type']);
                 <?php if(\Request::route()->getName() == 'billing.create'): ?>
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span>
-                    <span class="dash-mtext"><?php echo e(__('Create Billing')); ?> </span></a>
+                    <span class="dash-mtext"><?php echo e(__('Create Invoice')); ?> </span></a>
                 <?php endif; ?>
                 <?php if(\Request::route()->getName() == 'customer.index' || \Request::route()->getName() == 'campaign-list'): ?>
                 <a href="<?php echo e(route('customer.index')); ?>"class="list-group-item list-group-item-action <?php echo e(\Request::route()->getName() == 'customer.index' ?'active' : ''); ?>">

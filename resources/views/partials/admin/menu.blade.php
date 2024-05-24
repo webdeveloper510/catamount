@@ -139,7 +139,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                 @can('Manage Invoice')
                     <li class="dash-item {{ \Request::route()->getName() == 'invoice' || \Request::route()->getName() == 'invoice.show' || \Request::route()->getName() == 'invoice.edit' ? ' active' : '' }}">
                         <a href="{{ route('invoice.index') }}" class="dash-link">
-                            <span class="dash-micon"><i class="ti ti-receipt"></i></span><span class="dash-mtext">{{ __('Billings') }}</span>
+                            <span class="dash-micon"><i class="ti ti-receipt"></i></span><span class="dash-mtext">{{ __('Invoice') }}</span>
                         </a>
                     </li>
                 @endcan 
@@ -318,7 +318,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                             @can('Manage Report')
                                 <li class="dash-item {{ \Request::route()->getName() == 'leadsanalytic' ? ' active ' : '' }}">
                                     <a href="{{ route('report.invoiceanalytic') }}" class="dash-link">
-                                        {{ __('Billing Analytics') }}</a>
+                                        {{ __('Invoice Analytics') }}</a>
                                 </li>
                             @endcan
                             @can('Manage Report')
@@ -487,7 +487,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                     <li class="dash-item {{ \Request::route()->getName() == 'billing' || \Request::route()->getName() == 'billing.index' ? ' active' : '' }}">
                         <a href="{{ route('billing.index') }}" class="dash-link">
                             <span class="dash-micon"><i class="far fa-calendar-alt"></i></span>
-                            <span class="dash-mtext">{{ __('Billing') }}</span>
+                            <span class="dash-mtext">{{ __('Invoice') }}</span>
                         </a>
                     </li>
                 @endif

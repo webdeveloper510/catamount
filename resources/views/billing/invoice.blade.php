@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{__('Billing')}}</title>
+    <title>{{__('Invoice')}}</title>
     <style>
         /* Add your email styles here */
     </style>
@@ -36,7 +36,7 @@
                                 <li><strong>Venue:</strong> {{ $event->venue_selection }}</li>
                             </ul>
                             <p style="font-family: Arial, sans-serif; color: #333333;">
-                                Below are the billing details:
+                                Below are the Invoice details:
                             </p>
                             <ul style="font-family: Arial, sans-serif; color: #333333;">
                                 <li><strong>Amount Paid:</strong> ${{ $newpayment->amount }}</li>

@@ -46,8 +46,13 @@ $(document).ready(function () {
         });
     });
     $(function () {
-        $(document).on("click", ".show_confirm", function () {
-            var form = $(this).closest("form");
+        // $(document).on("click", ".show_confirm", function () {
+        $(".show_confirm").click(function (event) {
+            event.preventDefault();
+            var parentTR = $(this).closest("tr");
+            // var form = $(this).closest("form");
+            var url = $(this).data("url");
+            var token = $(this).data("token");
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: "btn btn-success",
@@ -67,7 +72,25 @@ $(document).ready(function () {
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        // form.submit();
+                        $.ajax({
+                            type: "DELETE",
+                            url: url,
+                            data: {
+                                _token: token,
+                            },
+                            success: function (result) {
+                                console.log(result);
+                                console.log(result.msg);
+                                console.log(`new log`);
+                                if (result.success == true) {
+                                    swal.fire("Done!", result.msg, "success");
+                                    parentTR.remove();
+                                } else {
+                                    swal.fire("Error!", result.msg, "error");
+                                }
+                            },
+                        });
                     }
                 });
         });
@@ -111,8 +134,7 @@ $(document).ready(function () {
                                 swal.fire("Done!", result.message, "success");
                                 // setTimeout(function(){
                                 // },1000);
-                                parentSpan.hide();
-                                parentSpan.css("display", "none");
+                                parentSpan.remove();
                             } else {
                                 swal.fire("Error!", result.message, "error");
                             }
