@@ -649,10 +649,6 @@ class LeadController extends Controller
     }
     public function proposal_resp(Request $request, $id)
     {
-        /* echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';
-        die(); */
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
 
