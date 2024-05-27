@@ -153,7 +153,7 @@ $proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
         <div class="row">
             <div class="col-sm-12 mt-4 border-new">
                 <div class="img-section">
-                    <img class="logo-img center-new" src="{{ URL::asset('storage/uploads/logo/3_logo-light.png')}}" style="width: auto;margin:0 250px">
+                    <img class="logo-img center-new" src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="width: auto;margin:0 250px">
                 </div>
             </div>
             <div class="col-sm-12 border-new">
