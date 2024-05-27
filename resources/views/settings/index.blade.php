@@ -728,13 +728,25 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                 @endphp
                                                 <div class="container">
                                                     <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <h6>{{__('Agreement')}}</h6>
-                                                            <textarea name="agreement" id="agreement">{{__(@$proposal['agreement'])}}</textarea>
+                                                        <div class="form-group col-sm-6">
+                                                            <h6>{{__('Title')}}</h6>
+                                                            <input type="text" class="form-control" name="title" id="title" value="{{__(@$proposal['title'])}}">
                                                         </div>
-                                                        <div class="col-sm-6">
+                                                        <div class="form-group col-sm-6">
+                                                            <h6>{{__('Address')}}</h6>
+                                                            <textarea name="address" class="form-control" id="address">{{__(@$proposal['address'])}}</textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
+                                                            <h6>{{__('Agreement')}}</h6>
+                                                            <textarea name="agreement" class="form-control" id="agreement">{{__(@$proposal['agreement'])}}</textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
                                                             <h6>{{__('Remarks')}}</h6>
-                                                            <textarea name="remarks" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
+                                                            <textarea name="remarks" class="form-control" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6>{{__('Footer')}}</h6>
+                                                            <textarea name="footer" class="form-control" id="footer">{{__(@$proposal['footer'])}}</textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
@@ -4621,6 +4633,8 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
         jQuery(function($) {
             $('#agreement').richText();
             $('#remarks').richText();
+            $('#address').richText();
+            $('#footer').richText();
         });
     </script>
     @endpush

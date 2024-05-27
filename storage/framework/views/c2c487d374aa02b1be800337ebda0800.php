@@ -20,6 +20,15 @@ if (isset($proposal) && ($proposal['image'] != null)) {
 // echo '<pre>';
 // print_r($data);
 
+$token = array(
+    'USER_EMAIL'  => $usersDetail->email,
+);
+$pattern = '[%s]';
+foreach ($token as $key => $val) {
+    $varMap[sprintf($pattern, $key)] = $val;
+}
+$proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,15 +157,11 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                 </div>
             </div>
             <div class="col-sm-12 border-new">
-                <h4 class="center-new"><?php echo e(__('Proposal Acceptance Agreement')); ?></h4>
+                <h4 class="center-new"><?php echo __(@$proposalSettings['title']); ?></h4>
             </div>
             <div class="col-sm-12 border-new">
-                <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
-                <h5 class="center-new input-new">
-                    <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($usersDetail->email)); ?>
+                <?php echo __(@$proposalSettings['address']); ?>
 
-                </h5>
-                <h5 class="center-new">Feel free to call our office at (518) 623-2352 with any questions</h5>
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
@@ -199,7 +204,7 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                     <label for="agreement"><?php echo e(__('Agreement')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    <?php echo e(@$proposalSettings['agreement']); ?>
+                    <?php echo @$proposalSettings['agreement']; ?>
 
                 </div>
             </div>
@@ -214,7 +219,7 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                     <label for="remarks"><?php echo e(__('Remarks')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    <?php echo e(@$proposalSettings['remarks']); ?>
+                    <?php echo @$proposalSettings['remarks']; ?>
 
                 </div>
             </div>
@@ -223,7 +228,9 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                     <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                 </h5>
             </div>
-            <div class="col-sm-12 border-new1">
+            <?php echo __(@$proposalSettings['footer']); ?>
+
+            <!-- <div class="col-sm-12 border-new1">
                 <h5 class="input-new">
                     <label for="scopeServices"><?php echo e(__('Scope of Services')); ?>: </label>
                 </h5>
@@ -249,7 +256,7 @@ if (isset($proposal) && ($proposal['image'] != null)) {
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">We look forward to work with you. Please feel free to contact our office with any questions or concerns.</br>Respectfully,</h5>
-            </div>
+            </div> -->
             <div class="table">
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
                     <tr style="color: #000; text-align: left;">

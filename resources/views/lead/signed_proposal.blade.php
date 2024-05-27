@@ -20,6 +20,15 @@ if (isset($proposal) && ($proposal['image'] != null)) {
 // echo '<pre>';
 // print_r($data);
 
+$token = array(
+    'USER_EMAIL'  => $usersDetail->email,
+);
+$pattern = '[%s]';
+foreach ($token as $key => $val) {
+    $varMap[sprintf($pattern, $key)] = $val;
+}
+$proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,14 +157,10 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                 </div>
             </div>
             <div class="col-sm-12 border-new">
-                <h4 class="center-new">{{__('Proposal Acceptance Agreement')}}</h4>
+                <h4 class="center-new">{!!__(@$proposalSettings['title'])!!}</h4>
             </div>
             <div class="col-sm-12 border-new">
-                <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
-                <h5 class="center-new input-new">
-                    <label for="email">{{__('Email')}}: </label>{{__($usersDetail->email)}}
-                </h5>
-                <h5 class="center-new">Feel free to call our office at (518) 623-2352 with any questions</h5>
+                {!!__(@$proposalSettings['address'])!!}
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
@@ -215,7 +220,8 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                     <label for="date">{{__('Date')}}: {{__($lead->start_date)}}</label>
                 </h5>
             </div>
-            <div class="col-sm-12 border-new1">
+            {!!__(@$proposalSettings['footer'])!!}
+            <!-- <div class="col-sm-12 border-new1">
                 <h5 class="input-new">
                     <label for="scopeServices">{{__('Scope of Services')}}: </label>
                 </h5>
@@ -241,7 +247,7 @@ if (isset($proposal) && ($proposal['image'] != null)) {
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">We look forward to work with you. Please feel free to contact our office with any questions or concerns.</br>Respectfully,</h5>
-            </div>
+            </div> -->
             <div class="table">
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
                     <tr style="color: #000; text-align: left;">

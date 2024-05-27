@@ -758,13 +758,25 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                 ?>
                                                 <div class="container">
                                                     <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <h6><?php echo e(__('Agreement')); ?></h6>
-                                                            <textarea name="agreement" id="agreement"><?php echo e(__(@$proposal['agreement'])); ?></textarea>
+                                                        <div class="form-group col-sm-6">
+                                                            <h6><?php echo e(__('Title')); ?></h6>
+                                                            <input type="text" class="form-control" name="title" id="title" value="<?php echo e(__(@$proposal['title'])); ?>">
                                                         </div>
-                                                        <div class="col-sm-6">
+                                                        <div class="form-group col-sm-6">
+                                                            <h6><?php echo e(__('Address')); ?></h6>
+                                                            <textarea name="address" class="form-control" id="address"><?php echo e(__(@$proposal['address'])); ?></textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
+                                                            <h6><?php echo e(__('Agreement')); ?></h6>
+                                                            <textarea name="agreement" class="form-control" id="agreement"><?php echo e(__(@$proposal['agreement'])); ?></textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
                                                             <h6><?php echo e(__('Remarks')); ?></h6>
-                                                            <textarea name="remarks" id="remarks"><?php echo e(__(@$proposal['remarks'])); ?></textarea>
+                                                            <textarea name="remarks" class="form-control" id="remarks"><?php echo e(__(@$proposal['remarks'])); ?></textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6><?php echo e(__('Footer')); ?></h6>
+                                                            <textarea name="footer" class="form-control" id="footer"><?php echo e(__(@$proposal['footer'])); ?></textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
@@ -4944,6 +4956,8 @@ unset($__errorArgs, $__bag); ?>
         jQuery(function($) {
             $('#agreement').richText();
             $('#remarks').richText();
+            $('#address').richText();
+            $('#footer').richText();
         });
     </script>
     <?php $__env->stopPush(); ?>
