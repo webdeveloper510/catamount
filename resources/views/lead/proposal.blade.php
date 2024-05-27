@@ -17,8 +17,9 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 // $data['additional_items'] = $additional_items;
 
 /* echo '<pre>';
-print_r($data);
+print_r($proposal);
 echo '</pre>'; */
+$proposal = unserialize($settings['proposal']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,6 +117,7 @@ echo '</pre>'; */
                             <h5 class="input-new">
                                 <label for="agreement">{{__('Agreement')}}:</label>
                             </h5>
+                            {!!@$proposal['agreement']!!}
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
                         <div class="col-sm-12 border-new">
@@ -132,7 +134,9 @@ echo '</pre>'; */
                             <h5 class="input-new">
                                 <label for="remarks">{{__('Remarks')}}:</label>
                             </h5>
+                            {!!@$proposal['remarks']!!}
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
+
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">

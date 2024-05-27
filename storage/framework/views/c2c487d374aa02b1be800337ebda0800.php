@@ -3,6 +3,8 @@ $billing = App\Models\ProposalInfo::where('lead_id', $lead->id)->orderby('id', '
 if (isset($billing) && !empty($billing)) {
     $billing = json_decode($billing->proposal_info, true);
 }
+$settings = App\Models\Utility::settings();
+$proposalSettings = unserialize($settings['proposal']);
 $selectedvenue = explode(',', $lead->venue_selection);
 $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
@@ -197,7 +199,8 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                     <label for="agreement"><?php echo e(__('Agreement')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    <?= html_entity_decode($proposal->agreement) ?>
+                    <?php echo e(@$proposalSettings['agreement']); ?>
+
                 </div>
             </div>
             <div class="col-sm-12 border-new">
@@ -211,7 +214,8 @@ if (isset($proposal) && ($proposal['image'] != null)) {
                     <label for="remarks"><?php echo e(__('Remarks')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    <?= html_entity_decode($proposal->remarks) ?>
+                    <?php echo e(@$proposalSettings['remarks']); ?>
+
                 </div>
             </div>
             <div class="col-sm-12">

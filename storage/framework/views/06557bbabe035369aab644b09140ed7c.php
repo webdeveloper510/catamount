@@ -56,6 +56,12 @@ $category= explode(',',$settings['campaign_type']);
                     <span class="dash-mtext"><?php echo e(__('Staff')); ?></span>
                 </a>
                 <?php endif; ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage User')): ?>
+                <a href="#proposal-settings" class="list-group-item list-group-item-action border-0"    onclick="showAccordion('collapse188')">
+                    <span class="fa-stack fa-lg pull-left"><i class="fa fa-user"></i></span>
+                    <span class="dash-mtext"><?php echo e(__('Proposal')); ?></span>
+                </a>
+                <?php endif; ?>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Role')): ?>
                 <a href="#role-settings" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse18')">
                     <span class="fa-stack fa-lg pull-left"><img src="<?php echo e(asset('icons/user.png')); ?>" alt=""

@@ -655,7 +655,6 @@ class LeadController extends Controller
         $agreement = html_entity_decode($request->agreement);
         $remarks = html_entity_decode($request->remarks);
 
-        echo nl2br("{$agreement} \n {$remarks}");
 
         if (!empty($request->imageData)) {
             $image = $this->uploadSignature($request->imageData);

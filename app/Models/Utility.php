@@ -41,7 +41,7 @@ class Utility extends Model
         //     }
         // } else {
         //     $data->where('created_by', '=', 1);
-            $data = $data->get();
+        $data = $data->get();
         // }
 
         $settings = [
@@ -153,15 +153,16 @@ class Utility extends Model
             "pusher_app_key" => '',
             "pusher_app_secret" => '',
             "pusher_app_cluster" => '',
-            "event_types"=>'',
+            "event_types" => '',
             'venue' => '',
-            'buffer_time' =>'',
-            'buffer_day' =>'',
-            'function' =>'',
-            'campaign_type' =>'',
-            'barpackage'=>'',
-            'fixed_billing' =>'',
-            'additional_items'=>''
+            'buffer_time' => '',
+            'buffer_day' => '',
+            'function' => '',
+            'campaign_type' => '',
+            'barpackage' => '',
+            'fixed_billing' => '',
+            'additional_items' => '',
+            'proposal' => '',
         ];
 
         foreach ($data as $row) {
@@ -953,7 +954,7 @@ class Utility extends Model
                     'body' => $msg,
                 ]);
             } catch (\Exception $e) {
-             return $e;
+                return $e;
             }
         }
     }
@@ -2164,7 +2165,8 @@ class Utility extends Model
                     $content = EmailTemplateLang::where('parent_id', '=', $template->id)->where('lang', 'LIKE', $usr->lang)->first();
                 } else {
                     $content = EmailTemplateLang::where('parent_id', '=', $template->id)->where('lang', 'LIKE', 'en')->first();
-                }                $content['from'] = $template->from;
+                }
+                $content['from'] = $template->from;
                 if (!empty($content->content)) {
                     $content->content = self::replaceVariable($content->content, $obj);
                     // send email
@@ -2180,8 +2182,7 @@ class Utility extends Model
                             'mail.from.name'    => $settings['mail_from_name'],
                         ]);
 
-                      Mail::to($mailTo)->send(new CommonEmailTemplate($content, $settings));
-                          
+                        Mail::to($mailTo)->send(new CommonEmailTemplate($content, $settings));
                     } catch (\Exception $e) {
                         $error = __('E-Mail has been not sent due to SMTP configuration');
                     }
@@ -2917,6 +2918,4 @@ class Utility extends Model
             return $settings;
         }
     }
-
-
 }

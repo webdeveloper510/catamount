@@ -1321,6 +1321,7 @@ Route::group(['middleware' => ['verified']], function () {
     Route::post('/setting/billing',[SettingController::class,'billing_cost'])->name('billing.setting');
 
     Route::post('setting/buffer', [SettingController::class, 'buffertime'])->name('buffer.setting');
+    Route::post('setting/proposal', [SettingController::class, 'proposaldata'])->name('buffer.proposal');
     Route::post('setting/signature',[SettingController::class,'signature'])->name('authorised.signature');
 
    //=======================================Campaign=======================//

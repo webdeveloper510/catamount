@@ -56,6 +56,12 @@ $category= explode(',',$settings['campaign_type']);
                     <span class="dash-mtext">{{ __('Staff') }}</span>
                 </a>
                 @endcan
+                @can('Manage User')
+                <a href="#proposal-settings" class="list-group-item list-group-item-action border-0"    onclick="showAccordion('collapse188')">
+                    <span class="fa-stack fa-lg pull-left"><i class="fa fa-user"></i></span>
+                    <span class="dash-mtext">{{ __('Proposal') }}</span>
+                </a>
+                @endcan
                 @can('Manage Role')
                 <a href="#role-settings" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse18')">
                     <span class="fa-stack fa-lg pull-left"><img src="{{asset('icons/user.png')}}" alt=""

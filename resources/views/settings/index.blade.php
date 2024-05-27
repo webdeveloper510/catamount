@@ -457,7 +457,6 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
     }
     $(document).ready(function() {
         $('.accordion-button').click(function() {
-            console.log('click')
             var target = $(this).attr('data-bs-target');
             $(target).toggle();
         });
@@ -713,6 +712,40 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                         </div>
                                     </div>
                                     @endif
+                                    @can('Manage User')
+                                    <div id="proposal-settings" class="accordion-item  card">
+                                        <h2 class="accordion-header" id="heading-2-188">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse188" aria-expanded="false" aria-controls="collapse188">
+                                                <h5>{{__('Proposal')}}</h5>
+                                            </button>
+                                        </h2>
+                                        <div id="collapse188" class="accordion-collapse collapse" aria-labelledby="heading-2-188" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body1">
+                                                <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/richtext.min.css">
+                                                {!! Form::open(['method' => 'POST', 'route' => 'buffer.proposal']) !!}
+                                                @php
+                                                @$proposal = unserialize($settings['proposal']);
+                                                @endphp
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <h6>{{__('Agreement')}}</h6>
+                                                            <textarea name="agreement" id="agreement">{{__(@$proposal['agreement'])}}</textarea>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <h6>{{__('Remarks')}}</h6>
+                                                            <textarea name="remarks" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endcan
                                     @can('Manage User')
                                     <div id="user-settings" class="accordion-item  card">
                                         <h2 class="accordion-header" id="heading-2-15">
@@ -4580,6 +4613,14 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
             });
             // Get the modal
 
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script>
+    <script>
+        jQuery(function($) {
+            $('#agreement').richText();
+            $('#remarks').richText();
         });
     </script>
     @endpush

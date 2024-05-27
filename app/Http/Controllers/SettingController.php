@@ -502,36 +502,36 @@ class SettingController extends Controller
     {
 
         // if (\Auth::user()->type == 'super admin') {
-            $request->validate(
-                [
-                    'pusher_app_id' => 'required',
-                    'pusher_app_key' => 'required',
-                    'pusher_app_secret' => 'required',
-                    'pusher_app_cluster' => 'required',
-                ]
+        $request->validate(
+            [
+                'pusher_app_id' => 'required',
+                'pusher_app_key' => 'required',
+                'pusher_app_secret' => 'required',
+                'pusher_app_cluster' => 'required',
+            ]
+        );
+
+
+        $post['pusher_app_id']      = $request->pusher_app_id;
+        $post['pusher_app_key']     = $request->pusher_app_key;
+        $post['pusher_app_secret']  = $request->pusher_app_secret;
+        $post['pusher_app_cluster'] = $request->pusher_app_cluster;
+
+        foreach ($post as $key => $data) {
+
+            $arr = [
+                $data,
+                $key,
+                \Auth::user()->id,
+            ];
+
+            \DB::insert(
+                'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                $arr
             );
+        }
 
-
-            $post['pusher_app_id']      = $request->pusher_app_id;
-            $post['pusher_app_key']     = $request->pusher_app_key;
-            $post['pusher_app_secret']  = $request->pusher_app_secret;
-            $post['pusher_app_cluster'] = $request->pusher_app_cluster;
-
-            foreach ($post as $key => $data) {
-
-                $arr = [
-                    $data,
-                    $key,
-                    \Auth::user()->id,
-                ];
-
-                \DB::insert(
-                    'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
-                    $arr
-                );
-            }
-
-            return redirect()->back()->with('success', 'Pusher setting successfully updated.');
+        return redirect()->back()->with('success', 'Pusher setting successfully updated.');
         // } else {
         //     return redirect()->back()->with('error', __('Permission denied.'));
         // }
@@ -1791,7 +1791,7 @@ class SettingController extends Controller
                 break;
             }
         }
-        
+
         if (!$functionExists) {
             // Function doesn't exist, add it to the array
             $existingArray[] = $data;
@@ -2011,14 +2011,15 @@ class SettingController extends Controller
             ]);
         return true;
     }
-    public function delete_additional_items(Request $request){
-      
+    public function delete_additional_items(Request $request)
+    {
+
         $user = \Auth::user();
         $setting = Utility::settings();
-        $additional_items = json_decode($setting['additional_items'],true);
+        $additional_items = json_decode($setting['additional_items'], true);
         $data = $additional_items[$request->functionval][$request->packageval];
         unset($additional_items[$request->functionval][$request->packageval][$request->itemval]);
-        $updatedadditional= json_encode($additional_items);
+        $updatedadditional = json_encode($additional_items);
         $created_at = $updated_at = date('Y-m-d H:i:s');
         DB::table('settings')
             ->where('name', 'additional_items')
@@ -2092,17 +2093,16 @@ class SettingController extends Controller
         $additional =  self::updateValue($additionalItems, $request->package_name, $request->function_name, $request->item_name, $request->cost);
         $additional = json_encode($additional);
         // print_r($additional);
-        if(isset($settings['additional_items']) && !empty($settings['additional_items'])){
+        if (isset($settings['additional_items']) && !empty($settings['additional_items'])) {
             DB::table('settings')
-                ->where('name','additional_items')
+                ->where('name', 'additional_items')
                 ->update([
                     'value' => $additional,
-                    'created_by'=> $user->id,
-                    'created_at' =>$created_at,
-                    'updated_at'=>$updated_at
+                    'created_by' => $user->id,
+                    'created_at' => $created_at,
+                    'updated_at' => $updated_at
                 ]);
-        }
-        else{
+        } else {
             \DB::insert(
                 'INSERT INTO settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`), `updated_at` = VALUES(`updated_at`) ',
                 [
@@ -2111,7 +2111,8 @@ class SettingController extends Controller
                     $user->id,
                     $created_at,
                     $updated_at,
-                ]);
+                ]
+            );
         }
         return true;
     }
@@ -2122,20 +2123,41 @@ class SettingController extends Controller
         }
         return $array;
     }
-}
-function get_device_type($user_agent)
-{
-    $mobile_regex = '/(?:phone|windows\s+phone|ipod|blackberry|(?:android|bb\d+|meego|silk|googlebot) .+? mobile|palm|windows\s+ce|opera mini|avantgo|mobilesafari|docomo)/i';
-    $tablet_regex = '/(?:ipad|playbook|(?:android|bb\d+|meego|silk)(?! .+? mobile))/i';
+    function get_device_type($user_agent)
+    {
+        $mobile_regex = '/(?:phone|windows\s+phone|ipod|blackberry|(?:android|bb\d+|meego|silk|googlebot) .+? mobile|palm|windows\s+ce|opera mini|avantgo|mobilesafari|docomo)/i';
+        $tablet_regex = '/(?:ipad|playbook|(?:android|bb\d+|meego|silk)(?! .+? mobile))/i';
 
-    if (preg_match_all($mobile_regex, $user_agent)) {
-        return 'mobile';
-    } else {
-
-        if (preg_match_all($tablet_regex, $user_agent)) {
-            return 'tablet';
+        if (preg_match_all($mobile_regex, $user_agent)) {
+            return 'mobile';
         } else {
-            return 'desktop';
+
+            if (preg_match_all($tablet_regex, $user_agent)) {
+                return 'tablet';
+            } else {
+                return 'desktop';
+            }
         }
+    }
+    public function proposaldata(Request $request)
+    {
+        $agreement = html_entity_decode($request->agreement);
+        $remarks = html_entity_decode($request->remarks);
+        $data = [
+            'agreement' =>  $agreement,
+            'remarks' =>  $remarks,
+        ];
+        $serialize = serialize($data);
+        \DB::insert(
+            'insert into settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+            [
+                $serialize,
+                'proposal',
+                \Auth::user()->creatorId(),
+                date('Y-m-d H:i:s'),
+                date('Y-m-d H:i:s'),
+            ]
+        );
+        return redirect()->back()->with('success', __('Proposal Save.'));
     }
 }
