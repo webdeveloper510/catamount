@@ -273,4 +273,4 @@ $category= explode(',',$settings['campaign_type']);
     }
 </script>
 
-<?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/partials/admin/sidebar.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/partials/admin/sidebar.blade.php ENDPATH**/ ?>

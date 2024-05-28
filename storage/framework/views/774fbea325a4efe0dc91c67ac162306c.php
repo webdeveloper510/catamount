@@ -260,4 +260,4 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
 
         <?php echo $__env->make('partials.admin.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-</div><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/partials/admin/header.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/partials/admin/header.blade.php ENDPATH**/ ?>

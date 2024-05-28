@@ -424,6 +424,7 @@ class LeadController extends Controller
     {
         if (\Auth::user()->can('Delete Lead')) {
             $lead->delete();
+            ProposalInfo::where('lead_id', $lead)->delete();
             return redirect()->back()->with('success', __('Lead  Deleted.'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
@@ -581,60 +582,94 @@ class LeadController extends Controller
     {
         $decryptedId = decrypt(urldecode($id));
         $lead = Lead::find($decryptedId);
-        return view('lead.share_proposal', compact('lead'));
+        $proposal = ProposalInfo::where('lead_id', $lead->id)->first();
+        return view('lead.share_proposal', compact('lead', 'proposal'));
     }
     public function proposalpdf(Request $request, $id)
     {
+
+        /* echo "<pre>";
+        print_r($request->all());
+        echo "</pre>";
+        die(); */
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
-        if (!empty($request->file('attachment'))) {
-            $file =  $request->file('attachment');
-            $filename = Str::random(3) . '_' . $file->getClientOriginalName();
-            $folder = 'Proposal_attachments/' . $id;
-            try {
-                $path = $file->storeAs($folder, $filename, 'public');
-            } catch (\Exception $e) {
-                Log::error('File upload failed: ' . $e->getMessage());
-                return redirect()->back()->with('error', 'File upload failed');
-            }
-        }
-        $proposalinfo = new ProposalInfo();
-        $proposalinfo->lead_id = $id;
-        $proposalinfo->email = $request->email;
-        $proposalinfo->subject = $request->subject;
-        $proposalinfo->content = $request->emailbody;
-        $proposalinfo->proposal_info = json_encode($request->billing, true);
-        $proposalinfo->attachments = $filename ?? '';
-        $proposalinfo->created_by = Auth::user()->id;
-        $proposalinfo->save();
-        $propid = $proposalinfo->id;
-        $subject = $request->subject;
-        $content = $request->emailbody;
-        try {
-            config(
+
+
+        if ($request->action == 'clipboard') {
+
+            $pdfData = [
+                'address' => html_entity_decode($request->address),
+                'agreement' => html_entity_decode($request->agreement),
+                'remarks' => html_entity_decode($request->remarks),
+                'footer' => html_entity_decode($request->footer),
+            ];
+            $pdfDatadasda = serialize($pdfData);
+
+            $proposalinfo = ProposalInfo::updateOrCreate(
                 [
-                    'mail.driver'       => $settings['mail_driver'],
-                    'mail.host'         => $settings['mail_host'],
-                    'mail.port'         => $settings['mail_port'],
-                    'mail.username'     => $settings['mail_username'],
-                    'mail.password'     => $settings['mail_password'],
-                    'mail.from.address' => $settings['mail_from_address'],
-                    'mail.from.name'    => $settings['mail_from_name'],
+                    'lead_id' => $request->lead,
+                ],
+                [
+                    'lead_id' => $request->lead,
+                    'email' => $request->email,
+                    'created_by' => Auth::user()->id,
+                    'proposal_mode' => $request->action,
+                    'proposal_data' => $pdfDatadasda,
                 ]
             );
-            Mail::to($request->email)->send(new SendPdfEmail($lead, $subject, $content, $proposalinfo, $propid));
-            $upd = Lead::where('id', $id)->update(['status' => 1]);
-        } catch (\Exception $e) {
-            //   return response()->json(
-            //             [
-            //                 'is_success' => false,
-            //                 'message' => $e->getMessage(),
-            //             ]
-            //         );
-            return redirect()->back()->with('success', 'Email Not Sent');
+
+            return response()->json(['success' => true, 'message' => 'Data save']);
+        } else {
+            if (!empty($request->file('attachment'))) {
+                $file =  $request->file('attachment');
+                $filename = Str::random(3) . '_' . $file->getClientOriginalName();
+                $folder = 'Proposal_attachments/' . $id;
+                try {
+                    $path = $file->storeAs($folder, $filename, 'public');
+                } catch (\Exception $e) {
+                    Log::error('File upload failed: ' . $e->getMessage());
+                    return redirect()->back()->with('error', 'File upload failed');
+                }
+            }
+            $proposalinfo = new ProposalInfo();
+            $proposalinfo->lead_id = $id;
+            $proposalinfo->email = $request->email;
+            $proposalinfo->subject = $request->subject;
+            $proposalinfo->content = $request->emailbody;
+            $proposalinfo->proposal_info = json_encode($request->billing, true);
+            $proposalinfo->attachments = $filename ?? '';
+            $proposalinfo->created_by = Auth::user()->id;
+            $proposalinfo->save();
+            $propid = $proposalinfo->id;
+            $subject = $request->subject;
+            $content = $request->emailbody;
+            try {
+                config(
+                    [
+                        'mail.driver'       => $settings['mail_driver'],
+                        'mail.host'         => $settings['mail_host'],
+                        'mail.port'         => $settings['mail_port'],
+                        'mail.username'     => $settings['mail_username'],
+                        'mail.password'     => $settings['mail_password'],
+                        'mail.from.address' => $settings['mail_from_address'],
+                        'mail.from.name'    => $settings['mail_from_name'],
+                    ]
+                );
+                Mail::to($request->email)->send(new SendPdfEmail($lead, $subject, $content, $proposalinfo, $propid));
+                $upd = Lead::where('id', $id)->update(['status' => 1]);
+            } catch (\Exception $e) {
+                //   return response()->json(
+                //             [
+                //                 'is_success' => false,
+                //                 'message' => $e->getMessage(),
+                //             ]
+                //         );
+                return redirect()->back()->with('success', 'Email Not Sent');
+            }
+            return redirect()->back()->with('success', 'Email Sent Successfully');
         }
-        return redirect()->back()->with('success', 'Email Sent Successfully');
     }
     public function proposalview($id)
     {
@@ -648,7 +683,7 @@ class LeadController extends Controller
         return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users'));
     }
     public function proposal_resp(Request $request, $id)
-    { 
+    {
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
 

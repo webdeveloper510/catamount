@@ -15,12 +15,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('lead_id');
             $table->foreign('lead_id')->references('id')->on('leads');
-            $table->string('email');
-            $table->text('subject');
-            $table->text('content');
-            $table->text('proposal_info');
+            $table->string('email')->nullable();
+            $table->text('subject')->nullable();
+            $table->text('content')->nullable();
+            $table->text('proposal_info')->nullable();
             $table->string('attachments')->nullable();
-            $table->integer('created_by');            
+            $table->integer('created_by')->nullable();
+
+            $table->string('proposal_mode')->nullable()->default('email');
+            $table->text('proposal_data')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

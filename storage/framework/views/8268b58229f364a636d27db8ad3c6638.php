@@ -455,4 +455,4 @@
 div#sidebar-wrapper .fa-stack {
     width: 50px !important;
 }
-</style><?php /**PATH D:\0Work\xampp\htdocs\laravel\catamount\resources\views/partials/admin/content.blade.php ENDPATH**/ ?>
+</style><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/partials/admin/content.blade.php ENDPATH**/ ?>

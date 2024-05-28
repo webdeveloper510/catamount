@@ -159,6 +159,9 @@ $proposalstatus = \App\Models\Lead::$status;
 </div>
 @endsection
 @push('script-page')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script>
+
 <script>
     $(document).ready(function() {
         $('#convertLink').on('click', function(event) {
@@ -307,4 +310,5 @@ $proposalstatus = \App\Models\Lead::$status;
         });
     });
 </script>
+
 @endpush
