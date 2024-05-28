@@ -554,9 +554,9 @@ class LeadController extends Controller
     }
     public function view_proposal($id)
     {
-        $auth = auth()->user();
         $decryptedId = decrypt(urldecode($id));
         $lead = Lead::find($decryptedId);
+        $proposal_info = ProposalInfo::where('lead_id', $lead->id)->first();
         $settings = Utility::settings();
         if (isset($settings['fixed_billing'])) {
             $fixed_cost = json_decode($settings['fixed_billing'], true);
@@ -565,7 +565,7 @@ class LeadController extends Controller
         $proposal = Proposal::where('lead_id', $decryptedId)->first();
         $data = [
             'settings' => $settings,
-            'auth' => $auth,
+            'proposal_info' => $proposal_info,
             'proposal' => $proposal,
             'lead' => $lead,
             'fixed_cost' => $fixed_cost,
@@ -595,7 +595,6 @@ class LeadController extends Controller
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
-
 
         if ($request->action == 'clipboard') {
 
@@ -675,17 +674,20 @@ class LeadController extends Controller
     {
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
+        $proposal_info = ProposalInfo::where('lead_id', $lead->id)->first();
         $users = User::find($lead->user_id);
         $settings = Utility::settings();
         $venue = explode(',', $settings['venue']);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
-        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users'));
+        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users','proposal_info'));
     }
     public function proposal_resp(Request $request, $id)
     {
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
+        
+        $proposal_info = ProposalInfo::where('lead_id', $id)->first();
 
         $agreement = html_entity_decode($request->agreement);
         $remarks = html_entity_decode($request->remarks);
@@ -730,6 +732,7 @@ class LeadController extends Controller
             'usersDetail' => $usersDetail,
             'fixed_cost' => $fixed_cost,
             'settings' => $settings,
+            'proposal_info' => $proposal_info,
             'additional_items' => $additional_items
         ];
         $pdf = Pdf::loadView('lead.signed_proposal', $data);

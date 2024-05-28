@@ -153,18 +153,20 @@ $proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
         <div class="row">
             <div class="col-sm-12 mt-4 border-new">
                 <div class="img-section">
-                    <img class="logo-img center-new" src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="width: auto;margin:0 250px">
+                    <img class="logo-img center-new" src="<?php echo e(url('storage/uploads/logo/3_logo-light.png')); ?>" style="width: auto;margin:0 250px">
                 </div>
             </div>
             <div class="col-sm-12 border-new">
-                <h4 class="center-new">{!!__(@$proposalSettings['title'])!!}</h4>
+                <h4 class="center-new"><?php echo __(@$proposalSettings['title']); ?></h4>
             </div>
             <div class="col-sm-12 border-new">
-                {!!__(@$proposalSettings['address'])!!}
+                <?php echo __(@$proposalSettings['address']); ?>
+
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
-                    <label for="client">{{__('Client')}}: </label>{{__($lead->name)}}
+                    <label for="client"><?php echo e(__('Client')); ?>: </label><?php echo e(__($lead->name)); ?>
+
                 </h5>
             </div>
         </div>
@@ -172,12 +174,14 @@ $proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
             <div class="sidebyside">
                 <div class="col-sm-6 border-new">
                     <h5 class="input-new">
-                        <label for="phone">{{__('Phone')}}: </label>{{__($lead->primary_contact)}}
+                        <label for="phone"><?php echo e(__('Phone')); ?>: </label><?php echo e(__($lead->primary_contact)); ?>
+
                     </h5>
                 </div>
                 <div class="col-sm-6 border-new">
                     <h5 class="input-new">
-                        <label for="email2">{{__('Email')}}: </label>{{__($lead->email)}}
+                        <label for="email2"><?php echo e(__('Email')); ?>: </label><?php echo e(__($lead->email)); ?>
+
                     </h5>
                 </div>
             </div>
@@ -185,62 +189,67 @@ $proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
         <div class="row">
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
-                    <label for="servicesDate">{{__('Date of service')}}: </label>{{__($lead->start_date)}}
+                    <label for="servicesDate"><?php echo e(__('Date of service')); ?>: </label><?php echo e(__($lead->start_date)); ?>
+
                 </h5>
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
-                    <label for="services">{{__('Services')}}: </label>{{__($lead->type)}}
+                    <label for="services"><?php echo e(__('Services')); ?>: </label><?php echo e(__($lead->type)); ?>
+
                 </h5>
             </div>
             <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
                 <h5 class="input-new">
-                    <label for="agreement">{{__('Agreement')}}: </label>
+                    <label for="agreement"><?php echo e(__('Agreement')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    {!!@$proposalSettings['agreement']!!}
+                    <?php echo @$proposalSettings['agreement']; ?>
+
                 </div>
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
-                    <label for="signature">{{__('Signature')}}: </label>
-                    <img src="{{__($proposal->image)}}" alt="" srcset="">
+                    <label for="signature"><?php echo e(__('Signature')); ?>: </label>
+                    <img src="<?php echo e(__($proposal->image)); ?>" alt="" srcset="">
                 </h5>
             </div>
             <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
                 <h5 class="input-new">
-                    <label for="remarks">{{__('Remarks')}}: </label>
+                    <label for="remarks"><?php echo e(__('Remarks')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    {!!@$proposalSettings['remarks']!!}
+                    <?php echo @$proposalSettings['remarks']; ?>
+
                 </div>
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">
-                    <label for="date">{{__('Date')}}: {{__($lead->start_date)}}</label>
+                    <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                 </h5>
             </div>
-            {!!__(@$proposalSettings['footer'])!!}
+            <?php echo __(@$proposalSettings['footer']); ?>
+
             <!-- <div class="col-sm-12 border-new1">
                 <h5 class="input-new">
-                    <label for="scopeServices">{{__('Scope of Services')}}: </label>
+                    <label for="scopeServices"><?php echo e(__('Scope of Services')); ?>: </label>
                 </h5>
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">
-                    <label for="schedule">{{__('Schedule')}}: </label>
+                    <label for="schedule"><?php echo e(__('Schedule')); ?>: </label>
                     <p>Catamount Consulting is prepared to proceed upon receiving the Proposal Acceptance Agreement</p>
                 </h5>
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">
-                    <label for="costBusinessTerms">{{__('Cost and Business Terms')}}: </label>
+                    <label for="costBusinessTerms"><?php echo e(__('Cost and Business Terms')); ?>: </label>
                     <p>The Proposal shall remain valid for the period of 60 days from the date of the proposal origination. </p>
                 </h5>
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">
-                    <label for="cencellation">{{__('CANCELLATION')}}: </label>
+                    <label for="cencellation"><?php echo e(__('CANCELLATION')); ?>: </label>
                     <p>Should the above testing be cancelled within 2 weeks of the testing date, there will be a cancellation fee of $ . If testing is rescheduled within 1 month, the cancellation fee will be</br>negotiated and mitigated.
                     </p>
                 </h5>
@@ -256,58 +265,63 @@ $proposalSettings['address'] = strtr($proposalSettings['address'], $varMap);
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
-                        <td style="padding: 8px;">{{__($usersDetail->name)}}</td>
+                        <td style="padding: 8px;"><?php echo e(__($usersDetail->name)); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Designation</td>
-                        <td style="padding: 8px;">{{__($usersDetail->type)}}</td>
+                        <td style="padding: 8px;"><?php echo e(__($usersDetail->type)); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;">{{__(date('Y-m-d'))}}</td>
+                        <td style="padding: 8px;"><?php echo e(__(date('Y-m-d'))); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
-                        <td style="padding: 8px;">{{__($proposal->to_name)}}</td>
+                        <td style="padding: 8px;"><?php echo e(__($proposal->to_name)); ?></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Designation</td>
-                        <td style="padding: 8px;">{{__($proposal->to_designation)}}</td>
+                        <td style="padding: 8px;"><?php echo e(__($proposal->to_designation)); ?></td>
                     </tr>
                     <tr>
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;">{{__($proposal->to_date)}}</td>
+                        <td style="padding: 8px;"><?php echo e(__($proposal->to_date)); ?></td>
                     </tr>
                 </table>
             </div>
             <!-- <div class="details">
                 <h5 class="input-new1">
-                    <label for="name">{{__('Name')}}: </label>{{__($proposal->name)}}
+                    <label for="name"><?php echo e(__('Name')); ?>: </label><?php echo e(__($proposal->name)); ?>
+
                 </h5>
                 <h5 class="input-new1">
-                    <label for="designation">{{__('Designation')}}: </label>{{__($proposal->designation)}}
+                    <label for="designation"><?php echo e(__('Designation')); ?>: </label><?php echo e(__($proposal->designation)); ?>
+
                 </h5>
                 <h5 class="input-new1">
-                    <label for="date">{{__('Date')}}: </label>{{__($proposal->date)}}
+                    <label for="date"><?php echo e(__('Date')); ?>: </label><?php echo e(__($proposal->date)); ?>
+
                 </h5>
                 <h5 class="input-new1">
-                    <label for="to">{{__('To')}}</label>
+                    <label for="to"><?php echo e(__('To')); ?></label>
                 </h5>
                 <h5 class="input-new1">
-                    <label for="name">{{__('Name')}}: </label>{{__($proposal->to_name)}}
+                    <label for="name"><?php echo e(__('Name')); ?>: </label><?php echo e(__($proposal->to_name)); ?>
+
                 </h5>
                 <h5 class="input-new1">
-                    <label for="designation">{{__('Designation')}}: {{__($proposal->to_designation)}}</label>
+                    <label for="designation"><?php echo e(__('Designation')); ?>: <?php echo e(__($proposal->to_designation)); ?></label>
                 </h5>
                 <h5 class="input-new1">
-                    <label for="date">{{__('Date')}}: </label>{{__($proposal->to_date)}}
+                    <label for="date"><?php echo e(__('Date')); ?>: </label><?php echo e(__($proposal->to_date)); ?>
+
                 </h5>
             </div> -->
         </div>
     </div>
 </body>
 
-</html>
+</html><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/lead/signed_proposal.blade.php ENDPATH**/ ?>
