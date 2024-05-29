@@ -4562,6 +4562,14 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startPush('script-page'); ?>
 <script>
+    jQuery(function($) {
+        $('#agreement').richText();
+        $('#remarks').richText();
+        $('#address').richText();
+        $('#footer').richText();
+    });
+</script>
+<script>
     $('.fxnnames').click(function() {
         var value = $(this).text();
         var funrr = <?= (isset($function) && !empty($function)) ? json_encode($function) : 'null' ?>;
@@ -4864,4 +4872,5 @@ unset($__errorArgs, $__bag); ?>
     });
 </script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/settings/index.blade.php ENDPATH**/ ?>

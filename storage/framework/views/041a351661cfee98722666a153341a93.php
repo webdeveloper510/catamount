@@ -71,12 +71,18 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
 print_r($proposal);
 echo '</pre>'; */
 
+@$proposal = unserialize($proposal['proposal_data']);
+
+$token = array(
+    'USER_EMAIL'  => $users->email,
+);
+$pattern = '[%s]';
+foreach ($token as $key => $val) {
+    $varMap[sprintf($pattern, $key)] = $val;
+}
+@$proposal['address'] = strtr($proposal['address'], $varMap);
 ?>
-<link rel="stylesheet" href="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/richtext.min.css">
 <div class="row">
-    <?php
-    @$proposal_data = unserialize($proposal['proposal_data']);
-    ?>
     <div class="col-lg-12">
         <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
         <?php echo e(Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data'])); ?>
@@ -108,21 +114,25 @@ echo '</pre>'; */
                 
         <h5 class="bb"><?php echo e(__('PDF')); ?></h5>
 
+        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Title')); ?></span></dt>
+        <dd class="col-md-9">
+            <input type="text" name="title" class="form-control" id="title" value="<?php echo e(__(@$proposal['title'])); ?>" />
+        </dd>
         <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="address" class="form-control" id="address"><?php echo e(__(@$proposal_data['address'])); ?></textarea>
+            <textarea name="address" class="form-control" id="address"><?php echo e(__(@$proposal['address'])); ?></textarea>
         </dd>
         <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Agreement')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="agreement" class="form-control" id="agreement"><?php echo e(__(@$proposal_data['agreement'])); ?></textarea>
+            <textarea name="agreement" class="form-control" id="agreement"><?php echo e(__(@$proposal['agreement'])); ?></textarea>
         </dd>
         <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Remarks')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="remarks" class="form-control" id="remarks"><?php echo e(__(@$proposal_data['remarks'])); ?></textarea>
+            <textarea name="remarks" class="form-control" id="remarks"><?php echo e(__(@$proposal['remarks'])); ?></textarea>
         </dd>
         <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Footer')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="footer" class="form-control" id="footer"><?php echo e(__(@$proposal_data['footer'])); ?></textarea>
+            <textarea name="footer" class="form-control" id="footer"><?php echo e(__(@$proposal['footer'])); ?></textarea>
         </dd>
         </dl>
 

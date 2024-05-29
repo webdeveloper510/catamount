@@ -17,7 +17,19 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 // $data['proposal_info'] = $proposal_info;
 
 $proposal = unserialize($proposal_info['proposal_data']);
+$proposal_settings = unserialize($settings['proposal']);
 // echo "old : {$proposal['address']}";
+$finalProposalArg = [];
+foreach ($proposal as $proCustKey => $proCustValue) {
+    $finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
+}
+/* $sdsfsdf['proposal'] = $proposal;
+$sdsfsdf['proposal_settings'] = $proposal_settings;
+$sdsfsdf['finalProposalArg'] = $finalProposalArg;
+echo '<pre>';
+print_r($sdsfsdf);
+echo '<pre>'; */
+
 $token = array(
     'USER_EMAIL'  => $users->email,
 );
@@ -25,7 +37,7 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-$proposal['address'] = strtr($proposal['address'], $varMap);
+$finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
 // echo '<pre>';
 // print_r($proposal_info);
 // echo '</pre>';
@@ -87,10 +99,10 @@ $proposal['address'] = strtr($proposal['address'], $varMap);
                             </div>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <h4 class="center-new"><?php echo __(@$proposal['title']); ?></h4>
+                            <h4 class="center-new"><?php echo __(@$finalProposalArg['title']); ?></h4>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <?php echo __($proposal['address']); ?>
+                            <?php echo __(@$finalProposalArg['address']); ?>
 
                             <!--  <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                             <h5 class="center-new input-new">
@@ -133,7 +145,7 @@ $proposal['address'] = strtr($proposal['address'], $varMap);
                             <h5 class="input-new">
                                 <label for="agreement"><?php echo e(__('Agreement')); ?>:</label>
                             </h5>
-                            <?php echo @$proposal['agreement']; ?>
+                            <?php echo @$finalProposalArg['agreement']; ?>
 
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
@@ -151,7 +163,7 @@ $proposal['address'] = strtr($proposal['address'], $varMap);
                             <h5 class="input-new">
                                 <label for="remarks"><?php echo e(__('Remarks')); ?>:</label>
                             </h5>
-                            <?php echo @$proposal['remarks']; ?>
+                            <?php echo __(@$finalProposalArg['remarks']); ?>
 
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
 
@@ -161,7 +173,7 @@ $proposal['address'] = strtr($proposal['address'], $varMap);
                                 <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                             </h5>
                         </div>
-                        <?php echo __(@$proposal['footer']); ?>
+                        <?php echo @$finalProposalArg['footer']; ?>
 
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
