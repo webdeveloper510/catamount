@@ -424,7 +424,7 @@ class LeadController extends Controller
     {
         if (\Auth::user()->can('Delete Lead')) {
             $lead->delete();
-            ProposalInfo::where('lead_id', $lead)->delete();
+            ProposalInfo::where('lead_id', $lead->id)->delete();
             return redirect()->back()->with('success', __('Lead  Deleted.'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
@@ -599,6 +599,7 @@ class LeadController extends Controller
         if ($request->action == 'clipboard') {
 
             $pdfData = [
+                'title' => $request->title,
                 'address' => html_entity_decode($request->address),
                 'agreement' => html_entity_decode($request->agreement),
                 'remarks' => html_entity_decode($request->remarks),
@@ -680,13 +681,13 @@ class LeadController extends Controller
         $venue = explode(',', $settings['venue']);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
-        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users','proposal_info'));
+        return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users', 'proposal_info'));
     }
     public function proposal_resp(Request $request, $id)
     {
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
-        
+
         $proposal_info = ProposalInfo::where('lead_id', $id)->first();
 
         $agreement = html_entity_decode($request->agreement);

@@ -750,7 +750,6 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                         </h2>
                                         <div id="collapse188" class="accordion-collapse collapse" aria-labelledby="heading-2-188" data-bs-parent="#accordionExample">
                                             <div class="accordion-body1">
-                                                <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/richtext.min.css">
                                                 <?php echo Form::open(['method' => 'POST', 'route' => 'buffer.proposal']); ?>
 
                                                 <?php
@@ -1046,6 +1045,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                     <label class="form-label">Trainings List</label>
                                                                     <div class="badges">
                                                                         <?php $__currentLoopData = $eventtypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $types): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                        <?php if($types): ?>
                                                                         <span class="badge rounded p-2 m-1 px-3 bg-primary" style="cursor:pointer">
                                                                             <?php echo e($types); ?>
 
@@ -1059,6 +1059,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                             <?php endif; ?>
                                                                             <?php endif; ?>
                                                                         </span>
+                                                                        <?php endif; ?>
                                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                                     </div>
                                                                 </div>
@@ -4561,6 +4562,14 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startPush('script-page'); ?>
 <script>
+    jQuery(function($) {
+        $('#agreement').richText();
+        $('#remarks').richText();
+        $('#address').richText();
+        $('#footer').richText();
+    });
+</script>
+<script>
     $('.fxnnames').click(function() {
         var value = $(this).text();
         var funrr = <?= (isset($function) && !empty($function)) ? json_encode($function) : 'null' ?>;
@@ -4862,15 +4871,6 @@ unset($__errorArgs, $__bag); ?>
 
     });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script>
-<script>
-    jQuery(function($) {
-        $('#agreement').richText();
-        $('#remarks').richText();
-        $('#address').richText();
-        $('#footer').richText();
-    });
-</script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/settings/index.blade.php ENDPATH**/ ?>

@@ -71,12 +71,14 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
 print_r($proposal);
 echo '</pre>'; */
 
+@$proposal = unserialize($proposal['proposal_data']);
+/* $proposal_settings = unserialize($settings['proposal']);
+$finalProposalArg = [];
+foreach ($proposal as $proCustKey => $proCustValue) {
+    $finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
+} */
 ?>
-<link rel="stylesheet" href="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/richtext.min.css">
 <div class="row">
-    @php
-    @$proposal_data = unserialize($proposal['proposal_data']);
-    @endphp
     <div class="col-lg-12">
         <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
         {{ Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data']) }}
@@ -149,21 +151,25 @@ echo '</pre>'; */
         </dl>--}}
         <h5 class="bb">{{ __('PDF') }}</h5>
 
+        <dt class="col-md-3"><span class="h6  mb-0">{{__('Title')}}</span></dt>
+        <dd class="col-md-9">
+            <input type="text" name="title" class="form-control" id="title" value="{{__(@$proposal['title'])}}" />
+        </dd>
         <dt class="col-md-3"><span class="h6  mb-0">{{__('Address')}}</span></dt>
         <dd class="col-md-9">
-            <textarea name="address" class="form-control" id="address">{{__(@$proposal_data['address'])}}</textarea>
+            <textarea name="address" class="form-control" id="address">{{__(@$proposal['address'])}}</textarea>
         </dd>
         <dt class="col-md-3"><span class="h6  mb-0">{{__('Agreement')}}</span></dt>
         <dd class="col-md-9">
-            <textarea name="agreement" class="form-control" id="agreement">{{__(@$proposal_data['agreement'])}}</textarea>
+            <textarea name="agreement" class="form-control" id="agreement">{{__(@$proposal['agreement'])}}</textarea>
         </dd>
         <dt class="col-md-3"><span class="h6  mb-0">{{__('Remarks')}}</span></dt>
         <dd class="col-md-9">
-            <textarea name="remarks" class="form-control" id="remarks">{{__(@$proposal_data['remarks'])}}</textarea>
+            <textarea name="remarks" class="form-control" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
         </dd>
         <dt class="col-md-3"><span class="h6  mb-0">{{__('Footer')}}</span></dt>
         <dd class="col-md-9">
-            <textarea name="footer" class="form-control" id="footer">{{__(@$proposal_data['footer'])}}</textarea>
+            <textarea name="footer" class="form-control" id="footer">{{__(@$proposal['footer'])}}</textarea>
         </dd>
         </dl>
 

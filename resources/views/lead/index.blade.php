@@ -136,9 +136,9 @@ $proposalstatus = \App\Models\Lead::$status;
                                                     <div class="action-btn bg-danger ms-2">
                                                         {!! Form::open(['method' => 'DELETE', 'route' =>
                                                         ['lead.destroy', $lead->id]]) !!}
-                                                        <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white show_confirm" data-bs-toggle="tooltip" title='Delete'>
+                                                        <button type="submit" class="mx-3 btn btn-sm  align-items-center text-white show_confirms" data-bs-toggle="tooltip" title='Delete'>
                                                             <i class="ti ti-trash"></i>
-                                                        </a>
+                                                        </button>
                                                         {!! Form::close() !!}
                                                     </div>
                                                     @endcan
@@ -159,8 +159,6 @@ $proposalstatus = \App\Models\Lead::$status;
 </div>
 @endsection
 @push('script-page')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script>
 
 <script>
     $(document).ready(function() {

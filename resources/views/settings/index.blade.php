@@ -4331,6 +4331,14 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 @endsection
 @push('script-page')
 <script>
+    jQuery(function($) {
+        $('#agreement').richText();
+        $('#remarks').richText();
+        $('#address').richText();
+        $('#footer').richText();
+    });
+</script>
+<script>
     $('.fxnnames').click(function() {
         var value = $(this).text();
         var funrr = <?= (isset($function) && !empty($function)) ? json_encode($function) : 'null' ?>;

@@ -96,5 +96,6 @@
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <?php echo $__env->yieldPushContent('css-page'); ?>
+    <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/richtext.min.css">
 </head>
 <?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/partials/admin/head.blade.php ENDPATH**/ ?>
