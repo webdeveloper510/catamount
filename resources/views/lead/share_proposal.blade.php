@@ -72,11 +72,15 @@ print_r($proposal);
 echo '</pre>'; */
 
 @$proposal = unserialize($proposal['proposal_data']);
-/* $proposal_settings = unserialize($settings['proposal']);
-$finalProposalArg = [];
-foreach ($proposal as $proCustKey => $proCustValue) {
-    $finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
-} */
+
+$token = array(
+    'USER_EMAIL'  => $users->email,
+);
+$pattern = '[%s]';
+foreach ($token as $key => $val) {
+    $varMap[sprintf($pattern, $key)] = $val;
+}
+@$proposal['address'] = strtr($proposal['address'], $varMap);
 ?>
 <div class="row">
     <div class="col-lg-12">

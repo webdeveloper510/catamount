@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Lead Customers') }}
+{{ __('Lead Clients') }}
 @endsection
 @section('title')
-{{ __('Lead Customers') }}
+{{ __('Lead Clients') }}
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('siteusers') }}">{{ __('Customers') }}</a></li>
-<li class="breadcrumb-item">{{ __('Lead Customers') }}</li>
+<li class="breadcrumb-item"><a href="{{ route('siteusers') }}">{{ __('Clients') }}</a></li>
+<li class="breadcrumb-item">{{ __('Lead Clients') }}</li>
 @endsection
 @section('content')
 <div class="container-field">
@@ -35,16 +35,16 @@
                                         <tbody>
                                             @foreach($leadcustomers as $user)
                                             <tr>
-                                              
-                                                        <td><a href="{{ route('lead.userinfo',urlencode(encrypt($user->ref_id))) }}" data-size="md" title="{{ __('Lead Details') }}"  class="action-item text-primary" style="color:#1551c9 !important;">
-                                               <b> {{ ucfirst($user->name) }}</b>
-                                                        </a></td>
-                                                       
+
+                                                <td><a href="{{ route('lead.userinfo',urlencode(encrypt($user->ref_id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
+                                                        <b> {{ ucfirst($user->name) }}</b>
+                                                    </a></td>
+
                                                 <td><span>{{$user->email}}</span></td>
                                                 <td><span>{{$user->phone}}</span></td>
                                                 <td><span>{{$user->address}}</span></td>
                                                 <td><span>{{$user->type}}</span></td>
-                                               
+
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -61,9 +61,9 @@
 @endsection
 @push('script-page')
 <script>
-function storeIdInLocalStorage(link) {
-    var id = link.id;
-    localStorage.setItem('clickedLinkId', id);
-}
+    function storeIdInLocalStorage(link) {
+        var id = link.id;
+        localStorage.setItem('clickedLinkId', id);
+    }
 </script>
 @endpush

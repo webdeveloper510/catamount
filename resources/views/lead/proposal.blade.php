@@ -37,7 +37,7 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-$proposal['address'] = strtr($proposal['address'], $varMap);
+$finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
 // echo '<pre>';
 // print_r($proposal_info);
 // echo '</pre>';

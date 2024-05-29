@@ -50,7 +50,7 @@ $additional_items = json_decode($settings['additional_items'],true);
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
-        <h5 style="margin-left: 14px;"><?php echo e(__('Contact Information')); ?></h5>
+        <h5 style="margin-left: 14px;"><?php echo e(__('Primary contact')); ?></h5>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
@@ -63,37 +63,16 @@ $additional_items = json_decode($settings['additional_items'],true);
 
         </div>
     </div>
-    <!-- <div class="col-6">
-        <div class="form-group">
-            <?php echo e(Form::label('phone',__('Phone'),['class'=>'form-label'])); ?>
-
-            <?php echo e(Form::text('phone',null,array('class'=>'form-control','placeholder'=>__('Enter Phone'),'required'=>'required'))); ?>
-
-        </div>
-    </div> -->
     <div class="col-6 need_full">
         <div class="form-group ">
-            <?php echo e(Form::label('name',__('Primary contact'),['class'=>'form-label'])); ?>
+            <?php echo e(Form::label('name',__('Phone'),['class'=>'form-label'])); ?>
 
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             <div class="intl-tel-input">
-                <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Primary contact" maxlength="16">
+                <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
                 <input type="hidden" name="primary_countrycode" id="primary-country-code">
-            </div>
-        </div>
-    </div>
-    <div class="col-6 need_full">
-        <div class="form-group ">
-            <?php echo e(Form::label('name',__('Secondary contact'),['class'=>'form-label'])); ?>
-
-            <!-- <span class="text-sm">
-                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-            </span> -->
-            <div class="intl-tel-input">
-                <input type="tel" id="phone-input1" name="secondary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
-                <input type="hidden" name="secondary_countrycode" id="secondary-country-code">
             </div>
         </div>
     </div>
@@ -118,9 +97,60 @@ $additional_items = json_decode($settings['additional_items'],true);
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            <?php echo e(Form::label('relationship',__('Relationship'),['class'=>'form-label'])); ?>
+            <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
 
-            <?php echo e(Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Relationship')))); ?>
+            <?php echo e(Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
+
+        </div>
+    </div>
+    <div class="col-12  p-0 modaltitle pb-3 mb-3">
+        <h5 style="margin-left: 14px;"><?php echo e(__('Secondary contact')); ?></h5>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group">
+            <?php echo e(Form::label('name',__('Name'),['class'=>'form-label'])); ?>
+
+            <span class="text-sm">
+                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+            </span>
+            <?php echo e(Form::text('secondary["name"]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group ">
+            <?php echo e(Form::label('name',__('Phone'),['class'=>'form-label'])); ?>
+
+            <div class="intl-tel-input">
+                <input type="tel" id="phone-input1" name="secondary['secondary_contact']" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
+                <input type="hidden" name="secondary_countrycode" id="secondary-country-code">
+            </div>
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group">
+            <?php echo e(Form::label('email',__('Email'),['class'=>'form-label'])); ?>
+
+            <span class="text-sm">
+                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+            </span>
+            <?php echo e(Form::text('secondary["email"]',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))); ?>
+
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group">
+            <?php echo e(Form::label('lead_address',__('Address'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('secondary["lead_address"]',null,array('class'=>'form-control','placeholder'=>__('Address')))); ?>
+
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group">
+            <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('secondary["relationship"]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
 
         </div>
     </div>
@@ -295,20 +325,7 @@ $additional_items = json_decode($settings['additional_items'],true);
         <!-- <hr class="mt-2 mb-2"> -->
         <h5 style="margin-left: 14px;"><?php echo e(__('Estimate Billing Summary Details')); ?></h5>
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            <?php echo Form::label('baropt', 'Bar'); ?>
-
-            <?php $__currentLoopData = $baropt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div>
-                <?php echo e(Form::radio('baropt', $label, false, ['id' => $label])); ?>
-
-                <?php echo e(Form::label('baropt' . ($key + 1), $label)); ?>
-
-            </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
-    </div>
+    
     <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
         <?php if(isset($bar_package) && !empty($bar_package)): ?>
         <?php $__currentLoopData = $bar_package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

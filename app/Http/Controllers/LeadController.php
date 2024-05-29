@@ -582,8 +582,9 @@ class LeadController extends Controller
     {
         $decryptedId = decrypt(urldecode($id));
         $lead = Lead::find($decryptedId);
+        $users = User::find($lead->user_id);
         $proposal = ProposalInfo::where('lead_id', $lead->id)->first();
-        return view('lead.share_proposal', compact('lead', 'proposal'));
+        return view('lead.share_proposal', compact('lead', 'proposal', 'users'));
     }
     public function proposalpdf(Request $request, $id)
     {
