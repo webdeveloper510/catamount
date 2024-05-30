@@ -141,7 +141,11 @@ class LeadController extends Controller
             $additional = json_encode($additional);
             $bar_pack = json_encode($bar_pack);
             $primary_contact = preg_replace('/\D/', '', $request->input('primary_contact'));
-            $secondary_contact = preg_replace('/\D/', '', $request->input('secondary_contact'));
+            $secondary_contact = preg_replace('/\D/', '', $_REQUEST['secondary']['secondary_contact']);
+
+            $_REQUEST['secondary']['secondary_contact'] = $secondary_contact;
+            $scondData = json_encode($_REQUEST['secondary']);
+
             $lead = new Lead();
             $lead['user_id'] = Auth::user()->id;
             $lead['name'] = $request->name;
@@ -149,7 +153,7 @@ class LeadController extends Controller
             $lead['assigned_user'] = $request->user ?? '';
             $lead['email'] = $request->email ?? '';
             $lead['primary_contact'] = $primary_contact;
-            $lead['secondary_contact'] = $secondary_contact;
+            $lead['secondary_contact'] = $scondData;
             $lead['lead_address'] = $request->lead_address;
             $lead['company_name'] = $request->company_name;
             $lead['relationship'] = $request->relationship;
@@ -289,6 +293,10 @@ class LeadController extends Controller
      */
     public function edit(Lead $lead)
     {
+        /* echo '<pre>';
+        print_r($lead);
+        echo '</pre>';
+        die(); */
         if (\Auth::user()->can('Edit Lead')) {
             $venue_function = explode(',', $lead->venue_selection);
             $function_package =  explode(',', $lead->function);
@@ -588,11 +596,6 @@ class LeadController extends Controller
     }
     public function proposalpdf(Request $request, $id)
     {
-
-        /* echo "<pre>";
-        print_r($request->all());
-        echo "</pre>";
-        die(); */
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
@@ -600,11 +603,8 @@ class LeadController extends Controller
         if ($request->action == 'clipboard') {
 
             $pdfData = [
-                'title' => $request->title,
-                'address' => html_entity_decode($request->address),
                 'agreement' => html_entity_decode($request->agreement),
                 'remarks' => html_entity_decode($request->remarks),
-                'footer' => html_entity_decode($request->footer),
             ];
             $pdfDatadasda = serialize($pdfData);
 

@@ -96,4 +96,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     @stack('css-page')
     <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/richtext.min.css">
+    
+    <script src="https://cdn.ckeditor.com/4.11.2/standard-all/ckeditor.js"></script>
+
 </head>

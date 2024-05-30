@@ -1,4 +1,4 @@
-@php
+<?php
 $plansettings = App\Models\Utility::plansettings();
 $settings = Utility::settings();
 $type_arr= explode(',',$settings['event_type']);
@@ -18,7 +18,7 @@ if(isset($settings['additional_items']) && !empty($settings['additional_items'])
 $additional_items = json_decode($settings['additional_items'],true);
 }
 
-@endphp
+?>
 <style>
     .fa-asterisk {
         font-size: xx-small;
@@ -26,39 +26,47 @@ $additional_items = json_decode($settings['additional_items'],true);
         padding: 1px;
     }
 </style>
-{{Form::open(array('url'=>'lead','method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))}}
+<?php echo e(Form::open(array('url'=>'lead','method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))); ?>
+
 <input type="hidden" name="storedid" value="">
 <div class="row">
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('lead_name',__('Lead Name'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('lead_name',__('Lead Name'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('lead_name',null,array('class'=>'form-control','placeholder'=>__('Enter Lead Name'),'required'=>'required'))}}
+            <?php echo e(Form::text('lead_name',null,array('class'=>'form-control','placeholder'=>__('Enter Lead Name'),'required'=>'required'))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
-            {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))}}
+            <?php echo e(Form::label('company_name',__('Company Name'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))); ?>
+
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
-        <h5 style="margin-left: 14px;">{{ __('Primary contact') }}</h5>
+        <h5 style="margin-left: 14px;"><?php echo e(__('Primary contact')); ?></h5>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('name',__('Name'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('name',__('Name'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('name',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
+            <?php echo e(Form::text('name',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group ">
-            {{Form::label('name',__('Phone'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('name',__('Phone'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
@@ -70,40 +78,49 @@ $additional_items = json_decode($settings['additional_items'],true);
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('email',__('Email'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('email',__('Email'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('email',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))}}
+            <?php echo e(Form::text('email',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('lead_address',__('Address'),['class'=>'form-label']) }}
-            {{Form::text('lead_address',null,array('class'=>'form-control','placeholder'=>__('Address')))}}
+            <?php echo e(Form::label('lead_address',__('Address'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('lead_address',null,array('class'=>'form-control','placeholder'=>__('Address')))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('relationship',__('Title'),['class'=>'form-label']) }}
-            {{Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))}}
+            <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
+
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
-        <h5 style="margin-left: 14px;">{{ __('Secondary contact') }}</h5>
+        <h5 style="margin-left: 14px;"><?php echo e(__('Secondary contact')); ?></h5>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('name',__('Name'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('name',__('Name'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('secondary[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
+            <?php echo e(Form::text('secondary[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group ">
-            {{Form::label('name',__('Phone'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('name',__('Phone'),['class'=>'form-label'])); ?>
+
             <div class="intl-tel-input">
                 <input type="tel" id="phone-input1" name="secondary[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
                 <input type="hidden" name="secondary_countrycode" id="secondary-country-code">
@@ -112,225 +129,257 @@ $additional_items = json_decode($settings['additional_items'],true);
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('email',__('Email'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('email',__('Email'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('secondary[email]',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))}}
+            <?php echo e(Form::text('secondary[email]',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('lead_address',__('Address'),['class'=>'form-label']) }}
-            {{Form::text('secondary[lead_address]',null,array('class'=>'form-control','placeholder'=>__('Address')))}}
+            <?php echo e(Form::label('lead_address',__('Address'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('secondary[lead_address]',null,array('class'=>'form-control','placeholder'=>__('Address')))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('relationship',__('Title'),['class'=>'form-label']) }}
-            {{Form::text('secondary[relationship]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))}}
+            <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('secondary[relationship]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
+
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
-        <h5 style="margin-left: 14px;">{{ __('Training Details') }}</h5>
+        <h5 style="margin-left: 14px;"><?php echo e(__('Training Details')); ?></h5>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('type',__('Training Type'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('type',__('Training Type'),['class'=>'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
             <select name="type" id="type" class="form-control" required>
                 <option value="">Select Type</option>
-                @foreach($type_arr as $type)
-                <option value="{{$type}}">{{$type}}</option>
-                @endforeach
+                <?php $__currentLoopData = $type_arr; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($type); ?>"><?php echo e($type); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>
     </div>
-    @if(isset($venue) && !empty($venue))
+    <?php if(isset($venue) && !empty($venue)): ?>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('venue_selection', __('Mode of Trainings'), ['class' => 'form-label']) }}
+            <?php echo e(Form::label('venue_selection', __('Mode of Trainings'), ['class' => 'form-label'])); ?>
+
             <div>
-                @foreach($venue as $key => $label)
-                {{ Form::checkbox('venue[]', $label, false, ['id' => 'venue' . ($key + 1)]) }}
-                {{ Form::label($label, $label) }}
-                @endforeach
+                <?php $__currentLoopData = $venue; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php echo e(Form::checkbox('venue[]', $label, false, ['id' => 'venue' . ($key + 1)])); ?>
+
+                <?php echo e(Form::label($label, $label)); ?>
+
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('start_date', __('Date of Training'), ['class' => 'form-label']) }}
+            <?php echo e(Form::label('start_date', __('Date of Training'), ['class' => 'form-label'])); ?>
+
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {!! Form::date('start_date', date('Y-m-d'), ['class' => 'form-control','required' =>'required']) !!}
+            <?php echo Form::date('start_date', date('Y-m-d'), ['class' => 'form-control','required' =>'required']); ?>
+
         </div>
     </div>
     <!-- <div class="col-6">
         <div class="form-group">
-            {{ Form::label('end_date', __('End Date'), ['class' => 'form-label']) }}
-            {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control']) !!}
+            <?php echo e(Form::label('end_date', __('End Date'), ['class' => 'form-label'])); ?>
+
+            <?php echo Form::date('end_date', date('Y-m-d'), ['class' => 'form-control']); ?>
+
         </div>
     </div> -->
 
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('guest_count',__('Guest Count'),['class'=>'form-label']) }}
-            {!! Form::number('guest_count',old('guest_count'),array('class' => 'form-control','min'=> 0)) !!}
+            <?php echo e(Form::label('guest_count',__('Guest Count'),['class'=>'form-label'])); ?>
+
+            <?php echo Form::number('guest_count',old('guest_count'),array('class' => 'form-control','min'=> 0)); ?>
+
         </div>
     </div>
-    @if(isset($function) && !empty($function))
+    <?php if(isset($function) && !empty($function)): ?>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('function', __('Product & Services'), ['class' => 'form-label']) }}
+            <?php echo e(Form::label('function', __('Product & Services'), ['class' => 'form-label'])); ?>
+
             <div>
-                @foreach($function as $key => $value)
+                <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="form-check" style="    padding-left: 2.75em !important;">
-                    {!! Form::checkbox('function[]', $value['function'], null, ['class' => 'form-check-input', 'id' =>
-                    'function_' . $key]) !!}
-                    {{ Form::label($value['function'], $value['function'], ['class' => 'form-check-label']) }}
+                    <?php echo Form::checkbox('function[]', $value['function'], null, ['class' => 'form-check-input', 'id' =>
+                    'function_' . $key]); ?>
+
+                    <?php echo e(Form::label($value['function'], $value['function'], ['class' => 'form-check-label'])); ?>
+
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
     <div class="col-6 need_full" id="mailFunctionSection">
-        @if(isset($function) && !empty($function))
-        @foreach($function as $key =>$value)
-        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
-            {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
-            @foreach($value['package'] as $k => $package)
-            <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
-                {!! Form::checkbox('package_'.str_replace(' ', '', strtolower($value['function'])).'[]',$package,
+        <?php if(isset($function) && !empty($function)): ?>
+        <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="form-group" data-main-index="<?php echo e($key); ?>" data-main-value="<?php echo e($value['function']); ?>" id="function_package" style="display: none;">
+            <?php echo e(Form::label('package', __($value['function']), ['class' => 'form-label'])); ?>
+
+            <?php $__currentLoopData = $value['package']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $package): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="form-check" data-main-index="<?php echo e($k); ?>" data-main-package="<?php echo e($package); ?>">
+                <?php echo Form::checkbox('package_'.str_replace(' ', '', strtolower($value['function'])).'[]',$package,
                 null,
-                ['id' => 'package_' . $key.$k, 'data-function' => $value['function'], 'class' => 'form-check-input'])
-                !!}
-                {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
+                ['id' => 'package_' . $key.$k, 'data-function' => $value['function'], 'class' => 'form-check-input']); ?>
+
+                <?php echo e(Form::label($package, $package, ['class' => 'form-check-label'])); ?>
+
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-        @endforeach
-        @endif
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
     </div>
-    @if(isset($additional_items) && !empty($additional_items))
+    <?php if(isset($additional_items) && !empty($additional_items)): ?>
     <div class="col-6 need_full" id="additionalSection">
         <div class="form-group">
-            {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
-            @foreach($additional_items as $ad_key =>$ad_value)
-            @foreach($ad_value as $fun_key =>$packageVal)
-            <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display:none;">
-                {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
-                @foreach($packageVal as $pac_key =>$item)
-                <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
-                    {!! Form::checkbox('additional_'.str_replace(' ', '_', strtolower($fun_key)).'[]',$pac_key, null,
-                    ['data-function' => $fun_key, 'class' => 'form-check-input']) !!}
-                    {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
+            <?php echo e(Form::label('additional', __('Additional items'), ['class' => 'form-label'])); ?>
+
+            <?php $__currentLoopData = $additional_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ad_key =>$ad_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $ad_value; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fun_key =>$packageVal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="form-group" data-additional-index="<?php echo e($fun_key); ?>" data-additional-value="<?php echo e(key($packageVal)); ?>" id="ad_package" style="display:none;">
+                <?php echo e(Form::label('additional', __($fun_key), ['class' => 'form-label'])); ?>
+
+                <?php $__currentLoopData = $packageVal; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pac_key =>$item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="form-check" data-additional-index="<?php echo e($pac_key); ?>" data-additional-package="<?php echo e($pac_key); ?>">
+                    <?php echo Form::checkbox('additional_'.str_replace(' ', '_', strtolower($fun_key)).'[]',$pac_key, null,
+                    ['data-function' => $fun_key, 'class' => 'form-check-input']); ?>
+
+                    <?php echo e(Form::label($pac_key, $pac_key, ['class' => 'form-check-label'])); ?>
+
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-            @endforeach
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
 
-    @endif
+    <?php endif; ?>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label'])); ?>
+
             <select class="form-control" name='user'>
                 <option value="">Select Staff</option>
-                @foreach($users as $user)
-                <option class="form-control" value="{{$user->id}}">{{$user->name}} ({{$user->type}})</option>
-                @endforeach
+                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option class="form-control" value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?> (<?php echo e($user->type); ?>)</option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
         <!-- <hr class="mt-2 mb-2"> -->
-        <h5 style="margin-left: 14px;">{{ __('Other Information') }}</h5>
+        <h5 style="margin-left: 14px;"><?php echo e(__('Other Information')); ?></h5>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+            <?php echo e(Form::label('allergies',__('Allergies'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
-            {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
+            <?php echo e(Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))); ?>
+
         </div>
     </div>
     <div class="col-12">
         <div class="form-group">
-            {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
-            {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
+            <?php echo e(Form::label('Description',__('How did you hear about us?'),['class'=>'form-label'])); ?>
+
+            <?php echo e(Form::textarea('description',null,array('class'=>'form-control','rows'=>2))); ?>
+
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
         <!-- <hr class="mt-2 mb-2"> -->
-        <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
+        <h5 style="margin-left: 14px;"><?php echo e(__('Estimate Billing Summary Details')); ?></h5>
     </div>
-    {{--<div class="col-6 need_full">
-        <div class="form-group">
-            {!! Form::label('baropt', 'Bar') !!}
-            @foreach($baropt as $key => $label)
-            <div>
-                {{ Form::radio('baropt', $label, false, ['id' => $label]) }}
-                {{ Form::label('baropt' . ($key + 1), $label) }}
-            </div>
-            @endforeach
-        </div>
-    </div>--}}
+    
     <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
-        @if(isset($bar_package) && !empty($bar_package))
-        @foreach($bar_package as $key =>$value)
-        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
-            {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
-            @foreach($value['barpackage'] as $k => $bar)
-            <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
-                {!! Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_'
-                . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
-                {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
+        <?php if(isset($bar_package) && !empty($bar_package)): ?>
+        <?php $__currentLoopData = $bar_package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="form-group" data-main-index="<?php echo e($key); ?>" data-main-value="<?php echo e($value['bar']); ?>">
+            <?php echo e(Form::label('bar', __($value['bar']), ['class' => 'form-label'])); ?>
+
+            <?php $__currentLoopData = $value['barpackage']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $bar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="form-check" data-main-index="<?php echo e($k); ?>" data-main-package="<?php echo e($bar); ?>">
+                <?php echo Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_'
+                . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']); ?>
+
+                <?php echo e(Form::label($bar, $bar, ['class' => 'form-check-label'])); ?>
+
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-        @endforeach
-        @endif
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-            <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="{{old('guest_count')}}">
-        </div>
-    </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{ Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label']) }}
-            {!! Form::input('time', 'start_time', 'null', ['class' => 'form-control']) !!}
+            <?php echo e(Form::label('rooms',__('Room'),['class'=>'form-label'])); ?>
+
+            <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="<?php echo e(old('guest_count')); ?>">
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label']) }}
-            {!! Form::input('time', 'end_time', 'null', ['class' => 'form-control']) !!}
+            <?php echo e(Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label'])); ?>
+
+            <?php echo Form::input('time', 'start_time', 'null', ['class' => 'form-control']); ?>
+
         </div>
     </div>
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('is_active',__('Active'),['class'=>'form-label']) }}
+            <?php echo e(Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label'])); ?>
+
+            <?php echo Form::input('time', 'end_time', 'null', ['class' => 'form-control']); ?>
+
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group">
+            <?php echo e(Form::label('is_active',__('Active'),['class'=>'form-label'])); ?>
+
             <input type="checkbox" class="form-check-input" name="is_active" checked>
         </div>
     </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn  btn-light" data-bs-dismiss="modal">Close</button>
-    {{Form::submit(__('Save'),array('class'=>'btn btn-primary '))}}
+    <?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary '))); ?>
+
 </div>
 <style>
     .iti.iti--allow-dropdown.iti--separate-dial-code {
@@ -506,11 +555,11 @@ $additional_items = json_decode($settings['additional_items'],true);
     $(document).ready(function() {
         var storedId = localStorage.getItem('clickedLinkId');
         $.ajax({
-            url: "{{ route('getcontactinfo') }}",
+            url: "<?php echo e(route('getcontactinfo')); ?>",
             type: 'POST',
             data: {
                 "customerid": storedId,
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
             },
             success: function(data) {
                 localStorage.removeItem('clickedLinkId');
@@ -525,4 +574,4 @@ $additional_items = json_decode($settings['additional_items'],true);
         });
     })
 </script>
-{{Form::close()}}
+<?php echo e(Form::close()); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/lead/create.blade.php ENDPATH**/ ?>

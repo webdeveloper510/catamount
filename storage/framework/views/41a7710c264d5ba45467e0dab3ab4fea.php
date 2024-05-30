@@ -90,115 +90,76 @@ foreach ($token as $key => $val) {
 ?>
 <div class="row">
     <div class="col-lg-12">
-        {{ Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data']) }}
+        <?php echo e(Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data'])); ?>
+
 
         <div class="">
             <dl class="row">
-                <input type="hidden" name="lead" value="{{ $lead->id }}">
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Name')}}</span></dt>
+                <input type="hidden" name="lead" value="<?php echo e($lead->id); ?>">
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Name')); ?></span></dt>
                 <dd class="col-md-6">
-                    <input type="text" name="name" class="form-control" value="{{ $lead->name }}" readonly>
+                    <input type="text" name="name" class="form-control" value="<?php echo e($lead->name); ?>" readonly>
                 </dd>
 
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Recipient')}}</span></dt>
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Recipient')); ?></span></dt>
                 <dd class="col-md-6">
-                    <input type="email" name="email" class="form-control" value="{{ $lead->email }}" required>
+                    <input type="email" name="email" class="form-control" value="<?php echo e($lead->email); ?>" required>
                 </dd>
 
-                <dt class="col-md-12"><span class="h6  mb-0">{{__('Subject')}}</span></dt>
+                <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Subject')); ?></span></dt>
                 <dd class="col-md-12"><input type="text" name="subject" id="Subject" class="form-control" required></dd>
 
-                <dt class="col-md-12"><span class="h6  mb-0">{{__('Content')}}</span></dt>
+                <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Content')); ?></span></dt>
                 <dd class="col-md-12"><textarea name="emailbody" id="emailbody" cols="30" rows="10" class="form-control" required></textarea></dd>
 
-                <dt class="col-md-12"><span class="h6  mb-0">{{__('Upload Document')}}</span></dt>
+                <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Upload Document')); ?></span></dt>
                 <dd class="col-md-12"><input type="file" name="attachment" id="attachment" class="form-control"></dd>
                 <hr class="mt-4 mb-4">
 
-                {{--<div class="col-12  p-0 modaltitle pb-3 mb-3 flex-title">
-                <h5 class="bb">{{ __('Estimated Billing Details') }}</h5>
-                <span class="h6 mb-0" style="float:right;">{{__('Guest Count')}} : {{ $lead->guest_count }}</span>
-        </div>
-        <dl class="row">
-            <div class="form-group">
-                <div class="table-res">
-                    <table class="table table-share">
-                        <thead>
-                            <tr>
-                                <th>{{__('Description')}} </th>
-                                <th>{{__('Cost(per person)')}} </th>
-                                <th>{{__('Quantity')}} </th>
-                                <th>{{__('Notes')}} </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($labels as $key=> $label)
-                            <tr>
-                                <td>{{ucfirst($label)}}</td>
-                                <td>
-                                    <input type="text" name="billing[{{$key}}][cost]" value="{{ isset($leaddata[$key.'_cost']) ? $leaddata[$key.'_cost'] : '' }}" class="form-control dlr">
-                                </td>
-                                <td>
-                                    <input type="number" name="billing[{{$key}}][quantity]" min='0' class="form-control" value="{{$leaddata[$key] ?? ''}}" required>
-                                </td>
-                                <td>
-                                    <input type="text" name="billing[{{$key}}][notes]" class="form-control" value="{{ isset($key) && ($key !== 'hotel_rooms') ? $leaddata[$key] ?? '' : ''  }}">
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-12">
-                    <label class="form-label"> Deposit on file: </label>
-                    <input type="number" name="deposits" min='0' class="form-control">
-                </div>
+                
+        <h5 class="bb"><?php echo e(__('PDF')); ?></h5>
 
-            </div>
-        </dl>--}}
-        <h5 class="bb">{{ __('PDF') }}</h5>
-
-        <!-- <dt class="col-md-3"><span class="h6  mb-0">{{__('Title')}}</span></dt>
+        <!-- <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Title')); ?></span></dt>
         <dd class="col-md-9">
-            <input type="text" name="title" class="form-control" id="title" value="{{__(@$finalProposalArg['title'])}}" />
+            <input type="text" name="title" class="form-control" id="title" value="<?php echo e(__(@$finalProposalArg['title'])); ?>" />
         </dd>
-        <dt class="col-md-3"><span class="h6  mb-0">{{__('Address')}}</span></dt>
+        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="address" class="form-control" id="address">{{__(@$finalProposalArg['address'])}}</textarea>
+            <textarea name="address" class="form-control" id="address"><?php echo e(__(@$finalProposalArg['address'])); ?></textarea>
         </dd> -->
-        <dt class="col-md-3"><span class="h6  mb-0">{{__('Agreement')}}</span></dt>
+        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Agreement')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="agreement" class="form-control" id="agreement">{{@$finalProposalArg['agreement']}}</textarea>
+            <textarea name="agreement" class="form-control" id="agreement"><?php echo e(@$finalProposalArg['agreement']); ?></textarea>
             <!-- <script type="text/javascript">
                 CKEDITOR.replace("agreement");
             </script> -->
         </dd>
-        <dt class="col-md-3"><span class="h6  mb-0">{{__('Remarks')}}</span></dt>
+        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Remarks')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="remarks" class="form-control" id="remarks">{{(@$finalProposalArg['remarks'])}}</textarea>
+            <textarea name="remarks" class="form-control" id="remarks"><?php echo e((@$finalProposalArg['remarks'])); ?></textarea>
             <!-- <script type="text/javascript">
                 CKEDITOR.replace("remarks");
             </script> -->
         </dd>
 
-        <!-- <dt class="col-md-3"><span class="h6  mb-0">{{__('Footer')}}</span></dt>
+        <!-- <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Footer')); ?></span></dt>
         <dd class="col-md-9">
-            <textarea name="footer" class="form-control" id="footer">{{__(@$finalProposalArg['footer'])}}</textarea>
+            <textarea name="footer" class="form-control" id="footer"><?php echo e(__(@$finalProposalArg['footer'])); ?></textarea>
         </dd> -->
         </dl>
 
     </div>
     <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this)" data-url="{{route('lead.signedproposal',urlencode(encrypt($lead->id)))}}" title='Copy To Clipboard'>
+        <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this)" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
             <i class="ti ti-copy"></i>
         </button>
-        {{Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))}}
+        <?php echo e(Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))); ?>
+
     </div>
 
-    {{Form::close()}}
+    <?php echo e(Form::close()); ?>
+
 </div>
 </div>
 <script>
@@ -240,7 +201,7 @@ foreach ($token as $key => $val) {
 
     function formSubmit(element) {
         var dataURL = $(element).data('url');
-        var url = "{{route('lead.pdf', urlencode(encrypt($lead->id)))}}";
+        var url = "<?php echo e(route('lead.pdf', urlencode(encrypt($lead->id)))); ?>";
         $(element).closest('form').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
@@ -297,4 +258,4 @@ foreach ($token as $key => $val) {
         var notification = document.getElementById('notification');
         notification.style.display = 'none';
     }
-</script>
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/lead/share_proposal.blade.php ENDPATH**/ ?>
