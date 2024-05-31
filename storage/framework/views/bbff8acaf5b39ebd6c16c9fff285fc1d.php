@@ -180,7 +180,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 <?php endif; ?>
                                             </div>
                                             <div class="col-12  p-0 modaltitle pb-3 mb0">
-                                                <h5 style="margin-left: 14px;" class="mb-0"><?php echo e(__('Contact Information')); ?></h5>
+                                                <h5 style="margin-left: 14px;" class="mb-0"><?php echo e(__('Primary Contact')); ?></h5>
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
@@ -207,10 +207,11 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     </span>
                                                     <div class="intl-tel-input">
                                                         <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
+
+                                                        
                                                         <input type="hidden" name="countrycode" id="country-code">
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
@@ -240,9 +241,76 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
-                                                    <?php echo e(Form::label('relationship',__('Relationship'),['class'=>'form-label'])); ?>
+                                                    <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
 
-                                                    <?php echo e(Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Relationship')))); ?>
+                                                    <?php echo e(Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12  p-0 modaltitle pb-3 mb0">
+                                                <h5 style="margin-left: 14px;" class="mb-0"><?php echo e(__('Secondary Contact')); ?></h5>
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    <?php echo e(Form::label('name',__('Name'),['class'=>'form-label'])); ?>
+
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    <?php echo e(Form::text('secondary_contact[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+
+                                                </div>
+                                                <?php if($errors->has('name')): ?>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong><?php echo e($errors->first('name')); ?></strong>
+                                                </span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    <?php echo e(Form::label('phone',__('Phone'),['class'=>'form-label'])); ?>
+
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    <div class="intl-tel-input">
+                                                        <input type="tel" id="phone-input1" name="secondary_contact[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
+                                                        <input type="hidden" name="countrycode1" id="country-code1">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    <?php echo e(Form::label('email',__('Email'),['class'=>'form-label'])); ?>
+
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    <?php echo e(Form::text('secondary_contact[email]',null,array('class'=>'form-control','placeholder'=>__('Enter Email'),'required'=>'required'))); ?>
+
+                                                </div>
+                                                <?php if($errors->has('email')): ?>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong><?php echo e($errors->first('email')); ?></strong>
+                                                </span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    <?php echo e(Form::label('lead_address',__('Address'),['class'=>'form-label'])); ?>
+
+
+                                                    <?php echo e(Form::text('secondary_contact[lead_address]',null,array('class'=>'form-control','placeholder'=>__('Address')))); ?>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
+
+                                                    <?php echo e(Form::text('secondary_contact[relationship]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
 
                                                 </div>
                                             </div>
@@ -349,7 +417,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
-                                                    <label for="venue_selection" class="form-label">Venue</label>
+                                                    <label for="venue_selection" class="form-label">Trainings</label>
                                                     <span class="text-sm">
                                                         <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                                     </span>
@@ -438,178 +506,154 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 </span>
                                                 <?php endif; ?>
                                             </div>
-                                            <div class="col-6 need_full">
-                                                <div class="form-group">
-                                                    <?php echo e(Form::label('function', __('Function'), ['class' => 'form-label'])); ?>
+                                            
+                                    <div class="col-6 need_full" id="mailFunctionSection">
+                                        <?php if(isset($function) && !empty($function)): ?>
+                                        <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <div class="form-group" data-main-index="<?php echo e($key); ?>" data-main-value="<?php echo e($value['function']); ?>" id="function_package" style="display: none;">
+                                            <?php echo e(Form::label('package', __($value['function']), ['class' => 'form-label'])); ?>
 
-                                                    <span class="text-sm">
-                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                    </span>
-                                                    <?php if(isset($function) && !empty($function)): ?>
-                                                    <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div class="form-check">
-                                                        <?php echo Form::checkbox('function[]',$value['function'], null, ['id'
-                                                        => 'function_' . $key, 'class' => 'form-check-input']); ?>
+                                            <span class="text-sm">
+                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                            </span>
+                                            <?php $__currentLoopData = $value['package']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $package): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <div class="form-check" data-main-index="<?php echo e($k); ?>" data-main-package="<?php echo e($package); ?>">
+                                                <?php echo Form::checkbox('package_'.str_replace(' ', '',
+                                                strtolower($value['function'])).'[]',$package, null, ['id' =>
+                                                'package_' . $key.$k, 'data-function' => $value['function'],
+                                                'class' => 'form-check-input']); ?>
 
-                                                        <?php echo e(Form::label($value['function'], $value['function'], ['class' => 'form-check-label'])); ?>
+                                                <?php echo e(Form::label($package, $package, ['class' => 'form-check-label'])); ?>
 
-                                                    </div>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <?php if($errors->has('function')): ?>
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong><?php echo e($errors->first('end_time')); ?></strong>
-                                                </span>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="col-6 need_full" id="mailFunctionSection">
-                                                <?php if(isset($function) && !empty($function)): ?>
-                                                <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <div class="form-group" data-main-index="<?php echo e($key); ?>" data-main-value="<?php echo e($value['function']); ?>" id="function_package" style="display: none;">
-                                                    <?php echo e(Form::label('package', __($value['function']), ['class' => 'form-label'])); ?>
-
-                                                    <span class="text-sm">
-                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                    </span>
-                                                    <?php $__currentLoopData = $value['package']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $package): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div class="form-check" data-main-index="<?php echo e($k); ?>" data-main-package="<?php echo e($package); ?>">
-                                                        <?php echo Form::checkbox('package_'.str_replace(' ', '',
-                                                        strtolower($value['function'])).'[]',$package, null, ['id' =>
-                                                        'package_' . $key.$k, 'data-function' => $value['function'],
-                                                        'class' => 'form-check-input']); ?>
-
-                                                        <?php echo e(Form::label($package, $package, ['class' => 'form-check-label'])); ?>
-
-
-                                                    </div>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                </div>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="col-6 need_full" id="additionalSection">
-                                                <?php if(isset($additional_items) && !empty($additional_items)): ?>
-                                                <?php echo e(Form::label('additional', __('Additional items'), ['class' => 'form-label'])); ?>
-
-                                                <?php $__currentLoopData = $additional_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ad_key =>$ad_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php $__currentLoopData = $ad_value; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fun_key =>$packageVal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <div class="form-group" data-additional-index="<?php echo e($fun_key); ?>" data-additional-value="<?php echo e(key($packageVal)); ?>" id="ad_package" style="display: none;">
-                                                    <?php echo e(Form::label('additional', __($fun_key), ['class' => 'form-label'])); ?>
-
-                                                    <?php $__currentLoopData = $packageVal; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pac_key =>$item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div class="form-check" data-additional-index="<?php echo e($pac_key); ?>" data-additional-package="<?php echo e($pac_key); ?>">
-                                                        <?php echo Form::checkbox('additional_'.str_replace(' ', '_',
-                                                        strtolower($fun_key)).'[]',$pac_key, null, ['data-function' =>
-                                                        $fun_key, 'class' => 'form-check-input']); ?>
-
-                                                        <?php echo e(Form::label($pac_key, $pac_key, ['class' => 'form-check-label'])); ?>
-
-                                                    </div>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                </div>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                <?php endif; ?>
 
                                             </div>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="col-6 need_full" id="additionalSection">
+                                        <?php if(isset($additional_items) && !empty($additional_items)): ?>
+                                        <?php echo e(Form::label('additional', __('Additional items'), ['class' => 'form-label'])); ?>
 
-                                            <div class="col-12">
-                                                <div class="row">
-                                                    <label><b>Setup</b></label>
-                                                    <?php $__currentLoopData = $setup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div class="col-6 need_full mt-4">
-                                                        <input type="radio" id="image_<?php echo e($loop->index); ?>" name="uploadedImage" class="form-check-input " value="<?php echo e(asset('floor_images/' . $s->image)); ?>" style="display:none;">
-                                                        <label for="image_<?php echo e($loop->index); ?>" class="form-check-label">
-                                                            <img src="<?php echo e(asset('floor_images/'.$s->image)); ?>" alt="Uploaded Image" class="img-thumbnail floorimages zoom" data-bs-toggle="tooltip" title="<?php echo e($s->Description); ?>">
-                                                        </label>
-                                                    </div>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                </div>
-                                                <?php $__errorArgs = ['uploadedImage'];
+                                        <?php $__currentLoopData = $additional_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ad_key =>$ad_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__currentLoopData = $ad_value; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fun_key =>$packageVal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <div class="form-group" data-additional-index="<?php echo e($fun_key); ?>" data-additional-value="<?php echo e(key($packageVal)); ?>" id="ad_package" style="display: none;">
+                                            <?php echo e(Form::label('additional', __($fun_key), ['class' => 'form-label'])); ?>
+
+                                            <?php $__currentLoopData = $packageVal; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pac_key =>$item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <div class="form-check" data-additional-index="<?php echo e($pac_key); ?>" data-additional-package="<?php echo e($pac_key); ?>">
+                                                <?php echo Form::checkbox('additional_'.str_replace(' ', '_',
+                                                strtolower($fun_key)).'[]',$pac_key, null, ['data-function' =>
+                                                $fun_key, 'class' => 'form-check-input']); ?>
+
+                                                <?php echo e(Form::label($pac_key, $pac_key, ['class' => 'form-check-label'])); ?>
+
+                                            </div>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <label><b>Setup</b></label>
+                                            <?php $__currentLoopData = $setup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <div class="col-6 need_full mt-4">
+                                                <input type="radio" id="image_<?php echo e($loop->index); ?>" name="uploadedImage" class="form-check-input " value="<?php echo e(asset('floor_images/' . $s->image)); ?>" style="display:none;">
+                                                <label for="image_<?php echo e($loop->index); ?>" class="form-check-label">
+                                                    <img src="<?php echo e(asset('floor_images/'.$s->image)); ?>" alt="Uploaded Image" class="img-thumbnail floorimages zoom" data-bs-toggle="tooltip" title="<?php echo e($s->Description); ?>">
+                                                </label>
+                                            </div>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                        <?php $__errorArgs = ['uploadedImage'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                <div class="alert alert-danger mt-1 mb-1"><?php echo e($message); ?></div>
-                                                <?php unset($message);
+                                        <div class="alert alert-danger mt-1 mb-1"><?php echo e($message); ?></div>
+                                        <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                                            </div>
+                                    </div>
 
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="special_req" class="card">
+                        <div class="col-md-12">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <h5><?php echo e(__('Any Special Requirements')); ?></h5>
                                     </div>
                                 </div>
                             </div>
-                            <div id="special_req" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5><?php echo e(__('Any Special Requirements')); ?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                           
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <?php echo e(Form::label('spcl_request',__('Special Requests / Considerations'),['class'=>'form-label'])); ?>
+                            <div class="card-body">
+                                <div class="row">
+                                    
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <?php echo e(Form::label('spcl_request',__('Special Requests / Considerations'),['class'=>'form-label'])); ?>
 
-                                                    <?php echo e(Form::text('spcl_request',null,array('class'=>'form-control'))); ?>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="other_info" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5><?php echo e(__('Other Information')); ?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <?php echo e(Form::label('allergies',__('Allergies'),['class'=>'form-label'])); ?>
-
-                                                    <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))); ?>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <?php echo e(Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label'])); ?>
-
-                                                    <input type="file" name="atttachment" id="atttachment" class="form-control">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer text-end">
-                                        <input type="reset" id="resetForm" value="" style="display: none;">
-                                        <?php echo e(Form::submit(__('Save'), ['class' => 'btn  btn-primary '])); ?>
+                                        <?php echo e(Form::text('spcl_request',null,array('class'=>'form-control'))); ?>
 
                                     </div>
                                 </div>
                             </div>
-                            <?php echo e(Form::close()); ?>
+                        </div>
+                    </div>
+                </div>
+                <div id="other_info" class="card">
+                    <div class="col-md-12">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <h5><?php echo e(__('Other Information')); ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <?php echo e(Form::label('allergies',__('Allergies'),['class'=>'form-label'])); ?>
+
+                                        <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))); ?>
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <?php echo e(Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label'])); ?>
+
+                                        <input type="file" name="atttachment" id="atttachment" class="form-control">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <input type="reset" id="resetForm" value="" style="display: none;">
+                            <?php echo e(Form::submit(__('Save'), ['class' => 'btn  btn-primary '])); ?>
 
                         </div>
                     </div>
                 </div>
+                <?php echo e(Form::close()); ?>
+
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startPush('script-page'); ?>
@@ -682,6 +726,7 @@ unset($__errorArgs, $__bag); ?>
                     "_token": "<?php echo e(csrf_token()); ?>",
                 },
                 success: function(data) {
+                    console.log(data);
                     // func_pack = json_decode(data.func_package);
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
@@ -702,6 +747,16 @@ unset($__errorArgs, $__bag); ?>
                     $('input[name ="end_time"]').val(data.end_time);
                     $('input[name ="rooms"]').val(data.rooms);
                     $('input[name ="email"]').val(data.email);
+                    $('input[name ="primary_contact"]').val(data.primary_contact);
+
+
+                    $('input[name ="secondary_contact[name]"]').val(data.secondary_contact.name);
+                    $('input[name ="secondary_contact[secondary_contact]"]').val(data.secondary_contact.secondary_contact);
+                    $('input[name ="secondary_contact[email]"]').val(data.secondary_contact.email);
+                    $('input[name ="secondary_contact[lead_address]"]').val(data.secondary_contact.lead_address);
+                    $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
+
+
                     $('input[name ="lead_address"]').val(data.lead_address);
                     $("select[name='type'] option[value='" + data.type + "']").prop("selected",
                         true);
@@ -761,12 +816,22 @@ $(document).ready(function() {
         var iti = window.intlTelInput(input, {
             separateDialCode: true,
         });
+        var input1 = document.querySelector("#phone-input1");
+        var iti1 = window.intlTelInput(input1, {
+            separateDialCode: true,
+        });
 
         var indiaCountryCode = iti.getSelectedCountryData().iso2;
         var countryCode = iti.getSelectedCountryData().dialCode;
         $('#country-code').val(countryCode);
         if (indiaCountryCode !== 'us') {
             iti.setCountry('us');
+        }
+        var indiaCountryCode1 = iti1.getSelectedCountryData().iso2;
+        var countryCode1 = iti1.getSelectedCountryData().dialCode;
+        $('#country-code').val(countryCode1);
+        if (indiaCountryCode1 !== 'us') {
+            iti1.setCountry('us');
         }
 
         // $('#start_date, #end_date').change(function() {
@@ -901,6 +966,20 @@ $(document).ready(function() {
                     $('input[name ="relationship"]').val(data.relationship);
                     $('input[name ="primary_contact"]').val(data.primary_contact);
                     $('input[name ="start_date"]').val(data.start_date);
+
+
+
+                    $('input[name ="secondary_contact[name]"]').val(data.secondary_contact.name);
+                    $('input[name ="secondary_contact[secondary_contact]"]').val(data.secondary_contact.secondary_contact);
+                    $('input[name ="secondary_contact[email]"]').val(data.secondary_contact.email);
+                    $('input[name ="secondary_contact[lead_address]"]').val(data.secondary_contact.lead_address);
+                    $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
+
+
+
+
+
+
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);

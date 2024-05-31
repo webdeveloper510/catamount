@@ -688,7 +688,6 @@ class LeadController extends Controller
     {
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
-
         $proposal_info = ProposalInfo::where('lead_id', $id)->first();
 
         $agreement = html_entity_decode($request->agreement);
@@ -973,7 +972,7 @@ class LeadController extends Controller
         $id = decrypt(urldecode($id));
         $email = Lead::withTrashed()->find($id)->email;
         $leads = Lead::withTrashed()->where('email', $email)->get();
-        $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
+        $notes = NotesLeads::where('lead_id', $id)->first();
         $docs = LeadDoc::where('lead_id', $id)->get();
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
@@ -1045,7 +1044,19 @@ class LeadController extends Controller
         $notes->notes = $request->notes;
         $notes->created_by = $request->createrid;
         $notes->lead_id = $id;
-        $notes->save();
+
+
+        $notes = NotesLeads::updateOrCreate(
+            [
+                'lead_id' => $id,
+            ],
+            [
+                'lead_id' => $id,
+                'notes' => $request->notes,
+                'created_by' => $request->createrid,
+
+            ]
+        );
         return true;
     }
 }

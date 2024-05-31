@@ -22,7 +22,7 @@ $bar_package = json_decode($setting['barpackage'],true);
 
 $func_package = json_decode($lead->func_package,true);
 $fun_ad_opts = json_decode($lead->ad_opts,true);
-$secondary_contact = json_decode($lead->secondary_contact,true);
+@$secondary_contact = json_decode($lead->secondary_contact,true) ?? [];
 
 @endphp
 @section('title')

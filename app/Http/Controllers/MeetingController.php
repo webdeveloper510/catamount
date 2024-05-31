@@ -47,14 +47,14 @@ class MeetingController extends Controller
     {
         if (\Auth::user()->can('Manage Meeting')) {
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
+                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();
                 $defualtView->route  = \Request::route()->getName();
                 $defualtView->module = 'meeting';
                 $defualtView->view   = 'list';
                 User::userDefualtView($defualtView);
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();
                 $defualtView->route  = \Request::route()->getName();
                 $defualtView->module = 'meeting';
@@ -72,7 +72,7 @@ class MeetingController extends Controller
             $status            = Meeting::$status;
             $parent            = Meeting::$parent;
             $users              = User::where('created_by', \Auth::user()->creatorId())->get();
-            $attendees_lead    = Lead::where('created_by', \Auth::user()->creatorId())->where('status',4)->where('lead_status',1)->get()->pluck('leadname', 'id');
+            $attendees_lead    = Lead::where('created_by', \Auth::user()->creatorId())->where('status', 4)->where('lead_status', 1)->get()->pluck('leadname', 'id');
             $attendees_lead->prepend('Select Lead', 0);
             $setup = Setup::all();
             return view('meeting.create', compact('status', 'type',  'setup', 'parent', 'users', 'attendees_lead'));
@@ -101,19 +101,19 @@ class MeetingController extends Controller
                     'email' => 'required|email|max:120',
                     'type' => 'required',
                     'venue' => 'required|max:120',
-                    'function' => 'required|max:120',
+                    // 'function' => 'required|max:120',
                     'guest_count' => 'required',
-                    'user'=>'required'
+                    'user' => 'required'
                 ]
             );
-        if ($validator->fails()) {
-            $messages = $validator->getMessageBag();
-            return redirect()
-                ->back()->with('error', $messages->first())
-                ->withErrors($validator)
-                ->withInput();
-        }
-           
+            if ($validator->fails()) {
+                $messages = $validator->getMessageBag();
+                return redirect()
+                    ->back()->with('error', $messages->first())
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
             $data = $request->all();
             $package = [];
             $additional = [];
@@ -157,9 +157,9 @@ class MeetingController extends Controller
 
             $overlapping_event = Meeting::where('start_date', '<=', $end_date)
                 ->where('end_date', '>=', $start_date)
-                ->where(function ($query) use ($start_date, $end_date,$start_time,$end_time, $venue_selected) {
+                ->where(function ($query) use ($start_date, $end_date, $start_time, $end_time, $venue_selected) {
                     foreach ($venue_selected as $v) {
-                        $query->orWhere(function ($q) use ($start_date, $end_date,$start_time,$end_time, $v) {
+                        $query->orWhere(function ($q) use ($start_date, $end_date, $start_time, $end_time, $v) {
                             $q->where('venue_selection', 'LIKE', "%$v%")
                                 ->where('end_time', '>', $start_time)
                                 ->where('start_time', '<', $end_time)
@@ -190,23 +190,27 @@ class MeetingController extends Controller
             if ($overlapping_event > 0) {
                 return redirect()->back()->with('error', 'Date is Blocked for corrosponding time and venue');
             }
-            $phone= preg_replace('/\D/', '', $request->input('phone'));
+
+
+            $_REQUEST['secondary_contact'] = serialize($request->secondary_contact);
+
+            $phone = preg_replace('/\D/', '', $request->input('phone'));
             $meeting                      = new Meeting();
-            $meeting['user_id']           = isset($request->user)?implode(',', $request->user):'';
+            $meeting['user_id']           = isset($request->user) ? implode(',', $request->user) : '';
             $meeting['name']              = $request->name;
             $meeting['start_date']        = $request->start_date;
             $meeting['end_date']          = $request->start_date;
             $meeting['email']              = $request->email;
-            $meeting['lead_address']       = $request->lead_address ??'';
+            $meeting['lead_address']       = $request->lead_address ?? '';
             $meeting['company_name']      = $request->company_name;
             $meeting['relationship']       = $request->relationship;
             $meeting['type']               = $request->type;
             $meeting['venue_selection']    = implode(',', $request->venue);
             $meeting['func_package']       = $package;
-            $meeting['function']            = implode(',', $request->function);
+            // $meeting['function']            = implode(',', $request->function);
             $meeting['guest_count']         = $request->guest_count;
             $meeting['room']                = $request->rooms ?? 0;
-            $meeting['meal']                = $request->meal ??'';
+            $meeting['meal']                = $request->meal ?? '';
             $meeting['bar']                 = $request->baropt;
             $meeting['bar_package']         = $bar_pack;
             $meeting['spcl_request']        = $request->spcl_request;
@@ -222,15 +226,16 @@ class MeetingController extends Controller
             $meeting['ad_opts']             = $additional;
             $meeting['floor_plan']          = $request->uploadedImage;
             $meeting['allergies']          = $request->allergies;
+            $meeting['secondary_contact']  = $_REQUEST['secondary_contact'];
             $meeting['created_by']          = \Auth::user()->creatorId();
 
             $meeting->save();
             // echo "<pre>";print_r($meeting);die;
-            
+
             if (!empty($request->file('atttachment'))) {
-                $file= $request->file('atttachment');
+                $file = $request->file('atttachment');
                 $originalName = $file->getClientOriginalName();
-                $filename =  Str::random(3).'_'.$originalName;
+                $filename =  Str::random(3) . '_' . $originalName;
                 $folder = 'Event/' .  $meeting->id; // Example: uploads/1
                 try {
                     $path = $file->storeAs($folder, $filename, 'public');
@@ -243,8 +248,7 @@ class MeetingController extends Controller
                     Log::error('File upload failed: ' . $e->getMessage());
                     return redirect()->back()->with('error', 'File upload failed');
                 }
-               
-            } 
+            }
             // if (!empty($request->file('atttachment'))){
             //     $file =  $request->file('atttachment');
             //     $filename = 'Event_'.Str::random(7) . '.' . $file->getClientOriginalExtension();
@@ -256,18 +260,18 @@ class MeetingController extends Controller
             //         return redirect()->back()->with('error', 'File upload failed');
             //     }
             // }
-                $existingcustomer = MasterCustomer::where('email',$request->email)->first();
-                if(!$existingcustomer){
-                    $customer = new MasterCustomer();
-                    $customer->ref_id = $meeting->id;
-                    $customer->name = $request->name;
-                    $customer->email = $request->email;
-                    $customer->phone = $phone;
-                    $customer->address = $request->lead_address ?? '';
-                    $customer->category = 'event';
-                    $customer->type = $request->type;
-                    $customer->save();
-                }
+            $existingcustomer = MasterCustomer::where('email', $request->email)->first();
+            if (!$existingcustomer) {
+                $customer = new MasterCustomer();
+                $customer->ref_id = $meeting->id;
+                $customer->name = $request->name;
+                $customer->email = $request->email;
+                $customer->phone = $phone;
+                $customer->address = $request->lead_address ?? '';
+                $customer->category = 'event';
+                $customer->type = $request->type;
+                $customer->save();
+            }
             $Assign_user_phone = User::where('id', $request->user)->first();
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $uArr = [
@@ -295,26 +299,26 @@ class MeetingController extends Controller
             }
             $url = 'https://fcm.googleapis.com/fcm/send';
             // $FcmToken = 'e0MpDEnykMLte1nJ0k3SU7:APA91bGpbv-KQEzEQhR1ApEgGFmn9H5tEkdpvG2FHuyiWP3JZsP_8CKJMi5tKyTn5DYgOmeDvAWFwdiDLeG_qTXZ6lUIWL2yqrFYJkUg-KUwTsQYupk0qYsi3OCZ8MZQNbCIDa6pbJ4j';
-           
-            $FcmToken = User::where('type','owner')->orwhere('type','admin')->pluck('device_key')->first();
+
+            $FcmToken = User::where('type', 'owner')->orwhere('type', 'admin')->pluck('device_key')->first();
             // echo"<pre>";print_r($FcmToken);die;
             $serverKey = 'AAAAn2kzNnQ:APA91bE68d4g8vqGKVWcmlM1bDvfvwOIvBl-S-KUNB5n_p4XEAcxUqtXsSg8TkexMR8fcJHCZxucADqim2QTxK2s_P0j5yuy6OBRHVFs_BfUE0B4xqgRCkVi86b8SwBYT953dE3X0wdY'; // ADD SERVER KEY HERE PROVIDED BY FCM
             $data = [
-                "to" =>$FcmToken,
+                "to" => $FcmToken,
                 "notification" => [
                     "title" => 'Event created.',
-                    "body" => 'New Event is Created',  
+                    "body" => 'New Event is Created',
                 ]
             ];
             $encodedData = json_encode($data);
-        
+
             $headers = [
                 'Authorization:key=' . $serverKey,
-                  'Content-Type: application/json',
+                'Content-Type: application/json',
             ];
-        
+
             $ch = curl_init();
-            
+
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -328,7 +332,7 @@ class MeetingController extends Controller
             $result = curl_exec($ch);
             if ($result === FALSE) {
                 die('Curl failed: ' . curl_error($ch));
-            }        
+            }
             // Close connection
             curl_close($ch);
             // if (\Auth::user()) {
@@ -337,14 +341,11 @@ class MeetingController extends Controller
             //     return redirect()->back()->with('error', __('Webhook call failed.') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
             // }
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
-             
+                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
-              
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event created!'));
-
         }
     }
     /**
@@ -379,7 +380,7 @@ class MeetingController extends Controller
     {
         if (\Auth::user()->can('Edit Meeting')) {
             $status            = Meeting::$status;
-            $attendees_lead    = Lead::where('id', $meeting->attendees_lead)->where('lead_status',1)->get()->pluck('leadname')->first();
+            $attendees_lead    = Lead::where('id', $meeting->attendees_lead)->where('lead_status', 1)->get()->pluck('leadname')->first();
             $users  = User::where('created_by', \Auth::user()->creatorId())->get();
             $function_p = explode(',', $meeting->function);
             $venue_function = explode(',', $meeting->venue_selection);
@@ -423,8 +424,8 @@ class MeetingController extends Controller
             if ($validator->fails()) {
                 $messages = $validator->getMessageBag();
                 return redirect()->back()->with('error', $messages->first())
-                ->withErrors($validator)
-                ->withInput();
+                    ->withErrors($validator)
+                    ->withInput();
             }
             $start_date = $request->input('start_date');
             $end_date = $request->input('start_date');
@@ -447,15 +448,15 @@ class MeetingController extends Controller
                 })->where('id', '<>', $meeting->id)->count();
 
             if ($overlapping_event > 0) {
-                return redirect()->back()->with('error', 'Event with overlapping time and matching venue already exists!') 
-                ->withInput();
+                return redirect()->back()->with('error', 'Event with overlapping time and matching venue already exists!')
+                    ->withInput();
             }
 
             $overlapping_event = Blockdate::where('start_date', '<=', $end_date)
                 ->where('end_date', '>=', $start_date)
-                ->where(function ($query) use ($start_date, $end_date,$venue_selected) {
+                ->where(function ($query) use ($start_date, $end_date, $venue_selected) {
                     foreach ($venue_selected as $v) {
-                        $query->orWhere(function ($q) use ($start_date, $end_date,$v) {
+                        $query->orWhere(function ($q) use ($start_date, $end_date, $v) {
                             $q->where('venue', 'LIKE', "%$v%")
                                 // ->where('end_time', '>', $start_time)
                                 // ->where('start_time', '<', $end_time)
@@ -482,7 +483,7 @@ class MeetingController extends Controller
             $data = $request->all();
             $package = [];
             $additional = [];
-            $bar_pack =[];
+            $bar_pack = [];
             foreach ($data as $key => $values) {
                 if (strpos($key, 'package_') === 0) {
                     $newKey = strtolower(str_replace('package_', '', $key));
@@ -515,7 +516,7 @@ class MeetingController extends Controller
             $package = json_encode($package);
             $additional = json_encode($additional);
             $bar_pack = json_encode($bar_pack);
-            $phone= preg_replace('/\D/', '', $request->input('phone'));
+            $phone = preg_replace('/\D/', '', $request->input('phone'));
 
             $meeting['user_id']           = implode(',', $request->user);
             $meeting['name']              = $request->name;
@@ -531,7 +532,7 @@ class MeetingController extends Controller
             $meeting['func_package']       = $package;
             $meeting['guest_count']        = $request->guest_count;
             $meeting['room']                = $request->rooms;
-            $meeting['meal']                = $meal ??'';
+            $meeting['meal']                = $meal ?? '';
             $meeting['bar']                 = $request->baropt;
             $meeting['bar_package']         = $bar_pack;
             $meeting['spcl_request']        = $request->spcl_request;
@@ -550,7 +551,7 @@ class MeetingController extends Controller
             if (!empty($request->file('atttachment'))) {
                 $file = $request->file('atttachment');
                 $originalName = $file->getClientOriginalName();
-                $filename =  Str::random(3).'_'.$originalName;
+                $filename =  Str::random(3) . '_' . $originalName;
                 $folder = 'Event/' .  $meeting->id; // Example: uploads/1
                 try {
                     $path = $file->storeAs($folder, $filename, 'public');
@@ -563,8 +564,7 @@ class MeetingController extends Controller
                     Log::error('File upload failed: ' . $e->getMessage());
                     return redirect()->back()->with('error', 'File upload failed');
                 }
-               
-            } 
+            }
             // if (!empty($request->file('attachment'))){
             //     $file =  $request->file('attachment');
             //     $filename = 'Event_'.Str::random(7) . '.' . $file->getClientOriginalExtension();
@@ -577,9 +577,9 @@ class MeetingController extends Controller
             //     }
             // }
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
+                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Updated!'));
         } else {
@@ -598,7 +598,7 @@ class MeetingController extends Controller
     {
         if (\Auth::user()->can('Delete Meeting')) {
             $meeting->delete();
-            Billing::where('event_id',$meeting->id)->delete();
+            Billing::where('event_id', $meeting->id)->delete();
             // Billingdetail::where('event_id', $meeting->id)->delete();
             Agreement::where('event_id', $meeting->id)->delete();
             return redirect()->back()->with('success', 'Event Deleted!');
@@ -680,7 +680,7 @@ class MeetingController extends Controller
                     // "display" => 'background',
                     "url" => url('/show-blocked-date-popup' . '/' . $val->id),
                     "backgroundColor" => "grey",
-                    "blocked_by" => $blockingUserName, 
+                    "blocked_by" => $blockingUserName,
                     "unique_id" => $uniqueId,
                 ];
             }
@@ -692,6 +692,7 @@ class MeetingController extends Controller
     public function get_lead_data(Request $request)
     {
         $lead = Lead::where('id', $request->venue)->first();
+        $lead->secondary_contact = json_decode($lead->secondary_contact, true);
         return $lead;
     }
 
@@ -738,7 +739,7 @@ class MeetingController extends Controller
 
         $overlapping_event = Blockdate::where('start_date', '<=', $end_date)
             ->where('end_date', '>=', $start_date)
-            ->where(function ($query) use ($start_date, $end_date,$venue_selected) {
+            ->where(function ($query) use ($start_date, $end_date, $venue_selected) {
                 foreach ($venue_selected as $v) {
                     $query->orWhere(function ($q) use ($start_date, $end_date, $v) {
                         $q->where('venue', 'LIKE', "%$v%")
@@ -808,10 +809,10 @@ class MeetingController extends Controller
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
         $meeting = Meeting::find($id);
-        if (!empty($request->file('attachment'))){
+        if (!empty($request->file('attachment'))) {
             $file =  $request->file('attachment');
-            $filename = Str::random(3).'_'. $file->getClientOriginalName();
-            $folder = 'Agreement_attachments/' . $id; 
+            $filename = Str::random(3) . '_' . $file->getClientOriginalName();
+            $folder = 'Agreement_attachments/' . $id;
             try {
                 $path = $file->storeAs($folder, $filename, 'public');
             } catch (\Exception $e) {
@@ -829,14 +830,14 @@ class MeetingController extends Controller
         $agrementinfo->save();
         $subject = $request->subject;
         $content = $request->emailbody;
-        
+
         // $file = $request->file('attachment');
         // if(!empty($tempFilePath)){
         //     $tempFilePath = $file->store('temp', 'local');
         //     // Get the full path to the temporary file
         //     $tempFilePath = storage_path('app/' . $tempFilePath);
         // }
-       
+
         try {
             config(
                 [
@@ -849,7 +850,7 @@ class MeetingController extends Controller
                     'mail.from.name'    => $settings['mail_from_name'],
                 ]
             );
-            Mail::to($request->email)->send(new SendEventMail($meeting,$subject,$content,$agrementinfo));
+            Mail::to($request->email)->send(new SendEventMail($meeting, $subject, $content, $agrementinfo));
             $meeting->update(['status' => 1]);
         } catch (\Exception $e) {
             // return response()->json(
@@ -872,7 +873,7 @@ class MeetingController extends Controller
     {
         $decryptedId = decrypt(urldecode($id));
         $meeting = Meeting::find($decryptedId);
-        $fixed_cost = Billing::where('event_id',$decryptedId)->first();
+        $fixed_cost = Billing::where('event_id', $decryptedId)->first();
         $agreement = Agreement::where('event_id', $decryptedId)->first();
         $data = [
             'agreement' => $agreement,
@@ -890,12 +891,12 @@ class MeetingController extends Controller
         // if ($agreement) {
         //     return view('meeting.agreement_error', compact('id'));
         // } else {
-            $meeting = Meeting::find($id);
-            $settings = Utility::settings();
-            $billing = Billing::where('event_id',$id)->first();
-            $billing_data = unserialize($billing->data);
-            $venue = explode(',', $settings['venue']);
-            return view('meeting.agreement.signedagreement', compact('meeting', 'venue', 'billing', 'settings','billing_data'));
+        $meeting = Meeting::find($id);
+        $settings = Utility::settings();
+        $billing = Billing::where('event_id', $id)->first();
+        $billing_data = unserialize($billing->data);
+        $venue = explode(',', $settings['venue']);
+        return view('meeting.agreement.signedagreement', compact('meeting', 'venue', 'billing', 'settings', 'billing_data'));
         // }
     }
     public function signedagreementresponse(Request $request, $id)
@@ -908,9 +909,9 @@ class MeetingController extends Controller
         }
         $meeting = Meeting::find($id);
         $settings = Utility::settings();
-        $users = User::where('type','owner')->orwhere('type','Admin')->get();
+        $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
 
-        $fixed_cost = Billing::where('event_id',$id)->first();
+        $fixed_cost = Billing::where('event_id', $id)->first();
         $agreement = Agreement::where('event_id', $id)->first();
         $data = [
             'agreement' => $agreement,
@@ -935,10 +936,9 @@ class MeetingController extends Controller
         $agreements->save();
         try {
             $filename = 'agreement_' . time() . '.pdf'; // You can adjust the filename as needed
-            $folder = 'Agreement_response/' . $id; 
+            $folder = 'Agreement_response/' . $id;
             $path = Storage::disk('public')->put($folder . '/' . $filename, $pdf->output());
             $agreements->update(['agreement_response' => $filename]);
-         
         } catch (\Exception $e) {
             // Log the error for future reference
             \Log::error('File upload failed: ' . $e->getMessage());
@@ -961,11 +961,10 @@ class MeetingController extends Controller
                 ]
             );
             foreach ($users as  $user) {
-            Mail::to($meeting->email)->cc($user->email)
-            ->send(new AgreementResponseMail($agreements,$meeting));
+                Mail::to($meeting->email)->cc($user->email)
+                    ->send(new AgreementResponseMail($agreements, $meeting));
             }
             $meeting->update(['total' => $request->grandtotal, 'status' => 2]);
-
         } catch (\Exception $e) {
             //   return response()->json(
             //             [
@@ -973,11 +972,9 @@ class MeetingController extends Controller
             //                 'message' => $e->getMessage(),
             //             ]
             //         );
-          return redirect()->back()->with('success', 'Email Not Sent');
-      
+            return redirect()->back()->with('success', 'Email Not Sent');
         }
         return $pdf->stream('agreement.pdf');
-       
     }
     public function uploadSignature($signed)
     {
@@ -995,7 +992,7 @@ class MeetingController extends Controller
         $id = decrypt(urldecode($id));
         $meeting = Meeting::where('id', $id)->first();
         $status            = Meeting::$status;
-        $attendees_lead    = Lead::where('id', $meeting->attendees_lead)->where('lead_status',1)->get()->pluck('leadname')->first();
+        $attendees_lead    = Lead::where('id', $meeting->attendees_lead)->where('lead_status', 1)->get()->pluck('leadname')->first();
         $users  = User::where('created_by', \Auth::user()->creatorId())->get();
         $function_p = explode(',', $meeting->function);
         $venue_function = explode(',', $meeting->venue_selection);
@@ -1080,42 +1077,42 @@ class MeetingController extends Controller
             $wedding_package = implode(',', $_REQUEST['wedding_package']);
         }
 
-        $phone= preg_replace('/\D/', '', $request->input('phone'));
+        $phone = preg_replace('/\D/', '', $request->input('phone'));
         $data = $request->all();
         $package = [];
-            $additional = [];
-            $bar_pack =[];
-            foreach ($data as $key => $values) {
-                if (strpos($key, 'package_') === 0) {
-                    $newKey = strtolower(str_replace('package_', '', $key));
-                    $package[$newKey] = $values;
-                }
-                if (strpos($key, 'additional_') === 0) {
-                    // Extract the suffix from the key
-                    $newKey = strtolower(str_replace('additional_', '', $key));
-
-                    // Check if the key exists in the output array, if not, initialize it
-                    if (!isset($additional[$newKey])) {
-                        $additional[$newKey] = [];
-                    }
-                    $additional[$newKey] = $values;
-                }
-                if (strpos($key, 'bar_') === 0) {
-                    // Extract the suffix from the key
-                    $newKey = ucfirst(strtolower(str_replace('bar_', '', $key)));
-
-                    // Check if the key exists in the output array, if not, initialize it
-                    if (!isset($bar_pack[$newKey])) {
-                        $bar_pack[$newKey] = [];
-                    }
-
-                    // Assign the values to the new key in the output array
-                    $bar_pack[$newKey] = $values;
-                }
+        $additional = [];
+        $bar_pack = [];
+        foreach ($data as $key => $values) {
+            if (strpos($key, 'package_') === 0) {
+                $newKey = strtolower(str_replace('package_', '', $key));
+                $package[$newKey] = $values;
             }
-            $package = json_encode($package);
-            $additional = json_encode($additional);
-            $bar_pack = json_encode($bar_pack);
+            if (strpos($key, 'additional_') === 0) {
+                // Extract the suffix from the key
+                $newKey = strtolower(str_replace('additional_', '', $key));
+
+                // Check if the key exists in the output array, if not, initialize it
+                if (!isset($additional[$newKey])) {
+                    $additional[$newKey] = [];
+                }
+                $additional[$newKey] = $values;
+            }
+            if (strpos($key, 'bar_') === 0) {
+                // Extract the suffix from the key
+                $newKey = ucfirst(strtolower(str_replace('bar_', '', $key)));
+
+                // Check if the key exists in the output array, if not, initialize it
+                if (!isset($bar_pack[$newKey])) {
+                    $bar_pack[$newKey] = [];
+                }
+
+                // Assign the values to the new key in the output array
+                $bar_pack[$newKey] = $values;
+            }
+        }
+        $package = json_encode($package);
+        $additional = json_encode($additional);
+        $bar_pack = json_encode($bar_pack);
 
         $packagesArray = implode(',', array($break_package, $lunch_package, $dinner_package, $wedding_package));
         $meeting['user_id']           = implode(',', $request->user);
@@ -1132,7 +1129,7 @@ class MeetingController extends Controller
         $meeting['func_package']       = $packagesArray;
         $meeting['guest_count']        = $request->guest_count;
         $meeting['room']                = $request->rooms;
-        $meeting['meal']                = $meal??'';
+        $meeting['meal']                = $meal ?? '';
         $meeting['bar']                 = $request->baropt;
         $meeting['spcl_request']        = $request->spcl_request;
         $meeting['alter_name']          = $request->alter_name;
@@ -1148,9 +1145,9 @@ class MeetingController extends Controller
         $meeting['allergies']          = $request->allergies;
         $meeting['created_by']        = \Auth::user()->creatorId();
         $meeting->update();
-        if (!empty($request->file('attachment'))){
+        if (!empty($request->file('attachment'))) {
             $file =  $request->file('attachment');
-            $filename = 'Event_'.Str::random(7) . '.' . $file->getClientOriginalExtension();
+            $filename = 'Event_' . Str::random(7) . '.' . $file->getClientOriginalExtension();
             $folder = 'Event/' . $id; // Example: uploads/1
             try {
                 $path = $file->storeAs($folder, $filename, 'public');
@@ -1161,11 +1158,9 @@ class MeetingController extends Controller
         }
         if ($status == 3) {
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
-             
+                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
-              
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Approved!'));
         } elseif ($status == 4) {
@@ -1195,32 +1190,25 @@ class MeetingController extends Controller
                 return redirect()->back()->with('success', 'Email Not Sent');
             }
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
-             
+                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
-              
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Resent!'));
         } elseif ($status == 5) {
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
-             
+                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
-              
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Withdrawn!'));
         }
         if (\Auth::user()->type == 'owner') {
-            $meetings = Meeting::with('assign_user')->orderby('id','desc')->get();
-         
+            $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
         } else {
-            $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id','desc')->get();
-          
+            $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
         }
         return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Updated!'));
-
     }
     public function buffer_time(Request $request)
     {
@@ -1287,29 +1275,32 @@ class MeetingController extends Controller
             }
         }
     }
-    public function detailed_info($id){
-        $id= decrypt(urldecode($id));
+    public function detailed_info($id)
+    {
+        $id = decrypt(urldecode($id));
         // echo "<pre>";print_r($id);die;
         // $event = Meeting::find($id);
         $event = Meeting::find($id);
 
-        return view('meeting.detailed_view',compact('event'));
+        return view('meeting.detailed_view', compact('event'));
     }
-    public function event_user_info($id){
+    public function event_user_info($id)
+    {
         $id = decrypt(urldecode($id));
         $email = Meeting::withTrashed()->find($id)->email;
-        $events = Meeting::withTrashed()->where('email',$email)->get();
+        $events = Meeting::withTrashed()->where('email', $email)->get();
         // $event = Meeting::withTrashed()->find($id);
-        $notes = NotesEvents::where('event_id',$id)->orderby('id','desc')->get();
-        $docs = EventDoc::where('event_id',$id)->get();
-        return view('customer.eventuserview',compact('events','docs','notes'));
+        $notes = NotesEvents::where('event_id', $id)->orderby('id', 'desc')->get();
+        $docs = EventDoc::where('event_id', $id)->get();
+        return view('customer.eventuserview', compact('events', 'docs', 'notes'));
     }
-    public function event_upload_doc(Request $request,$id){
+    public function event_upload_doc(Request $request, $id)
+    {
         $file = $request->file('customerattachment');
 
         if ($file) {
             $originalName = $file->getClientOriginalName();
-            $filename =  Str::random(3).'_'.$originalName;
+            $filename =  Str::random(3) . '_' . $originalName;
             $folder = 'Event/' . $id; // Example: uploads/1
             try {
                 $path = $file->storeAs($folder, $filename, 'public');
@@ -1326,9 +1317,9 @@ class MeetingController extends Controller
         } else {
             return redirect()->back()->with('error', 'No file uploaded');
         }
-        
     }
-    public function eventnotes(Request $request,$id){
+    public function eventnotes(Request $request, $id)
+    {
         $notes = new NotesEvents();
         $notes->notes = $request->notes;
         $notes->created_by = $request->createrid;
@@ -1336,5 +1327,4 @@ class MeetingController extends Controller
         $notes->save();
         return true;
     }
-   
 }

@@ -74,6 +74,7 @@ echo '</pre>'; */
 @$proposal = unserialize($proposal['proposal_data']) ?: [];
 @$proposal_settings = unserialize($settings['proposal']);
 
+
 $finalProposalArg = [];
 foreach ($proposal as $proCustKey => $proCustValue) {
     @$finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
@@ -86,7 +87,8 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-@$proposal['address'] = strtr($finalProposalArg['address'], $varMap);
+@$finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
+
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -114,111 +116,66 @@ foreach ($token as $key => $val) {
                 <dt class="col-md-12"><span class="h6  mb-0">{{__('Upload Document')}}</span></dt>
                 <dd class="col-md-12"><input type="file" name="attachment" id="attachment" class="form-control"></dd>
                 <hr class="mt-4 mb-4">
+                <h5 class="bb">{{ __('PDF') }}</h5>
+                <dl class="row">
+                    <dt class="col-md-12"><span class="h6 mb-0">{{__('Agreement')}}</span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="agreement" class="form-control" id="agreement">{{@$finalProposalArg['agreement']}}</textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0">{{__('Remarks')}}</span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="remarks" class="form-control" id="remarks">{{(@$finalProposalArg['remarks'])}}</textarea>
+                    </dd>
 
-                {{--<div class="col-12  p-0 modaltitle pb-3 mb-3 flex-title">
-                <h5 class="bb">{{ __('Estimated Billing Details') }}</h5>
-                <span class="h6 mb-0" style="float:right;">{{__('Guest Count')}} : {{ $lead->guest_count }}</span>
+                    <dt class="col-md-12"><span class="h6  mb-0">{{__('Scope of Services')}}</span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="scopeOfService" class="form-control" id="scopeOfService">{{(@$finalProposalArg['scopeOfService'])}}</textarea>
+                    </dd>
+
+                    <dt class="col-md-12"><span class="h6  mb-0">{{__('Cost and Business Terms')}}</span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="costBusiness" class="form-control" id="costBusiness">{{(@$finalProposalArg['costBusiness'])}}</textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0">{{__('CANCELLATION')}}</span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="cancenllation" class="form-control" id="cancenllation">{{(@$finalProposalArg['cancenllation'])}}</textarea>
+                    </dd>
+                </dl>
+            </dl>
         </div>
-        <dl class="row">
-            <div class="form-group">
-                <div class="table-res">
-                    <table class="table table-share">
-                        <thead>
-                            <tr>
-                                <th>{{__('Description')}} </th>
-                                <th>{{__('Cost(per person)')}} </th>
-                                <th>{{__('Quantity')}} </th>
-                                <th>{{__('Notes')}} </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($labels as $key=> $label)
-                            <tr>
-                                <td>{{ucfirst($label)}}</td>
-                                <td>
-                                    <input type="text" name="billing[{{$key}}][cost]" value="{{ isset($leaddata[$key.'_cost']) ? $leaddata[$key.'_cost'] : '' }}" class="form-control dlr">
-                                </td>
-                                <td>
-                                    <input type="number" name="billing[{{$key}}][quantity]" min='0' class="form-control" value="{{$leaddata[$key] ?? ''}}" required>
-                                </td>
-                                <td>
-                                    <input type="text" name="billing[{{$key}}][notes]" class="form-control" value="{{ isset($key) && ($key !== 'hotel_rooms') ? $leaddata[$key] ?? '' : ''  }}">
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-12">
-                    <label class="form-label"> Deposit on file: </label>
-                    <input type="number" name="deposits" min='0' class="form-control">
-                </div>
+        <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this,'clipboard')" data-url="{{route('lead.signedproposal',urlencode(encrypt($lead->id)))}}" title='Copy To Clipboard'>
+                <i class="ti ti-copy"></i>
+            </button>
+            <!-- <button type="button" class="btn btn-primary" data-toggle="tooltip" onclick="formSubmit(this,'mail')" title='Send to mail'>Share via mail</button> -->
+            {{ Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))}}
+        </div>
 
-            </div>
-        </dl>--}}
-        <h5 class="bb">{{ __('PDF') }}</h5>
-
-        <!-- <dt class="col-md-3"><span class="h6  mb-0">{{__('Title')}}</span></dt>
-        <dd class="col-md-9">
-            <input type="text" name="title" class="form-control" id="title" value="{{__(@$finalProposalArg['title'])}}" />
-        </dd>
-        <dt class="col-md-3"><span class="h6  mb-0">{{__('Address')}}</span></dt>
-        <dd class="col-md-9">
-            <textarea name="address" class="form-control" id="address">{{__(@$finalProposalArg['address'])}}</textarea>
-        </dd> -->
-        <dt class="col-md-3"><span class="h6  mb-0">{{__('Agreement')}}</span></dt>
-        <dd class="col-md-9">
-            <textarea name="agreement" class="form-control" id="agreement">{{@$finalProposalArg['agreement']}}</textarea>
-            <!-- <script type="text/javascript">
-                CKEDITOR.replace("agreement");
-            </script> -->
-        </dd>
-        <dt class="col-md-3"><span class="h6  mb-0">{{__('Remarks')}}</span></dt>
-        <dd class="col-md-9">
-            <textarea name="remarks" class="form-control" id="remarks">{{(@$finalProposalArg['remarks'])}}</textarea>
-            <!-- <script type="text/javascript">
-                CKEDITOR.replace("remarks");
-            </script> -->
-        </dd>
-
-        <!-- <dt class="col-md-3"><span class="h6  mb-0">{{__('Footer')}}</span></dt>
-        <dd class="col-md-9">
-            <textarea name="footer" class="form-control" id="footer">{{__(@$finalProposalArg['footer'])}}</textarea>
-        </dd> -->
-        </dl>
-
+        {{Form::close()}}
     </div>
-    <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this)" data-url="{{route('lead.signedproposal',urlencode(encrypt($lead->id)))}}" title='Copy To Clipboard'>
-            <i class="ti ti-copy"></i>
-        </button>
-        {{Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))}}
-    </div>
-
-    {{Form::close()}}
-</div>
 </div>
 <script>
+   
+    txtEditor('agreement');
+    txtEditor('remarks');
+    txtEditor('scopeOfService');
+    txtEditor('costBusiness');
+    txtEditor('cancenllation');
     (function() {
-        var agreement = CKEDITOR.replace('agreement', {
-
-            allowedContent: true,
-        });
-        agreement.on('change', function(ev) {
-            document.getElementById('agreement').innerHTML = agreement.getData();
-        });
-        var remarks = CKEDITOR.replace('remarks', {
-            allowedContent: true,
-        });
-        remarks.on('change', function(ev) {
-            document.getElementById('remarks').innerHTML = remarks.getData();
-        });
+        /*  var agreement = CKEDITOR.replace('agreement', {
+             allowedContent: true,
+         });
+         agreement.on('change', function(ev) {
+             document.getElementById('agreement').innerHTML = agreement.getData();
+         });
+         var remarks = CKEDITOR.replace('remarks', {
+             allowedContent: true,
+         });
+         remarks.on('change', function(ev) {
+             document.getElementById('remarks').innerHTML = remarks.getData();
+         }); */
     })();
-</script>
-<script>
     /* jQuery(function($) {
         $('#agreement').richText();
         $('#remarks').richText();
@@ -238,13 +195,16 @@ foreach ($token as $key => $val) {
         // alert("Copied the data URL: " + dataUrl);
     } */
 
-    function formSubmit(element) {
+    function formSubmit(element, type) {
+        event.preventDefault();
+        event.stopPropagation();
+        type = type ?? 'clipboard';
         var dataURL = $(element).data('url');
         var url = "{{route('lead.pdf', urlencode(encrypt($lead->id)))}}";
         $(element).closest('form').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
-            formData.append('action', 'clipboard');
+            formData.append('action', type);
             $.ajax({
                 url: url,
                 type: 'post',

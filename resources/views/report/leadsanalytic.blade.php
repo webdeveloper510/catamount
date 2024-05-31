@@ -151,13 +151,10 @@
                                         dddd</span></th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Assigned Staff') }} <span
                                         class="opticy"> dddd</span></th>
-                                <th scope="col" class="sort" data-sort="name">{{ __('Rooms required') }} <span
-                                        class="opticy"> dddd</span></th>
-                                <th scope="col" class="sort" data-sort="name">{{ __('Bar') }} <span class="opticy">
-                                        dddd</span></th>
-                                <th scope="col" class="sort" data-sort="name">{{ __('Bar Package') }} <span
-                                        class="opticy"> dddd</span></th>
-                                <th scope="col" class="sort" data-sort="name">{{ __('Function') }} <span class="opticy">
+                                <th scope="col" class="sort" data-sort="name">{{ __('Rooms required') }} <span class="opticy"> dddd</span></th>
+                                <!-- <th scope="col" class="sort" data-sort="name">{{ __('Bar') }} <span class="opticy">dddd</span></th> -->
+                                <!-- <th scope="col" class="sort" data-sort="name">{{ __('Bar Package') }} <span class="opticy"> dddd</span></th> -->
+                                <th scope="col" class="sort" data-sort="name">{{ __('Training') }} <span class="opticy">
                                         dddd</span></th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Package') }} <span class="opticy">
                                         dddd</span></th>
@@ -218,14 +215,14 @@
                                 <td>{{!empty($result['assign_user'])? $result['assign_user']->name :'Not Assigned Yet' }}
                                     {{!empty($result['assign_user'])?'('.$result['assign_user']->type.')':''}}</td>
                                 <td>{{$result['rooms']}} <span class="empytu"></span></td>
-                                <td>{{$result['bar'] ?? '--' }} <span class="empytu"></span></td>
+                               {{-- <td>{{$result['bar'] ?? '--' }} <span class="empytu"></span></td>
                                 <td><?php $barpackage = json_decode($result['bar_package'],true);
                                     if(isset($barpackage) && !empty($barpackage)){
                                             echo implode(',',$barpackage);
                                     }else{
                                         echo '--';
                                     }     
-                                ?> <span class="empytu"></span></td>
+                                ?> <span class="empytu"></span></td>--}}
                                 <td>{{ isset($result['function'])&& !empty($result['function']) ? ucfirst($result['function']) : '--' }}
                                     <span class="empytu"></span>
                                 </td>

@@ -164,13 +164,11 @@ foreach ($token as $key => $val) {
                                 <label for="date">{{__('Date')}}: {{__($lead->start_date)}}</label>
                             </h5>
                         </div>
-                        {!!@$proposal_settings['footer']!!}
+                        {!!@$proposal_settings['scopeOfService']!!}
+                        {!!@$proposal_settings['costBusiness']!!}
+                        {!!@$proposal_settings['cancenllation']!!}
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-                                <tr style="color: #000; text-align: left;">
-                                    <th style="padding: 12px;">Label</th>
-                                    <th style="padding: 12px;">Details</th>
-                                </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
                                     <td style="padding: 8px;">{{__($users->name)}}</td>

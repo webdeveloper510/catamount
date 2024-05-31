@@ -165,7 +165,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 @endif
                                             </div>
                                             <div class="col-12  p-0 modaltitle pb-3 mb0">
-                                                <h5 style="margin-left: 14px;" class="mb-0">{{ __('Contact Information') }}</h5>
+                                                <h5 style="margin-left: 14px;" class="mb-0">{{ __('Primary Contact') }}</h5>
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
@@ -189,10 +189,11 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     </span>
                                                     <div class="intl-tel-input">
                                                         <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
+
+                                                        
                                                         <input type="hidden" name="countrycode" id="country-code">
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
@@ -218,8 +219,66 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
-                                                    {{Form::label('relationship',__('Relationship'),['class'=>'form-label']) }}
-                                                    {{Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Relationship')))}}
+                                                    {{Form::label('relationship',__('Title'),['class'=>'form-label']) }}
+                                                    {{Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))}}
+                                                </div>
+                                            </div>
+                                            <div class="col-12  p-0 modaltitle pb-3 mb0">
+                                                <h5 style="margin-left: 14px;" class="mb-0">{{ __('Secondary Contact') }}</h5>
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{Form::label('name',__('Name'),['class'=>'form-label']) }}
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    {{Form::text('secondary_contact[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
+                                                </div>
+                                                @if ($errors->has('name'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{Form::label('phone',__('Phone'),['class'=>'form-label']) }}
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    <div class="intl-tel-input">
+                                                        <input type="tel" id="phone-input1" name="secondary_contact[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
+                                                        <input type="hidden" name="countrycode1" id="country-code1">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{Form::label('email',__('Email'),['class'=>'form-label']) }}
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    {{Form::text('secondary_contact[email]',null,array('class'=>'form-control','placeholder'=>__('Enter Email'),'required'=>'required'))}}
+                                                </div>
+                                                @if ($errors->has('email'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{Form::label('lead_address',__('Address'),['class'=>'form-label']) }}
+
+                                                    {{Form::text('secondary_contact[lead_address]',null,array('class'=>'form-control','placeholder'=>__('Address')))}}
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{Form::label('relationship',__('Title'),['class'=>'form-label']) }}
+                                                    {{Form::text('secondary_contact[relationship]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))}}
                                                 </div>
                                             </div>
                                             <div id="contact-info" style="display:none">
@@ -313,7 +372,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
-                                                    <label for="venue_selection" class="form-label">Venue</label>
+                                                    <label for="venue_selection" class="form-label">Trainings</label>
                                                     <span class="text-sm">
                                                         <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                                     </span>
@@ -394,201 +453,201 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 </span>
                                                 @endif
                                             </div>
-                                            <div class="col-6 need_full">
+                                            {{--<div class="col-6 need_full">
                                                 <div class="form-group">
                                                     {{ Form::label('function', __('Function'), ['class' => 'form-label']) }}
-                                                    <span class="text-sm">
-                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                    </span>
-                                                    @if(isset($function) && !empty($function))
-                                                    @foreach($function as $key => $value)
-                                                    <div class="form-check">
-                                                        {!! Form::checkbox('function[]',$value['function'], null, ['id'
-                                                        => 'function_' . $key, 'class' => 'form-check-input']) !!}
-                                                        {{ Form::label($value['function'], $value['function'], ['class' => 'form-check-label']) }}
-                                                    </div>
-                                                    @endforeach
-                                                    @endif
-                                                </div>
-                                                @if ($errors->has('function'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('end_time') }}</strong>
-                                                </span>
-                                                @endif
+                                            <span class="text-sm">
+                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                            </span>
+                                            @if(isset($function) && !empty($function))
+                                            @foreach($function as $key => $value)
+                                            <div class="form-check">
+                                                {!! Form::checkbox('function[]',$value['function'], null, ['id'
+                                                => 'function_' . $key, 'class' => 'form-check-input']) !!}
+                                                {{ Form::label($value['function'], $value['function'], ['class' => 'form-check-label']) }}
                                             </div>
-                                            <div class="col-6 need_full" id="mailFunctionSection">
-                                                @if(isset($function) && !empty($function))
-                                                @foreach($function as $key =>$value)
-                                                <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
-                                                    {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
-                                                    <span class="text-sm">
-                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                    </span>
-                                                    @foreach($value['package'] as $k => $package)
-                                                    <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
-                                                        {!! Form::checkbox('package_'.str_replace(' ', '',
-                                                        strtolower($value['function'])).'[]',$package, null, ['id' =>
-                                                        'package_' . $key.$k, 'data-function' => $value['function'],
-                                                        'class' => 'form-check-input']) !!}
-                                                        {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
-
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                @endforeach
-                                                @endif
-                                            </div>
-                                            <div class="col-6 need_full" id="additionalSection">
-                                                @if(isset($additional_items) && !empty($additional_items))
-                                                {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
-                                                @foreach($additional_items as $ad_key =>$ad_value)
-                                                @foreach($ad_value as $fun_key =>$packageVal)
-                                                <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display: none;">
-                                                    {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
-                                                    @foreach($packageVal as $pac_key =>$item)
-                                                    <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
-                                                        {!! Form::checkbox('additional_'.str_replace(' ', '_',
-                                                        strtolower($fun_key)).'[]',$pac_key, null, ['data-function' =>
-                                                        $fun_key, 'class' => 'form-check-input']) !!}
-                                                        {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                @endforeach
-                                                @endforeach
-                                                @endif
-
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div class="row">
-                                                    <label><b>Setup</b></label>
-                                                    @foreach($setup as $s)
-                                                    <div class="col-6 need_full mt-4">
-                                                        <input type="radio" id="image_{{ $loop->index }}" name="uploadedImage" class="form-check-input " value="{{ asset('floor_images/' . $s->image) }}" style="display:none;">
-                                                        <label for="image_{{ $loop->index }}" class="form-check-label">
-                                                            <img src="{{asset('floor_images/'.$s->image)}}" alt="Uploaded Image" class="img-thumbnail floorimages zoom" data-bs-toggle="tooltip" title="{{$s->Description}}">
-                                                        </label>
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                @error('uploadedImage')
-                                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
+                                            @endforeach
+                                            @endif
                                         </div>
+                                        @if ($errors->has('function'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('end_time') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>--}}
+                                    <div class="col-6 need_full" id="mailFunctionSection">
+                                        @if(isset($function) && !empty($function))
+                                        @foreach($function as $key =>$value)
+                                        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
+                                            {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
+                                            <span class="text-sm">
+                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                            </span>
+                                            @foreach($value['package'] as $k => $package)
+                                            <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
+                                                {!! Form::checkbox('package_'.str_replace(' ', '',
+                                                strtolower($value['function'])).'[]',$package, null, ['id' =>
+                                                'package_' . $key.$k, 'data-function' => $value['function'],
+                                                'class' => 'form-check-input']) !!}
+                                                {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
+
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                    </div>
+                                    <div class="col-6 need_full" id="additionalSection">
+                                        @if(isset($additional_items) && !empty($additional_items))
+                                        {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
+                                        @foreach($additional_items as $ad_key =>$ad_value)
+                                        @foreach($ad_value as $fun_key =>$packageVal)
+                                        <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display: none;">
+                                            {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
+                                            @foreach($packageVal as $pac_key =>$item)
+                                            <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
+                                                {!! Form::checkbox('additional_'.str_replace(' ', '_',
+                                                strtolower($fun_key)).'[]',$pac_key, null, ['data-function' =>
+                                                $fun_key, 'class' => 'form-check-input']) !!}
+                                                {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        @endforeach
+                                        @endforeach
+                                        @endif
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <label><b>Setup</b></label>
+                                            @foreach($setup as $s)
+                                            <div class="col-6 need_full mt-4">
+                                                <input type="radio" id="image_{{ $loop->index }}" name="uploadedImage" class="form-check-input " value="{{ asset('floor_images/' . $s->image) }}" style="display:none;">
+                                                <label for="image_{{ $loop->index }}" class="form-check-label">
+                                                    <img src="{{asset('floor_images/'.$s->image)}}" alt="Uploaded Image" class="img-thumbnail floorimages zoom" data-bs-toggle="tooltip" title="{{$s->Description}}">
+                                                </label>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        @error('uploadedImage')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="special_req" class="card">
+                        <div class="col-md-12">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <h5>{{ __('Any Special Requirements') }}</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div id="special_req" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5>{{ __('Any Special Requirements') }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                           {{-- <div class="form-group">
+                            <div class="card-body">
+                                <div class="row">
+                                    {{-- <div class="form-group">
                                                 {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-                                                <input type="number" name="rooms" min=0 class="form-control">
+                                    <input type="number" name="rooms" min=0 class="form-control">
 
-                                            </div>
-                                            <div class="col-6 need_full">
-                                                <div class="form-group">
-                                                    {!! Form::label('meal', 'Meal Preference') !!}
-                                                    <span class="text-sm">
-                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                    </span>
-                                                    @foreach($meal as $key => $label)
-                                                    <div>
-                                                        {{ Form::radio('meal', $label , false, ['id' => $label]) }}
-                                                        {{ Form::label('meal' . ($key + 1), $label) }}
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="col-6 need_full">
-                                                <div class="form-group">
-                                                    {!! Form::label('baropt', 'Bar') !!}
-                                                    @foreach($baropt as $key => $label)
-                                                    <div>
-                                                        {{ Form::radio('baropt', $label, false, ['id' => $label]) }}
-                                                        {{ Form::label('baropt' . ($key + 1), $label) }}
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="col-6" id="barpacakgeoptions" style="display: none;">
-                                                @if(isset($bar_package) && !empty($bar_package))
-                                                @foreach($bar_package as $key =>$value)
-                                                <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
-                                                    {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
-                                                    @foreach($value['barpackage'] as $k => $bar)
-                                                    <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
-                                                        {!! Form::radio('bar'.'_'.str_replace(' ', '',
-                                                        strtolower($value['bar'])), $bar, false, ['id' => 'bar_' .
-                                                        $key.$k, 'data-function' => $value['bar'], 'class' =>
-                                                        'form-check-input']) !!}
-                                                        {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                @endforeach
-                                                @endif
-                                            </div>--}}
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    {{Form::label('spcl_request',__('Special Requests / Considerations'),['class'=>'form-label']) }}
-                                                    {{Form::text('spcl_request',null,array('class'=>'form-control'))}}
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="col-6 need_full">
+                                    <div class="form-group">
+                                        {!! Form::label('meal', 'Meal Preference') !!}
+                                        <span class="text-sm">
+                                            <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                        </span>
+                                        @foreach($meal as $key => $label)
+                                        <div>
+                                            {{ Form::radio('meal', $label , false, ['id' => $label]) }}
+                                            {{ Form::label('meal' . ($key + 1), $label) }}
                                         </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-6 need_full">
+                                    <div class="form-group">
+                                        {!! Form::label('baropt', 'Bar') !!}
+                                        @foreach($baropt as $key => $label)
+                                        <div>
+                                            {{ Form::radio('baropt', $label, false, ['id' => $label]) }}
+                                            {{ Form::label('baropt' . ($key + 1), $label) }}
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-6" id="barpacakgeoptions" style="display: none;">
+                                    @if(isset($bar_package) && !empty($bar_package))
+                                    @foreach($bar_package as $key =>$value)
+                                    <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
+                                        {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
+                                        @foreach($value['barpackage'] as $k => $bar)
+                                        <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
+                                            {!! Form::radio('bar'.'_'.str_replace(' ', '',
+                                            strtolower($value['bar'])), $bar, false, ['id' => 'bar_' .
+                                            $key.$k, 'data-function' => $value['bar'], 'class' =>
+                                            'form-check-input']) !!}
+                                            {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    @endforeach
+                                    @endif
+                                </div>--}}
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{Form::label('spcl_request',__('Special Requests / Considerations'),['class'=>'form-label']) }}
+                                        {{Form::text('spcl_request',null,array('class'=>'form-control'))}}
                                     </div>
                                 </div>
                             </div>
-                            <div id="other_info" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5>{{ __('Other Information') }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-                                                    {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
-                                                    <input type="file" name="atttachment" id="atttachment" class="form-control">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer text-end">
-                                        <input type="reset" id="resetForm" value="" style="display: none;">
-                                        {{ Form::submit(__('Save'), ['class' => 'btn  btn-primary ']) }}
-                                    </div>
-                                </div>
-                            </div>
-                            {{ Form::close() }}
                         </div>
                     </div>
                 </div>
+                <div id="other_info" class="card">
+                    <div class="col-md-12">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <h5>{{ __('Other Information') }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
+                                        {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
+                                        <input type="file" name="atttachment" id="atttachment" class="form-control">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <input type="reset" id="resetForm" value="" style="display: none;">
+                            {{ Form::submit(__('Save'), ['class' => 'btn  btn-primary ']) }}
+                        </div>
+                    </div>
+                </div>
+                {{ Form::close() }}
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 @endsection
 @push('script-page')
@@ -661,6 +720,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {
+                    console.log(data);
                     // func_pack = json_decode(data.func_package);
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
@@ -681,6 +741,16 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     $('input[name ="end_time"]').val(data.end_time);
                     $('input[name ="rooms"]').val(data.rooms);
                     $('input[name ="email"]').val(data.email);
+                    $('input[name ="primary_contact"]').val(data.primary_contact);
+
+
+                    $('input[name ="secondary_contact[name]"]').val(data.secondary_contact.name);
+                    $('input[name ="secondary_contact[secondary_contact]"]').val(data.secondary_contact.secondary_contact);
+                    $('input[name ="secondary_contact[email]"]').val(data.secondary_contact.email);
+                    $('input[name ="secondary_contact[lead_address]"]').val(data.secondary_contact.lead_address);
+                    $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
+
+
                     $('input[name ="lead_address"]').val(data.lead_address);
                     $("select[name='type'] option[value='" + data.type + "']").prop("selected",
                         true);
@@ -740,12 +810,22 @@ $(document).ready(function() {
         var iti = window.intlTelInput(input, {
             separateDialCode: true,
         });
+        var input1 = document.querySelector("#phone-input1");
+        var iti1 = window.intlTelInput(input1, {
+            separateDialCode: true,
+        });
 
         var indiaCountryCode = iti.getSelectedCountryData().iso2;
         var countryCode = iti.getSelectedCountryData().dialCode;
         $('#country-code').val(countryCode);
         if (indiaCountryCode !== 'us') {
             iti.setCountry('us');
+        }
+        var indiaCountryCode1 = iti1.getSelectedCountryData().iso2;
+        var countryCode1 = iti1.getSelectedCountryData().dialCode;
+        $('#country-code').val(countryCode1);
+        if (indiaCountryCode1 !== 'us') {
+            iti1.setCountry('us');
         }
 
         // $('#start_date, #end_date').change(function() {
@@ -880,6 +960,20 @@ $(document).ready(function() {
                     $('input[name ="relationship"]').val(data.relationship);
                     $('input[name ="primary_contact"]').val(data.primary_contact);
                     $('input[name ="start_date"]').val(data.start_date);
+
+
+
+                    $('input[name ="secondary_contact[name]"]').val(data.secondary_contact.name);
+                    $('input[name ="secondary_contact[secondary_contact]"]').val(data.secondary_contact.secondary_contact);
+                    $('input[name ="secondary_contact[email]"]').val(data.secondary_contact.email);
+                    $('input[name ="secondary_contact[lead_address]"]').val(data.secondary_contact.lead_address);
+                    $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
+
+
+
+
+
+
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);

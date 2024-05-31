@@ -388,8 +388,6 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
             cache: false,
 
             success: function(data) {
-
-
                 if (data.is_success) {
                     show_toastr('Success', data.message, 'success');
                 } else {
@@ -774,8 +772,16 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <textarea name="remarks" class="form-control" id="remarks"><?php echo e(__(@$proposal['remarks'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
-                                                            <h6><?php echo e(__('Proposal bottom part')); ?></h6>
-                                                            <textarea name="footer" class="form-control" id="footer"><?php echo e(__(@$proposal['footer'])); ?></textarea>
+                                                            <h6><?php echo e(__('Scope of Services')); ?></h6>
+                                                            <textarea name="scopeOfService" class="form-control" id="scopeOfService"><?php echo e(__(@$proposal['scopeOfService'])); ?></textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6><?php echo e(__('Cost and Business Terms')); ?></h6>
+                                                            <textarea name="costBusiness" class="form-control" id="costBusiness"><?php echo e(__(@$proposal['costBusiness'])); ?></textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6><?php echo e(__('CANCELLATION')); ?></h6>
+                                                            <textarea name="cancenllation" class="form-control" id="cancenllation"><?php echo e(__(@$proposal['cancenllation'])); ?></textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
@@ -1125,442 +1131,442 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                     </div>
                                                 </div>
                                                 
-                                                
-                            <div id="floor-plan-setting" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div id="floor-plan-setting" class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5><?php echo e(__('Upload Setup')); ?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mt-3">
-                                            <form method="POST" action="<?php echo e(url('/floor-images')); ?>" enctype="multipart/form-data">
-                                                <?php echo csrf_field(); ?>
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="setup" class="form-label">Choose
-                                                            Image</label></br>
-                                                        <input type="file" name="setup" class="form-control" required />
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="title" class="form-label">Title</label></br>
-                                                        <input type="text" class="form-control" name="title" required>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label for="description" class="form-label">Description</label></br>
-                                                    <!-- <input type="textarea" class="form-control" name="description" rows="3" >      -->
-                                                    <textarea name="description" id="description" class="form-control" rows="3"></textarea>
-                                                </div>
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn-submit btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <?php $__currentLoopData = $setup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <div class="col-6">
-                                                <input type="radio" id="image_<?php echo e($loop->index); ?>" name="uploadedImage" class="form-check-input" value="<?php echo e(asset('floor_images/' . $s->image)); ?>">
-                                                <label for="image_<?php echo e($loop->index); ?>" class="form-check-label">
-                                                    <img src="<?php echo e(asset('floor_images/'.$s->image)); ?>" alt="Uploaded Image" class="img-thumbnail floorimages zoom">
-                                                    <span class=" rounded p-2 m-1 px-3 bg-danger text-white" style="float: inline-end;"><i class="ti ti-trash " data-image="<?php echo e($s->image); ?>" onclick="deleteImage(this)"></i></span>
-                                                </label>
-                                            </div>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="campaign-type" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5><?php echo e(__('Campaign Settings')); ?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <form method="POST" action="<?php echo e(route('settings.campaign-type')); ?>" id='campaign'>
-                                        <?php echo csrf_field(); ?>
-                                        <div class="card-body">
-                                            <div class="row mt-3">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <?php echo e(Form::label('campaign_type', __('Campaign Type'), ['class' => 'form-label'])); ?>
-
-                                                        <?php echo Form::text('campaign_type',null,
-                                                        ['class' => 'form-control',
-                                                        'required' => 'required']); ?>
-
-                                                    </div>
-                                                </div>
-                                                <div class="text-end">
-                                                    <input type="submit" value="Save" class="btn-submit btn btn-primary">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <?php if(isset($campaign) && !empty($campaign)): ?>
-                                <div class="row mt-3">
-                                    <div class="form-group col-md-12">
-                                        <label class="form-label">Campaign</label>
-                                        <div class="badges">
-                                            <?php $__currentLoopData = $campaign; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php if($value): ?>
-                                            <span class="badge rounded p-2 m-1 px-3 bg-primary" style="cursor:pointer">
-                                                <?php echo e($value); ?>
-
-                                                <div class="action-btn  ms-2">
-                                                    <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center text-white campaign_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="<?php echo e(route('settings.delete.campaign-type')); ?>" data-token="<?php echo e(csrf_token()); ?>">
-                                                        <i class="ti ti-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </span>
-                                            <?php endif; ?>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                            <div id="additional-settings" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5><?php echo e(__('Additional Settings')); ?></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mt-3">
-                                            <?php echo e(Form::open(['route' => 'additional.setting', 'method' => 'post'])); ?>
-
-                                            <?php echo csrf_field(); ?>
-                                            <div id="additional-items-container">
-                                                <div class="row form-group">
-                                                    <label for='additional_function'>Select
-                                                        Package</label>
-
-                                                    <div class="col-md-6">
-                                                        <?php if(isset($function) && !empty($function)): ?>
-                                                        <select name="additional_function" id="additional_function" class="form-select">
-                                                            <option value="0" selected disabled>
-                                                                Select Function</option>
-                                                            <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($key); ?>">
-                                                                <?php echo e($value->function); ?>
-
-                                                            </option>
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div id="additional_packages_checkboxes">
-                                                        </div>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                                <div class="row form-group">
-                                                    <div class="col-md-5">
-                                                        <?php echo e(Form::label('additional_items[]', __('Additional Item ' . $i=1), ['class' => 'form-label'])); ?>
-
-                                                        <?php echo e(Form::text('additional_items[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Additional Item'), 'required' => 'required'])); ?>
-
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <?php echo e(Form::label('additional_items_cost[]', __('Cost'), ['class' => 'form-label'])); ?>
-
-                                                        <?php echo e(Form::number('additional_items_cost[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Cost'), 'required' => 'required'])); ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-primary" onclick="addAdditionalItem()" title="Add Additional items"><i class="fa fa-plus"></i></button>
-                                                <input type="submit" value="Save" class="btn-submit btn btn-primary">
-                                            </div>
-
-                                            <?php echo e(Form::close()); ?>
-
-                                        </div>
-                                        <?php if(isset($additional_items) && !empty($additional_items)): ?>
-                                        <div class="row mt-3">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label">Additional Items</label>
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-bordered" style=" border: 1px solid #9b8c8c">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Function</th>
-                                                                <th scope="col">Package</th>
-                                                                <th scope="col">Additional Item</th>
-                                                                <th scope="col">Cost</th>
-                                                                <th scope="col">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <?php $__currentLoopData = $additional_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $functionName => $packages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $packageName => $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <tr>
-                                                                <td data-td-data="<?php echo e($functionName); ?>" rowspan="<?php echo e(count($items)); ?>" class="functionname">
-                                                                    <?php echo e($functionName); ?>
-
-                                                                </td>
-                                                                <td data-td-data="<?php echo e($packageName); ?>" rowspan="<?php echo e(count($items)); ?>" class="package">
-                                                                    <?php echo e($packageName); ?>
-
-                                                                </td>
-                                                                <?php $firstItem = true; ?>
-                                                                <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemName => $cost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                <?php if(!$firstItem): ?>
-                                                            <tr>
-                                                                <?php endif; ?>
-
-                                                                <td class="item"><?php echo e($itemName); ?></td>
-                                                                <td class="cost"><?php echo e($cost); ?></td>
-                                                                <td data-function="<?php echo e($functionName); ?>" data-package="<?php echo e($packageName); ?>">
-                                                                    <button class="btn btn-sm edit-cost-btn bg-info">
-                                                                        <i class="ti ti-edit"></i></button>
-                                                                    <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center bg-info text-white additional_show_confirm" data-bs-toggle="tooltip" title='Delete' data-function="<?php echo e($functionName); ?>" data-package="<?php echo e($packageName); ?>" data-item="<?php echo e($itemName); ?>" data-url="<?php echo e(route('additionaldelete.setting')); ?>" data-token="<?php echo e(csrf_token()); ?>">
-                                                                        <i class="ti ti-trash"></i>
-                                                                    </a>
-                                                                </td>
-
-                                                                <?php $firstItem = false; ?>
-                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                            </tr>
-
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
+                            
+        <div id="floor-plan-setting" class="card">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div id="floor-plan-setting" class="col-lg-8 col-md-8 col-sm-8">
+                            <h5><?php echo e(__('Upload Setup')); ?></h5>
                         </div>
                     </div>
                 </div>
-                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Payment')): ?>
-                <div id="billing-setting" class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
-                            <h5><?php echo e(__('Billing Settings')); ?></h5>
-                            <small class="text-muted"><?php echo e(__('Edit your billing details')); ?></small>
-                        </button>
-                    </h2>
-                    <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <?php echo e(Form::open(['route' => 'billing.setting', 'method' => 'post'])); ?>
-
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <form method="POST" action="<?php echo e(url('/floor-images')); ?>" enctype="multipart/form-data">
                             <?php echo csrf_field(); ?>
-
-                            <div class="row cst-border">
-                                <?php if(isset($venue) && !empty($venue)): ?>
-                                <div class="col-sm-6 venue">
-                                    <table class="table table-responsive table-bordered" style="width:100%">
-                                        <tr>
-                                            <th><?php echo e(__('Training Location')); ?></th>
-                                            <th><?php echo e(__('Training Location Cost')); ?></th>
-                                        </tr>
-                                        <?php $__currentLoopData = $venue; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $venueKey => $venueValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <tr>
-                                            <td><?php echo e(__($venueKey)); ?></td>
-                                            <td><input type="number" class="form-control" name="venue[<?php echo e(isset($venueKey) ? $venueKey : ''); ?>]" id="venue_<?php echo e($venueKey); ?>" value="<?php echo e(isset($billing['venue'][$venueKey]) ? $billing['venue'][$venueKey] : ''); ?>" placeholder="<?php echo e(__($venueKey)); ?>" min="0">
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </table>
-                                </div>
-                                <?php endif; ?>
-                                <?php if(isset($function) && !empty($function)): ?>
-                                <div class="col-sm-6 function">
-                                    <table class="table table-responsive table-bordered" style="width:100%">
-                                        <tr>
-                                            <th><?php echo e(__('Package')); ?></th>
-                                            <th><?php echo e(__('Package Cost')); ?></th>
-                                        </tr>
-                                        <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $functionKey => $functionValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <tr>
-                                            <td><b><?php echo e(__($functionValue->function)); ?></b></td>
-                                            <td>
-                                                <?php $__currentLoopData = $functionValue->package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $packageKey=> $packageValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php echo e(Form::label($packageValue, __($packageValue), ['class' => 'form-label'])); ?>
-
-                                                <input type="number" class="form-control" name="package[<?php echo e(isset($functionValue->function)? $functionValue->function :''); ?>][<?php echo e(isset($packageValue) ? $packageValue : ''); ?>]" id="package_<?php echo e(isset($packageKey)? $packageKey :''); ?>" value="<?php echo e(isset($billing['package'][$functionValue->function][$packageValue]) ? $billing['package'][$functionValue->function][$packageValue] : ''); ?>" placeholder="Enter <?php echo e(isset($packageValue) ? $packageValue :''); ?> Cost" min="0">
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </table>
-                                </div>
-                                <?php endif; ?>
-                                <?php if(isset($bar) && !empty($bar)): ?>
-                                <div class="col-sm-6 bar mt-3">
-                                    <table class="table table-responsive table-bordered" style="width:100%">
-                                        <tr>
-                                            <th><?php echo e(__('Bar')); ?></th>
-                                            <th><?php echo e(__('Bar Cost')); ?></th>
-                                        </tr>
-                                        <?php $__currentLoopData = $bar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $barKey => $barValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <tr>
-                                            <td><b><?php echo e(__($barValue->bar)); ?></b></td>
-                                            <td>
-                                                <?php $__currentLoopData = $barValue->barpackage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $barpackageKey=>$barpackageValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php echo e(Form::label($barpackageValue, __($barpackageValue), ['class' => 'form-label'])); ?>
-
-                                                <input type="number" class="form-control" name="barpackage[<?php echo e(isset($barValue->bar) ? $barValue->bar : ''); ?>][<?php echo e(isset($barpackageValue) ? $barpackageValue : ''); ?>]" id="barpackage_<?php echo e(isset($barpackageKey) ? $barpackageKey : ''); ?>" value="<?php echo e(isset($billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue]) ? $billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue] : ''); ?>" placeholder="<?php echo e(isset($barpackageValue) ? $barpackageValue : ''); ?>" min="0">
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </table>
-                                </div>
-                                <?php endif; ?>
-                                <div class="col-sm-6 equipment">
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('equipment', __('Equipment'), ['class' => 'form-label'])); ?>
-
-                                        <input type="number" name="equipment" id="" class="form-control" value="<?php echo e(isset($billing['equipment']) ? $billing['equipment'] : ''); ?>" placeholder="Enter Equipments Cost (eg. Tent, Tables, Chairs)" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('welcomesetup', __('Welcome Setup'), ['class' => 'form-label'])); ?>
-
-                                        <input type="number" name="welcomesetup" id="" class="form-control" value="<?php echo e(isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''); ?>" placeholder="Enter Welcome Setup Cost" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('rehearsalsetup', __('Rehearsel Setup'), ['class' => 'form-label'])); ?>
-
-                                        <input type="number" name="rehearsalsetup" class="form-control" value="<?php echo e(isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''); ?>" placeholder="Enter Rehearsel Setup Cost" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('hotel_rooms', __('Hotel Rooms'), ['class' => 'form-label'])); ?>
-
-                                        <input type="number" name="hotel_rooms" class="form-control" value="<?php echo e(isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''); ?>" placeholder="Enter Hotel Rooms Cost" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('special_req', __('Special Request/Others'), ['class' => 'form-label'])); ?>
-
-                                        <input type="number" name="special_req" class="form-control" value="<?php echo e(isset($billing['special_req']) ? $billing['special_req'] : ''); ?>" placeholder="Enter  Cost" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-end">
-                                <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
-
-                            </div>
-                            <?php echo e(Form::close()); ?>
-
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
-                <?php if(\Auth::user()->type == 'owner'): ?>
-                <div id="buffer-settings" class=" accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
-                            <h5><?php echo e(__('Buffer Settings')); ?></h5>
-                            <small class="text-muted"><?php echo e(__('Edit your buffer settings')); ?></small>
-                        </button>
-                    </h2>
-                    <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
                             <div class="row">
-                                <?php echo e(Form::open(['route' => 'buffer.setting', 'method' => 'post'])); ?>
-
-                                <?php echo csrf_field(); ?>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('buffer_time', __('Add Buffer Time'), ['class' => 'form-label'])); ?>
-
-                                        <?php echo Form::input('time', 'buffer_time', $settings['buffer_time'],
-                                        ['class' =>
-                                        'form-control', 'required' => 'required']); ?>
-
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="setup" class="form-label">Choose
+                                        Image</label></br>
+                                    <input type="file" name="setup" class="form-control" required />
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <?php echo e(Form::label('buffer_day', __('Add Buffer Day'), ['class' => 'form-label'])); ?>
+                                <div class="form-group col-md-6">
+                                    <label for="title" class="form-label">Title</label></br>
+                                    <input type="text" class="form-control" name="title" required>
+                                </div>
+                            </div>
 
-                                        <?php echo Form::number('buffer_day', $settings['buffer_day'], ['class'
-                                        =>
-                                        'form-control', 'required' => 'required','min' => '0']); ?>
+                            <div class="form-group col-md-12">
+                                <label for="description" class="form-label">Description</label></br>
+                                <!-- <input type="textarea" class="form-control" name="description" rows="3" >      -->
+                                <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn-submit btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <?php $__currentLoopData = $setup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="col-6">
+                            <input type="radio" id="image_<?php echo e($loop->index); ?>" name="uploadedImage" class="form-check-input" value="<?php echo e(asset('floor_images/' . $s->image)); ?>">
+                            <label for="image_<?php echo e($loop->index); ?>" class="form-check-label">
+                                <img src="<?php echo e(asset('floor_images/'.$s->image)); ?>" alt="Uploaded Image" class="img-thumbnail floorimages zoom">
+                                <span class=" rounded p-2 m-1 px-3 bg-danger text-white" style="float: inline-end;"><i class="ti ti-trash " data-image="<?php echo e($s->image); ?>" onclick="deleteImage(this)"></i></span>
+                            </label>
+                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="campaign-type" class="card">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h5><?php echo e(__('Campaign Settings')); ?></h5>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST" action="<?php echo e(route('settings.campaign-type')); ?>" id='campaign'>
+                    <?php echo csrf_field(); ?>
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <?php echo e(Form::label('campaign_type', __('Campaign Type'), ['class' => 'form-label'])); ?>
 
-                                    </div>
+                                    <?php echo Form::text('campaign_type',null,
+                                    ['class' => 'form-control',
+                                    'required' => 'required']); ?>
+
                                 </div>
                             </div>
                             <div class="text-end">
-                                <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
+                                <input type="submit" value="Save" class="btn-submit btn btn-primary">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <?php if(isset($campaign) && !empty($campaign)): ?>
+            <div class="row mt-3">
+                <div class="form-group col-md-12">
+                    <label class="form-label">Campaign</label>
+                    <div class="badges">
+                        <?php $__currentLoopData = $campaign; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($value): ?>
+                        <span class="badge rounded p-2 m-1 px-3 bg-primary" style="cursor:pointer">
+                            <?php echo e($value); ?>
+
+                            <div class="action-btn  ms-2">
+                                <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center text-white campaign_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="<?php echo e(route('settings.delete.campaign-type')); ?>" data-token="<?php echo e(csrf_token()); ?>">
+                                    <i class="ti ti-trash"></i>
+                                </a>
+                            </div>
+                        </span>
+                        <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+        <div id="additional-settings" class="card">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h5><?php echo e(__('Additional Settings')); ?></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <?php echo e(Form::open(['route' => 'additional.setting', 'method' => 'post'])); ?>
+
+                        <?php echo csrf_field(); ?>
+                        <div id="additional-items-container">
+                            <div class="row form-group">
+                                <label for='additional_function'>Select
+                                    Package</label>
+
+                                <div class="col-md-6">
+                                    <?php if(isset($function) && !empty($function)): ?>
+                                    <select name="additional_function" id="additional_function" class="form-select">
+                                        <option value="0" selected disabled>
+                                            Select Function</option>
+                                        <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($key); ?>">
+                                            <?php echo e($value->function); ?>
+
+                                        </option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="additional_packages_checkboxes">
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-5">
+                                    <?php echo e(Form::label('additional_items[]', __('Additional Item ' . $i=1), ['class' => 'form-label'])); ?>
+
+                                    <?php echo e(Form::text('additional_items[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Additional Item'), 'required' => 'required'])); ?>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <?php echo e(Form::label('additional_items_cost[]', __('Cost'), ['class' => 'form-label'])); ?>
+
+                                    <?php echo e(Form::number('additional_items_cost[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Cost'), 'required' => 'required'])); ?>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-primary" onclick="addAdditionalItem()" title="Add Additional items"><i class="fa fa-plus"></i></button>
+                            <input type="submit" value="Save" class="btn-submit btn btn-primary">
+                        </div>
+
+                        <?php echo e(Form::close()); ?>
+
+                    </div>
+                    <?php if(isset($additional_items) && !empty($additional_items)): ?>
+                    <div class="row mt-3">
+                        <div class="form-group col-md-12">
+                            <label class="form-label">Additional Items</label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" style=" border: 1px solid #9b8c8c">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Function</th>
+                                            <th scope="col">Package</th>
+                                            <th scope="col">Additional Item</th>
+                                            <th scope="col">Cost</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <?php $__currentLoopData = $additional_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $functionName => $packages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $packageName => $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr>
+                                            <td data-td-data="<?php echo e($functionName); ?>" rowspan="<?php echo e(count($items)); ?>" class="functionname">
+                                                <?php echo e($functionName); ?>
+
+                                            </td>
+                                            <td data-td-data="<?php echo e($packageName); ?>" rowspan="<?php echo e(count($items)); ?>" class="package">
+                                                <?php echo e($packageName); ?>
+
+                                            </td>
+                                            <?php $firstItem = true; ?>
+                                            <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemName => $cost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if(!$firstItem): ?>
+                                        <tr>
+                                            <?php endif; ?>
+
+                                            <td class="item"><?php echo e($itemName); ?></td>
+                                            <td class="cost"><?php echo e($cost); ?></td>
+                                            <td data-function="<?php echo e($functionName); ?>" data-package="<?php echo e($packageName); ?>">
+                                                <button class="btn btn-sm edit-cost-btn bg-info">
+                                                    <i class="ti ti-edit"></i></button>
+                                                <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center bg-info text-white additional_show_confirm" data-bs-toggle="tooltip" title='Delete' data-function="<?php echo e($functionName); ?>" data-package="<?php echo e($packageName); ?>" data-item="<?php echo e($itemName); ?>" data-url="<?php echo e(route('additionaldelete.setting')); ?>" data-token="<?php echo e(csrf_token()); ?>">
+                                                    <i class="ti ti-trash"></i>
+                                                </a>
+                                            </td>
+
+                                            <?php $firstItem = false; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </tr>
+
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                             </div>
-                            <?php echo e(Form::close()); ?>
-
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
-                <div id="add-signature" class="accordion-item  card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
-                            <h5><?php echo e(__('Authorised Signature')); ?></h5>
-                        </button>
-                    </h2>
-                    <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <form method="POST" id='sign'>
-                                <?php echo csrf_field(); ?>
-                                <div class="card-body1">
-                                    <div class="row mt-3">
-                                        <div class="col-6 need_full">
-                                            <strong>Existing Signature:</strong> <br>
-                                            <img src="<?php echo e($base64Image); ?>" style=" width: 55%;padding-right: 39px;border-bottom: 1px solid black;">
-                                        </div>
-                                        <div class="col-6 need_full">
-                                            <strong> Signature:</strong>
-                                            <br>
-                                            <div id="sig" class="mt-5">
-                                                <canvas id="signatureCanvas" width="300" class="signature-canvas"></canvas>
-                                                <input type="hidden" name="imageData" id="imageData">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6 need_full">
-                                                    <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear
-                                                        Signature</button>
-                                                </div>
-                                                <div class="col-6 need_full">
-                                                    <div class="text-end mobile-text">
-                                                        <input type="submit" value="Save" class="btn-submit btn btn-primary">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-                <?php endif; ?>
             </div>
         </div>
     </div>
-    <!-- <div id="pusher-settings" class="card">
+</div>
+</div>
+<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Payment')): ?>
+<div id="billing-setting" class="accordion-item card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+            <h5><?php echo e(__('Billing Settings')); ?></h5>
+            <small class="text-muted"><?php echo e(__('Edit your billing details')); ?></small>
+        </button>
+    </h2>
+    <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            <?php echo e(Form::open(['route' => 'billing.setting', 'method' => 'post'])); ?>
+
+            <?php echo csrf_field(); ?>
+
+            <div class="row cst-border">
+                <?php if(isset($venue) && !empty($venue)): ?>
+                <div class="col-sm-6 venue">
+                    <table class="table table-responsive table-bordered" style="width:100%">
+                        <tr>
+                            <th><?php echo e(__('Training Location')); ?></th>
+                            <th><?php echo e(__('Training Location Cost')); ?></th>
+                        </tr>
+                        <?php $__currentLoopData = $venue; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $venueKey => $venueValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><?php echo e(__($venueKey)); ?></td>
+                            <td><input type="number" class="form-control" name="venue[<?php echo e(isset($venueKey) ? $venueKey : ''); ?>]" id="venue_<?php echo e($venueKey); ?>" value="<?php echo e(isset($billing['venue'][$venueKey]) ? $billing['venue'][$venueKey] : ''); ?>" placeholder="<?php echo e(__($venueKey)); ?>" min="0">
+                            </td>
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+                <?php if(isset($function) && !empty($function)): ?>
+                <div class="col-sm-6 function">
+                    <table class="table table-responsive table-bordered" style="width:100%">
+                        <tr>
+                            <th><?php echo e(__('Package')); ?></th>
+                            <th><?php echo e(__('Package Cost')); ?></th>
+                        </tr>
+                        <?php $__currentLoopData = $function; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $functionKey => $functionValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><b><?php echo e(__($functionValue->function)); ?></b></td>
+                            <td>
+                                <?php $__currentLoopData = $functionValue->package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $packageKey=> $packageValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php echo e(Form::label($packageValue, __($packageValue), ['class' => 'form-label'])); ?>
+
+                                <input type="number" class="form-control" name="package[<?php echo e(isset($functionValue->function)? $functionValue->function :''); ?>][<?php echo e(isset($packageValue) ? $packageValue : ''); ?>]" id="package_<?php echo e(isset($packageKey)? $packageKey :''); ?>" value="<?php echo e(isset($billing['package'][$functionValue->function][$packageValue]) ? $billing['package'][$functionValue->function][$packageValue] : ''); ?>" placeholder="Enter <?php echo e(isset($packageValue) ? $packageValue :''); ?> Cost" min="0">
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+                <?php if(isset($bar) && !empty($bar)): ?>
+                <div class="col-sm-6 bar mt-3">
+                    <table class="table table-responsive table-bordered" style="width:100%">
+                        <tr>
+                            <th><?php echo e(__('Bar')); ?></th>
+                            <th><?php echo e(__('Bar Cost')); ?></th>
+                        </tr>
+                        <?php $__currentLoopData = $bar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $barKey => $barValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><b><?php echo e(__($barValue->bar)); ?></b></td>
+                            <td>
+                                <?php $__currentLoopData = $barValue->barpackage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $barpackageKey=>$barpackageValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php echo e(Form::label($barpackageValue, __($barpackageValue), ['class' => 'form-label'])); ?>
+
+                                <input type="number" class="form-control" name="barpackage[<?php echo e(isset($barValue->bar) ? $barValue->bar : ''); ?>][<?php echo e(isset($barpackageValue) ? $barpackageValue : ''); ?>]" id="barpackage_<?php echo e(isset($barpackageKey) ? $barpackageKey : ''); ?>" value="<?php echo e(isset($billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue]) ? $billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue] : ''); ?>" placeholder="<?php echo e(isset($barpackageValue) ? $barpackageValue : ''); ?>" min="0">
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+                <div class="col-sm-6 equipment">
+                    <div class="form-group">
+                        <?php echo e(Form::label('equipment', __('Equipment'), ['class' => 'form-label'])); ?>
+
+                        <input type="number" name="equipment" id="" class="form-control" value="<?php echo e(isset($billing['equipment']) ? $billing['equipment'] : ''); ?>" placeholder="Enter Equipments Cost (eg. Tent, Tables, Chairs)" required>
+                    </div>
+                    <div class="form-group">
+                        <?php echo e(Form::label('welcomesetup', __('Welcome Setup'), ['class' => 'form-label'])); ?>
+
+                        <input type="number" name="welcomesetup" id="" class="form-control" value="<?php echo e(isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''); ?>" placeholder="Enter Welcome Setup Cost" required>
+                    </div>
+                    <div class="form-group">
+                        <?php echo e(Form::label('rehearsalsetup', __('Rehearsel Setup'), ['class' => 'form-label'])); ?>
+
+                        <input type="number" name="rehearsalsetup" class="form-control" value="<?php echo e(isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''); ?>" placeholder="Enter Rehearsel Setup Cost" required>
+                    </div>
+                    <div class="form-group">
+                        <?php echo e(Form::label('hotel_rooms', __('Hotel Rooms'), ['class' => 'form-label'])); ?>
+
+                        <input type="number" name="hotel_rooms" class="form-control" value="<?php echo e(isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''); ?>" placeholder="Enter Hotel Rooms Cost" required>
+                    </div>
+                    <div class="form-group">
+                        <?php echo e(Form::label('special_req', __('Special Request/Others'), ['class' => 'form-label'])); ?>
+
+                        <input type="number" name="special_req" class="form-control" value="<?php echo e(isset($billing['special_req']) ? $billing['special_req'] : ''); ?>" placeholder="Enter  Cost" required>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
+
+            </div>
+            <?php echo e(Form::close()); ?>
+
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<?php if(\Auth::user()->type == 'owner'): ?>
+<div id="buffer-settings" class=" accordion-item card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+            <h5><?php echo e(__('Buffer Settings')); ?></h5>
+            <small class="text-muted"><?php echo e(__('Edit your buffer settings')); ?></small>
+        </button>
+    </h2>
+    <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            <div class="row">
+                <?php echo e(Form::open(['route' => 'buffer.setting', 'method' => 'post'])); ?>
+
+                <?php echo csrf_field(); ?>
+                <div class="col-12">
+                    <div class="form-group">
+                        <?php echo e(Form::label('buffer_time', __('Add Buffer Time'), ['class' => 'form-label'])); ?>
+
+                        <?php echo Form::input('time', 'buffer_time', $settings['buffer_time'],
+                        ['class' =>
+                        'form-control', 'required' => 'required']); ?>
+
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <?php echo e(Form::label('buffer_day', __('Add Buffer Day'), ['class' => 'form-label'])); ?>
+
+                        <?php echo Form::number('buffer_day', $settings['buffer_day'], ['class'
+                        =>
+                        'form-control', 'required' => 'required','min' => '0']); ?>
+
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
+
+            </div>
+            <?php echo e(Form::close()); ?>
+
+        </div>
+    </div>
+</div>
+<div id="add-signature" class="accordion-item  card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
+            <h5><?php echo e(__('Authorised Signature')); ?></h5>
+        </button>
+    </h2>
+    <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            <form method="POST" id='sign'>
+                <?php echo csrf_field(); ?>
+                <div class="card-body1">
+                    <div class="row mt-3">
+                        <div class="col-6 need_full">
+                            <strong>Existing Signature:</strong> <br>
+                            <img src="<?php echo e($base64Image); ?>" style=" width: 55%;padding-right: 39px;border-bottom: 1px solid black;">
+                        </div>
+                        <div class="col-6 need_full">
+                            <strong> Signature:</strong>
+                            <br>
+                            <div id="sig" class="mt-5">
+                                <canvas id="signatureCanvas" width="300" class="signature-canvas"></canvas>
+                                <input type="hidden" name="imageData" id="imageData">
+                            </div>
+                            <div class="row">
+                                <div class="col-6 need_full">
+                                    <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear
+                                        Signature</button>
+                                </div>
+                                <div class="col-6 need_full">
+                                    <div class="text-end mobile-text">
+                                        <input type="submit" value="Save" class="btn-submit btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<?php endif; ?>
+</div>
+</div>
+</div>
+<!-- <div id="pusher-settings" class="card">
                         <div class="card-header">
                             <h5><?php echo e(__('Pusher Settings')); ?></h5>
                             <small class="text-muted"><?php echo e(__('Edit your pusher details')); ?></small>
@@ -1651,7 +1657,7 @@ unset($__errorArgs, $__bag); ?>
 
                         </div>
                     </div> -->
-    <!-- <div id="brand-settings" class="card">
+<!-- <div id="brand-settings" class="card">
                             <div class="card-header">
                                 <h5><?php echo e(__('Brand Settings')); ?></h5>
                                 <small class="text-muted"><?php echo e(__('Edit your brand details')); ?></small>
@@ -2027,7 +2033,7 @@ unset($__errorArgs, $__bag); ?>
 
                         </div> -->
 
-    <!-- <div id="twilio-settings" class="card">
+<!-- <div id="twilio-settings" class="card">
                         <div class="card-header">
                             <h5><?php echo e(__('Twilio Settings')); ?></h5>
                             <small class="text-muted"><?php echo e(__('Edit your twilio details')); ?></small>
@@ -2086,7 +2092,7 @@ unset($__errorArgs, $__bag); ?>
                                                 <label class="form-check-label" for="twilio_meeting_create"></label>
                                             </div>
                                         </li> -->
-    <!-- <li class="list-group-item">
+<!-- <li class="list-group-item">
                                                                                             <span><?php echo e(__('New Quotes')); ?></span>
                                                                                             <div class="form-check form-switch float-end">
                                                                                                 <?php echo e(Form::checkbox('twilio_quotes_create', '1', isset($settings['twilio_quotes_create']) && $settings['twilio_quotes_create'] == '1' ? 'checked' : '', ['class' => 'form-check-input input-primary', 'id' => 'twilio_quotes_create'])); ?>
@@ -2094,9 +2100,9 @@ unset($__errorArgs, $__bag); ?>
                                                                                                 <label class="form-check-label" for="twilio_quotes_create"></label>
                                                                                             </div>
                                                                                         </li> -->
-    <!-- </ul>
+<!-- </ul>
                                             </div> -->
-    <!-- <div class="col-md-4">
+<!-- <div class="col-md-4">
                                                                 <ul class="list-group">
                                                                     <li class="list-group-item">
                                                                         <span><?php echo e(__('New Sales Order')); ?></span>
@@ -2144,7 +2150,7 @@ unset($__errorArgs, $__bag); ?>
                                                                     </li>
                                                                 </ul>
                                                             </div> -->
-    <!-- <div class="text-end">
+<!-- <div class="text-end">
                                                 <?php echo e(Form::submit(__('Save Changes'), ['class' => 'btn-submit btn btn-primary'])); ?>
 
                                             </div>
@@ -2157,8 +2163,8 @@ unset($__errorArgs, $__bag); ?>
 
 
 
-    <?php if(\Auth::user()->type == 'super admin'): ?>
-    <!-- <div id="brand-settings" class="card">
+<?php if(\Auth::user()->type == 'super admin'): ?>
+<!-- <div id="brand-settings" class="card">
                                         <div class="card-header">
                                             <h5><?php echo e(__('Brand Settings')); ?></h5>
                                             <small class="text-muted"><?php echo e(__('Edit your brand details')); ?></small>
@@ -2533,7 +2539,7 @@ unset($__errorArgs, $__bag); ?>
 
                                         </div>  -->
 
-    <!-- <div id="email-settings" class="card">
+<!-- <div id="email-settings" class="card">
                                                     <div class="card-header">
                                                         <h5><?php echo e(__('Email Settings')); ?></h5>
                                                         <small class="text-muted"><?php echo e(__('Edit your email details')); ?></small>
@@ -2693,7 +2699,7 @@ unset($__errorArgs, $__bag); ?>
 
                                                 </div> -->
 
-    <!-- <div id="pusher-settings" class="card">
+<!-- <div id="pusher-settings" class="card">
                         <div class="card-header">
                             <h5><?php echo e(__('Pusher Settings')); ?></h5>
                             <small class="text-muted"><?php echo e(__('Edit your pusher details')); ?></small>
@@ -2784,626 +2790,471 @@ unset($__errorArgs, $__bag); ?>
 
                         </div>
                     </div> -->
-    <div id="payment-settings" class="card">
-        <div class="card-header">
-            <h5><?php echo e(__('Payment Settings')); ?></h5>
-            <small class="text-muted"><?php echo e(__('These details will be used to collect subscription plan payments.Each subscription plan will have a payment button based on the below configuration')); ?></small>
+<div id="payment-settings" class="card">
+    <div class="card-header">
+        <h5><?php echo e(__('Payment Settings')); ?></h5>
+        <small class="text-muted"><?php echo e(__('These details will be used to collect subscription plan payments.Each subscription plan will have a payment button based on the below configuration')); ?></small>
+    </div>
+    <?php echo e(Form::model($settings, ['route' => 'payment.setting', 'method' => 'POST'])); ?>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+                        <label class="col-form-label"><?php echo e(__('Currency')); ?> *</label>
+                        <input type="text" name="currency" class="form-control" id="currency" value="<?php echo e(!isset($payment['currency']) || is_null($payment['currency']) ? '' : $payment['currency']); ?>" placeholder="USD" required>
+                        <small class="text-xs">
+                            <?php echo e(__('Note: Add currency code as per three-letter ISO code.')); ?>.
+                            <a href="https://stripe.com/docs/currencies" target="_blank"><?php echo e(__('You can find out how to do that here.')); ?></a>
+                        </small>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+                        <label for="currency_symbol" class="col-form-label"><?php echo e(__('Currency Symbol')); ?></label>
+                        <input type="text" name="currency_symbol" class="form-control" id="currency_symbol" value="<?php echo e(!isset($payment['currency_symbol']) || is_null($payment['currency_symbol']) ? '' : $payment['currency_symbol']); ?>" placeholder="$" required>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <?php echo e(Form::model($settings, ['route' => 'payment.setting', 'method' => 'POST'])); ?>
+        <div class="faq justify-content-center">
+            <div class="col-sm-12 col-md-10 col-xxl-12">
+                <div class="accordion accordion-flush setting setting-accordion1" id="accordionExample">
 
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
-                            <label class="col-form-label"><?php echo e(__('Currency')); ?> *</label>
-                            <input type="text" name="currency" class="form-control" id="currency" value="<?php echo e(!isset($payment['currency']) || is_null($payment['currency']) ? '' : $payment['currency']); ?>" placeholder="USD" required>
-                            <small class="text-xs">
-                                <?php echo e(__('Note: Add currency code as per three-letter ISO code.')); ?>.
-                                <a href="https://stripe.com/docs/currencies" target="_blank"><?php echo e(__('You can find out how to do that here.')); ?></a>
-                            </small>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
-                            <label for="currency_symbol" class="col-form-label"><?php echo e(__('Currency Symbol')); ?></label>
-                            <input type="text" name="currency_symbol" class="form-control" id="currency_symbol" value="<?php echo e(!isset($payment['currency_symbol']) || is_null($payment['currency_symbol']) ? '' : $payment['currency_symbol']); ?>" placeholder="$" required>
-                        </div>
+                    
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-15">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Manually')); ?>
 
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_manually_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_manually_enabled" id="is_manually_enabled" <?php echo e(isset($payment['is_manually_enabled']) && $payment['is_manually_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-1"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                        <div class="row pt-2">
+                                            <label class="pb-2" for="is_manually_enabled"><?php echo e(__('Requesting manual payment for the planned amount for the subscriptions paln.')); ?></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-16">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Bank Transfer')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_bank_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_bank_enabled" id="is_bank_enabled" <?php echo e(isset($payment['is_bank_enabled']) && $payment['is_bank_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-1"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row gy-4">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            <?php echo e(Form::label('bank_details', __('Bank Details'), ['class' => 'col-form-label'])); ?>
+
+                                            <?php echo e(Form::textarea('bank_details', isset($payment['bank_details']) ? $payment['bank_details'] : '', ['class' => 'form-control', 'placeholder' => __('Enter Your Bank Details'), 'rows' => 4])); ?>
+
+                                            <small class="text-xs">
+                                                <?php echo e(__('Example : Bank : bank name </br> Account Number : 0000 0000 </br>')); ?>
+
+                                            </small>
+                                            <?php if($errors->has('bank_details')): ?>
+                                            <span class="invalid-feedback d-block">
+                                                <?php echo e($errors->first('bank_details')); ?>
+
+                                            </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stripe -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Stripe')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_stripe_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_stripe_enabled" id="is_stripe_enabled" <?php echo e(isset($payment['is_stripe_enabled']) && $payment['is_stripe_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-1"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading-2-2" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row gy-4">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="stripe_key" class="form-label"><?php echo e(__('Stripe Key')); ?></label>
+                                            <input class="form-control" placeholder="<?php echo e(__('Stripe Key')); ?>" name="stripe_key" type="text" value="<?php echo e(!isset($payment['stripe_key']) || is_null($payment['stripe_key']) ? '' : $payment['stripe_key']); ?>" id="stripe_key">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="stripe_secret" class="form-label"><?php echo e(__('Stripe Secret')); ?></label>
+                                            <input class="form-control " placeholder="<?php echo e(__('Stripe Secret')); ?>" name="stripe_secret" type="text" value="<?php echo e(!isset($payment['stripe_secret']) || is_null($payment['stripe_secret']) ? '' : $payment['stripe_secret']); ?>" id="stripe_secret">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paypal -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Paypal')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_paypal_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paypal_enabled" id="is_paypal_enabled" <?php echo e(isset($payment['is_paypal_enabled']) && $payment['is_paypal_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading-2-3" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                        <div class="row pt-2">
+                                            <label class="pb-2" for="paypal_mode"><?php echo e(__('Paypal Mode')); ?></label>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="sandbox" <?php echo e(!isset($payment['paypal_mode']) || $payment['paypal_mode'] == '' || $payment['paypal_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="live" <?php echo e(isset($payment['paypal_mode']) && $payment['paypal_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label"><?php echo e(__('Client ID')); ?></label>
+                                            <input type="text" name="paypal_client_id" id="paypal_client_id" class="form-control" value="<?php echo e(!isset($payment['paypal_client_id']) || is_null($payment['paypal_client_id']) ? '' : $payment['paypal_client_id']); ?>" placeholder="<?php echo e(__('Client ID')); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="paypal_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                            <input type="text" name="paypal_secret_key" id="paypal_secret_key" class="form-control" value="<?php echo e(!isset($payment['paypal_secret_key']) || is_null($payment['paypal_secret_key']) ? '' : $payment['paypal_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paystack -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Paystack')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_paystack_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paystack_enabled" id="is_paystack_enabled" <?php echo e(isset($payment['is_paystack_enabled']) && $payment['is_paystack_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading-2-4" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label"><?php echo e(__(' Key')); ?></label>
+                                            <input type="text" name="paystack_public_key" id="paystack_public_key" class="form-control" value="<?php echo e(!isset($payment['paystack_public_key']) || is_null($payment['paystack_public_key']) ? '' : $payment['paystack_public_key']); ?>" placeholder="<?php echo e(__(' Key')); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paystack_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                            <input type="text" name="paystack_secret_key" id="paystack_secret_key" class="form-control" value="<?php echo e(!isset($payment['paystack_secret_key']) || is_null($payment['paystack_secret_key']) ? '' : $payment['paystack_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FLUTTERWAVE -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Flutterwave')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_flutterwave_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_flutterwave_enabled" id="is_flutterwave_enabled" <?php echo e(isset($payment['is_flutterwave_enabled']) && $payment['is_flutterwave_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading-2-5" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label"><?php echo e(__(' Key')); ?></label>
+                                            <input type="text" name="flutterwave_public_key" id="flutterwave_public_key" class="form-control" value="<?php echo e(!isset($payment['flutterwave_public_key']) || is_null($payment['flutterwave_public_key']) ? '' : $payment['flutterwave_public_key']); ?>" placeholder="Public Key">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paystack_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                            <input type="text" name="flutterwave_secret_key" id="flutterwave_secret_key" class="form-control" value="<?php echo e(!isset($payment['flutterwave_secret_key']) || is_null($payment['flutterwave_secret_key']) ? '' : $payment['flutterwave_secret_key']); ?>" placeholder="Secret Key">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razorpay -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Razorpay')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_razorpay_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_razorpay_enabled" id="is_razorpay_enabled" <?php echo e(isset($payment['is_razorpay_enabled']) && $payment['is_razorpay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading-2-6" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label"><?php echo e(__(' Key')); ?></label>
+
+                                            <input type="text" name="razorpay_public_key" id="razorpay_public_key" class="form-control" value="<?php echo e(!isset($payment['razorpay_public_key']) || is_null($payment['razorpay_public_key']) ? '' : $payment['razorpay_public_key']); ?>" placeholder="Public Key">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paystack_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                            <input type="text" name="razorpay_secret_key" id="razorpay_secret_key" class="form-control" value="<?php echo e(!isset($payment['razorpay_secret_key']) || is_null($payment['razorpay_secret_key']) ? '' : $payment['razorpay_secret_key']); ?>" placeholder="Secret Key">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paytm -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-7">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                                <span class="d-flex align-items-center">
+                                    
+                                    <?php echo e(__('Paytm')); ?>
+
+                                </span>
+                                <?php echo e(__('Enable:')); ?>
+
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_paytm_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_paytm_enabled" id="is_paytm_enabled" <?php echo e(isset($payment['is_paytm_enabled']) && $payment['is_paytm_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading-2-7" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                        <div class="row pt-2">
+                                            <label class="pb-2" for="paypal_mode"><?php echo e(__('Paytm Environment')); ?></label>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary " name="paytm_mode" value="local" <?php echo e(!isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'checked="checked"' : ''); ?>>
+
+
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Local')); ?></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary" name="paytm_mode" value="production" <?php echo e(isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'checked="checked"' : ''); ?>>
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Production')); ?></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="paytm_public_key" class="form-label"><?php echo e(__('Merchant ID')); ?></label>
+                                    <input type="text" name="paytm_merchant_id" id="paytm_merchant_id" class="form-control" value="<?php echo e(!isset($payment['paytm_merchant_id']) || is_null($payment['paytm_merchant_id']) ? '' : $payment['paytm_merchant_id']); ?>" placeholder="Merchant ID">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="paytm_secret_key" class="form-label"><?php echo e(__('Merchant Key')); ?></label>
+                                    <input type="text" name="paytm_merchant_key" id="paytm_merchant_key" class="form-control" value="<?php echo e(!isset($payment['paytm_merchant_key']) || is_null($payment['paytm_merchant_key']) ? '' : $payment['paytm_merchant_key']); ?>" placeholder="Merchant Key">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="paytm_industry_type" class="form-label"><?php echo e(__('Industry Type')); ?></label>
+                                    <input type="text" name="paytm_industry_type" id="paytm_industry_type" class="form-control" value="<?php echo e(!isset($payment['paytm_industry_type']) || is_null($payment['paytm_industry_type']) ? '' : $payment['paytm_industry_type']); ?>" placeholder="Industry Type">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="faq justify-content-center">
-                <div class="col-sm-12 col-md-10 col-xxl-12">
-                    <div class="accordion accordion-flush setting setting-accordion1" id="accordionExample">
 
-                        
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-15">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Manually')); ?>
+            <!-- Mercado Pago-->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-8">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('MercadoPago')); ?>
 
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
 
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_manually_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_manually_enabled" id="is_manually_enabled" <?php echo e(isset($payment['is_manually_enabled']) && $payment['is_manually_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-1"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                            <div class="row pt-2">
-                                                <label class="pb-2" for="is_manually_enabled"><?php echo e(__('Requesting manual payment for the planned amount for the subscriptions paln.')); ?></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_mercado_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_mercado_enabled" id="is_mercado_enabled" <?php echo e(isset($payment['is_mercado_enabled']) && $payment['is_mercado_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
                         </div>
 
-                        
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-16">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Bank Transfer')); ?>
+                    </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading-2-8" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
 
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                <div class="row pt-2">
+                                    <label class="pb-2" for="paypal_mode"><?php echo e(__('Mercado Mode')); ?></label>
+                                    <div class="col-lg-3">
+                                        <div class="border card p-3">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="sandbox" <?php echo e((isset($payment['mercado_mode']) && $payment['mercado_mode'] == '') || (isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'sandbox') ? 'checked="checked"' : ''); ?>>
 
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_bank_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_bank_enabled" id="is_bank_enabled" <?php echo e(isset($payment['is_bank_enabled']) && $payment['is_bank_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-1"></label>
+
+                                                <label class="form-check-label d-block" for="">
+                                                    <span>
+                                                        <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </button>
-                            </h2>
-                            <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row gy-4">
-                                        <div class="col-md-12 mt-3">
-                                            <div class="form-group">
-                                                <?php echo e(Form::label('bank_details', __('Bank Details'), ['class' => 'col-form-label'])); ?>
-
-                                                <?php echo e(Form::textarea('bank_details', isset($payment['bank_details']) ? $payment['bank_details'] : '', ['class' => 'form-control', 'placeholder' => __('Enter Your Bank Details'), 'rows' => 4])); ?>
-
-                                                <small class="text-xs">
-                                                    <?php echo e(__('Example : Bank : bank name </br> Account Number : 0000 0000 </br>')); ?>
-
-                                                </small>
-                                                <?php if($errors->has('bank_details')): ?>
-                                                <span class="invalid-feedback d-block">
-                                                    <?php echo e($errors->first('bank_details')); ?>
-
-                                                </span>
-                                                <?php endif; ?>
+                                    <div class="col-lg-3">
+                                        <div class="border card p-3">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="live" <?php echo e(isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
+                                                <label class="form-check-label d-block" for="">
+                                                    <span>
+                                                        <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
+                                                    </span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Stripe -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Stripe')); ?>
-
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
-
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_stripe_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_stripe_enabled" id="is_stripe_enabled" <?php echo e(isset($payment['is_stripe_enabled']) && $payment['is_stripe_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-1"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading-2-2" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row gy-4">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="stripe_key" class="form-label"><?php echo e(__('Stripe Key')); ?></label>
-                                                <input class="form-control" placeholder="<?php echo e(__('Stripe Key')); ?>" name="stripe_key" type="text" value="<?php echo e(!isset($payment['stripe_key']) || is_null($payment['stripe_key']) ? '' : $payment['stripe_key']); ?>" id="stripe_key">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="stripe_secret" class="form-label"><?php echo e(__('Stripe Secret')); ?></label>
-                                                <input class="form-control " placeholder="<?php echo e(__('Stripe Secret')); ?>" name="stripe_secret" type="text" value="<?php echo e(!isset($payment['stripe_secret']) || is_null($payment['stripe_secret']) ? '' : $payment['stripe_secret']); ?>" id="stripe_secret">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paypal -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Paypal')); ?>
-
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
-
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_paypal_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paypal_enabled" id="is_paypal_enabled" <?php echo e(isset($payment['is_paypal_enabled']) && $payment['is_paypal_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading-2-3" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                            <div class="row pt-2">
-                                                <label class="pb-2" for="paypal_mode"><?php echo e(__('Paypal Mode')); ?></label>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="sandbox" <?php echo e(!isset($payment['paypal_mode']) || $payment['paypal_mode'] == '' || $payment['paypal_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="live" <?php echo e(isset($payment['paypal_mode']) && $payment['paypal_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label"><?php echo e(__('Client ID')); ?></label>
-                                                <input type="text" name="paypal_client_id" id="paypal_client_id" class="form-control" value="<?php echo e(!isset($payment['paypal_client_id']) || is_null($payment['paypal_client_id']) ? '' : $payment['paypal_client_id']); ?>" placeholder="<?php echo e(__('Client ID')); ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="paypal_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                                <input type="text" name="paypal_secret_key" id="paypal_secret_key" class="form-control" value="<?php echo e(!isset($payment['paypal_secret_key']) || is_null($payment['paypal_secret_key']) ? '' : $payment['paypal_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paystack -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Paystack')); ?>
-
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
-
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_paystack_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paystack_enabled" id="is_paystack_enabled" <?php echo e(isset($payment['is_paystack_enabled']) && $payment['is_paystack_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading-2-4" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label"><?php echo e(__(' Key')); ?></label>
-                                                <input type="text" name="paystack_public_key" id="paystack_public_key" class="form-control" value="<?php echo e(!isset($payment['paystack_public_key']) || is_null($payment['paystack_public_key']) ? '' : $payment['paystack_public_key']); ?>" placeholder="<?php echo e(__(' Key')); ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paystack_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                                <input type="text" name="paystack_secret_key" id="paystack_secret_key" class="form-control" value="<?php echo e(!isset($payment['paystack_secret_key']) || is_null($payment['paystack_secret_key']) ? '' : $payment['paystack_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FLUTTERWAVE -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-5">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Flutterwave')); ?>
-
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
-
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_flutterwave_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_flutterwave_enabled" id="is_flutterwave_enabled" <?php echo e(isset($payment['is_flutterwave_enabled']) && $payment['is_flutterwave_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading-2-5" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label"><?php echo e(__(' Key')); ?></label>
-                                                <input type="text" name="flutterwave_public_key" id="flutterwave_public_key" class="form-control" value="<?php echo e(!isset($payment['flutterwave_public_key']) || is_null($payment['flutterwave_public_key']) ? '' : $payment['flutterwave_public_key']); ?>" placeholder="Public Key">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paystack_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                                <input type="text" name="flutterwave_secret_key" id="flutterwave_secret_key" class="form-control" value="<?php echo e(!isset($payment['flutterwave_secret_key']) || is_null($payment['flutterwave_secret_key']) ? '' : $payment['flutterwave_secret_key']); ?>" placeholder="Secret Key">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Razorpay -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-6">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Razorpay')); ?>
-
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
-
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_razorpay_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_razorpay_enabled" id="is_razorpay_enabled" <?php echo e(isset($payment['is_razorpay_enabled']) && $payment['is_razorpay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading-2-6" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label"><?php echo e(__(' Key')); ?></label>
-
-                                                <input type="text" name="razorpay_public_key" id="razorpay_public_key" class="form-control" value="<?php echo e(!isset($payment['razorpay_public_key']) || is_null($payment['razorpay_public_key']) ? '' : $payment['razorpay_public_key']); ?>" placeholder="Public Key">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paystack_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                                <input type="text" name="razorpay_secret_key" id="razorpay_secret_key" class="form-control" value="<?php echo e(!isset($payment['razorpay_secret_key']) || is_null($payment['razorpay_secret_key']) ? '' : $payment['razorpay_secret_key']); ?>" placeholder="Secret Key">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paytm -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-7">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
-                                    <span class="d-flex align-items-center">
-                                        
-                                        <?php echo e(__('Paytm')); ?>
-
-                                    </span>
-                                    <?php echo e(__('Enable:')); ?>
-
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_paytm_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_paytm_enabled" id="is_paytm_enabled" <?php echo e(isset($payment['is_paytm_enabled']) && $payment['is_paytm_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading-2-7" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                            <div class="row pt-2">
-                                                <label class="pb-2" for="paypal_mode"><?php echo e(__('Paytm Environment')); ?></label>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary " name="paytm_mode" value="local" <?php echo e(!isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'checked="checked"' : ''); ?>>
-
-
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Local')); ?></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary" name="paytm_mode" value="production" <?php echo e(isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'checked="checked"' : ''); ?>>
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Production')); ?></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paytm_public_key" class="form-label"><?php echo e(__('Merchant ID')); ?></label>
-                                        <input type="text" name="paytm_merchant_id" id="paytm_merchant_id" class="form-control" value="<?php echo e(!isset($payment['paytm_merchant_id']) || is_null($payment['paytm_merchant_id']) ? '' : $payment['paytm_merchant_id']); ?>" placeholder="Merchant ID">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paytm_secret_key" class="form-label"><?php echo e(__('Merchant Key')); ?></label>
-                                        <input type="text" name="paytm_merchant_key" id="paytm_merchant_key" class="form-control" value="<?php echo e(!isset($payment['paytm_merchant_key']) || is_null($payment['paytm_merchant_key']) ? '' : $payment['paytm_merchant_key']); ?>" placeholder="Merchant Key">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paytm_industry_type" class="form-label"><?php echo e(__('Industry Type')); ?></label>
-                                        <input type="text" name="paytm_industry_type" id="paytm_industry_type" class="form-control" value="<?php echo e(!isset($payment['paytm_industry_type']) || is_null($payment['paytm_industry_type']) ? '' : $payment['paytm_industry_type']); ?>" placeholder="Industry Type">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mercado Pago-->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-8">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('MercadoPago')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_mercado_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_mercado_enabled" id="is_mercado_enabled" <?php echo e(isset($payment['is_mercado_enabled']) && $payment['is_mercado_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading-2-8" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                    <div class="row pt-2">
-                                        <label class="pb-2" for="paypal_mode"><?php echo e(__('Mercado Mode')); ?></label>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="sandbox" <?php echo e((isset($payment['mercado_mode']) && $payment['mercado_mode'] == '') || (isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'sandbox') ? 'checked="checked"' : ''); ?>>
-
-
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="live" <?php echo e(isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mercado_access_token" class="form-label"><?php echo e(__('Access Token')); ?></label>
-                                        <input type="text" name="mercado_access_token" id="mercado_access_token" class="form-control" value="<?php echo e(isset($payment['mercado_access_token']) ? $payment['mercado_access_token'] : ''); ?>" />
-                                        <?php if($errors->has('mercado_secret_key')): ?>
-                                        <span class="invalid-feedback d-block">
-                                            <?php echo e($errors->first('mercado_access_token')); ?>
-
-                                        </span>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mollie -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-9">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('Mollie')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_mollie_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_mollie_enabled" id="is_mollie_enabled" <?php echo e(isset($payment['is_mollie_enabled']) && $payment['is_mollie_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading-2-9" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="row mt-2">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="mollie_api_key" class="form-label"><?php echo e(__('Mollie Api Key')); ?></label>
-                                            <input type="text" name="mollie_api_key" id="mollie_api_key" class="form-control" value="<?php echo e(!isset($payment['mollie_api_key']) || is_null($payment['mollie_api_key']) ? '' : $payment['mollie_api_key']); ?>" placeholder="Mollie Api Key">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="mollie_profile_id" class="form-label"><?php echo e(__('Mollie Profile Id')); ?></label>
-                                            <input type="text" name="mollie_profile_id" id="mollie_profile_id" class="form-control" value="<?php echo e(!isset($payment['mollie_profile_id']) || is_null($payment['mollie_profile_id']) ? '' : $payment['mollie_profile_id']); ?>" placeholder="Mollie Profile Id">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="mollie_partner_id" class="form-label"><?php echo e(__('Mollie Partner Id')); ?></label>
-                                            <input type="text" name="mollie_partner_id" id="mollie_partner_id" class="form-control" value="<?php echo e(!isset($payment['mollie_partner_id']) || is_null($payment['mollie_partner_id']) ? '' : $payment['mollie_partner_id']); ?>" placeholder="Mollie Partner Id">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Skrill -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-10">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('Skrill')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_skrill_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_skrill_enabled" id="is_skrill_enabled" <?php echo e(isset($payment['is_skrill_enabled']) && $payment['is_skrill_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading-2-10" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="col-md-6 mt-3">
-                                    <div class="form-group">
-                                        <label for="mollie_api_key" class="form-label"><?php echo e(__('Skrill Email')); ?></label>
-                                        <input type="text" name="skrill_email" id="skrill_email" class="form-control" value="<?php echo e(!isset($payment['skrill_email']) || is_null($payment['skrill_email']) ? '' : $payment['skrill_email']); ?>" placeholder="Enter Skrill Email">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CoinGate -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-11">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('CoinGate')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_coingate_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_coingate_enabled" id="is_coingate_enabled" <?php echo e(isset($payment['is_coingate_enabled']) && $payment['is_coingate_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading-2-11" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                    <div class="row pt-2">
-                                        <label class="pb-2" for="paypal_mode"><?php echo e(__('CoinGate Mode')); ?></label>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="sandbox" <?php echo e(!isset($payment['coingate_mode']) || $payment['coingate_mode'] == '' || $payment['coingate_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
-
-
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="live" <?php echo e(isset($payment['coingate_mode']) && $payment['coingate_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="coingate_auth_token" class="form-label"><?php echo e(__('CoinGate Auth Token')); ?></label>
-                                        <input type="text" name="coingate_auth_token" id="coingate_auth_token" class="form-control" value="<?php echo e(!isset($payment['coingate_auth_token']) || is_null($payment['coingate_auth_token']) ? '' : $payment['coingate_auth_token']); ?>" placeholder="CoinGate Auth Token">
-                                    </div>
-                                    <?php if($errors->has('coingate_auth_token')): ?>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mercado_access_token" class="form-label"><?php echo e(__('Access Token')); ?></label>
+                                    <input type="text" name="mercado_access_token" id="mercado_access_token" class="form-control" value="<?php echo e(isset($payment['mercado_access_token']) ? $payment['mercado_access_token'] : ''); ?>" />
+                                    <?php if($errors->has('mercado_secret_key')): ?>
                                     <span class="invalid-feedback d-block">
-                                        <?php echo e($errors->first('coingate_auth_token')); ?>
+                                        <?php echo e($errors->first('mercado_access_token')); ?>
 
                                     </span>
                                     <?php endif; ?>
@@ -3412,116 +3263,122 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- PaymentWall -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-12">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('PaymentWall')); ?>
+            <!-- Mollie -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-9">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('Mollie')); ?>
 
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
 
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_paymentwall_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_paymentwall_enabled" id="is_paymentwall_enabled" <?php echo e(isset($payment['is_paymentwall_enabled']) && $payment['is_paymentwall_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_mollie_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_mollie_enabled" id="is_mollie_enabled" <?php echo e(isset($payment['is_mollie_enabled']) && $payment['is_mollie_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
 
-                        </button>
-                    </h2>
-                    <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading-2-12" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
+                    </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading-2-9" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
 
-                                <div class="col-md-6">
+                            <div class="row mt-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="paymentwall_public_key" class="form-label"><?php echo e(__(' Key')); ?></label>
-                                        <input type="text" name="paymentwall_public_key" id="paymentwall_public_key" class="form-control" value="<?php echo e(!isset($payment['paymentwall_public_key']) || is_null($payment['paymentwall_public_key']) ? '' : $payment['paymentwall_public_key']); ?>" placeholder="<?php echo e(__(' Key')); ?>">
+                                        <label for="mollie_api_key" class="form-label"><?php echo e(__('Mollie Api Key')); ?></label>
+                                        <input type="text" name="mollie_api_key" id="mollie_api_key" class="form-control" value="<?php echo e(!isset($payment['mollie_api_key']) || is_null($payment['mollie_api_key']) ? '' : $payment['mollie_api_key']); ?>" placeholder="Mollie Api Key">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="paymentwall_private_key" class="form-label"><?php echo e(__('Private Key')); ?></label>
-                                        <input type="text" name="paymentwall_private_key" id="paymentwall_private_key" class="form-control" value="<?php echo e(!isset($payment['paymentwall_private_key']) || is_null($payment['paymentwall_private_key']) ? '' : $payment['paymentwall_private_key']); ?>" placeholder="<?php echo e(__('Private Key')); ?>">
+                                        <label for="mollie_profile_id" class="form-label"><?php echo e(__('Mollie Profile Id')); ?></label>
+                                        <input type="text" name="mollie_profile_id" id="mollie_profile_id" class="form-control" value="<?php echo e(!isset($payment['mollie_profile_id']) || is_null($payment['mollie_profile_id']) ? '' : $payment['mollie_profile_id']); ?>" placeholder="Mollie Profile Id">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="mollie_partner_id" class="form-label"><?php echo e(__('Mollie Partner Id')); ?></label>
+                                        <input type="text" name="mollie_partner_id" id="mollie_partner_id" class="form-control" value="<?php echo e(!isset($payment['mollie_partner_id']) || is_null($payment['mollie_partner_id']) ? '' : $payment['mollie_partner_id']); ?>" placeholder="Mollie Partner Id">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-13">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('Toyyibpay')); ?>
+            <!-- Skrill -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-10">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('Skrill')); ?>
 
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
 
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_toyyibpay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_toyyibpay_enabled" id="is_toyyibpay_enabled" <?php echo e(isset($payment['is_toyyibpay_enabled']) && $payment['is_toyyibpay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading-2-13" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="toyyibpay_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                        <input type="text" name="toyyibpay_secret_key" id="toyyibpay_secret_key" class="form-control" value="<?php echo e(!isset($payment['toyyibpay_secret_key']) || is_null($payment['toyyibpay_secret_key']) ? '' : $payment['toyyibpay_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
-                                    </div>
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_skrill_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_skrill_enabled" id="is_skrill_enabled" <?php echo e(isset($payment['is_skrill_enabled']) && $payment['is_skrill_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+
+                    </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading-2-10" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+
+                            <div class="col-md-6 mt-3">
+                                <div class="form-group">
+                                    <label for="mollie_api_key" class="form-label"><?php echo e(__('Skrill Email')); ?></label>
+                                    <input type="text" name="skrill_email" id="skrill_email" class="form-control" value="<?php echo e(!isset($payment['skrill_email']) || is_null($payment['skrill_email']) ? '' : $payment['skrill_email']); ?>" placeholder="Enter Skrill Email">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="category_code" class="form-label"><?php echo e(__('Category Code')); ?></label>
-                                        <input type="text" name="category_code" id="category_code" class="form-control" value="<?php echo e(!isset($payment['category_code']) || is_null($payment['category_code']) ? '' : $payment['category_code']); ?>" placeholder="<?php echo e(__('Category Code')); ?>">
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
 
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-14">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('Payfast')); ?>
+            <!-- CoinGate -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-11">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('CoinGate')); ?>
 
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
 
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_payfast_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_payfast_enabled" id="is_payfast_enabled" <?php echo e(isset($payment['is_payfast_enabled']) && $payment['is_payfast_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_coingate_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_coingate_enabled" id="is_coingate_enabled" <?php echo e(isset($payment['is_coingate_enabled']) && $payment['is_coingate_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
 
-                    <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
+                    </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading-2-11" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
 
-                        <div class="accordion-body1">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
                                 <div class="row pt-2">
-                                    <label class="pb-2" for="payfast_mode"><?php echo e(__('Payfast Mode')); ?></label>
+                                    <label class="pb-2" for="paypal_mode"><?php echo e(__('CoinGate Mode')); ?></label>
                                     <div class="col-lg-3">
                                         <div class="border card p-3">
                                             <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="sandbox" <?php echo e(!isset($payment['payfast_mode']) || $payment['payfast_mode'] == '' || $payment['payfast_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
+                                                <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="sandbox" <?php echo e(!isset($payment['coingate_mode']) || $payment['coingate_mode'] == '' || $payment['coingate_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
+
+
                                                 <label class="form-check-label d-block" for="">
                                                     <span>
                                                         <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
@@ -3533,7 +3390,7 @@ unset($__errorArgs, $__bag); ?>
                                     <div class="col-lg-3">
                                         <div class="border card p-3">
                                             <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="live" <?php echo e(isset($payment['payfast_mode']) && $payment['payfast_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
+                                                <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="live" <?php echo e(isset($payment['coingate_mode']) && $payment['coingate_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
                                                 <label class="form-check-label d-block" for="">
                                                     <span>
                                                         <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
@@ -3545,457 +3402,606 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="payfast_merchant_id" class="form-label"><?php echo e(__('Merchant Id')); ?></label>
-                                        <input type="text" name="payfast_merchant_id" id="payfast_merchant_id" class="form-control" value="<?php echo e(!isset($payment['payfast_merchant_id']) || is_null($payment['payfast_merchant_id']) ? '' : $payment['payfast_merchant_id']); ?>" placeholder="<?php echo e(__('Merchant Id')); ?>">
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="coingate_auth_token" class="form-label"><?php echo e(__('CoinGate Auth Token')); ?></label>
+                                    <input type="text" name="coingate_auth_token" id="coingate_auth_token" class="form-control" value="<?php echo e(!isset($payment['coingate_auth_token']) || is_null($payment['coingate_auth_token']) ? '' : $payment['coingate_auth_token']); ?>" placeholder="CoinGate Auth Token">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="payfast_merchant_key" class="form-label"><?php echo e(__('Merchant Key')); ?></label>
-                                        <input type="text" name="payfast_merchant_key" id="payfast_merchant_key" class="form-control" value="<?php echo e(!isset($payment['payfast_merchant_key']) || is_null($payment['payfast_merchant_key']) ? '' : $payment['payfast_merchant_key']); ?>" placeholder="<?php echo e(__('Merchant Key')); ?>">
-                                    </div>
+                                <?php if($errors->has('coingate_auth_token')): ?>
+                                <span class="invalid-feedback d-block">
+                                    <?php echo e($errors->first('coingate_auth_token')); ?>
+
+                                </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PaymentWall -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-12">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('PaymentWall')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_paymentwall_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_paymentwall_enabled" id="is_paymentwall_enabled" <?php echo e(isset($payment['is_paymentwall_enabled']) && $payment['is_paymentwall_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+
+                    </button>
+                </h2>
+                <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading-2-12" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paymentwall_public_key" class="form-label"><?php echo e(__(' Key')); ?></label>
+                                    <input type="text" name="paymentwall_public_key" id="paymentwall_public_key" class="form-control" value="<?php echo e(!isset($payment['paymentwall_public_key']) || is_null($payment['paymentwall_public_key']) ? '' : $payment['paymentwall_public_key']); ?>" placeholder="<?php echo e(__(' Key')); ?>">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="payfast_signature" class="form-label"><?php echo e(__('Salt Passphrase')); ?></label>
-                                        <input type="text" name="payfast_signature" id="payfast_signature" class="form-control" value="<?php echo e(!isset($payment['payfast_signature']) || is_null($payment['payfast_signature']) ? '' : $payment['payfast_signature']); ?>" placeholder="<?php echo e(__('Salt Passphrase')); ?>">
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paymentwall_private_key" class="form-label"><?php echo e(__('Private Key')); ?></label>
+                                    <input type="text" name="paymentwall_private_key" id="paymentwall_private_key" class="form-control" value="<?php echo e(!isset($payment['paymentwall_private_key']) || is_null($payment['paymentwall_private_key']) ? '' : $payment['paymentwall_private_key']); ?>" placeholder="<?php echo e(__('Private Key')); ?>">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
-                            <span class="d-flex align-items-center">
-                                
-                                <?php echo e(__('IyziPay')); ?>
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-13">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('Toyyibpay')); ?>
 
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
 
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_iyzipay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_iyzipay_enabled" id="is_iyzipay_enabled" <?php echo e(isset($payment['is_iyzipay_enabled']) && $payment['is_iyzipay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
-
-                        <div class="accordion-body1">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                <div class="row pt-2">
-                                    <label class="pb-2" for="iyzipay_mode"><?php echo e(__('IyziPay Mode')); ?></label>
-                                    <div class="col-lg-3">
-                                        <div class="border card p-3">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="sandbox" <?php echo e(!isset($payment['iyzipay_mode']) || $payment['iyzipay_mode'] == '' || $payment['iyzipay_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
-                                                <label class="form-check-label d-block" for="">
-                                                    <span>
-                                                        <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="border card p-3">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="live" <?php echo e(isset($payment['iyzipay_mode']) && $payment['iyzipay_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
-                                                <label class="form-check-label d-block" for="">
-                                                    <span>
-                                                        <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="iyzipay_key" class="form-label"><?php echo e(__('IyziPay Key')); ?></label>
-                                        <input type="text" name="iyzipay_key" id="iyzipay_key" class="form-control" value="<?php echo e(!isset($payment['iyzipay_key']) || is_null($payment['iyzipay_key']) ? '' : $payment['iyzipay_key']); ?>" placeholder="<?php echo e(__('IyziPay Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="iyzipay_secret" class="form-label"><?php echo e(__('IyziPay Secret')); ?></label>
-                                        <input type="text" name="iyzipay_secret" id="iyzipay_secret" class="form-control" value="<?php echo e(!isset($payment['iyzipay_secret']) || is_null($payment['iyzipay_secret']) ? '' : $payment['iyzipay_secret']); ?>" placeholder="<?php echo e(__('IyziPay Secret')); ?>">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_toyyibpay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_toyyibpay_enabled" id="is_toyyibpay_enabled" <?php echo e(isset($payment['is_toyyibpay_enabled']) && $payment['is_toyyibpay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label for="customswitch1-2" class="form-check-label"></label>
                         </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-16">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('SSPay')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_sspay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_sspay_enabled" id="is_sspay_enabled" <?php echo e(isset($payment['is_sspay_enabled']) && $payment['is_sspay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="sspay_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                        <input type="text" name="sspay_secret_key" id="sspay_secret_key" class="form-control" value="<?php echo e(!isset($payment['sspay_secret_key']) || is_null($payment['sspay_secret_key']) ? '' : $payment['sspay_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="sspay_category_code" class="form-label"><?php echo e(__('Category Code')); ?></label>
-                                        <input type="text" name="sspay_category_code" id="sspay_category_code" class="form-control" value="<?php echo e(!isset($payment['sspay_category_code']) || is_null($payment['sspay_category_code']) ? '' : $payment['sspay_category_code']); ?>" placeholder="<?php echo e(__('Category Code')); ?>">
-                                    </div>
+                    </button>
+                </h2>
+                <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading-2-13" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="toyyibpay_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                    <input type="text" name="toyyibpay_secret_key" id="toyyibpay_secret_key" class="form-control" value="<?php echo e(!isset($payment['toyyibpay_secret_key']) || is_null($payment['toyyibpay_secret_key']) ? '' : $payment['toyyibpay_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-17">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('PayTab')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_paytab_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_paytab_enabled" id="is_paytab_enabled" <?php echo e(isset($payment['is_paytab_enabled']) && $payment['is_paytab_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading-2-17" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytab_profile_id" class="form-label"><?php echo e(__('Profile Id')); ?></label>
-                                        <input type="text" name="paytab_profile_id" id="paytab_profile_id" class="form-control" value="<?php echo e(!isset($payment['paytab_profile_id']) || is_null($payment['paytab_profile_id']) ? '' : $payment['paytab_profile_id']); ?>" placeholder="<?php echo e(__('Profile Id')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytab_server_key" class="form-label"><?php echo e(__('Server Key')); ?></label>
-                                        <input type="text" name="paytab_server_key" id="paytab_server_key" class="form-control" value="<?php echo e(!isset($payment['paytab_server_key']) || is_null($payment['paytab_server_key']) ? '' : $payment['paytab_server_key']); ?>" placeholder="<?php echo e(__('Server Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytab_region" class="form-label"><?php echo e(__('Paytab Region')); ?></label>
-                                        <input type="text" name="paytab_region" id="paytab_region" class="form-control" value="<?php echo e(!isset($payment['paytab_region']) || is_null($payment['paytab_region']) ? '' : $payment['paytab_region']); ?>" placeholder="<?php echo e(__('Paytab Region')); ?>">
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="category_code" class="form-label"><?php echo e(__('Category Code')); ?></label>
+                                    <input type="text" name="category_code" id="category_code" class="form-control" value="<?php echo e(!isset($payment['category_code']) || is_null($payment['category_code']) ? '' : $payment['category_code']); ?>" placeholder="<?php echo e(__('Category Code')); ?>">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-18">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Benefit')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_benefit_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_benefit_enabled" id="is_benefit_enabled" <?php echo e(isset($payment['is_benefit_enabled']) && $payment['is_benefit_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading-2-18" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="benefit_api_key" class="form-label"><?php echo e(__('Benefit Key')); ?></label>
-                                        <input type="text" name="benefit_api_key" id="benefit_api_key" class="form-control" value="<?php echo e(!isset($payment['benefit_api_key']) || is_null($payment['benefit_api_key']) ? '' : $payment['benefit_api_key']); ?>" placeholder="<?php echo e(__('Enter Benefit Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="benefit_secret_key" class="form-label"><?php echo e(__('Benefit Secret Key')); ?></label>
-                                        <input type="text" name="benefit_secret_key" id="benefit_secret_key" class="form-control" value="<?php echo e(!isset($payment['benefit_secret_key']) || is_null($payment['benefit_secret_key']) ? '' : $payment['benefit_secret_key']); ?>" placeholder="<?php echo e(__('Enter Benefit Secret key')); ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-19">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Cashfree')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_cashfree_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_cashfree_enabled" id="is_cashfree_enabled" <?php echo e(isset($payment['is_cashfree_enabled']) && $payment['is_cashfree_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading-2-19" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cashfree_api_key" class="form-label"><?php echo e(__(' Cashfree Key')); ?></label>
-                                        <input type="text" name="cashfree_api_key" id="cashfree_api_key" class="form-control" value="<?php echo e(!isset($payment['cashfree_api_key']) || is_null($payment['cashfree_api_key']) ? '' : $payment['cashfree_api_key']); ?>" placeholder="<?php echo e(__('Enter Cashfree Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cashfree_secret_key" class="form-label"><?php echo e(__('Cashfree Secret Key')); ?></label>
-                                        <input type="text" name="cashfree_secret_key" id="cashfree_secret_key" class="form-control" value="<?php echo e(!isset($payment['cashfree_secret_key']) || is_null($payment['cashfree_secret_key']) ? '' : $payment['cashfree_secret_key']); ?>" placeholder="<?php echo e(__('Enter Cashfree Secret Key')); ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-20">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Aamarpay')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_aamarpay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_aamarpay_enabled" id="is_aamarpay_enabled" <?php echo e(isset($payment['is_aamarpay_enabled']) && $payment['is_aamarpay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-20" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="aamarpay_store_id" class="form-label"><?php echo e(__(' Store Id')); ?></label>
-                                        <input type="text" name="aamarpay_store_id" id="aamarpay_store_id" class="form-control" value="<?php echo e(!isset($payment['aamarpay_store_id']) || is_null($payment['aamarpay_store_id']) ? '' : $payment['aamarpay_store_id']); ?>" placeholder="<?php echo e(__('Enter Store Id')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="aamarpay_signature_key" class="form-label"><?php echo e(__('Signature Key')); ?></label>
-                                        <input type="text" name="aamarpay_signature_key" id="aamarpay_signature_key" class="form-control" value="<?php echo e(!isset($payment['aamarpay_signature_key']) || is_null($payment['aamarpay_signature_key']) ? '' : $payment['aamarpay_signature_key']); ?>" placeholder="<?php echo e(__('Enter Signature Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="aamarpay_description" class="form-label"><?php echo e(__('Description')); ?></label>
-                                        <input type="text" name="aamarpay_description" id="aamarpay_description" class="form-control" value="<?php echo e(!isset($payment['aamarpay_description']) || is_null($payment['aamarpay_description']) ? '' : $payment['aamarpay_description']); ?>" placeholder="<?php echo e(__('Enter Signature Key')); ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-21">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Pay TR')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_paytr_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_paytr_enabled" id="is_paytr_enabled" <?php echo e(isset($payment['is_paytr_enabled']) && $payment['is_paytr_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-21" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytr_merchant_id" class="form-label"><?php echo e(__('Merchant Id')); ?></label>
-                                        <input type="text" name="paytr_merchant_id" id="paytr_merchant_id" class="form-control" value="<?php echo e(!isset($payment['paytr_merchant_id']) || is_null($payment['paytr_merchant_id']) ? '' : $payment['paytr_merchant_id']); ?>" placeholder="<?php echo e(__('Merchant Id')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytr_merchant_key" class="form-label"><?php echo e(__('Merchant Key')); ?></label>
-                                        <input type="text" name="paytr_merchant_key" id="paytr_merchant_key" class="form-control" value="<?php echo e(!isset($payment['paytr_merchant_key']) || is_null($payment['paytr_merchant_key']) ? '' : $payment['paytr_merchant_key']); ?>" placeholder="<?php echo e(__('Merchant Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytr_merchant_salt" class="form-label"><?php echo e(__('Salt Passphrase')); ?></label>
-                                        <input type="text" name="paytr_merchant_salt" id="paytr_merchant_salt" class="form-control" value="<?php echo e(!isset($payment['paytr_merchant_salt']) || is_null($payment['paytr_merchant_salt']) ? '' : $payment['paytr_merchant_salt']); ?>" placeholder="<?php echo e(__('Salt Passphrase')); ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-22">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Yookassa')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_yookassa_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_yookassa_enabled" id="is_yookassa_enabled" <?php echo e(isset($payment['is_yookassa_enabled']) && $payment['is_yookassa_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-22" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="yookassa_shop_id" class="form-label"><?php echo e(__('Shop ID Key')); ?></label>
-                                        <input type="text" name="yookassa_shop_id" id="yookassa_shop_id" class="form-control" value="<?php echo e(!isset($payment['yookassa_shop_id']) || is_null($payment['yookassa_shop_id']) ? '' : $payment['yookassa_shop_id']); ?>" placeholder="<?php echo e(__('Enter Shop ID Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="yookassa_secret" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                        <input type="text" name="yookassa_secret" id="yookassa_secret" class="form-control" value="<?php echo e(!isset($payment['yookassa_secret']) || is_null($payment['yookassa_secret']) ? '' : $payment['yookassa_secret']); ?>" placeholder="<?php echo e(__('Enter Secret Key')); ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-23">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Midtrans')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_midtrans_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_midtrans_enabled" id="is_midtrans_enabled" <?php echo e(isset($payment['is_midtrans_enabled']) && $payment['is_midtrans_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse23" class="accordion-collapse collapse" aria-labelledby="heading-2-23" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="midtrans_secret" class="form-label"><?php echo e(__('Secret Key')); ?></label>
-                                        <input type="text" name="midtrans_secret" id="midtrans_secret" class="form-control" value="<?php echo e(!isset($payment['midtrans_secret']) || is_null($payment['midtrans_secret']) ? '' : $payment['midtrans_secret']); ?>" placeholder="<?php echo e(__('Enter Secret Key')); ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-24">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24" aria-expanded="true" aria-controls="collapse24">
-                            <span class="d-flex align-items-center">
-                                <?php echo e(__('Xendit')); ?>
-
-                            </span>
-                            <?php echo e(__('Enable:')); ?>
-
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_xendit_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_xendit_enabled" id="is_xendit_enabled" <?php echo e(isset($payment['is_xendit_enabled']) && $payment['is_xendit_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse24" class="accordion-collapse collapse" aria-labelledby="heading-2-24" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="xendit_api" class="form-label"><?php echo e(__('API Key')); ?></label>
-                                        <input type="text" name="xendit_api" id="xendit_api" class="form-control" value="<?php echo e(!isset($payment['xendit_api']) || is_null($payment['xendit_api']) ? '' : $payment['xendit_api']); ?>" placeholder="<?php echo e(__('Enter API Key')); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="xendit_token" class="form-label"><?php echo e(__('Token')); ?></label>
-                                        <input type="text" name="xendit_token" id="xendit_token" class="form-control" value="<?php echo e(!isset($payment['xendit_token']) || is_null($payment['xendit_token']) ? '' : $payment['xendit_token']); ?>" placeholder="<?php echo e(__('Enter Token')); ?>">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-14">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('Payfast')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_payfast_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_payfast_enabled" id="is_payfast_enabled" <?php echo e(isset($payment['is_payfast_enabled']) && $payment['is_payfast_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
+
+                    <div class="accordion-body1">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                            <div class="row pt-2">
+                                <label class="pb-2" for="payfast_mode"><?php echo e(__('Payfast Mode')); ?></label>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="sandbox" <?php echo e(!isset($payment['payfast_mode']) || $payment['payfast_mode'] == '' || $payment['payfast_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="live" <?php echo e(isset($payment['payfast_mode']) && $payment['payfast_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payfast_merchant_id" class="form-label"><?php echo e(__('Merchant Id')); ?></label>
+                                    <input type="text" name="payfast_merchant_id" id="payfast_merchant_id" class="form-control" value="<?php echo e(!isset($payment['payfast_merchant_id']) || is_null($payment['payfast_merchant_id']) ? '' : $payment['payfast_merchant_id']); ?>" placeholder="<?php echo e(__('Merchant Id')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payfast_merchant_key" class="form-label"><?php echo e(__('Merchant Key')); ?></label>
+                                    <input type="text" name="payfast_merchant_key" id="payfast_merchant_key" class="form-control" value="<?php echo e(!isset($payment['payfast_merchant_key']) || is_null($payment['payfast_merchant_key']) ? '' : $payment['payfast_merchant_key']); ?>" placeholder="<?php echo e(__('Merchant Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payfast_signature" class="form-label"><?php echo e(__('Salt Passphrase')); ?></label>
+                                    <input type="text" name="payfast_signature" id="payfast_signature" class="form-control" value="<?php echo e(!isset($payment['payfast_signature']) || is_null($payment['payfast_signature']) ? '' : $payment['payfast_signature']); ?>" placeholder="<?php echo e(__('Salt Passphrase')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-15">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
+                        <span class="d-flex align-items-center">
+                            
+                            <?php echo e(__('IyziPay')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_iyzipay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_iyzipay_enabled" id="is_iyzipay_enabled" <?php echo e(isset($payment['is_iyzipay_enabled']) && $payment['is_iyzipay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
+
+                    <div class="accordion-body1">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                            <div class="row pt-2">
+                                <label class="pb-2" for="iyzipay_mode"><?php echo e(__('IyziPay Mode')); ?></label>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="sandbox" <?php echo e(!isset($payment['iyzipay_mode']) || $payment['iyzipay_mode'] == '' || $payment['iyzipay_mode'] == 'sandbox' ? 'checked="checked"' : ''); ?>>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Sandbox')); ?></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="live" <?php echo e(isset($payment['iyzipay_mode']) && $payment['iyzipay_mode'] == 'live' ? 'checked="checked"' : ''); ?>>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong><?php echo e(__('Live')); ?></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="iyzipay_key" class="form-label"><?php echo e(__('IyziPay Key')); ?></label>
+                                    <input type="text" name="iyzipay_key" id="iyzipay_key" class="form-control" value="<?php echo e(!isset($payment['iyzipay_key']) || is_null($payment['iyzipay_key']) ? '' : $payment['iyzipay_key']); ?>" placeholder="<?php echo e(__('IyziPay Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="iyzipay_secret" class="form-label"><?php echo e(__('IyziPay Secret')); ?></label>
+                                    <input type="text" name="iyzipay_secret" id="iyzipay_secret" class="form-control" value="<?php echo e(!isset($payment['iyzipay_secret']) || is_null($payment['iyzipay_secret']) ? '' : $payment['iyzipay_secret']); ?>" placeholder="<?php echo e(__('IyziPay Secret')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-16">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('SSPay')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_sspay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_sspay_enabled" id="is_sspay_enabled" <?php echo e(isset($payment['is_sspay_enabled']) && $payment['is_sspay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sspay_secret_key" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                    <input type="text" name="sspay_secret_key" id="sspay_secret_key" class="form-control" value="<?php echo e(!isset($payment['sspay_secret_key']) || is_null($payment['sspay_secret_key']) ? '' : $payment['sspay_secret_key']); ?>" placeholder="<?php echo e(__('Secret Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sspay_category_code" class="form-label"><?php echo e(__('Category Code')); ?></label>
+                                    <input type="text" name="sspay_category_code" id="sspay_category_code" class="form-control" value="<?php echo e(!isset($payment['sspay_category_code']) || is_null($payment['sspay_category_code']) ? '' : $payment['sspay_category_code']); ?>" placeholder="<?php echo e(__('Category Code')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-17">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('PayTab')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_paytab_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_paytab_enabled" id="is_paytab_enabled" <?php echo e(isset($payment['is_paytab_enabled']) && $payment['is_paytab_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading-2-17" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytab_profile_id" class="form-label"><?php echo e(__('Profile Id')); ?></label>
+                                    <input type="text" name="paytab_profile_id" id="paytab_profile_id" class="form-control" value="<?php echo e(!isset($payment['paytab_profile_id']) || is_null($payment['paytab_profile_id']) ? '' : $payment['paytab_profile_id']); ?>" placeholder="<?php echo e(__('Profile Id')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytab_server_key" class="form-label"><?php echo e(__('Server Key')); ?></label>
+                                    <input type="text" name="paytab_server_key" id="paytab_server_key" class="form-control" value="<?php echo e(!isset($payment['paytab_server_key']) || is_null($payment['paytab_server_key']) ? '' : $payment['paytab_server_key']); ?>" placeholder="<?php echo e(__('Server Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytab_region" class="form-label"><?php echo e(__('Paytab Region')); ?></label>
+                                    <input type="text" name="paytab_region" id="paytab_region" class="form-control" value="<?php echo e(!isset($payment['paytab_region']) || is_null($payment['paytab_region']) ? '' : $payment['paytab_region']); ?>" placeholder="<?php echo e(__('Paytab Region')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-18">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Benefit')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_benefit_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_benefit_enabled" id="is_benefit_enabled" <?php echo e(isset($payment['is_benefit_enabled']) && $payment['is_benefit_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading-2-18" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="benefit_api_key" class="form-label"><?php echo e(__('Benefit Key')); ?></label>
+                                    <input type="text" name="benefit_api_key" id="benefit_api_key" class="form-control" value="<?php echo e(!isset($payment['benefit_api_key']) || is_null($payment['benefit_api_key']) ? '' : $payment['benefit_api_key']); ?>" placeholder="<?php echo e(__('Enter Benefit Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="benefit_secret_key" class="form-label"><?php echo e(__('Benefit Secret Key')); ?></label>
+                                    <input type="text" name="benefit_secret_key" id="benefit_secret_key" class="form-control" value="<?php echo e(!isset($payment['benefit_secret_key']) || is_null($payment['benefit_secret_key']) ? '' : $payment['benefit_secret_key']); ?>" placeholder="<?php echo e(__('Enter Benefit Secret key')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-19">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Cashfree')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_cashfree_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_cashfree_enabled" id="is_cashfree_enabled" <?php echo e(isset($payment['is_cashfree_enabled']) && $payment['is_cashfree_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading-2-19" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cashfree_api_key" class="form-label"><?php echo e(__(' Cashfree Key')); ?></label>
+                                    <input type="text" name="cashfree_api_key" id="cashfree_api_key" class="form-control" value="<?php echo e(!isset($payment['cashfree_api_key']) || is_null($payment['cashfree_api_key']) ? '' : $payment['cashfree_api_key']); ?>" placeholder="<?php echo e(__('Enter Cashfree Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cashfree_secret_key" class="form-label"><?php echo e(__('Cashfree Secret Key')); ?></label>
+                                    <input type="text" name="cashfree_secret_key" id="cashfree_secret_key" class="form-control" value="<?php echo e(!isset($payment['cashfree_secret_key']) || is_null($payment['cashfree_secret_key']) ? '' : $payment['cashfree_secret_key']); ?>" placeholder="<?php echo e(__('Enter Cashfree Secret Key')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-20">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Aamarpay')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_aamarpay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_aamarpay_enabled" id="is_aamarpay_enabled" <?php echo e(isset($payment['is_aamarpay_enabled']) && $payment['is_aamarpay_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-20" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aamarpay_store_id" class="form-label"><?php echo e(__(' Store Id')); ?></label>
+                                    <input type="text" name="aamarpay_store_id" id="aamarpay_store_id" class="form-control" value="<?php echo e(!isset($payment['aamarpay_store_id']) || is_null($payment['aamarpay_store_id']) ? '' : $payment['aamarpay_store_id']); ?>" placeholder="<?php echo e(__('Enter Store Id')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aamarpay_signature_key" class="form-label"><?php echo e(__('Signature Key')); ?></label>
+                                    <input type="text" name="aamarpay_signature_key" id="aamarpay_signature_key" class="form-control" value="<?php echo e(!isset($payment['aamarpay_signature_key']) || is_null($payment['aamarpay_signature_key']) ? '' : $payment['aamarpay_signature_key']); ?>" placeholder="<?php echo e(__('Enter Signature Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aamarpay_description" class="form-label"><?php echo e(__('Description')); ?></label>
+                                    <input type="text" name="aamarpay_description" id="aamarpay_description" class="form-control" value="<?php echo e(!isset($payment['aamarpay_description']) || is_null($payment['aamarpay_description']) ? '' : $payment['aamarpay_description']); ?>" placeholder="<?php echo e(__('Enter Signature Key')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-21">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Pay TR')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_paytr_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_paytr_enabled" id="is_paytr_enabled" <?php echo e(isset($payment['is_paytr_enabled']) && $payment['is_paytr_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-21" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytr_merchant_id" class="form-label"><?php echo e(__('Merchant Id')); ?></label>
+                                    <input type="text" name="paytr_merchant_id" id="paytr_merchant_id" class="form-control" value="<?php echo e(!isset($payment['paytr_merchant_id']) || is_null($payment['paytr_merchant_id']) ? '' : $payment['paytr_merchant_id']); ?>" placeholder="<?php echo e(__('Merchant Id')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytr_merchant_key" class="form-label"><?php echo e(__('Merchant Key')); ?></label>
+                                    <input type="text" name="paytr_merchant_key" id="paytr_merchant_key" class="form-control" value="<?php echo e(!isset($payment['paytr_merchant_key']) || is_null($payment['paytr_merchant_key']) ? '' : $payment['paytr_merchant_key']); ?>" placeholder="<?php echo e(__('Merchant Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytr_merchant_salt" class="form-label"><?php echo e(__('Salt Passphrase')); ?></label>
+                                    <input type="text" name="paytr_merchant_salt" id="paytr_merchant_salt" class="form-control" value="<?php echo e(!isset($payment['paytr_merchant_salt']) || is_null($payment['paytr_merchant_salt']) ? '' : $payment['paytr_merchant_salt']); ?>" placeholder="<?php echo e(__('Salt Passphrase')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-22">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Yookassa')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_yookassa_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_yookassa_enabled" id="is_yookassa_enabled" <?php echo e(isset($payment['is_yookassa_enabled']) && $payment['is_yookassa_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-22" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="yookassa_shop_id" class="form-label"><?php echo e(__('Shop ID Key')); ?></label>
+                                    <input type="text" name="yookassa_shop_id" id="yookassa_shop_id" class="form-control" value="<?php echo e(!isset($payment['yookassa_shop_id']) || is_null($payment['yookassa_shop_id']) ? '' : $payment['yookassa_shop_id']); ?>" placeholder="<?php echo e(__('Enter Shop ID Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="yookassa_secret" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                    <input type="text" name="yookassa_secret" id="yookassa_secret" class="form-control" value="<?php echo e(!isset($payment['yookassa_secret']) || is_null($payment['yookassa_secret']) ? '' : $payment['yookassa_secret']); ?>" placeholder="<?php echo e(__('Enter Secret Key')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-23">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Midtrans')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_midtrans_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_midtrans_enabled" id="is_midtrans_enabled" <?php echo e(isset($payment['is_midtrans_enabled']) && $payment['is_midtrans_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse23" class="accordion-collapse collapse" aria-labelledby="heading-2-23" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="midtrans_secret" class="form-label"><?php echo e(__('Secret Key')); ?></label>
+                                    <input type="text" name="midtrans_secret" id="midtrans_secret" class="form-control" value="<?php echo e(!isset($payment['midtrans_secret']) || is_null($payment['midtrans_secret']) ? '' : $payment['midtrans_secret']); ?>" placeholder="<?php echo e(__('Enter Secret Key')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-24">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24" aria-expanded="true" aria-controls="collapse24">
+                        <span class="d-flex align-items-center">
+                            <?php echo e(__('Xendit')); ?>
+
+                        </span>
+                        <?php echo e(__('Enable:')); ?>
+
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_xendit_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_xendit_enabled" id="is_xendit_enabled" <?php echo e(isset($payment['is_xendit_enabled']) && $payment['is_xendit_enabled'] == 'on' ? 'checked="checked"' : ''); ?>>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse24" class="accordion-collapse collapse" aria-labelledby="heading-2-24" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="xendit_api" class="form-label"><?php echo e(__('API Key')); ?></label>
+                                    <input type="text" name="xendit_api" id="xendit_api" class="form-control" value="<?php echo e(!isset($payment['xendit_api']) || is_null($payment['xendit_api']) ? '' : $payment['xendit_api']); ?>" placeholder="<?php echo e(__('Enter API Key')); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="xendit_token" class="form-label"><?php echo e(__('Token')); ?></label>
+                                    <input type="text" name="xendit_token" id="xendit_token" class="form-control" value="<?php echo e(!isset($payment['xendit_token']) || is_null($payment['xendit_token']) ? '' : $payment['xendit_token']); ?>" placeholder="<?php echo e(__('Enter Token')); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="card-footer text-end">
-        <?php echo e(Form::submit(__('Save Changes'), ['class' => 'btn-submit btn btn-primary'])); ?>
+</div>
+<div class="card-footer text-end">
+    <?php echo e(Form::submit(__('Save Changes'), ['class' => 'btn-submit btn btn-primary'])); ?>
 
-    </div>
-    <?php echo e(Form::close()); ?>
+</div>
+<?php echo e(Form::close()); ?>
 
 </div>
 </div>
@@ -4473,7 +4479,7 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startPush('script-page'); ?>
 <script>
-    (function() {
+    /* (function() {
         var address = CKEDITOR.replace('address', {
             allowedContent: true,
         });
@@ -4498,15 +4504,13 @@ unset($__errorArgs, $__bag); ?>
         footer.on('change', function(ev) {
             document.getElementById('footer').innerHTML = footer.getData();
         });
-    })();
-    /* jQuery(function($) {
-        $('#agreement').richText();
-        $('#remarks').richText();
-        $('#address').richText();
-        $('#footer').richText();
-    }); */
-</script>
-<script>
+    })(); */
+    txtEditor('address');
+    txtEditor('agreement');
+    txtEditor('remarks');
+    txtEditor('scopeOfService');
+    txtEditor('costBusiness');
+    txtEditor('cancenllation');
     $('.fxnnames').click(function() {
         var value = $(this).text();
         var funrr = <?= (isset($function) && !empty($function)) ? json_encode($function) : 'null' ?>;

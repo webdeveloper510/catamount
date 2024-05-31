@@ -28,8 +28,8 @@ $proposalstatus = \App\Models\Lead::$status;
 <?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="container-field">
 
+<div class="container-field">
     <div id="wrapper">
         <div id="page-content-wrapper">
             <div class="container-fluid xyz p0">

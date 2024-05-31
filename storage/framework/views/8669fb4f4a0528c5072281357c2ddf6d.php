@@ -173,14 +173,14 @@ foreach ($token as $key => $val) {
                                 <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                             </h5>
                         </div>
-                        <?php echo @$proposal_settings['footer']; ?>
+                        <?php echo @$proposal_settings['scopeOfService']; ?>
+
+                        <?php echo @$proposal_settings['costBusiness']; ?>
+
+                        <?php echo @$proposal_settings['cancenllation']; ?>
 
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-                                <tr style="color: #000; text-align: left;">
-                                    <th style="padding: 12px;">Label</th>
-                                    <th style="padding: 12px;">Details</th>
-                                </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
                                     <td style="padding: 8px;"><?php echo e(__($users->name)); ?></td>

@@ -136,7 +136,7 @@
                                 <th scope="col" class="sort" data-sort="name">{{ __('Date') }}</th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Assigned Staff') }}</th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Rooms required') }}</th>
-                                <th scope="col" class="sort" data-sort="name">{{ __('Function') }}</th>
+                                <th scope="col" class="sort" data-sort="name">{{ __('Training') }}</th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Comments') }}</th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Invoice Created') }}</th>
                                 <th scope="col" class="sort" data-sort="budget">{{ __('Payment Status') }}</th>

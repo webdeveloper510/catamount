@@ -16,8 +16,8 @@
 <script src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
 <script src="{{ asset('libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
 <script src="{{asset('assets/js/plugins/datepicker-full.min.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!-- <script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script> -->
 <script>
     (function() {
         const d_week = new Datepicker(document.querySelector('#pc-datepicker-2_modal'), {
@@ -54,7 +54,7 @@
 <!-- Time picker -->
 <script src="{{asset('assets/js/plugins/flatpickr.min.js')}}"></script>
 <!-- datepicker -->
-<script src="{{asset('assets/js/plugins/datepicker-full.min.js')}}"></script>
+<!-- <script src="{{asset('assets/js/plugins/datepicker-full.min.js')}}"></script> -->
 
 <script src="{{ asset('js/custom.js') }}"></script>
 <script>
@@ -75,6 +75,15 @@
     });
 </script>
 <script>
+    function txtEditor(id) {
+        var editor = CKEDITOR.replace(id, {
+            allowedContent: true,
+        });
+        editor.on('change', function(ev) {
+            document.getElementById(id).innerHTML = editor.getData();
+        });
+    }
+
     function show_toastr(title, message, type) {
         var o, i;
         var icon = '';

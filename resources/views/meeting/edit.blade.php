@@ -131,10 +131,9 @@ $func_package = json_decode($meeting->func_package,true);
                                             <div class="form-group">
                                                 {{Form::label('phone',__('Phone'),['class'=>'form-label']) }}
                                                 <div class="intl-tel-input">
-                <input type="tel" id="phone-input" name="phone" class="phone-input form-control"
-                    placeholder="Enter Phone" maxlength="16" required>
-                <input type="hidden" name="countrycode" id="country-code">
-            </div>              
+                                                    <input type="tel" id="phone-input" name="phone" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
+                                                    <input type="hidden" name="countrycode" id="country-code">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-6 need_full">
@@ -291,15 +290,15 @@ $func_package = json_decode($meeting->func_package,true);
                                                 {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
                                                 @foreach($value['package'] as $k => $package)
                                                 <?php $isChecked = false; ?>
-                                            @if(isset($func_package) && !empty($func_package))
-                                            @foreach($func_package as $func => $pack)
-                                            @foreach($pack as $keypac => $packval)
-                                            @if($package == $packval)
-                                            <?php $isChecked = true; ?>
-                                            @endif
-                                            @endforeach
-                                            @endforeach
-                                            @endif
+                                                @if(isset($func_package) && !empty($func_package))
+                                                @foreach($func_package as $func => $pack)
+                                                @foreach($pack as $keypac => $packval)
+                                                @if($package == $packval)
+                                                <?php $isChecked = true; ?>
+                                                @endif
+                                                @endforeach
+                                                @endforeach
+                                                @endif
                                                 <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
                                                     {!! Form::checkbox('package_'.str_replace(' ', '', strtolower($value['function'])).'[]',$package, $isChecked, ['id' => 'package_' . $key.$k, 'data-function' => $value['function'], 'class' => 'form-check-input']) !!}
                                                     {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
@@ -427,12 +426,12 @@ $func_package = json_decode($meeting->func_package,true);
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                                <div class="form-group">
-                                                    {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
-                                                    <input type="file" name="atttachment" id="atttachment" class="form-control">
+                                            <div class="form-group">
+                                                {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
+                                                <input type="file" name="atttachment" id="atttachment" class="form-control">
 
-                                                </div>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-end">
@@ -451,98 +450,98 @@ $func_package = json_decode($meeting->func_package,true);
 @endsection
 @push('script-page')
 <style>
-.iti.iti--allow-dropdown.iti--separate-dial-code {
-    width: 100%;
-}
+    .iti.iti--allow-dropdown.iti--separate-dial-code {
+        width: 100%;
+    }
 </style>
 
 <script>
     $(document).ready(function() {
-    var phoneNumber = "<?php echo $meeting->phone;?>";
-    var num = phoneNumber.trim();
-    // if (phoneNumber.trim().length < 10) {
-    //     alert('Please enter a valid phone number with at least 10 digits.');
-    //     return;
-    // }
-    var lastTenDigits = phoneNumber.substr(-10);
-    var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' +
-        lastTenDigits.substr(6);
-    $('#phone-input').val(formattedPhoneNumber);
-})
+        var phoneNumber = "<?php echo $meeting->phone; ?>";
+        var num = phoneNumber.trim();
+        // if (phoneNumber.trim().length < 10) {
+        //     alert('Please enter a valid phone number with at least 10 digits.');
+        //     return;
+        // }
+        var lastTenDigits = phoneNumber.substr(-10);
+        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' +
+            lastTenDigits.substr(6);
+        $('#phone-input').val(formattedPhoneNumber);
+    })
 </script>
 <script>
-$(document).ready(function() {
-    var input = document.querySelector("#phone-input");
-    var iti = window.intlTelInput(input, {
-        separateDialCode: true,
+    $(document).ready(function() {
+        var input = document.querySelector("#phone-input");
+        var iti = window.intlTelInput(input, {
+            separateDialCode: true,
+        });
+
+        var indiaCountryCode = iti.getSelectedCountryData().iso2;
+        var countryCode = iti.getSelectedCountryData().dialCode;
+        $('#country-code').val(countryCode);
+        if (indiaCountryCode !== 'us') {
+            iti.setCountry('us');
+        }
     });
+    // $(document).ready(function() {
+    //     $('#start_date, #end_date').change(function() {
+    //         var startDate = new Date($('#start_date').val());
+    //         var endDate = new Date($('#end_date').val());
 
-    var indiaCountryCode = iti.getSelectedCountryData().iso2;
-    var countryCode = iti.getSelectedCountryData().dialCode;
-    $('#country-code').val(countryCode);
-    if (indiaCountryCode !== 'us') {
-        iti.setCountry('us');
-    }
-});
-// $(document).ready(function() {
-//     $('#start_date, #end_date').change(function() {
-//         var startDate = new Date($('#start_date').val());
-//         var endDate = new Date($('#end_date').val());
-
-//         if ($(this).attr('id') === 'start_date' && endDate < startDate) {
-//             $('#end_date').val($('#start_date').val());
-//         } else if ($(this).attr('id') === 'end_date' && endDate < startDate) {
-//             $('#start_date').val($('#end_date').val());
-//         }
-//     });
-// });
+    //         if ($(this).attr('id') === 'start_date' && endDate < startDate) {
+    //             $('#end_date').val($('#start_date').val());
+    //         } else if ($(this).attr('id') === 'end_date' && endDate < startDate) {
+    //             $('#start_date').val($('#end_date').val());
+    //         }
+    //     });
+    // });
 </script>
 <script>
-const isNumericInput = (event) => {
-    const key = event.keyCode;
-    return ((key >= 48 && key <= 57) || // Allow number line
-        (key >= 96 && key <= 105) // Allow number pad
-    );
-};
-const isModifierKey = (event) => {
-    const key = event.keyCode;
-    return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
-        (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
-        (key > 36 && key < 41) || // Allow left, up, right, down
-        (
-            // Allow Ctrl/Command + A,C,V,X,Z
-            (event.ctrlKey === true || event.metaKey === true) &&
-            (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
-        )
-};
-const enforceFormat = (event) => {
-    // Input must be of a valid number format or a modifier key, and not longer than ten digits
-    if (!isNumericInput(event) && !isModifierKey(event)) {
-        event.preventDefault();
-    }
-};
-const formatToPhone = (event) => {
-    if (isModifierKey(event)) {
-        return;
-    }
-    // I am lazy and don't like to type things more than once
-    const target = event.target;
-    const input = event.target.value.replace(/\D/g, '').substring(0, 10); // First ten digits of input only
-    const zip = input.substring(0, 3);
-    const middle = input.substring(3, 6);
-    const last = input.substring(6, 10);
+    const isNumericInput = (event) => {
+        const key = event.keyCode;
+        return ((key >= 48 && key <= 57) || // Allow number line
+            (key >= 96 && key <= 105) // Allow number pad
+        );
+    };
+    const isModifierKey = (event) => {
+        const key = event.keyCode;
+        return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
+            (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
+            (key > 36 && key < 41) || // Allow left, up, right, down
+            (
+                // Allow Ctrl/Command + A,C,V,X,Z
+                (event.ctrlKey === true || event.metaKey === true) &&
+                (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
+            )
+    };
+    const enforceFormat = (event) => {
+        // Input must be of a valid number format or a modifier key, and not longer than ten digits
+        if (!isNumericInput(event) && !isModifierKey(event)) {
+            event.preventDefault();
+        }
+    };
+    const formatToPhone = (event) => {
+        if (isModifierKey(event)) {
+            return;
+        }
+        // I am lazy and don't like to type things more than once
+        const target = event.target;
+        const input = event.target.value.replace(/\D/g, '').substring(0, 10); // First ten digits of input only
+        const zip = input.substring(0, 3);
+        const middle = input.substring(3, 6);
+        const last = input.substring(6, 10);
 
-    if (input.length > 6) {
-        target.value = `(${zip}) ${middle} - ${last}`;
-    } else if (input.length > 3) {
-        target.value = `(${zip}) ${middle}`;
-    } else if (input.length > 0) {
-        target.value = `(${zip}`;
-    }
-};
-const inputElement = document.getElementById('phone-input');
-inputElement.addEventListener('keydown', enforceFormat);
-inputElement.addEventListener('keyup', formatToPhone);
+        if (input.length > 6) {
+            target.value = `(${zip}) ${middle} - ${last}`;
+        } else if (input.length > 3) {
+            target.value = `(${zip}) ${middle}`;
+        } else if (input.length > 0) {
+            target.value = `(${zip}`;
+        }
+    };
+    const inputElement = document.getElementById('phone-input');
+    inputElement.addEventListener('keydown', enforceFormat);
+    inputElement.addEventListener('keyup', formatToPhone);
 </script>
 <script>
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {
@@ -575,7 +574,7 @@ inputElement.addEventListener('keyup', formatToPhone);
             $('#package').show();
         }
     });
-    
+
     jQuery(function() {
         $('input[name="function[]"]').change(function() {
             $('div#mailFunctionSection > div').hide();
@@ -605,14 +604,14 @@ inputElement.addEventListener('keyup', formatToPhone);
         });
     });
     jQuery(function() {
-            $('input[type=radio][name = baropt]').change(function() {
-                $('div#barpacakgeoptions').hide();
-                var value = $(this).val();
-               if(value == 'Package Choice'){
-                    $('div#barpacakgeoptions').show();
-               }
-            });
+        $('input[type=radio][name = baropt]').change(function() {
+            $('div#barpacakgeoptions').hide();
+            var value = $(this).val();
+            if (value == 'Package Choice') {
+                $('div#barpacakgeoptions').show();
+            }
         });
+    });
 </script>
 
 <script>

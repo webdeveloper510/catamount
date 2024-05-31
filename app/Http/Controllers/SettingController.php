@@ -2144,16 +2144,20 @@ class SettingController extends Controller
         $address = html_entity_decode($request->address);
         $agreement = html_entity_decode($request->agreement);
         $remarks = html_entity_decode($request->remarks);
-        $footer = html_entity_decode($request->footer);
+        $scopeOfService = html_entity_decode($request->scopeOfService);
+        $costBusiness = html_entity_decode($request->costBusiness);
+        $cancenllation = html_entity_decode($request->cancenllation);
         $data = [
             'title' =>  $request->title,
             'address' =>  $address,
             'agreement' =>  $agreement,
             'remarks' =>  $remarks,
-            'footer' =>  $footer,
+            'scopeOfService' => $scopeOfService,
+            'costBusiness' => $costBusiness,
+            'cancenllation' => $cancenllation,
         ];
         $serialize = serialize($data);
-        
+
         \DB::insert(
             'insert into settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
             [

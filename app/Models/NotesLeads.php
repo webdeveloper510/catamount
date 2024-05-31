@@ -9,4 +9,9 @@ class NotesLeads extends Model
 {
     use HasFactory;
     protected $table = 'notes_for_leads';
+    protected $fillable = [
+        'lead_id',
+        'notes',
+        'created_by',
+    ];
 }

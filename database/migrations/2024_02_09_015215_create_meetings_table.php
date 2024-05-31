@@ -46,6 +46,7 @@ class CreateMeetingsTable extends Migration
             $table->string('type')->nullable();
             $table->string('ad_opts')->nullable();
             $table->integer('total')->default(0);
+            $table->text('secondary_contact')->nullable();
             $table->integer('created_by')->default(0);
             $table->timestamps();
             $table->softDeletes(); 

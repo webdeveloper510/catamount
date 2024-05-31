@@ -389,8 +389,6 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
             cache: false,
 
             success: function(data) {
-
-
                 if (data.is_success) {
                     show_toastr('Success', data.message, 'success');
                 } else {
@@ -744,8 +742,16 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <textarea name="remarks" class="form-control" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
-                                                            <h6>{{__('Proposal bottom part')}}</h6>
-                                                            <textarea name="footer" class="form-control" id="footer">{{__(@$proposal['footer'])}}</textarea>
+                                                            <h6>{{__('Scope of Services')}}</h6>
+                                                            <textarea name="scopeOfService" class="form-control" id="scopeOfService">{{__(@$proposal['scopeOfService'])}}</textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6>{{__('Cost and Business Terms')}}</h6>
+                                                            <textarea name="costBusiness" class="form-control" id="costBusiness">{{__(@$proposal['costBusiness'])}}</textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6>{{__('CANCELLATION')}}</h6>
+                                                            <textarea name="cancenllation" class="form-control" id="cancenllation">{{__(@$proposal['cancenllation'])}}</textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
@@ -1078,114 +1084,31 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <div class="row">
                                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                                     <h5>{{ __('Function Settings') }}</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="row mt-3">
-                                                                {{ Form::open(['route' => 'function.setting', 'method' => 'post']) }}
-                                                                @csrf
-                                                                <div class="form-group col-md-12">
-                                                                    {{ Form::label('function', __('Function'), ['class' => 'form-label']) }}
-                                                                    {{ Form::text('function',null,['class' => 'form-control ', 'placeholder' => __('Enter Function'), 'required' => 'required']) }}
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    {{ Form::label('package', __('Package'), ['class' => 'form-label']) }}
-                                                                    <span class="btn btn-sm btn-primary btn-icon m-1 add" style="border-radius: 20px !important;    font-size: 12px;
-                                                                                    "><i class="fa fa-plus "></i></span>
-                                                                    <div class="appending_div">
-                                                                        <div class="appending_item" style="display:flex">
-                                                                            <input type="text" name="package[]" class="form-control" placeholder="Enter Package">
-                                                                            <span class="btn btn-sm btn-danger btn-icon m-1 delete"><i class="fa fa-times"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-end">
-                                                                    {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
-                                                                </div>
-                                                                <style>
-                                                                    .add {
-                                                                        cursor: pointer;
-                                                                    }
-                                                                </style>
-                                                                {{ Form::close() }}
-                                                            </div>
-                                                            @if(isset($function) && !empty($function))
-                                                            <div class="row mt-3">
-                                                                <div class="form-group col-md-12">
-                                                                    <label class="form-label">Function</label>
-                                                                    <div class="badges">
-                                                                        <ul class="nav nav-tabs tabActive" style="border-bottom:none;">
-                                                                            @foreach ($function as $key=> $value)
-                                                                            <li class="badge rounded p-2 m-1 px-3 bg-primary ">
-                                                                                <a style="color: white;" data-toggle="tab" href="#menu{{$key}}" class="<?= $key == 0 ? 'active' : ''; ?> fxnnames">{{$value->function}}
-                                                                                </a>
-
-                                                                                <div class="action-btn  ms-2">
-                                                                                    <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white function_show_confirm" data-bs-toggle="tooltip" data-id="{{$key}}" title='Delete' data-url="{{ route('functionpackage.setting') }}" data-token="{{ csrf_token() }}">
-                                                                                        <i class="ti ti-trash"></i>
-                                                                                    </a>
-                                                                                </div>
-
-                                                                            </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                        <div class="tab-content">
-                                                                            <label class="form-label mt-3"><b>Package</b></label><br>
-                                                                            @foreach ($function as $key=> $value)
-                                                                            <div id="menu{{$key}}" class="tab-pane fade <?= $key == 0 ? 'in active show' : ''; ?>">
-                                                                                @foreach($value->package as $package)
-                                                                                <span class="badge rounded p-2 m-1 px-3 bg-info" style="cursor:pointer">
-                                                                                    {{$package}}
-                                                                                    <div class="action-btn ms-2">
-                                                                                        <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white function_package_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('functionedit.setting') }}" data-id="{{$key}}" data-token="{{ csrf_token() }}">
-                                                                                            <i class="ti ti-trash"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </span>
-                                                                                @endforeach
-                                                                            </div>
-                                                                            @endforeach
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @endif
-                                                    </div>
-                                                </div>--}}
-                                                {{--<div id="bar-settings" class="card">
-                                                    <div class="col-md-12">
-                                                        <div class="card-header">
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-8 col-sm-8">
-                                                                    <h5>{{ __('Bar Settings') }}</h5>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row mt-3">
-                                            {{ Form::open(['route' => 'bar.setting', 'method' => 'post']) }}
+                                            {{ Form::open(['route' => 'function.setting', 'method' => 'post']) }}
                                             @csrf
                                             <div class="form-group col-md-12">
-                                                {{ Form::label('bar', __('Bar'), ['class' => 'form-label']) }}
-                                                {{ Form::text('bar',null,['class' => 'form-control ', 'placeholder' => __('Enter Bar'), 'required' => 'required']) }}
+                                                {{ Form::label('function', __('Function'), ['class' => 'form-label']) }}
+                                                {{ Form::text('function',null,['class' => 'form-control ', 'placeholder' => __('Enter Function'), 'required' => 'required']) }}
                                             </div>
                                             <div class="form-group col-md-12">
-                                                {{ Form::label('barpackage', __('Bar Package'), ['class' => 'form-label']) }}
-                                                <span class="btn btn-sm btn-primary btn-icon m-1 addbar" style="border-radius: 20px !important;    font-size: 12px;
+                                                {{ Form::label('package', __('Package'), ['class' => 'form-label']) }}
+                                                <span class="btn btn-sm btn-primary btn-icon m-1 add" style="border-radius: 20px !important;    font-size: 12px;
                                                                                     "><i class="fa fa-plus "></i></span>
-                                                <div class="appending_div_for_bar">
-                                                    <div class="appending_item_for_bar" style="display:flex">
-                                                        <input type="text" name="barpackage[]" class="form-control" placeholder="Enter Bar Package">
-                                                        <span class="btn btn-sm btn-danger btn-icon m-1 deletebar"><i class="fa fa-times"></i></span>
+                                                <div class="appending_div">
+                                                    <div class="appending_item" style="display:flex">
+                                                        <input type="text" name="package[]" class="form-control" placeholder="Enter Package">
+                                                        <span class="btn btn-sm btn-danger btn-icon m-1 delete"><i class="fa fa-times"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="text-end">
                                                 {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
                                             </div>
-
                                             <style>
                                                 .add {
                                                     cursor: pointer;
@@ -1193,41 +1116,39 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                             </style>
                                             {{ Form::close() }}
                                         </div>
-                                        @if(isset($bar) && !empty($bar))
+                                        @if(isset($function) && !empty($function))
                                         <div class="row mt-3">
                                             <div class="form-group col-md-12">
-                                                <label class="form-label">Bar</label>
+                                                <label class="form-label">Function</label>
                                                 <div class="badges">
                                                     <ul class="nav nav-tabs tabActive" style="border-bottom:none;">
-                                                        @foreach ($bar as $key=> $value)
+                                                        @foreach ($function as $key=> $value)
                                                         <li class="badge rounded p-2 m-1 px-3 bg-primary ">
-                                                            <a style="color: white;" data-toggle="tab" href="#barmenu{{$key}}" class="<?= $key == 0 ? 'active' : ''; ?> barnmes">{{$value->bar}}
+                                                            <a style="color: white;" data-toggle="tab" href="#menu{{$key}}" class="<?= $key == 0 ? 'active' : ''; ?> fxnnames">{{$value->function}}
                                                             </a>
 
                                                             <div class="action-btn  ms-2">
-                                                                <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white bar_show_confirm" data-bs-toggle="tooltip" data-id="{{$key}}" title='Delete' data-url="{{ route('barpackage.setting') }}" data-token="{{ csrf_token() }}">
+                                                                <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white function_show_confirm" data-bs-toggle="tooltip" data-id="{{$key}}" title='Delete' data-url="{{ route('functionpackage.setting') }}" data-token="{{ csrf_token() }}">
                                                                     <i class="ti ti-trash"></i>
                                                                 </a>
                                                             </div>
+
                                                         </li>
                                                         @endforeach
                                                     </ul>
-
                                                     <div class="tab-content">
                                                         <label class="form-label mt-3"><b>Package</b></label><br>
-                                                        @foreach ($bar as $key=> $value)
-                                                        <div id="barmenu{{$key}}" class="tab-pane fade <?= $key == 0 ? 'in active show' : ''; ?>">
-                                                            @foreach($value->barpackage as $package)
-                                                            @if(!empty($package))
+                                                        @foreach ($function as $key=> $value)
+                                                        <div id="menu{{$key}}" class="tab-pane fade <?= $key == 0 ? 'in active show' : ''; ?>">
+                                                            @foreach($value->package as $package)
                                                             <span class="badge rounded p-2 m-1 px-3 bg-info" style="cursor:pointer">
                                                                 {{$package}}
                                                                 <div class="action-btn ms-2">
-                                                                    <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white bar_package_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('baredit.setting') }}" data-id="{{$key}}" data-token="{{ csrf_token() }}">
+                                                                    <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white function_package_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('functionedit.setting') }}" data-id="{{$key}}" data-token="{{ csrf_token() }}">
                                                                         <i class="ti ti-trash"></i>
                                                                     </a>
                                                                 </div>
                                                             </span>
-                                                            @endif
                                                             @endforeach
                                                         </div>
                                                         @endforeach
@@ -1235,416 +1156,501 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                 </div>
                                             </div>
                                         </div>
-                                        @endif
                                     </div>
+                                    @endif
                                 </div>
                             </div>--}}
-                            <div id="floor-plan-setting" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div id="floor-plan-setting" class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5>{{ __('Upload Setup') }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mt-3">
-                                            <form method="POST" action="{{ url('/floor-images') }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="setup" class="form-label">Choose
-                                                            Image</label></br>
-                                                        <input type="file" name="setup" class="form-control" required />
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="title" class="form-label">Title</label></br>
-                                                        <input type="text" class="form-control" name="title" required>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label for="description" class="form-label">Description</label></br>
-                                                    <!-- <input type="textarea" class="form-control" name="description" rows="3" >      -->
-                                                    <textarea name="description" id="description" class="form-control" rows="3"></textarea>
-                                                </div>
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn-submit btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            @foreach($setup as $s)
-                                            <div class="col-6">
-                                                <input type="radio" id="image_{{ $loop->index }}" name="uploadedImage" class="form-check-input" value="{{ asset('floor_images/' . $s->image) }}">
-                                                <label for="image_{{ $loop->index }}" class="form-check-label">
-                                                    <img src="{{asset('floor_images/'.$s->image)}}" alt="Uploaded Image" class="img-thumbnail floorimages zoom">
-                                                    <span class=" rounded p-2 m-1 px-3 bg-danger text-white" style="float: inline-end;"><i class="ti ti-trash " data-image="{{ $s->image }}" onclick="deleteImage(this)"></i></span>
-                                                </label>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
+                            {{--<div id="bar-settings" class="card">
+                                                    <div class="col-md-12">
+                                                        <div class="card-header">
+                                                            <div class="row">
+                                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                    <h5>{{ __('Bar Settings') }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-3">
+                        {{ Form::open(['route' => 'bar.setting', 'method' => 'post']) }}
+                        @csrf
+                        <div class="form-group col-md-12">
+                            {{ Form::label('bar', __('Bar'), ['class' => 'form-label']) }}
+                            {{ Form::text('bar',null,['class' => 'form-control ', 'placeholder' => __('Enter Bar'), 'required' => 'required']) }}
+                        </div>
+                        <div class="form-group col-md-12">
+                            {{ Form::label('barpackage', __('Bar Package'), ['class' => 'form-label']) }}
+                            <span class="btn btn-sm btn-primary btn-icon m-1 addbar" style="border-radius: 20px !important;    font-size: 12px;
+                                                                                    "><i class="fa fa-plus "></i></span>
+                            <div class="appending_div_for_bar">
+                                <div class="appending_item_for_bar" style="display:flex">
+                                    <input type="text" name="barpackage[]" class="form-control" placeholder="Enter Bar Package">
+                                    <span class="btn btn-sm btn-danger btn-icon m-1 deletebar"><i class="fa fa-times"></i></span>
                                 </div>
                             </div>
-                            <div id="campaign-type" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5>{{ __('Campaign Settings') }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <form method="POST" action="{{route('settings.campaign-type')}}" id='campaign'>
-                                        @csrf
-                                        <div class="card-body">
-                                            <div class="row mt-3">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        {{ Form::label('campaign_type', __('Campaign Type'), ['class' => 'form-label']) }}
-                                                        {!! Form::text('campaign_type',null,
-                                                        ['class' => 'form-control',
-                                                        'required' => 'required']) !!}
-                                                    </div>
-                                                </div>
-                                                <div class="text-end">
-                                                    <input type="submit" value="Save" class="btn-submit btn btn-primary">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                @if(isset($campaign) && !empty($campaign))
-                                <div class="row mt-3">
-                                    <div class="form-group col-md-12">
-                                        <label class="form-label">Campaign</label>
-                                        <div class="badges">
-                                            @foreach ($campaign as $value)
-                                            @if($value)
-                                            <span class="badge rounded p-2 m-1 px-3 bg-primary" style="cursor:pointer">
-                                                {{ $value }}
-                                                <div class="action-btn  ms-2">
-                                                    <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center text-white campaign_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('settings.delete.campaign-type') }}" data-token="{{ csrf_token() }}">
-                                                        <i class="ti ti-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </span>
-                                            @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                            <div id="additional-settings" class="card">
-                                <div class="col-md-12">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                                <h5>{{ __('Additional Settings') }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mt-3">
-                                            {{ Form::open(['route' => 'additional.setting', 'method' => 'post']) }}
-                                            @csrf
-                                            <div id="additional-items-container">
-                                                <div class="row form-group">
-                                                    <label for='additional_function'>Select
-                                                        Package</label>
+                        </div>
+                        <div class="text-end">
+                            {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
+                        </div>
 
-                                                    <div class="col-md-6">
-                                                        @if(isset($function) && !empty($function))
-                                                        <select name="additional_function" id="additional_function" class="form-select">
-                                                            <option value="0" selected disabled>
-                                                                Select Function</option>
-                                                            @foreach($function as $key =>$value)
-                                                            <option value="{{$key}}">
-                                                                {{$value->function}}
-                                                            </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div id="additional_packages_checkboxes">
-                                                        </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="row form-group">
-                                                    <div class="col-md-5">
-                                                        {{ Form::label('additional_items[]', __('Additional Item ' . $i=1), ['class' => 'form-label']) }}
-                                                        {{ Form::text('additional_items[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Additional Item'), 'required' => 'required']) }}
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        {{ Form::label('additional_items_cost[]', __('Cost'), ['class' => 'form-label']) }}
-                                                        {{ Form::number('additional_items_cost[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Cost'), 'required' => 'required']) }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-primary" onclick="addAdditionalItem()" title="Add Additional items"><i class="fa fa-plus"></i></button>
-                                                <input type="submit" value="Save" class="btn-submit btn btn-primary">
-                                            </div>
+                        <style>
+                            .add {
+                                cursor: pointer;
+                            }
+                        </style>
+                        {{ Form::close() }}
+                    </div>
+                    @if(isset($bar) && !empty($bar))
+                    <div class="row mt-3">
+                        <div class="form-group col-md-12">
+                            <label class="form-label">Bar</label>
+                            <div class="badges">
+                                <ul class="nav nav-tabs tabActive" style="border-bottom:none;">
+                                    @foreach ($bar as $key=> $value)
+                                    <li class="badge rounded p-2 m-1 px-3 bg-primary ">
+                                        <a style="color: white;" data-toggle="tab" href="#barmenu{{$key}}" class="<?= $key == 0 ? 'active' : ''; ?> barnmes">{{$value->bar}}
+                                        </a>
 
-                                            {{ Form::close() }}
+                                        <div class="action-btn  ms-2">
+                                            <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white bar_show_confirm" data-bs-toggle="tooltip" data-id="{{$key}}" title='Delete' data-url="{{ route('barpackage.setting') }}" data-token="{{ csrf_token() }}">
+                                                <i class="ti ti-trash"></i>
+                                            </a>
                                         </div>
-                                        @if(isset($additional_items) && !empty($additional_items))
-                                        <div class="row mt-3">
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label">Additional Items</label>
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-bordered" style=" border: 1px solid #9b8c8c">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Function</th>
-                                                                <th scope="col">Package</th>
-                                                                <th scope="col">Additional Item</th>
-                                                                <th scope="col">Cost</th>
-                                                                <th scope="col">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                @foreach ($additional_items as $functionName => $packages)
-                                                                @foreach ($packages as $packageName => $items)
-                                                            <tr>
-                                                                <td data-td-data="{{ $functionName }}" rowspan="{{ count($items) }}" class="functionname">
-                                                                    {{ $functionName }}
-                                                                </td>
-                                                                <td data-td-data="{{ $packageName }}" rowspan="{{ count($items) }}" class="package">
-                                                                    {{ $packageName }}
-                                                                </td>
-                                                                @php $firstItem = true; @endphp
-                                                                @foreach ($items as $itemName => $cost)
-                                                                @if (!$firstItem)
-                                                            <tr>
-                                                                @endif
+                                    </li>
+                                    @endforeach
+                                </ul>
 
-                                                                <td class="item">{{ $itemName }}</td>
-                                                                <td class="cost">{{ $cost }}</td>
-                                                                <td data-function="{{ $functionName }}" data-package="{{ $packageName }}">
-                                                                    <button class="btn btn-sm edit-cost-btn bg-info">
-                                                                        <i class="ti ti-edit"></i></button>
-                                                                    <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center bg-info text-white additional_show_confirm" data-bs-toggle="tooltip" title='Delete' data-function="{{ $functionName }}" data-package="{{ $packageName }}" data-item="{{$itemName}}" data-url="{{ route('additionaldelete.setting') }}" data-token="{{ csrf_token() }}">
-                                                                        <i class="ti ti-trash"></i>
-                                                                    </a>
-                                                                </td>
-
-                                                                @php $firstItem = false; @endphp
-                                                                @endforeach
-                                                            </tr>
-
-                                                            @endforeach
-                                                            @endforeach
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
+                                <div class="tab-content">
+                                    <label class="form-label mt-3"><b>Package</b></label><br>
+                                    @foreach ($bar as $key=> $value)
+                                    <div id="barmenu{{$key}}" class="tab-pane fade <?= $key == 0 ? 'in active show' : ''; ?>">
+                                        @foreach($value->barpackage as $package)
+                                        @if(!empty($package))
+                                        <span class="badge rounded p-2 m-1 px-3 bg-info" style="cursor:pointer">
+                                            {{$package}}
+                                            <div class="action-btn ms-2">
+                                                <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white bar_package_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('baredit.setting') }}" data-id="{{$key}}" data-token="{{ csrf_token() }}">
+                                                    <i class="ti ti-trash"></i>
+                                                </a>
                                             </div>
-                                        </div>
+                                        </span>
                                         @endif
+                                        @endforeach
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
-                @can('Manage Payment')
-                <div id="billing-setting" class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
-                            <h5>{{ __('Billing Settings') }}</h5>
-                            <small class="text-muted">{{ __('Edit your billing details') }}</small>
-                        </button>
-                    </h2>
-                    <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            {{ Form::open(['route' => 'billing.setting', 'method' => 'post']) }}
+            </div>
+        </div>--}}
+        <div id="floor-plan-setting" class="card">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div id="floor-plan-setting" class="col-lg-8 col-md-8 col-sm-8">
+                            <h5>{{ __('Upload Setup') }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <form method="POST" action="{{ url('/floor-images') }}" enctype="multipart/form-data">
                             @csrf
-
-                            <div class="row cst-border">
-                                @if(isset($venue) && !empty($venue))
-                                <div class="col-sm-6 venue">
-                                    <table class="table table-responsive table-bordered" style="width:100%">
-                                        <tr>
-                                            <th>{{__('Training Location')}}</th>
-                                            <th>{{__('Training Location Cost')}}</th>
-                                        </tr>
-                                        @foreach($venue as $venueKey => $venueValue)
-                                        <tr>
-                                            <td>{{__($venueKey)}}</td>
-                                            <td><input type="number" class="form-control" name="venue[{{ isset($venueKey) ? $venueKey : '' }}]" id="venue_{{$venueKey}}" value="{{ isset($billing['venue'][$venueKey]) ? $billing['venue'][$venueKey] : '' }}" placeholder="{{__($venueKey)}}" min="0">
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                @endif
-                                @if(isset($function) && !empty($function))
-                                <div class="col-sm-6 function">
-                                    <table class="table table-responsive table-bordered" style="width:100%">
-                                        <tr>
-                                            <th>{{__('Package')}}</th>
-                                            <th>{{__('Package Cost')}}</th>
-                                        </tr>
-                                        @foreach($function as $functionKey => $functionValue)
-                                        <tr>
-                                            <td><b>{{__($functionValue->function)}}</b></td>
-                                            <td>
-                                                @foreach($functionValue->package as $packageKey=> $packageValue)
-                                                {{ Form::label($packageValue, __($packageValue), ['class' => 'form-label']) }}
-                                                <input type="number" class="form-control" name="package[{{isset($functionValue->function)? $functionValue->function :''}}][{{ isset($packageValue) ? $packageValue : '' }}]" id="package_{{isset($packageKey)? $packageKey :''}}" value="{{ isset($billing['package'][$functionValue->function][$packageValue]) ? $billing['package'][$functionValue->function][$packageValue] : '' }}" placeholder="Enter {{ isset($packageValue) ? $packageValue :''}} Cost" min="0">
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                @endif
-                                @if(isset($bar) && !empty($bar))
-                                <div class="col-sm-6 bar mt-3">
-                                    <table class="table table-responsive table-bordered" style="width:100%">
-                                        <tr>
-                                            <th>{{__('Bar')}}</th>
-                                            <th>{{__('Bar Cost')}}</th>
-                                        </tr>
-                                        @foreach($bar as $barKey => $barValue)
-                                        <tr>
-                                            <td><b>{{__($barValue->bar)}}</b></td>
-                                            <td>
-                                                @foreach($barValue->barpackage as $barpackageKey=>$barpackageValue)
-                                                {{ Form::label($barpackageValue, __($barpackageValue), ['class' => 'form-label']) }}
-                                                <input type="number" class="form-control" name="barpackage[{{ isset($barValue->bar) ? $barValue->bar : '' }}][{{ isset($barpackageValue) ? $barpackageValue : '' }}]" id="barpackage_{{ isset($barpackageKey) ? $barpackageKey : '' }}" value="{{ isset($billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue]) ? $billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue] : '' }}" placeholder="{{ isset($barpackageValue) ? $barpackageValue : '' }}" min="0">
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                @endif
-                                <div class="col-sm-6 equipment">
-                                    <div class="form-group">
-                                        {{ Form::label('equipment', __('Equipment'), ['class' => 'form-label']) }}
-                                        <input type="number" name="equipment" id="" class="form-control" value="{{ isset($billing['equipment']) ? $billing['equipment'] : ''}}" placeholder="Enter Equipments Cost (eg. Tent, Tables, Chairs)" required>
-                                    </div>
-                                    <div class="form-group">
-                                        {{ Form::label('welcomesetup', __('Welcome Setup'), ['class' => 'form-label']) }}
-                                        <input type="number" name="welcomesetup" id="" class="form-control" value="{{ isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''}}" placeholder="Enter Welcome Setup Cost" required>
-                                    </div>
-                                    <div class="form-group">
-                                        {{ Form::label('rehearsalsetup', __('Rehearsel Setup'), ['class' => 'form-label']) }}
-                                        <input type="number" name="rehearsalsetup" class="form-control" value="{{ isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''}}" placeholder="Enter Rehearsel Setup Cost" required>
-                                    </div>
-                                    <div class="form-group">
-                                        {{ Form::label('hotel_rooms', __('Hotel Rooms'), ['class' => 'form-label']) }}
-                                        <input type="number" name="hotel_rooms" class="form-control" value="{{ isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''}}" placeholder="Enter Hotel Rooms Cost" required>
-                                    </div>
-                                    <div class="form-group">
-                                        {{ Form::label('special_req', __('Special Request/Others'), ['class' => 'form-label']) }}
-                                        <input type="number" name="special_req" class="form-control" value="{{ isset($billing['special_req']) ? $billing['special_req'] : ''}}" placeholder="Enter  Cost" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-end">
-                                {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
-                            </div>
-                            {{ Form::close() }}
-                        </div>
-                    </div>
-                </div>
-                @endcan
-                @if (\Auth::user()->type == 'owner')
-                <div id="buffer-settings" class=" accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
-                            <h5>{{ __('Buffer Settings') }}</h5>
-                            <small class="text-muted">{{ __('Edit your buffer settings') }}</small>
-                        </button>
-                    </h2>
-                    <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
                             <div class="row">
-                                {{ Form::open(['route' => 'buffer.setting', 'method' => 'post']) }}
-                                @csrf
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        {{ Form::label('buffer_time', __('Add Buffer Time'), ['class' => 'form-label']) }}
-                                        {!! Form::input('time', 'buffer_time', $settings['buffer_time'],
-                                        ['class' =>
-                                        'form-control', 'required' => 'required']) !!}
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="setup" class="form-label">Choose
+                                        Image</label></br>
+                                    <input type="file" name="setup" class="form-control" required />
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        {{ Form::label('buffer_day', __('Add Buffer Day'), ['class' => 'form-label']) }}
-                                        {!! Form::number('buffer_day', $settings['buffer_day'], ['class'
-                                        =>
-                                        'form-control', 'required' => 'required','min' => '0']) !!}
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="title" class="form-label">Title</label></br>
+                                    <input type="text" class="form-control" name="title" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="description" class="form-label">Description</label></br>
+                                <!-- <input type="textarea" class="form-control" name="description" rows="3" >      -->
+                                <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn-submit btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        @foreach($setup as $s)
+                        <div class="col-6">
+                            <input type="radio" id="image_{{ $loop->index }}" name="uploadedImage" class="form-check-input" value="{{ asset('floor_images/' . $s->image) }}">
+                            <label for="image_{{ $loop->index }}" class="form-check-label">
+                                <img src="{{asset('floor_images/'.$s->image)}}" alt="Uploaded Image" class="img-thumbnail floorimages zoom">
+                                <span class=" rounded p-2 m-1 px-3 bg-danger text-white" style="float: inline-end;"><i class="ti ti-trash " data-image="{{ $s->image }}" onclick="deleteImage(this)"></i></span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="campaign-type" class="card">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h5>{{ __('Campaign Settings') }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST" action="{{route('settings.campaign-type')}}" id='campaign'>
+                    @csrf
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    {{ Form::label('campaign_type', __('Campaign Type'), ['class' => 'form-label']) }}
+                                    {!! Form::text('campaign_type',null,
+                                    ['class' => 'form-control',
+                                    'required' => 'required']) !!}
                                 </div>
                             </div>
                             <div class="text-end">
-                                {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
+                                <input type="submit" value="Save" class="btn-submit btn btn-primary">
                             </div>
-                            {{ Form::close() }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @if(isset($campaign) && !empty($campaign))
+            <div class="row mt-3">
+                <div class="form-group col-md-12">
+                    <label class="form-label">Campaign</label>
+                    <div class="badges">
+                        @foreach ($campaign as $value)
+                        @if($value)
+                        <span class="badge rounded p-2 m-1 px-3 bg-primary" style="cursor:pointer">
+                            {{ $value }}
+                            <div class="action-btn  ms-2">
+                                <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center text-white campaign_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('settings.delete.campaign-type') }}" data-token="{{ csrf_token() }}">
+                                    <i class="ti ti-trash"></i>
+                                </a>
+                            </div>
+                        </span>
+                        @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+        <div id="additional-settings" class="card">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h5>{{ __('Additional Settings') }}</h5>
                         </div>
                     </div>
                 </div>
-                <div id="add-signature" class="accordion-item  card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
-                            <h5>{{ __('Authorised Signature') }}</h5>
-                        </button>
-                    </h2>
-                    <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <form method="POST" id='sign'>
-                                @csrf
-                                <div class="card-body1">
-                                    <div class="row mt-3">
-                                        <div class="col-6 need_full">
-                                            <strong>Existing Signature:</strong> <br>
-                                            <img src="{{$base64Image}}" style=" width: 55%;padding-right: 39px;border-bottom: 1px solid black;">
-                                        </div>
-                                        <div class="col-6 need_full">
-                                            <strong> Signature:</strong>
-                                            <br>
-                                            <div id="sig" class="mt-5">
-                                                <canvas id="signatureCanvas" width="300" class="signature-canvas"></canvas>
-                                                <input type="hidden" name="imageData" id="imageData">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6 need_full">
-                                                    <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear
-                                                        Signature</button>
-                                                </div>
-                                                <div class="col-6 need_full">
-                                                    <div class="text-end mobile-text">
-                                                        <input type="submit" value="Save" class="btn-submit btn btn-primary">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                <div class="card-body">
+                    <div class="row mt-3">
+                        {{ Form::open(['route' => 'additional.setting', 'method' => 'post']) }}
+                        @csrf
+                        <div id="additional-items-container">
+                            <div class="row form-group">
+                                <label for='additional_function'>Select
+                                    Package</label>
 
-                                    </div>
+                                <div class="col-md-6">
+                                    @if(isset($function) && !empty($function))
+                                    <select name="additional_function" id="additional_function" class="form-select">
+                                        <option value="0" selected disabled>
+                                            Select Function</option>
+                                        @foreach($function as $key =>$value)
+                                        <option value="{{$key}}">
+                                            {{$value->function}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </form>
+                                <div class="col-md-6">
+                                    <div id="additional_packages_checkboxes">
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-5">
+                                    {{ Form::label('additional_items[]', __('Additional Item ' . $i=1), ['class' => 'form-label']) }}
+                                    {{ Form::text('additional_items[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Additional Item'), 'required' => 'required']) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ Form::label('additional_items_cost[]', __('Cost'), ['class' => 'form-label']) }}
+                                    {{ Form::number('additional_items_cost[]', null, ['class' => 'form-control', 'placeholder' => __('Enter Cost'), 'required' => 'required']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-primary" onclick="addAdditionalItem()" title="Add Additional items"><i class="fa fa-plus"></i></button>
+                            <input type="submit" value="Save" class="btn-submit btn btn-primary">
+                        </div>
+
+                        {{ Form::close() }}
+                    </div>
+                    @if(isset($additional_items) && !empty($additional_items))
+                    <div class="row mt-3">
+                        <div class="form-group col-md-12">
+                            <label class="form-label">Additional Items</label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" style=" border: 1px solid #9b8c8c">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Function</th>
+                                            <th scope="col">Package</th>
+                                            <th scope="col">Additional Item</th>
+                                            <th scope="col">Cost</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            @foreach ($additional_items as $functionName => $packages)
+                                            @foreach ($packages as $packageName => $items)
+                                        <tr>
+                                            <td data-td-data="{{ $functionName }}" rowspan="{{ count($items) }}" class="functionname">
+                                                {{ $functionName }}
+                                            </td>
+                                            <td data-td-data="{{ $packageName }}" rowspan="{{ count($items) }}" class="package">
+                                                {{ $packageName }}
+                                            </td>
+                                            @php $firstItem = true; @endphp
+                                            @foreach ($items as $itemName => $cost)
+                                            @if (!$firstItem)
+                                        <tr>
+                                            @endif
+
+                                            <td class="item">{{ $itemName }}</td>
+                                            <td class="cost">{{ $cost }}</td>
+                                            <td data-function="{{ $functionName }}" data-package="{{ $packageName }}">
+                                                <button class="btn btn-sm edit-cost-btn bg-info">
+                                                    <i class="ti ti-edit"></i></button>
+                                                <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center bg-info text-white additional_show_confirm" data-bs-toggle="tooltip" title='Delete' data-function="{{ $functionName }}" data-package="{{ $packageName }}" data-item="{{$itemName}}" data-url="{{ route('additionaldelete.setting') }}" data-token="{{ csrf_token() }}">
+                                                    <i class="ti ti-trash"></i>
+                                                </a>
+                                            </td>
+
+                                            @php $firstItem = false; @endphp
+                                            @endforeach
+                                        </tr>
+
+                                        @endforeach
+                                        @endforeach
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
                     </div>
-
+                    @endif
                 </div>
-                @endif
             </div>
         </div>
     </div>
-    <!-- <div id="pusher-settings" class="card">
+</div>
+</div>
+@can('Manage Payment')
+<div id="billing-setting" class="accordion-item card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+            <h5>{{ __('Billing Settings') }}</h5>
+            <small class="text-muted">{{ __('Edit your billing details') }}</small>
+        </button>
+    </h2>
+    <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            {{ Form::open(['route' => 'billing.setting', 'method' => 'post']) }}
+            @csrf
+
+            <div class="row cst-border">
+                @if(isset($venue) && !empty($venue))
+                <div class="col-sm-6 venue">
+                    <table class="table table-responsive table-bordered" style="width:100%">
+                        <tr>
+                            <th>{{__('Training Location')}}</th>
+                            <th>{{__('Training Location Cost')}}</th>
+                        </tr>
+                        @foreach($venue as $venueKey => $venueValue)
+                        <tr>
+                            <td>{{__($venueKey)}}</td>
+                            <td><input type="number" class="form-control" name="venue[{{ isset($venueKey) ? $venueKey : '' }}]" id="venue_{{$venueKey}}" value="{{ isset($billing['venue'][$venueKey]) ? $billing['venue'][$venueKey] : '' }}" placeholder="{{__($venueKey)}}" min="0">
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+                @endif
+                @if(isset($function) && !empty($function))
+                <div class="col-sm-6 function">
+                    <table class="table table-responsive table-bordered" style="width:100%">
+                        <tr>
+                            <th>{{__('Package')}}</th>
+                            <th>{{__('Package Cost')}}</th>
+                        </tr>
+                        @foreach($function as $functionKey => $functionValue)
+                        <tr>
+                            <td><b>{{__($functionValue->function)}}</b></td>
+                            <td>
+                                @foreach($functionValue->package as $packageKey=> $packageValue)
+                                {{ Form::label($packageValue, __($packageValue), ['class' => 'form-label']) }}
+                                <input type="number" class="form-control" name="package[{{isset($functionValue->function)? $functionValue->function :''}}][{{ isset($packageValue) ? $packageValue : '' }}]" id="package_{{isset($packageKey)? $packageKey :''}}" value="{{ isset($billing['package'][$functionValue->function][$packageValue]) ? $billing['package'][$functionValue->function][$packageValue] : '' }}" placeholder="Enter {{ isset($packageValue) ? $packageValue :''}} Cost" min="0">
+                                @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+                @endif
+                @if(isset($bar) && !empty($bar))
+                <div class="col-sm-6 bar mt-3">
+                    <table class="table table-responsive table-bordered" style="width:100%">
+                        <tr>
+                            <th>{{__('Bar')}}</th>
+                            <th>{{__('Bar Cost')}}</th>
+                        </tr>
+                        @foreach($bar as $barKey => $barValue)
+                        <tr>
+                            <td><b>{{__($barValue->bar)}}</b></td>
+                            <td>
+                                @foreach($barValue->barpackage as $barpackageKey=>$barpackageValue)
+                                {{ Form::label($barpackageValue, __($barpackageValue), ['class' => 'form-label']) }}
+                                <input type="number" class="form-control" name="barpackage[{{ isset($barValue->bar) ? $barValue->bar : '' }}][{{ isset($barpackageValue) ? $barpackageValue : '' }}]" id="barpackage_{{ isset($barpackageKey) ? $barpackageKey : '' }}" value="{{ isset($billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue]) ? $billing['barpackage'][isset($barValue->bar) ? $barValue->bar : ''][$barpackageValue] : '' }}" placeholder="{{ isset($barpackageValue) ? $barpackageValue : '' }}" min="0">
+                                @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+                @endif
+                <div class="col-sm-6 equipment">
+                    <div class="form-group">
+                        {{ Form::label('equipment', __('Equipment'), ['class' => 'form-label']) }}
+                        <input type="number" name="equipment" id="" class="form-control" value="{{ isset($billing['equipment']) ? $billing['equipment'] : ''}}" placeholder="Enter Equipments Cost (eg. Tent, Tables, Chairs)" required>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('welcomesetup', __('Welcome Setup'), ['class' => 'form-label']) }}
+                        <input type="number" name="welcomesetup" id="" class="form-control" value="{{ isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''}}" placeholder="Enter Welcome Setup Cost" required>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('rehearsalsetup', __('Rehearsel Setup'), ['class' => 'form-label']) }}
+                        <input type="number" name="rehearsalsetup" class="form-control" value="{{ isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''}}" placeholder="Enter Rehearsel Setup Cost" required>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('hotel_rooms', __('Hotel Rooms'), ['class' => 'form-label']) }}
+                        <input type="number" name="hotel_rooms" class="form-control" value="{{ isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''}}" placeholder="Enter Hotel Rooms Cost" required>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('special_req', __('Special Request/Others'), ['class' => 'form-label']) }}
+                        <input type="number" name="special_req" class="form-control" value="{{ isset($billing['special_req']) ? $billing['special_req'] : ''}}" placeholder="Enter  Cost" required>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+@endcan
+@if (\Auth::user()->type == 'owner')
+<div id="buffer-settings" class=" accordion-item card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+            <h5>{{ __('Buffer Settings') }}</h5>
+            <small class="text-muted">{{ __('Edit your buffer settings') }}</small>
+        </button>
+    </h2>
+    <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            <div class="row">
+                {{ Form::open(['route' => 'buffer.setting', 'method' => 'post']) }}
+                @csrf
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ Form::label('buffer_time', __('Add Buffer Time'), ['class' => 'form-label']) }}
+                        {!! Form::input('time', 'buffer_time', $settings['buffer_time'],
+                        ['class' =>
+                        'form-control', 'required' => 'required']) !!}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ Form::label('buffer_day', __('Add Buffer Day'), ['class' => 'form-label']) }}
+                        {!! Form::number('buffer_day', $settings['buffer_day'], ['class'
+                        =>
+                        'form-control', 'required' => 'required','min' => '0']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+<div id="add-signature" class="accordion-item  card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
+            <h5>{{ __('Authorised Signature') }}</h5>
+        </button>
+    </h2>
+    <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            <form method="POST" id='sign'>
+                @csrf
+                <div class="card-body1">
+                    <div class="row mt-3">
+                        <div class="col-6 need_full">
+                            <strong>Existing Signature:</strong> <br>
+                            <img src="{{$base64Image}}" style=" width: 55%;padding-right: 39px;border-bottom: 1px solid black;">
+                        </div>
+                        <div class="col-6 need_full">
+                            <strong> Signature:</strong>
+                            <br>
+                            <div id="sig" class="mt-5">
+                                <canvas id="signatureCanvas" width="300" class="signature-canvas"></canvas>
+                                <input type="hidden" name="imageData" id="imageData">
+                            </div>
+                            <div class="row">
+                                <div class="col-6 need_full">
+                                    <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear
+                                        Signature</button>
+                                </div>
+                                <div class="col-6 need_full">
+                                    <div class="text-end mobile-text">
+                                        <input type="submit" value="Save" class="btn-submit btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+@endif
+</div>
+</div>
+</div>
+<!-- <div id="pusher-settings" class="card">
                         <div class="card-header">
                             <h5>{{ __('Pusher Settings') }}</h5>
                             <small class="text-muted">{{ __('Edit your pusher details') }}</small>
@@ -1696,7 +1702,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                             {{ Form::close() }}
                         </div>
                     </div> -->
-    <!-- <div id="brand-settings" class="card">
+<!-- <div id="brand-settings" class="card">
                             <div class="card-header">
                                 <h5>{{ __('Brand Settings') }}</h5>
                                 <small class="text-muted">{{ __('Edit your brand details') }}</small>
@@ -2059,7 +2065,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                             {{ Form::close() }}
                         </div> -->
 
-    <!-- <div id="twilio-settings" class="card">
+<!-- <div id="twilio-settings" class="card">
                         <div class="card-header">
                             <h5>{{ __('Twilio Settings') }}</h5>
                             <small class="text-muted">{{ __('Edit your twilio details') }}</small>
@@ -2108,16 +2114,16 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                 <label class="form-check-label" for="twilio_meeting_create"></label>
                                             </div>
                                         </li> -->
-    <!-- <li class="list-group-item">
+<!-- <li class="list-group-item">
                                                                                             <span>{{ __('New Quotes') }}</span>
                                                                                             <div class="form-check form-switch float-end">
                                                                                                 {{ Form::checkbox('twilio_quotes_create', '1', isset($settings['twilio_quotes_create']) && $settings['twilio_quotes_create'] == '1' ? 'checked' : '', ['class' => 'form-check-input input-primary', 'id' => 'twilio_quotes_create']) }}
                                                                                                 <label class="form-check-label" for="twilio_quotes_create"></label>
                                                                                             </div>
                                                                                         </li> -->
-    <!-- </ul>
+<!-- </ul>
                                             </div> -->
-    <!-- <div class="col-md-4">
+<!-- <div class="col-md-4">
                                                                 <ul class="list-group">
                                                                     <li class="list-group-item">
                                                                         <span>{{ __('New Sales Order') }}</span>
@@ -2160,7 +2166,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                     </li>
                                                                 </ul>
                                                             </div> -->
-    <!-- <div class="text-end">
+<!-- <div class="text-end">
                                                 {{ Form::submit(__('Save Changes'), ['class' => 'btn-submit btn btn-primary']) }}
                                             </div>
                                         </div>
@@ -2171,8 +2177,8 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 
 
 
-    @if (\Auth::user()->type == 'super admin')
-    <!-- <div id="brand-settings" class="card">
+@if (\Auth::user()->type == 'super admin')
+<!-- <div id="brand-settings" class="card">
                                         <div class="card-header">
                                             <h5>{{ __('Brand Settings') }}</h5>
                                             <small class="text-muted">{{ __('Edit your brand details') }}</small>
@@ -2525,7 +2531,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                         {{ Form::close() }}
                                         </div>  -->
 
-    <!-- <div id="email-settings" class="card">
+<!-- <div id="email-settings" class="card">
                                                     <div class="card-header">
                                                         <h5>{{ __('Email Settings') }}</h5>
                                                         <small class="text-muted">{{ __('Edit your email details') }}</small>
@@ -2674,7 +2680,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                     {{ Form::close() }}
                                                 </div> -->
 
-    <!-- <div id="pusher-settings" class="card">
+<!-- <div id="pusher-settings" class="card">
                         <div class="card-header">
                             <h5>{{ __('Pusher Settings') }}</h5>
                             <small class="text-muted">{{ __('Edit your pusher details') }}</small>
@@ -2726,606 +2732,458 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                             {{ Form::close() }}
                         </div>
                     </div> -->
-    <div id="payment-settings" class="card">
-        <div class="card-header">
-            <h5>{{ __('Payment Settings') }}</h5>
-            <small class="text-muted">{{ __('These details will be used to collect subscription plan payments.Each subscription plan will have a payment button based on the below configuration') }}</small>
-        </div>
-        {{ Form::model($settings, ['route' => 'payment.setting', 'method' => 'POST']) }}
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
-                            <label class="col-form-label">{{ __('Currency') }} *</label>
-                            <input type="text" name="currency" class="form-control" id="currency" value="{{ !isset($payment['currency']) || is_null($payment['currency']) ? '' : $payment['currency'] }}" placeholder="USD" required>
-                            <small class="text-xs">
-                                {{ __('Note: Add currency code as per three-letter ISO code.') }}.
-                                <a href="https://stripe.com/docs/currencies" target="_blank">{{ __('You can find out how to do that here.') }}</a>
-                            </small>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
-                            <label for="currency_symbol" class="col-form-label">{{ __('Currency Symbol') }}</label>
-                            <input type="text" name="currency_symbol" class="form-control" id="currency_symbol" value="{{ !isset($payment['currency_symbol']) || is_null($payment['currency_symbol']) ? '' : $payment['currency_symbol'] }}" placeholder="$" required>
-                        </div>
-
+<div id="payment-settings" class="card">
+    <div class="card-header">
+        <h5>{{ __('Payment Settings') }}</h5>
+        <small class="text-muted">{{ __('These details will be used to collect subscription plan payments.Each subscription plan will have a payment button based on the below configuration') }}</small>
+    </div>
+    {{ Form::model($settings, ['route' => 'payment.setting', 'method' => 'POST']) }}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+                        <label class="col-form-label">{{ __('Currency') }} *</label>
+                        <input type="text" name="currency" class="form-control" id="currency" value="{{ !isset($payment['currency']) || is_null($payment['currency']) ? '' : $payment['currency'] }}" placeholder="USD" required>
+                        <small class="text-xs">
+                            {{ __('Note: Add currency code as per three-letter ISO code.') }}.
+                            <a href="https://stripe.com/docs/currencies" target="_blank">{{ __('You can find out how to do that here.') }}</a>
+                        </small>
                     </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+                        <label for="currency_symbol" class="col-form-label">{{ __('Currency Symbol') }}</label>
+                        <input type="text" name="currency_symbol" class="form-control" id="currency_symbol" value="{{ !isset($payment['currency_symbol']) || is_null($payment['currency_symbol']) ? '' : $payment['currency_symbol'] }}" placeholder="$" required>
+                    </div>
+
                 </div>
             </div>
-            <div class="faq justify-content-center">
-                <div class="col-sm-12 col-md-10 col-xxl-12">
-                    <div class="accordion accordion-flush setting setting-accordion1" id="accordionExample">
+        </div>
+        <div class="faq justify-content-center">
+            <div class="col-sm-12 col-md-10 col-xxl-12">
+                <div class="accordion accordion-flush setting setting-accordion1" id="accordionExample">
 
-                        {{-- maually --}}
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-15">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Manually') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_manually_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_manually_enabled" id="is_manually_enabled" {{ isset($payment['is_manually_enabled']) && $payment['is_manually_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-1"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                            <div class="row pt-2">
-                                                <label class="pb-2" for="is_manually_enabled">{{ __('Requesting manual payment for the planned amount for the subscriptions paln.') }}</label>
-                                            </div>
+                    {{-- maually --}}
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-15">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Manually') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_manually_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_manually_enabled" id="is_manually_enabled" {{ isset($payment['is_manually_enabled']) && $payment['is_manually_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-1"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                        <div class="row pt-2">
+                                            <label class="pb-2" for="is_manually_enabled">{{ __('Requesting manual payment for the planned amount for the subscriptions paln.') }}</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        {{-- bank-transfer --}}
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-16">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Bank Transfer') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_bank_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_bank_enabled" id="is_bank_enabled" {{ isset($payment['is_bank_enabled']) && $payment['is_bank_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-1"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row gy-4">
-                                        <div class="col-md-12 mt-3">
-                                            <div class="form-group">
-                                                {{ Form::label('bank_details', __('Bank Details'), ['class' => 'col-form-label']) }}
-                                                {{ Form::textarea('bank_details', isset($payment['bank_details']) ? $payment['bank_details'] : '', ['class' => 'form-control', 'placeholder' => __('Enter Your Bank Details'), 'rows' => 4]) }}
-                                                <small class="text-xs">
-                                                    {{ __('Example : Bank : bank name </br> Account Number : 0000 0000 </br>') }}
-                                                </small>
-                                                @if ($errors->has('bank_details'))
-                                                <span class="invalid-feedback d-block">
-                                                    {{ $errors->first('bank_details') }}
-                                                </span>
-                                                @endif
-                                            </div>
+                    {{-- bank-transfer --}}
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-16">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Bank Transfer') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_bank_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_bank_enabled" id="is_bank_enabled" {{ isset($payment['is_bank_enabled']) && $payment['is_bank_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-1"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row gy-4">
+                                    <div class="col-md-12 mt-3">
+                                        <div class="form-group">
+                                            {{ Form::label('bank_details', __('Bank Details'), ['class' => 'col-form-label']) }}
+                                            {{ Form::textarea('bank_details', isset($payment['bank_details']) ? $payment['bank_details'] : '', ['class' => 'form-control', 'placeholder' => __('Enter Your Bank Details'), 'rows' => 4]) }}
+                                            <small class="text-xs">
+                                                {{ __('Example : Bank : bank name </br> Account Number : 0000 0000 </br>') }}
+                                            </small>
+                                            @if ($errors->has('bank_details'))
+                                            <span class="invalid-feedback d-block">
+                                                {{ $errors->first('bank_details') }}
+                                            </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Stripe -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Stripe') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_stripe_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_stripe_enabled" id="is_stripe_enabled" {{ isset($payment['is_stripe_enabled']) && $payment['is_stripe_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-1"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading-2-2" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row gy-4">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="stripe_key" class="form-label">{{ __('Stripe Key') }}</label>
-                                                <input class="form-control" placeholder="{{ __('Stripe Key') }}" name="stripe_key" type="text" value="{{ !isset($payment['stripe_key']) || is_null($payment['stripe_key']) ? '' : $payment['stripe_key'] }}" id="stripe_key">
-                                            </div>
+                    <!-- Stripe -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Stripe') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_stripe_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_stripe_enabled" id="is_stripe_enabled" {{ isset($payment['is_stripe_enabled']) && $payment['is_stripe_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-1"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading-2-2" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row gy-4">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="stripe_key" class="form-label">{{ __('Stripe Key') }}</label>
+                                            <input class="form-control" placeholder="{{ __('Stripe Key') }}" name="stripe_key" type="text" value="{{ !isset($payment['stripe_key']) || is_null($payment['stripe_key']) ? '' : $payment['stripe_key'] }}" id="stripe_key">
                                         </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="stripe_secret" class="form-label">{{ __('Stripe Secret') }}</label>
-                                                <input class="form-control " placeholder="{{ __('Stripe Secret') }}" name="stripe_secret" type="text" value="{{ !isset($payment['stripe_secret']) || is_null($payment['stripe_secret']) ? '' : $payment['stripe_secret'] }}" id="stripe_secret">
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="stripe_secret" class="form-label">{{ __('Stripe Secret') }}</label>
+                                            <input class="form-control " placeholder="{{ __('Stripe Secret') }}" name="stripe_secret" type="text" value="{{ !isset($payment['stripe_secret']) || is_null($payment['stripe_secret']) ? '' : $payment['stripe_secret'] }}" id="stripe_secret">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Paypal -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Paypal') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_paypal_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paypal_enabled" id="is_paypal_enabled" {{ isset($payment['is_paypal_enabled']) && $payment['is_paypal_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading-2-3" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                            <div class="row pt-2">
-                                                <label class="pb-2" for="paypal_mode">{{ __('Paypal Mode') }}</label>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="sandbox" {{ !isset($payment['paypal_mode']) || $payment['paypal_mode'] == '' || $payment['paypal_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="live" {{ isset($payment['paypal_mode']) && $payment['paypal_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
+                    <!-- Paypal -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Paypal') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_paypal_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paypal_enabled" id="is_paypal_enabled" {{ isset($payment['is_paypal_enabled']) && $payment['is_paypal_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading-2-3" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                        <div class="row pt-2">
+                                            <label class="pb-2" for="paypal_mode">{{ __('Paypal Mode') }}</label>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="sandbox" {{ !isset($payment['paypal_mode']) || $payment['paypal_mode'] == '' || $payment['paypal_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
+                                                            </span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label">{{ __('Client ID') }}</label>
-                                                <input type="text" name="paypal_client_id" id="paypal_client_id" class="form-control" value="{{ !isset($payment['paypal_client_id']) || is_null($payment['paypal_client_id']) ? '' : $payment['paypal_client_id'] }}" placeholder="{{ __('Client ID') }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="paypal_secret_key" class="form-label">{{ __('Secret Key') }}</label>
-                                                <input type="text" name="paypal_secret_key" id="paypal_secret_key" class="form-control" value="{{ !isset($payment['paypal_secret_key']) || is_null($payment['paypal_secret_key']) ? '' : $payment['paypal_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paystack -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Paystack') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_paystack_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paystack_enabled" id="is_paystack_enabled" {{ isset($payment['is_paystack_enabled']) && $payment['is_paystack_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading-2-4" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label">{{ __(' Key') }}</label>
-                                                <input type="text" name="paystack_public_key" id="paystack_public_key" class="form-control" value="{{ !isset($payment['paystack_public_key']) || is_null($payment['paystack_public_key']) ? '' : $payment['paystack_public_key'] }}" placeholder="{{ __(' Key') }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paystack_secret_key" class="form-label">{{ __('Secret Key') }}</label>
-                                                <input type="text" name="paystack_secret_key" id="paystack_secret_key" class="form-control" value="{{ !isset($payment['paystack_secret_key']) || is_null($payment['paystack_secret_key']) ? '' : $payment['paystack_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FLUTTERWAVE -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-5">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Flutterwave') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_flutterwave_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_flutterwave_enabled" id="is_flutterwave_enabled" {{ isset($payment['is_flutterwave_enabled']) && $payment['is_flutterwave_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading-2-5" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label">{{ __(' Key') }}</label>
-                                                <input type="text" name="flutterwave_public_key" id="flutterwave_public_key" class="form-control" value="{{ !isset($payment['flutterwave_public_key']) || is_null($payment['flutterwave_public_key']) ? '' : $payment['flutterwave_public_key'] }}" placeholder="Public Key">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paystack_secret_key" class="form-label">{{ __('Secret Key') }}</label>
-                                                <input type="text" name="flutterwave_secret_key" id="flutterwave_secret_key" class="form-control" value="{{ !isset($payment['flutterwave_secret_key']) || is_null($payment['flutterwave_secret_key']) ? '' : $payment['flutterwave_secret_key'] }}" placeholder="Secret Key">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Razorpay -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-6">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Razorpay') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_razorpay_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_razorpay_enabled" id="is_razorpay_enabled" {{ isset($payment['is_razorpay_enabled']) && $payment['is_razorpay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading-2-6" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paypal_client_id" class="form-label">{{ __(' Key') }}</label>
-
-                                                <input type="text" name="razorpay_public_key" id="razorpay_public_key" class="form-control" value="{{ !isset($payment['razorpay_public_key']) || is_null($payment['razorpay_public_key']) ? '' : $payment['razorpay_public_key'] }}" placeholder="Public Key">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="paystack_secret_key" class="form-label">{{ __('Secret Key') }}</label>
-                                                <input type="text" name="razorpay_secret_key" id="razorpay_secret_key" class="form-control" value="{{ !isset($payment['razorpay_secret_key']) || is_null($payment['razorpay_secret_key']) ? '' : $payment['razorpay_secret_key'] }}" placeholder="Secret Key">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paytm -->
-                        <div class="accordion-item card">
-                            <h2 class="accordion-header" id="heading-2-7">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
-                                    <span class="d-flex align-items-center">
-                                        {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                        {{ __('Paytm') }}
-                                    </span>
-                                    {{ __('Enable:') }}
-                                    <div class="form-check form-switch custom-switch-v1">
-                                        <input type="hidden" name="is_paytm_enabled" value="off">
-                                        <input type="checkbox" class="form-check-input input-primary" name="is_paytm_enabled" id="is_paytm_enabled" {{ isset($payment['is_paytm_enabled']) && $payment['is_paytm_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                        <label class="form-check-label" for="customswitchv1-2"></label>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading-2-7" data-bs-parent="#accordionExample">
-                                <div class="accordion-body1">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                            <div class="row pt-2">
-                                                <label class="pb-2" for="paypal_mode">{{ __('Paytm Environment') }}</label>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary " name="paytm_mode" value="local" {{ !isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'checked="checked"' : '' }}>
-
-
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Local') }}</span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="border card p-3">
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input input-primary" name="paytm_mode" value="production" {{ isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'checked="checked"' : '' }}>
-                                                            <label class="form-check-label d-block" for="">
-                                                                <span>
-                                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Production') }}</span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary " name="paypal_mode" value="live" {{ isset($payment['paypal_mode']) && $payment['paypal_mode'] == 'live' ? 'checked="checked"' : '' }}>
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
+                                                            </span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-12 pb-4">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label">{{ __('Client ID') }}</label>
+                                            <input type="text" name="paypal_client_id" id="paypal_client_id" class="form-control" value="{{ !isset($payment['paypal_client_id']) || is_null($payment['paypal_client_id']) ? '' : $payment['paypal_client_id'] }}" placeholder="{{ __('Client ID') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="paypal_secret_key" class="form-label">{{ __('Secret Key') }}</label>
+                                            <input type="text" name="paypal_secret_key" id="paypal_secret_key" class="form-control" value="{{ !isset($payment['paypal_secret_key']) || is_null($payment['paypal_secret_key']) ? '' : $payment['paypal_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paystack -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Paystack') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_paystack_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_paystack_enabled" id="is_paystack_enabled" {{ isset($payment['is_paystack_enabled']) && $payment['is_paystack_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading-2-4" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label">{{ __(' Key') }}</label>
+                                            <input type="text" name="paystack_public_key" id="paystack_public_key" class="form-control" value="{{ !isset($payment['paystack_public_key']) || is_null($payment['paystack_public_key']) ? '' : $payment['paystack_public_key'] }}" placeholder="{{ __(' Key') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paystack_secret_key" class="form-label">{{ __('Secret Key') }}</label>
+                                            <input type="text" name="paystack_secret_key" id="paystack_secret_key" class="form-control" value="{{ !isset($payment['paystack_secret_key']) || is_null($payment['paystack_secret_key']) ? '' : $payment['paystack_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FLUTTERWAVE -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Flutterwave') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_flutterwave_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_flutterwave_enabled" id="is_flutterwave_enabled" {{ isset($payment['is_flutterwave_enabled']) && $payment['is_flutterwave_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading-2-5" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label">{{ __(' Key') }}</label>
+                                            <input type="text" name="flutterwave_public_key" id="flutterwave_public_key" class="form-control" value="{{ !isset($payment['flutterwave_public_key']) || is_null($payment['flutterwave_public_key']) ? '' : $payment['flutterwave_public_key'] }}" placeholder="Public Key">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paystack_secret_key" class="form-label">{{ __('Secret Key') }}</label>
+                                            <input type="text" name="flutterwave_secret_key" id="flutterwave_secret_key" class="form-control" value="{{ !isset($payment['flutterwave_secret_key']) || is_null($payment['flutterwave_secret_key']) ? '' : $payment['flutterwave_secret_key'] }}" placeholder="Secret Key">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razorpay -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Razorpay') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_razorpay_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" id="customswitchv1-2" name="is_razorpay_enabled" id="is_razorpay_enabled" {{ isset($payment['is_razorpay_enabled']) && $payment['is_razorpay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading-2-6" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paypal_client_id" class="form-label">{{ __(' Key') }}</label>
+
+                                            <input type="text" name="razorpay_public_key" id="razorpay_public_key" class="form-control" value="{{ !isset($payment['razorpay_public_key']) || is_null($payment['razorpay_public_key']) ? '' : $payment['razorpay_public_key'] }}" placeholder="Public Key">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <label for="paystack_secret_key" class="form-label">{{ __('Secret Key') }}</label>
+                                            <input type="text" name="razorpay_secret_key" id="razorpay_secret_key" class="form-control" value="{{ !isset($payment['razorpay_secret_key']) || is_null($payment['razorpay_secret_key']) ? '' : $payment['razorpay_secret_key'] }}" placeholder="Secret Key">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paytm -->
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header" id="heading-2-7">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                                <span class="d-flex align-items-center">
+                                    {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                                    {{ __('Paytm') }}
+                                </span>
+                                {{ __('Enable:') }}
+                                <div class="form-check form-switch custom-switch-v1">
+                                    <input type="hidden" name="is_paytm_enabled" value="off">
+                                    <input type="checkbox" class="form-check-input input-primary" name="is_paytm_enabled" id="is_paytm_enabled" {{ isset($payment['is_paytm_enabled']) && $payment['is_paytm_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                    <label class="form-check-label" for="customswitchv1-2"></label>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading-2-7" data-bs-parent="#accordionExample">
+                            <div class="accordion-body1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                        <div class="row pt-2">
+                                            <label class="pb-2" for="paypal_mode">{{ __('Paytm Environment') }}</label>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary " name="paytm_mode" value="local" {{ !isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'checked="checked"' : '' }}>
+
+
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Local') }}</span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="border card p-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input input-primary" name="paytm_mode" value="production" {{ isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'checked="checked"' : '' }}>
+                                                        <label class="form-check-label d-block" for="">
+                                                            <span>
+                                                                <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Production') }}</span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-md-12 pb-4">
                                                                                                 <label class="paypal-label form-control-label" for="paypal_mode">Paytm Environment</label> <br>
                                                                                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                                                                     <label class="btn btn-primary btn-sm {{ !isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'active' : '' }}">
-                                        <input type="radio" name="paytm_mode" value="local" {{ !isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'checked="checked"' : '' }}>Local
-                                        </label>
-                                        <label class="btn btn-primary btn-sm {{ isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'active' : '' }}">
-                                            <input type="radio" name="paytm_mode" value="production" {{ isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'checked="checked"' : '' }}>Production
-                                        </label>
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paytm_public_key" class="form-label">{{ __('Merchant ID') }}</label>
-                                        <input type="text" name="paytm_merchant_id" id="paytm_merchant_id" class="form-control" value="{{ !isset($payment['paytm_merchant_id']) || is_null($payment['paytm_merchant_id']) ? '' : $payment['paytm_merchant_id'] }}" placeholder="Merchant ID">
-                                    </div>
+                                    <input type="radio" name="paytm_mode" value="local" {{ !isset($payment['paytm_mode']) || $payment['paytm_mode'] == '' || $payment['paytm_mode'] == 'local' ? 'checked="checked"' : '' }}>Local
+                                    </label>
+                                    <label class="btn btn-primary btn-sm {{ isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'active' : '' }}">
+                                        <input type="radio" name="paytm_mode" value="production" {{ isset($payment['paytm_mode']) && $payment['paytm_mode'] == 'production' ? 'checked="checked"' : '' }}>Production
+                                    </label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paytm_secret_key" class="form-label">{{ __('Merchant Key') }}</label>
-                                        <input type="text" name="paytm_merchant_key" id="paytm_merchant_key" class="form-control" value="{{ !isset($payment['paytm_merchant_key']) || is_null($payment['paytm_merchant_key']) ? '' : $payment['paytm_merchant_key'] }}" placeholder="Merchant Key">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paytm_industry_type" class="form-label">{{ __('Industry Type') }}</label>
-                                        <input type="text" name="paytm_industry_type" id="paytm_industry_type" class="form-control" value="{{ !isset($payment['paytm_industry_type']) || is_null($payment['paytm_industry_type']) ? '' : $payment['paytm_industry_type'] }}" placeholder="Industry Type">
-                                    </div>
+                            </div> --}}
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="paytm_public_key" class="form-label">{{ __('Merchant ID') }}</label>
+                                    <input type="text" name="paytm_merchant_id" id="paytm_merchant_id" class="form-control" value="{{ !isset($payment['paytm_merchant_id']) || is_null($payment['paytm_merchant_id']) ? '' : $payment['paytm_merchant_id'] }}" placeholder="Merchant ID">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mercado Pago-->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-8">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('MercadoPago') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_mercado_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_mercado_enabled" id="is_mercado_enabled" {{ isset($payment['is_mercado_enabled']) && $payment['is_mercado_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading-2-8" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                    <div class="row pt-2">
-                                        <label class="pb-2" for="paypal_mode">{{ __('Mercado Mode') }}</label>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="sandbox" {{ (isset($payment['mercado_mode']) && $payment['mercado_mode'] == '') || (isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
-
-
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="live" {{ isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="paytm_secret_key" class="form-label">{{ __('Merchant Key') }}</label>
+                                    <input type="text" name="paytm_merchant_key" id="paytm_merchant_key" class="form-control" value="{{ !isset($payment['paytm_merchant_key']) || is_null($payment['paytm_merchant_key']) ? '' : $payment['paytm_merchant_key'] }}" placeholder="Merchant Key">
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mercado_access_token" class="form-label">{{ __('Access Token') }}</label>
-                                        <input type="text" name="mercado_access_token" id="mercado_access_token" class="form-control" value="{{ isset($payment['mercado_access_token']) ? $payment['mercado_access_token'] : '' }}" />
-                                        @if ($errors->has('mercado_secret_key'))
-                                        <span class="invalid-feedback d-block">
-                                            {{ $errors->first('mercado_access_token') }}
-                                        </span>
-                                        @endif
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="paytm_industry_type" class="form-label">{{ __('Industry Type') }}</label>
+                                    <input type="text" name="paytm_industry_type" id="paytm_industry_type" class="form-control" value="{{ !isset($payment['paytm_industry_type']) || is_null($payment['paytm_industry_type']) ? '' : $payment['paytm_industry_type'] }}" placeholder="Industry Type">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Mollie -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-9">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('Mollie') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_mollie_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_mollie_enabled" id="is_mollie_enabled" {{ isset($payment['is_mollie_enabled']) && $payment['is_mollie_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading-2-9" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="row mt-2">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="mollie_api_key" class="form-label">{{ __('Mollie Api Key') }}</label>
-                                            <input type="text" name="mollie_api_key" id="mollie_api_key" class="form-control" value="{{ !isset($payment['mollie_api_key']) || is_null($payment['mollie_api_key']) ? '' : $payment['mollie_api_key'] }}" placeholder="Mollie Api Key">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="mollie_profile_id" class="form-label">{{ __('Mollie Profile Id') }}</label>
-                                            <input type="text" name="mollie_profile_id" id="mollie_profile_id" class="form-control" value="{{ !isset($payment['mollie_profile_id']) || is_null($payment['mollie_profile_id']) ? '' : $payment['mollie_profile_id'] }}" placeholder="Mollie Profile Id">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="mollie_partner_id" class="form-label">{{ __('Mollie Partner Id') }}</label>
-                                            <input type="text" name="mollie_partner_id" id="mollie_partner_id" class="form-control" value="{{ !isset($payment['mollie_partner_id']) || is_null($payment['mollie_partner_id']) ? '' : $payment['mollie_partner_id'] }}" placeholder="Mollie Partner Id">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- Mercado Pago-->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-8">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('MercadoPago') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_mercado_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_mercado_enabled" id="is_mercado_enabled" {{ isset($payment['is_mercado_enabled']) && $payment['is_mercado_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Skrill -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-10">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('Skrill') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_skrill_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_skrill_enabled" id="is_skrill_enabled" {{ isset($payment['is_skrill_enabled']) && $payment['is_skrill_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
+                    </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading-2-8" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
 
-                        </button>
-                    </h2>
-                    <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading-2-10" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="col-md-6 mt-3">
-                                    <div class="form-group">
-                                        <label for="mollie_api_key" class="form-label">{{ __('Skrill Email') }}</label>
-                                        <input type="text" name="skrill_email" id="skrill_email" class="form-control" value="{{ !isset($payment['skrill_email']) || is_null($payment['skrill_email']) ? '' : $payment['skrill_email'] }}" placeholder="Enter Skrill Email">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CoinGate -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-11">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('CoinGate') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_coingate_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_coingate_enabled" id="is_coingate_enabled" {{ isset($payment['is_coingate_enabled']) && $payment['is_coingate_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading-2-11" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                    <div class="row pt-2">
-                                        <label class="pb-2" for="paypal_mode">{{ __('CoinGate Mode') }}</label>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="sandbox" {{ !isset($payment['coingate_mode']) || $payment['coingate_mode'] == '' || $payment['coingate_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                                <div class="row pt-2">
+                                    <label class="pb-2" for="paypal_mode">{{ __('Mercado Mode') }}</label>
+                                    <div class="col-lg-3">
+                                        <div class="border card p-3">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="sandbox" {{ (isset($payment['mercado_mode']) && $payment['mercado_mode'] == '') || (isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
 
 
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                <label class="form-check-label d-block" for="">
+                                                    <span>
+                                                        <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
+                                                    </span>
+                                                </label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="border card p-3">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="live" {{ isset($payment['coingate_mode']) && $payment['coingate_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                    <label class="form-check-label d-block" for="">
-                                                        <span>
-                                                            <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="border card p-3">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input input-primary " name="mercado_mode" value="live" {{ isset($payment['mercado_mode']) && $payment['mercado_mode'] == 'live' ? 'checked="checked"' : '' }}>
+                                                <label class="form-check-label d-block" for="">
+                                                    <span>
+                                                        <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
+                                                    </span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="coingate_auth_token" class="form-label">{{ __('CoinGate Auth Token') }}</label>
-                                        <input type="text" name="coingate_auth_token" id="coingate_auth_token" class="form-control" value="{{ !isset($payment['coingate_auth_token']) || is_null($payment['coingate_auth_token']) ? '' : $payment['coingate_auth_token'] }}" placeholder="CoinGate Auth Token">
-                                    </div>
-                                    @if ($errors->has('coingate_auth_token'))
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mercado_access_token" class="form-label">{{ __('Access Token') }}</label>
+                                    <input type="text" name="mercado_access_token" id="mercado_access_token" class="form-control" value="{{ isset($payment['mercado_access_token']) ? $payment['mercado_access_token'] : '' }}" />
+                                    @if ($errors->has('mercado_secret_key'))
                                     <span class="invalid-feedback d-block">
-                                        {{ $errors->first('coingate_auth_token') }}
+                                        {{ $errors->first('mercado_access_token') }}
                                     </span>
                                     @endif
                                 </div>
@@ -3333,110 +3191,116 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- PaymentWall -->
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-12">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('PaymentWall') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_paymentwall_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_paymentwall_enabled" id="is_paymentwall_enabled" {{ isset($payment['is_paymentwall_enabled']) && $payment['is_paymentwall_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
+            <!-- Mollie -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-9">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('Mollie') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_mollie_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_mollie_enabled" id="is_mollie_enabled" {{ isset($payment['is_mollie_enabled']) && $payment['is_mollie_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
 
-                        </button>
-                    </h2>
-                    <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading-2-12" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
+                    </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading-2-9" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
 
-                                <div class="col-md-6">
+                            <div class="row mt-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="paymentwall_public_key" class="form-label">{{ __(' Key') }}</label>
-                                        <input type="text" name="paymentwall_public_key" id="paymentwall_public_key" class="form-control" value="{{ !isset($payment['paymentwall_public_key']) || is_null($payment['paymentwall_public_key']) ? '' : $payment['paymentwall_public_key'] }}" placeholder="{{ __(' Key') }}">
+                                        <label for="mollie_api_key" class="form-label">{{ __('Mollie Api Key') }}</label>
+                                        <input type="text" name="mollie_api_key" id="mollie_api_key" class="form-control" value="{{ !isset($payment['mollie_api_key']) || is_null($payment['mollie_api_key']) ? '' : $payment['mollie_api_key'] }}" placeholder="Mollie Api Key">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="paymentwall_private_key" class="form-label">{{ __('Private Key') }}</label>
-                                        <input type="text" name="paymentwall_private_key" id="paymentwall_private_key" class="form-control" value="{{ !isset($payment['paymentwall_private_key']) || is_null($payment['paymentwall_private_key']) ? '' : $payment['paymentwall_private_key'] }}" placeholder="{{ __('Private Key') }}">
+                                        <label for="mollie_profile_id" class="form-label">{{ __('Mollie Profile Id') }}</label>
+                                        <input type="text" name="mollie_profile_id" id="mollie_profile_id" class="form-control" value="{{ !isset($payment['mollie_profile_id']) || is_null($payment['mollie_profile_id']) ? '' : $payment['mollie_profile_id'] }}" placeholder="Mollie Profile Id">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="mollie_partner_id" class="form-label">{{ __('Mollie Partner Id') }}</label>
+                                        <input type="text" name="mollie_partner_id" id="mollie_partner_id" class="form-control" value="{{ !isset($payment['mollie_partner_id']) || is_null($payment['mollie_partner_id']) ? '' : $payment['mollie_partner_id'] }}" placeholder="Mollie Partner Id">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {{-- Toyyibpay --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-13">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('Toyyibpay') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_toyyibpay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_toyyibpay_enabled" id="is_toyyibpay_enabled" {{ isset($payment['is_toyyibpay_enabled']) && $payment['is_toyyibpay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading-2-13" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="toyyibpay_secret_key" class="form-label">{{ __('Secret Key') }}</label>
-                                        <input type="text" name="toyyibpay_secret_key" id="toyyibpay_secret_key" class="form-control" value="{{ !isset($payment['toyyibpay_secret_key']) || is_null($payment['toyyibpay_secret_key']) ? '' : $payment['toyyibpay_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="category_code" class="form-label">{{ __('Category Code') }}</label>
-                                        <input type="text" name="category_code" id="category_code" class="form-control" value="{{ !isset($payment['category_code']) || is_null($payment['category_code']) ? '' : $payment['category_code'] }}" placeholder="{{ __('Category Code') }}">
-                                    </div>
-                                </div>
+            <!-- Skrill -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-10">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('Skrill') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_skrill_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_skrill_enabled" id="is_skrill_enabled" {{ isset($payment['is_skrill_enabled']) && $payment['is_skrill_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
 
+                    </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading-2-10" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+
+                            <div class="col-md-6 mt-3">
+                                <div class="form-group">
+                                    <label for="mollie_api_key" class="form-label">{{ __('Skrill Email') }}</label>
+                                    <input type="text" name="skrill_email" id="skrill_email" class="form-control" value="{{ !isset($payment['skrill_email']) || is_null($payment['skrill_email']) ? '' : $payment['skrill_email'] }}" placeholder="Enter Skrill Email">
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
 
-                {{-- PayFast --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-14">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('Payfast') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_payfast_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_payfast_enabled" id="is_payfast_enabled" {{ isset($payment['is_payfast_enabled']) && $payment['is_payfast_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
+            <!-- CoinGate -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-11">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('CoinGate') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_coingate_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_coingate_enabled" id="is_coingate_enabled" {{ isset($payment['is_coingate_enabled']) && $payment['is_coingate_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
 
-                    <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
+                    </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading-2-11" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
 
-                        <div class="accordion-body1">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
                                 <div class="row pt-2">
-                                    <label class="pb-2" for="payfast_mode">{{ __('Payfast Mode') }}</label>
+                                    <label class="pb-2" for="paypal_mode">{{ __('CoinGate Mode') }}</label>
                                     <div class="col-lg-3">
                                         <div class="border card p-3">
                                             <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="sandbox" {{ !isset($payment['payfast_mode']) || $payment['payfast_mode'] == '' || $payment['payfast_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+                                                <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="sandbox" {{ !isset($payment['coingate_mode']) || $payment['coingate_mode'] == '' || $payment['coingate_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+
+
                                                 <label class="form-check-label d-block" for="">
                                                     <span>
                                                         <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
@@ -3448,7 +3312,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                     <div class="col-lg-3">
                                         <div class="border card p-3">
                                             <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="live" {{ isset($payment['payfast_mode']) && $payment['payfast_mode'] == 'live' ? 'checked="checked"' : '' }}>
+                                                <input type="radio" class="form-check-input input-primary" name="coingate_mode" value="live" {{ isset($payment['coingate_mode']) && $payment['coingate_mode'] == 'live' ? 'checked="checked"' : '' }}>
                                                 <label class="form-check-label d-block" for="">
                                                     <span>
                                                         <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
@@ -3460,436 +3324,578 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="payfast_merchant_id" class="form-label">{{ __('Merchant Id') }}</label>
-                                        <input type="text" name="payfast_merchant_id" id="payfast_merchant_id" class="form-control" value="{{ !isset($payment['payfast_merchant_id']) || is_null($payment['payfast_merchant_id']) ? '' : $payment['payfast_merchant_id'] }}" placeholder="{{ __('Merchant Id') }}">
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="coingate_auth_token" class="form-label">{{ __('CoinGate Auth Token') }}</label>
+                                    <input type="text" name="coingate_auth_token" id="coingate_auth_token" class="form-control" value="{{ !isset($payment['coingate_auth_token']) || is_null($payment['coingate_auth_token']) ? '' : $payment['coingate_auth_token'] }}" placeholder="CoinGate Auth Token">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="payfast_merchant_key" class="form-label">{{ __('Merchant Key') }}</label>
-                                        <input type="text" name="payfast_merchant_key" id="payfast_merchant_key" class="form-control" value="{{ !isset($payment['payfast_merchant_key']) || is_null($payment['payfast_merchant_key']) ? '' : $payment['payfast_merchant_key'] }}" placeholder="{{ __('Merchant Key') }}">
-                                    </div>
+                                @if ($errors->has('coingate_auth_token'))
+                                <span class="invalid-feedback d-block">
+                                    {{ $errors->first('coingate_auth_token') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PaymentWall -->
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-12">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('PaymentWall') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_paymentwall_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_paymentwall_enabled" id="is_paymentwall_enabled" {{ isset($payment['is_paymentwall_enabled']) && $payment['is_paymentwall_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+
+                    </button>
+                </h2>
+                <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading-2-12" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paymentwall_public_key" class="form-label">{{ __(' Key') }}</label>
+                                    <input type="text" name="paymentwall_public_key" id="paymentwall_public_key" class="form-control" value="{{ !isset($payment['paymentwall_public_key']) || is_null($payment['paymentwall_public_key']) ? '' : $payment['paymentwall_public_key'] }}" placeholder="{{ __(' Key') }}">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="payfast_signature" class="form-label">{{ __('Salt Passphrase') }}</label>
-                                        <input type="text" name="payfast_signature" id="payfast_signature" class="form-control" value="{{ !isset($payment['payfast_signature']) || is_null($payment['payfast_signature']) ? '' : $payment['payfast_signature'] }}" placeholder="{{ __('Salt Passphrase') }}">
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paymentwall_private_key" class="form-label">{{ __('Private Key') }}</label>
+                                    <input type="text" name="paymentwall_private_key" id="paymentwall_private_key" class="form-control" value="{{ !isset($payment['paymentwall_private_key']) || is_null($payment['paymentwall_private_key']) ? '' : $payment['paymentwall_private_key'] }}" placeholder="{{ __('Private Key') }}">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {{-- iyzipay --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-15">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
-                            <span class="d-flex align-items-center">
-                                {{-- <i class="ti ti-credit-card text-primary"></i> --}}
-                                {{ __('IyziPay') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_iyzipay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_iyzipay_enabled" id="is_iyzipay_enabled" {{ isset($payment['is_iyzipay_enabled']) && $payment['is_iyzipay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
-
-                        <div class="accordion-body1">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
-                                <div class="row pt-2">
-                                    <label class="pb-2" for="iyzipay_mode">{{ __('IyziPay Mode') }}</label>
-                                    <div class="col-lg-3">
-                                        <div class="border card p-3">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="sandbox" {{ !isset($payment['iyzipay_mode']) || $payment['iyzipay_mode'] == '' || $payment['iyzipay_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
-                                                <label class="form-check-label d-block" for="">
-                                                    <span>
-                                                        <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="border card p-3">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="live" {{ isset($payment['iyzipay_mode']) && $payment['iyzipay_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                <label class="form-check-label d-block" for="">
-                                                    <span>
-                                                        <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="iyzipay_key" class="form-label">{{ __('IyziPay Key') }}</label>
-                                        <input type="text" name="iyzipay_key" id="iyzipay_key" class="form-control" value="{{ !isset($payment['iyzipay_key']) || is_null($payment['iyzipay_key']) ? '' : $payment['iyzipay_key'] }}" placeholder="{{ __('IyziPay Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="iyzipay_secret" class="form-label">{{ __('IyziPay Secret') }}</label>
-                                        <input type="text" name="iyzipay_secret" id="iyzipay_secret" class="form-control" value="{{ !isset($payment['iyzipay_secret']) || is_null($payment['iyzipay_secret']) ? '' : $payment['iyzipay_secret'] }}" placeholder="{{ __('IyziPay Secret') }}">
-                                    </div>
-                                </div>
-                            </div>
+            {{-- Toyyibpay --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-13">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('Toyyibpay') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_toyyibpay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_toyyibpay_enabled" id="is_toyyibpay_enabled" {{ isset($payment['is_toyyibpay_enabled']) && $payment['is_toyyibpay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label for="customswitch1-2" class="form-check-label"></label>
                         </div>
-                    </div>
-                </div>
+                    </button>
+                </h2>
+                <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading-2-13" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="toyyibpay_secret_key" class="form-label">{{ __('Secret Key') }}</label>
+                                    <input type="text" name="toyyibpay_secret_key" id="toyyibpay_secret_key" class="form-control" value="{{ !isset($payment['toyyibpay_secret_key']) || is_null($payment['toyyibpay_secret_key']) ? '' : $payment['toyyibpay_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="category_code" class="form-label">{{ __('Category Code') }}</label>
+                                    <input type="text" name="category_code" id="category_code" class="form-control" value="{{ !isset($payment['category_code']) || is_null($payment['category_code']) ? '' : $payment['category_code'] }}" placeholder="{{ __('Category Code') }}">
+                                </div>
+                            </div>
 
-                {{-- SSPay --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-16">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
-                            <span class="d-flex align-items-center">
-                                {{ __('SSPay') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_sspay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_sspay_enabled" id="is_sspay_enabled" {{ isset($payment['is_sspay_enabled']) && $payment['is_sspay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="sspay_secret_key" class="form-label">{{ __('Secret Key') }}</label>
-                                        <input type="text" name="sspay_secret_key" id="sspay_secret_key" class="form-control" value="{{ !isset($payment['sspay_secret_key']) || is_null($payment['sspay_secret_key']) ? '' : $payment['sspay_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="sspay_category_code" class="form-label">{{ __('Category Code') }}</label>
-                                        <input type="text" name="sspay_category_code" id="sspay_category_code" class="form-control" value="{{ !isset($payment['sspay_category_code']) || is_null($payment['sspay_category_code']) ? '' : $payment['sspay_category_code'] }}" placeholder="{{ __('Category Code') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- PayTab  --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-17">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
-                            <span class="d-flex align-items-center">
-                                {{ __('PayTab') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_paytab_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_paytab_enabled" id="is_paytab_enabled" {{ isset($payment['is_paytab_enabled']) && $payment['is_paytab_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading-2-17" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytab_profile_id" class="form-label">{{ __('Profile Id') }}</label>
-                                        <input type="text" name="paytab_profile_id" id="paytab_profile_id" class="form-control" value="{{ !isset($payment['paytab_profile_id']) || is_null($payment['paytab_profile_id']) ? '' : $payment['paytab_profile_id'] }}" placeholder="{{ __('Profile Id') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytab_server_key" class="form-label">{{ __('Server Key') }}</label>
-                                        <input type="text" name="paytab_server_key" id="paytab_server_key" class="form-control" value="{{ !isset($payment['paytab_server_key']) || is_null($payment['paytab_server_key']) ? '' : $payment['paytab_server_key'] }}" placeholder="{{ __('Server Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytab_region" class="form-label">{{ __('Paytab Region') }}</label>
-                                        <input type="text" name="paytab_region" id="paytab_region" class="form-control" value="{{ !isset($payment['paytab_region']) || is_null($payment['paytab_region']) ? '' : $payment['paytab_region'] }}" placeholder="{{ __('Paytab Region') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Benefit  --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-18">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
-                            <span class="d-flex align-items-center">
-                                {{ __('Benefit') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_benefit_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_benefit_enabled" id="is_benefit_enabled" {{ isset($payment['is_benefit_enabled']) && $payment['is_benefit_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading-2-18" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="benefit_api_key" class="form-label">{{ __('Benefit Key') }}</label>
-                                        <input type="text" name="benefit_api_key" id="benefit_api_key" class="form-control" value="{{ !isset($payment['benefit_api_key']) || is_null($payment['benefit_api_key']) ? '' : $payment['benefit_api_key'] }}" placeholder="{{ __('Enter Benefit Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="benefit_secret_key" class="form-label">{{ __('Benefit Secret Key') }}</label>
-                                        <input type="text" name="benefit_secret_key" id="benefit_secret_key" class="form-control" value="{{ !isset($payment['benefit_secret_key']) || is_null($payment['benefit_secret_key']) ? '' : $payment['benefit_secret_key'] }}" placeholder="{{ __('Enter Benefit Secret key') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Cashfree  --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-19">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
-                            <span class="d-flex align-items-center">
-                                {{ __('Cashfree') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_cashfree_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_cashfree_enabled" id="is_cashfree_enabled" {{ isset($payment['is_cashfree_enabled']) && $payment['is_cashfree_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading-2-19" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cashfree_api_key" class="form-label">{{ __(' Cashfree Key') }}</label>
-                                        <input type="text" name="cashfree_api_key" id="cashfree_api_key" class="form-control" value="{{ !isset($payment['cashfree_api_key']) || is_null($payment['cashfree_api_key']) ? '' : $payment['cashfree_api_key'] }}" placeholder="{{ __('Enter Cashfree Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cashfree_secret_key" class="form-label">{{ __('Cashfree Secret Key') }}</label>
-                                        <input type="text" name="cashfree_secret_key" id="cashfree_secret_key" class="form-control" value="{{ !isset($payment['cashfree_secret_key']) || is_null($payment['cashfree_secret_key']) ? '' : $payment['cashfree_secret_key'] }}" placeholder="{{ __('Enter Cashfree Secret Key') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Aamarpay  --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-20">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
-                            <span class="d-flex align-items-center">
-                                {{ __('Aamarpay') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_aamarpay_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_aamarpay_enabled" id="is_aamarpay_enabled" {{ isset($payment['is_aamarpay_enabled']) && $payment['is_aamarpay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label for="customswitch1-2" class="form-check-label"></label>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-20" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="aamarpay_store_id" class="form-label">{{ __(' Store Id') }}</label>
-                                        <input type="text" name="aamarpay_store_id" id="aamarpay_store_id" class="form-control" value="{{ !isset($payment['aamarpay_store_id']) || is_null($payment['aamarpay_store_id']) ? '' : $payment['aamarpay_store_id'] }}" placeholder="{{ __('Enter Store Id') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="aamarpay_signature_key" class="form-label">{{ __('Signature Key') }}</label>
-                                        <input type="text" name="aamarpay_signature_key" id="aamarpay_signature_key" class="form-control" value="{{ !isset($payment['aamarpay_signature_key']) || is_null($payment['aamarpay_signature_key']) ? '' : $payment['aamarpay_signature_key'] }}" placeholder="{{ __('Enter Signature Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="aamarpay_description" class="form-label">{{ __('Description') }}</label>
-                                        <input type="text" name="aamarpay_description" id="aamarpay_description" class="form-control" value="{{ !isset($payment['aamarpay_description']) || is_null($payment['aamarpay_description']) ? '' : $payment['aamarpay_description'] }}" placeholder="{{ __('Enter Signature Key') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- PayTR --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-21">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
-                            <span class="d-flex align-items-center">
-                                {{ __('Pay TR') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_paytr_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_paytr_enabled" id="is_paytr_enabled" {{ isset($payment['is_paytr_enabled']) && $payment['is_paytr_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-21" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytr_merchant_id" class="form-label">{{ __('Merchant Id') }}</label>
-                                        <input type="text" name="paytr_merchant_id" id="paytr_merchant_id" class="form-control" value="{{ !isset($payment['paytr_merchant_id']) || is_null($payment['paytr_merchant_id']) ? '' : $payment['paytr_merchant_id'] }}" placeholder="{{ __('Merchant Id') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytr_merchant_key" class="form-label">{{ __('Merchant Key') }}</label>
-                                        <input type="text" name="paytr_merchant_key" id="paytr_merchant_key" class="form-control" value="{{ !isset($payment['paytr_merchant_key']) || is_null($payment['paytr_merchant_key']) ? '' : $payment['paytr_merchant_key'] }}" placeholder="{{ __('Merchant Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="paytr_merchant_salt" class="form-label">{{ __('Salt Passphrase') }}</label>
-                                        <input type="text" name="paytr_merchant_salt" id="paytr_merchant_salt" class="form-control" value="{{ !isset($payment['paytr_merchant_salt']) || is_null($payment['paytr_merchant_salt']) ? '' : $payment['paytr_merchant_salt'] }}" placeholder="{{ __('Salt Passphrase') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Yookassa --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-22">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
-                            <span class="d-flex align-items-center">
-                                {{ __('Yookassa') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_yookassa_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_yookassa_enabled" id="is_yookassa_enabled" {{ isset($payment['is_yookassa_enabled']) && $payment['is_yookassa_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-22" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="yookassa_shop_id" class="form-label">{{ __('Shop ID Key') }}</label>
-                                        <input type="text" name="yookassa_shop_id" id="yookassa_shop_id" class="form-control" value="{{ !isset($payment['yookassa_shop_id']) || is_null($payment['yookassa_shop_id']) ? '' : $payment['yookassa_shop_id'] }}" placeholder="{{ __('Enter Shop ID Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="yookassa_secret" class="form-label">{{ __('Secret Key') }}</label>
-                                        <input type="text" name="yookassa_secret" id="yookassa_secret" class="form-control" value="{{ !isset($payment['yookassa_secret']) || is_null($payment['yookassa_secret']) ? '' : $payment['yookassa_secret'] }}" placeholder="{{ __('Enter Secret Key') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Midtrans --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-23">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
-                            <span class="d-flex align-items-center">
-                                {{ __('Midtrans') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_midtrans_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_midtrans_enabled" id="is_midtrans_enabled" {{ isset($payment['is_midtrans_enabled']) && $payment['is_midtrans_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse23" class="accordion-collapse collapse" aria-labelledby="heading-2-23" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="midtrans_secret" class="form-label">{{ __('Secret Key') }}</label>
-                                        <input type="text" name="midtrans_secret" id="midtrans_secret" class="form-control" value="{{ !isset($payment['midtrans_secret']) || is_null($payment['midtrans_secret']) ? '' : $payment['midtrans_secret'] }}" placeholder="{{ __('Enter Secret Key') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Xendit --}}
-                <div class="accordion-item card">
-                    <h2 class="accordion-header" id="heading-2-24">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24" aria-expanded="true" aria-controls="collapse24">
-                            <span class="d-flex align-items-center">
-                                {{ __('Xendit') }}
-                            </span>
-                            {{ __('Enable:') }}
-                            <div class="form-check form-switch custom-switch-v1">
-                                <input type="hidden" name="is_xendit_enabled" value="off">
-                                <input type="checkbox" class="form-check-input input-primary" name="is_xendit_enabled" id="is_xendit_enabled" {{ isset($payment['is_xendit_enabled']) && $payment['is_xendit_enabled'] == 'on' ? 'checked="checked"' : '' }}>
-                                <label class="form-check-label" for="customswitchv1-2"></label>
-                            </div>
-                        </button>
-                    </h2>
-
-                    <div id="collapse24" class="accordion-collapse collapse" aria-labelledby="heading-2-24" data-bs-parent="#accordionExample">
-                        <div class="accordion-body1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="xendit_api" class="form-label">{{ __('API Key') }}</label>
-                                        <input type="text" name="xendit_api" id="xendit_api" class="form-control" value="{{ !isset($payment['xendit_api']) || is_null($payment['xendit_api']) ? '' : $payment['xendit_api'] }}" placeholder="{{ __('Enter API Key') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="xendit_token" class="form-label">{{ __('Token') }}</label>
-                                        <input type="text" name="xendit_token" id="xendit_token" class="form-control" value="{{ !isset($payment['xendit_token']) || is_null($payment['xendit_token']) ? '' : $payment['xendit_token'] }}" placeholder="{{ __('Enter Token') }}">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            {{-- PayFast --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-14">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('Payfast') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_payfast_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_payfast_enabled" id="is_payfast_enabled" {{ isset($payment['is_payfast_enabled']) && $payment['is_payfast_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
+
+                    <div class="accordion-body1">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                            <div class="row pt-2">
+                                <label class="pb-2" for="payfast_mode">{{ __('Payfast Mode') }}</label>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="sandbox" {{ !isset($payment['payfast_mode']) || $payment['payfast_mode'] == '' || $payment['payfast_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="payfast_mode" value="live" {{ isset($payment['payfast_mode']) && $payment['payfast_mode'] == 'live' ? 'checked="checked"' : '' }}>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payfast_merchant_id" class="form-label">{{ __('Merchant Id') }}</label>
+                                    <input type="text" name="payfast_merchant_id" id="payfast_merchant_id" class="form-control" value="{{ !isset($payment['payfast_merchant_id']) || is_null($payment['payfast_merchant_id']) ? '' : $payment['payfast_merchant_id'] }}" placeholder="{{ __('Merchant Id') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payfast_merchant_key" class="form-label">{{ __('Merchant Key') }}</label>
+                                    <input type="text" name="payfast_merchant_key" id="payfast_merchant_key" class="form-control" value="{{ !isset($payment['payfast_merchant_key']) || is_null($payment['payfast_merchant_key']) ? '' : $payment['payfast_merchant_key'] }}" placeholder="{{ __('Merchant Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payfast_signature" class="form-label">{{ __('Salt Passphrase') }}</label>
+                                    <input type="text" name="payfast_signature" id="payfast_signature" class="form-control" value="{{ !isset($payment['payfast_signature']) || is_null($payment['payfast_signature']) ? '' : $payment['payfast_signature'] }}" placeholder="{{ __('Salt Passphrase') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- iyzipay --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-15">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
+                        <span class="d-flex align-items-center">
+                            {{-- <i class="ti ti-credit-card text-primary"></i> --}}
+                            {{ __('IyziPay') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_iyzipay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_iyzipay_enabled" id="is_iyzipay_enabled" {{ isset($payment['is_iyzipay_enabled']) && $payment['is_iyzipay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading-2-14" data-bs-parent="#accordionExample">
+
+                    <div class="accordion-body1">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
+                            <div class="row pt-2">
+                                <label class="pb-2" for="iyzipay_mode">{{ __('IyziPay Mode') }}</label>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="sandbox" {{ !isset($payment['iyzipay_mode']) || $payment['iyzipay_mode'] == '' || $payment['iyzipay_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Sandbox') }}</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="border card p-3">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input input-primary " name="iyzipay_mode" value="live" {{ isset($payment['iyzipay_mode']) && $payment['iyzipay_mode'] == 'live' ? 'checked="checked"' : '' }}>
+                                            <label class="form-check-label d-block" for="">
+                                                <span>
+                                                    <span class="h5 d-block"><strong class="float-end"></strong>{{ __('Live') }}</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="iyzipay_key" class="form-label">{{ __('IyziPay Key') }}</label>
+                                    <input type="text" name="iyzipay_key" id="iyzipay_key" class="form-control" value="{{ !isset($payment['iyzipay_key']) || is_null($payment['iyzipay_key']) ? '' : $payment['iyzipay_key'] }}" placeholder="{{ __('IyziPay Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="iyzipay_secret" class="form-label">{{ __('IyziPay Secret') }}</label>
+                                    <input type="text" name="iyzipay_secret" id="iyzipay_secret" class="form-control" value="{{ !isset($payment['iyzipay_secret']) || is_null($payment['iyzipay_secret']) ? '' : $payment['iyzipay_secret'] }}" placeholder="{{ __('IyziPay Secret') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- SSPay --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-16">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
+                        <span class="d-flex align-items-center">
+                            {{ __('SSPay') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_sspay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_sspay_enabled" id="is_sspay_enabled" {{ isset($payment['is_sspay_enabled']) && $payment['is_sspay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading-2-16" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sspay_secret_key" class="form-label">{{ __('Secret Key') }}</label>
+                                    <input type="text" name="sspay_secret_key" id="sspay_secret_key" class="form-control" value="{{ !isset($payment['sspay_secret_key']) || is_null($payment['sspay_secret_key']) ? '' : $payment['sspay_secret_key'] }}" placeholder="{{ __('Secret Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sspay_category_code" class="form-label">{{ __('Category Code') }}</label>
+                                    <input type="text" name="sspay_category_code" id="sspay_category_code" class="form-control" value="{{ !isset($payment['sspay_category_code']) || is_null($payment['sspay_category_code']) ? '' : $payment['sspay_category_code'] }}" placeholder="{{ __('Category Code') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- PayTab  --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-17">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
+                        <span class="d-flex align-items-center">
+                            {{ __('PayTab') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_paytab_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_paytab_enabled" id="is_paytab_enabled" {{ isset($payment['is_paytab_enabled']) && $payment['is_paytab_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading-2-17" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytab_profile_id" class="form-label">{{ __('Profile Id') }}</label>
+                                    <input type="text" name="paytab_profile_id" id="paytab_profile_id" class="form-control" value="{{ !isset($payment['paytab_profile_id']) || is_null($payment['paytab_profile_id']) ? '' : $payment['paytab_profile_id'] }}" placeholder="{{ __('Profile Id') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytab_server_key" class="form-label">{{ __('Server Key') }}</label>
+                                    <input type="text" name="paytab_server_key" id="paytab_server_key" class="form-control" value="{{ !isset($payment['paytab_server_key']) || is_null($payment['paytab_server_key']) ? '' : $payment['paytab_server_key'] }}" placeholder="{{ __('Server Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytab_region" class="form-label">{{ __('Paytab Region') }}</label>
+                                    <input type="text" name="paytab_region" id="paytab_region" class="form-control" value="{{ !isset($payment['paytab_region']) || is_null($payment['paytab_region']) ? '' : $payment['paytab_region'] }}" placeholder="{{ __('Paytab Region') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Benefit  --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-18">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
+                        <span class="d-flex align-items-center">
+                            {{ __('Benefit') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_benefit_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_benefit_enabled" id="is_benefit_enabled" {{ isset($payment['is_benefit_enabled']) && $payment['is_benefit_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading-2-18" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="benefit_api_key" class="form-label">{{ __('Benefit Key') }}</label>
+                                    <input type="text" name="benefit_api_key" id="benefit_api_key" class="form-control" value="{{ !isset($payment['benefit_api_key']) || is_null($payment['benefit_api_key']) ? '' : $payment['benefit_api_key'] }}" placeholder="{{ __('Enter Benefit Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="benefit_secret_key" class="form-label">{{ __('Benefit Secret Key') }}</label>
+                                    <input type="text" name="benefit_secret_key" id="benefit_secret_key" class="form-control" value="{{ !isset($payment['benefit_secret_key']) || is_null($payment['benefit_secret_key']) ? '' : $payment['benefit_secret_key'] }}" placeholder="{{ __('Enter Benefit Secret key') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Cashfree  --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-19">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
+                        <span class="d-flex align-items-center">
+                            {{ __('Cashfree') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_cashfree_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_cashfree_enabled" id="is_cashfree_enabled" {{ isset($payment['is_cashfree_enabled']) && $payment['is_cashfree_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading-2-19" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cashfree_api_key" class="form-label">{{ __(' Cashfree Key') }}</label>
+                                    <input type="text" name="cashfree_api_key" id="cashfree_api_key" class="form-control" value="{{ !isset($payment['cashfree_api_key']) || is_null($payment['cashfree_api_key']) ? '' : $payment['cashfree_api_key'] }}" placeholder="{{ __('Enter Cashfree Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cashfree_secret_key" class="form-label">{{ __('Cashfree Secret Key') }}</label>
+                                    <input type="text" name="cashfree_secret_key" id="cashfree_secret_key" class="form-control" value="{{ !isset($payment['cashfree_secret_key']) || is_null($payment['cashfree_secret_key']) ? '' : $payment['cashfree_secret_key'] }}" placeholder="{{ __('Enter Cashfree Secret Key') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Aamarpay  --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-20">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
+                        <span class="d-flex align-items-center">
+                            {{ __('Aamarpay') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_aamarpay_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_aamarpay_enabled" id="is_aamarpay_enabled" {{ isset($payment['is_aamarpay_enabled']) && $payment['is_aamarpay_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label for="customswitch1-2" class="form-check-label"></label>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading-2-20" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aamarpay_store_id" class="form-label">{{ __(' Store Id') }}</label>
+                                    <input type="text" name="aamarpay_store_id" id="aamarpay_store_id" class="form-control" value="{{ !isset($payment['aamarpay_store_id']) || is_null($payment['aamarpay_store_id']) ? '' : $payment['aamarpay_store_id'] }}" placeholder="{{ __('Enter Store Id') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aamarpay_signature_key" class="form-label">{{ __('Signature Key') }}</label>
+                                    <input type="text" name="aamarpay_signature_key" id="aamarpay_signature_key" class="form-control" value="{{ !isset($payment['aamarpay_signature_key']) || is_null($payment['aamarpay_signature_key']) ? '' : $payment['aamarpay_signature_key'] }}" placeholder="{{ __('Enter Signature Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aamarpay_description" class="form-label">{{ __('Description') }}</label>
+                                    <input type="text" name="aamarpay_description" id="aamarpay_description" class="form-control" value="{{ !isset($payment['aamarpay_description']) || is_null($payment['aamarpay_description']) ? '' : $payment['aamarpay_description'] }}" placeholder="{{ __('Enter Signature Key') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- PayTR --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-21">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
+                        <span class="d-flex align-items-center">
+                            {{ __('Pay TR') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_paytr_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_paytr_enabled" id="is_paytr_enabled" {{ isset($payment['is_paytr_enabled']) && $payment['is_paytr_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading-2-21" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytr_merchant_id" class="form-label">{{ __('Merchant Id') }}</label>
+                                    <input type="text" name="paytr_merchant_id" id="paytr_merchant_id" class="form-control" value="{{ !isset($payment['paytr_merchant_id']) || is_null($payment['paytr_merchant_id']) ? '' : $payment['paytr_merchant_id'] }}" placeholder="{{ __('Merchant Id') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytr_merchant_key" class="form-label">{{ __('Merchant Key') }}</label>
+                                    <input type="text" name="paytr_merchant_key" id="paytr_merchant_key" class="form-control" value="{{ !isset($payment['paytr_merchant_key']) || is_null($payment['paytr_merchant_key']) ? '' : $payment['paytr_merchant_key'] }}" placeholder="{{ __('Merchant Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paytr_merchant_salt" class="form-label">{{ __('Salt Passphrase') }}</label>
+                                    <input type="text" name="paytr_merchant_salt" id="paytr_merchant_salt" class="form-control" value="{{ !isset($payment['paytr_merchant_salt']) || is_null($payment['paytr_merchant_salt']) ? '' : $payment['paytr_merchant_salt'] }}" placeholder="{{ __('Salt Passphrase') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Yookassa --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-22">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
+                        <span class="d-flex align-items-center">
+                            {{ __('Yookassa') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_yookassa_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_yookassa_enabled" id="is_yookassa_enabled" {{ isset($payment['is_yookassa_enabled']) && $payment['is_yookassa_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading-2-22" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="yookassa_shop_id" class="form-label">{{ __('Shop ID Key') }}</label>
+                                    <input type="text" name="yookassa_shop_id" id="yookassa_shop_id" class="form-control" value="{{ !isset($payment['yookassa_shop_id']) || is_null($payment['yookassa_shop_id']) ? '' : $payment['yookassa_shop_id'] }}" placeholder="{{ __('Enter Shop ID Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="yookassa_secret" class="form-label">{{ __('Secret Key') }}</label>
+                                    <input type="text" name="yookassa_secret" id="yookassa_secret" class="form-control" value="{{ !isset($payment['yookassa_secret']) || is_null($payment['yookassa_secret']) ? '' : $payment['yookassa_secret'] }}" placeholder="{{ __('Enter Secret Key') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Midtrans --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-23">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
+                        <span class="d-flex align-items-center">
+                            {{ __('Midtrans') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_midtrans_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_midtrans_enabled" id="is_midtrans_enabled" {{ isset($payment['is_midtrans_enabled']) && $payment['is_midtrans_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse23" class="accordion-collapse collapse" aria-labelledby="heading-2-23" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="midtrans_secret" class="form-label">{{ __('Secret Key') }}</label>
+                                    <input type="text" name="midtrans_secret" id="midtrans_secret" class="form-control" value="{{ !isset($payment['midtrans_secret']) || is_null($payment['midtrans_secret']) ? '' : $payment['midtrans_secret'] }}" placeholder="{{ __('Enter Secret Key') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Xendit --}}
+            <div class="accordion-item card">
+                <h2 class="accordion-header" id="heading-2-24">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24" aria-expanded="true" aria-controls="collapse24">
+                        <span class="d-flex align-items-center">
+                            {{ __('Xendit') }}
+                        </span>
+                        {{ __('Enable:') }}
+                        <div class="form-check form-switch custom-switch-v1">
+                            <input type="hidden" name="is_xendit_enabled" value="off">
+                            <input type="checkbox" class="form-check-input input-primary" name="is_xendit_enabled" id="is_xendit_enabled" {{ isset($payment['is_xendit_enabled']) && $payment['is_xendit_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="customswitchv1-2"></label>
+                        </div>
+                    </button>
+                </h2>
+
+                <div id="collapse24" class="accordion-collapse collapse" aria-labelledby="heading-2-24" data-bs-parent="#accordionExample">
+                    <div class="accordion-body1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="xendit_api" class="form-label">{{ __('API Key') }}</label>
+                                    <input type="text" name="xendit_api" id="xendit_api" class="form-control" value="{{ !isset($payment['xendit_api']) || is_null($payment['xendit_api']) ? '' : $payment['xendit_api'] }}" placeholder="{{ __('Enter API Key') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="xendit_token" class="form-label">{{ __('Token') }}</label>
+                                    <input type="text" name="xendit_token" id="xendit_token" class="form-control" value="{{ !isset($payment['xendit_token']) || is_null($payment['xendit_token']) ? '' : $payment['xendit_token'] }}" placeholder="{{ __('Enter Token') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="card-footer text-end">
-        {{ Form::submit(__('Save Changes'), ['class' => 'btn-submit btn btn-primary']) }}
-    </div>
-    {{ Form::close() }}
+</div>
+<div class="card-footer text-end">
+    {{ Form::submit(__('Save Changes'), ['class' => 'btn-submit btn btn-primary']) }}
+</div>
+{{ Form::close() }}
 </div>
 </div>
 {{-- recaptcha --}}
@@ -4331,7 +4337,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 @endsection
 @push('script-page')
 <script>
-    (function() {
+    /* (function() {
         var address = CKEDITOR.replace('address', {
             allowedContent: true,
         });
@@ -4356,15 +4362,13 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
         footer.on('change', function(ev) {
             document.getElementById('footer').innerHTML = footer.getData();
         });
-    })();
-    /* jQuery(function($) {
-        $('#agreement').richText();
-        $('#remarks').richText();
-        $('#address').richText();
-        $('#footer').richText();
-    }); */
-</script>
-<script>
+    })(); */
+    txtEditor('address');
+    txtEditor('agreement');
+    txtEditor('remarks');
+    txtEditor('scopeOfService');
+    txtEditor('costBusiness');
+    txtEditor('cancenllation');
     $('.fxnnames').click(function() {
         var value = $(this).text();
         var funrr = <?= (isset($function) && !empty($function)) ? json_encode($function) : 'null' ?>;
