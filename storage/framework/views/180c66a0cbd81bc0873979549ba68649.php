@@ -1444,24 +1444,24 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                         <input type="number" name="equipment" id="" class="form-control" value="<?php echo e(isset($billing['equipment']) ? $billing['equipment'] : ''); ?>" placeholder="Enter Equipments Cost (eg. Tent, Tables, Chairs)" required>
                     </div>
                     <div class="form-group">
-                        <?php echo e(Form::label('welcomesetup', __('Welcome Setup'), ['class' => 'form-label'])); ?>
+                        <?php echo e(Form::label('welcomesetup', __('Travel Costs'), ['class' => 'form-label'])); ?>
 
-                        <input type="number" name="welcomesetup" id="" class="form-control" value="<?php echo e(isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''); ?>" placeholder="Enter Welcome Setup Cost" required>
+                        <input type="number" name="welcomesetup" id="" class="form-control" value="<?php echo e(isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''); ?>" placeholder="Enter Travel Costs" required>
                     </div>
                     <div class="form-group">
-                        <?php echo e(Form::label('rehearsalsetup', __('Rehearsel Setup'), ['class' => 'form-label'])); ?>
+                        <?php echo e(Form::label('rehearsalsetup', __('Personnel'), ['class' => 'form-label'])); ?>
 
-                        <input type="number" name="rehearsalsetup" class="form-control" value="<?php echo e(isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''); ?>" placeholder="Enter Rehearsel Setup Cost" required>
+                        <input type="number" name="rehearsalsetup" class="form-control" value="<?php echo e(isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''); ?>" placeholder="Enter Personnel Cost" required>
                     </div>
                     <div class="form-group">
-                        <?php echo e(Form::label('hotel_rooms', __('Hotel Rooms'), ['class' => 'form-label'])); ?>
+                        <?php echo e(Form::label('hotel_rooms', __('Reimbursements'), ['class' => 'form-label'])); ?>
 
-                        <input type="number" name="hotel_rooms" class="form-control" value="<?php echo e(isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''); ?>" placeholder="Enter Hotel Rooms Cost" required>
+                        <input type="number" name="hotel_rooms" class="form-control" value="<?php echo e(isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''); ?>" placeholder="Enter Reimbursements" required>
                     </div>
                     <div class="form-group">
-                        <?php echo e(Form::label('special_req', __('Special Request/Others'), ['class' => 'form-label'])); ?>
+                        <?php echo e(Form::label('special_req', __('Others'), ['class' => 'form-label'])); ?>
 
-                        <input type="number" name="special_req" class="form-control" value="<?php echo e(isset($billing['special_req']) ? $billing['special_req'] : ''); ?>" placeholder="Enter  Cost" required>
+                        <input type="number" name="special_req" class="form-control" value="<?php echo e(isset($billing['special_req']) ? $billing['special_req'] : ''); ?>" placeholder="Enter Others" required>
                     </div>
                 </div>
             </div>

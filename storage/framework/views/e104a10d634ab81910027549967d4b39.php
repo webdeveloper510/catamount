@@ -90,7 +90,7 @@ $proposalUrl = route('lead.signedproposal',urlencode(encrypt($lead->id)));
                     <td><?php echo e($lead->guest_count ?? '--'); ?></td>
                 </tr>
                 <tr>
-                    <td>Venue</td>
+                    <td>Training Location.</td>
                     <td><?php echo e($lead->venue ?? '--'); ?></td>
                 </tr>
                 <tr>

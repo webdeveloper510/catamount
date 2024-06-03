@@ -123,10 +123,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('name',__('Name'),['class'=>'form-label']) }}
-                                            <span class="text-sm">
-                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                            </span>
-                                            {{Form::text('secondary[name]',$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
+                                            {{Form::text('secondary[name]',$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name')))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">

@@ -32,7 +32,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Venue Rental</td>
+                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Training Location. Rental</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
@@ -239,8 +239,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         <span class=""><?php echo e(@$secondary_contact->relationship ?? '--'); ?></span>
                     </dd>
 
-                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;"><?php echo e(__('Training Location')); ?></span></dt>
-                    <dd class="col-md-12"><span class=""><?php echo e(!empty($lead->venue_selection)? $lead->venue_selection :'--'); ?></span></dd>
+                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;"><?php echo e(__('Training Details')); ?></span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Location')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e(!empty($lead->venue_selection)? $lead->venue_selection :'--'); ?></span></dd>
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Type')); ?></span></dt>
                     <dd class="col-md-6"><span class=""><?php echo e($lead->type); ?></span></dd>
 

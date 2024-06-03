@@ -139,10 +139,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                         <div class="form-group">
                                             <?php echo e(Form::label('name',__('Name'),['class'=>'form-label'])); ?>
 
-                                            <span class="text-sm">
-                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                            </span>
-                                            <?php echo e(Form::text('secondary[name]',$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+                                            <?php echo e(Form::text('secondary[name]',$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name')))); ?>
 
                                         </div>
                                     </div>

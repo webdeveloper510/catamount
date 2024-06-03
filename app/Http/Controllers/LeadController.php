@@ -326,7 +326,6 @@ class LeadController extends Controller
                 [
                     'name' => 'required|max:120',
                     'primary_contact' => 'required',
-                    'secondary_contact' => 'required',
                     'venue' => 'required',
                     'function' => 'required'
 
@@ -986,7 +985,7 @@ class LeadController extends Controller
         $validator = \Validator::make(
             $request->all(),
             [
-                'customerattachment' => 'required|mimes:doc,docx,pdf',
+                'customerattachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png',
             ]
         );
         if ($validator->fails()) {

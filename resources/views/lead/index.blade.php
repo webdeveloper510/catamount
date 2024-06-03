@@ -302,6 +302,7 @@ $proposalstatus = \App\Models\Lead::$status;
                 console.log(data)
                 if (data == 1) {
                     show_toastr('Primary', 'Lead Status Updated Successfully', 'success');
+                    location.reload();
                 } else {
                     show_toastr('Success', 'Lead Status is not updated', 'danger');
 

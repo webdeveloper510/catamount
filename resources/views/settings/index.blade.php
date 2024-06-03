@@ -1541,20 +1541,20 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                         <input type="number" name="equipment" id="" class="form-control" value="{{ isset($billing['equipment']) ? $billing['equipment'] : ''}}" placeholder="Enter Equipments Cost (eg. Tent, Tables, Chairs)" required>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('welcomesetup', __('Welcome Setup'), ['class' => 'form-label']) }}
-                        <input type="number" name="welcomesetup" id="" class="form-control" value="{{ isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''}}" placeholder="Enter Welcome Setup Cost" required>
+                        {{ Form::label('welcomesetup', __('Travel Costs'), ['class' => 'form-label']) }}
+                        <input type="number" name="welcomesetup" id="" class="form-control" value="{{ isset($billing['welcomesetup']) ? $billing['welcomesetup'] : ''}}" placeholder="Enter Travel Costs" required>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('rehearsalsetup', __('Rehearsel Setup'), ['class' => 'form-label']) }}
-                        <input type="number" name="rehearsalsetup" class="form-control" value="{{ isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''}}" placeholder="Enter Rehearsel Setup Cost" required>
+                        {{ Form::label('rehearsalsetup', __('Personnel'), ['class' => 'form-label']) }}
+                        <input type="number" name="rehearsalsetup" class="form-control" value="{{ isset($billing['rehearsalsetup']) ? $billing['rehearsalsetup'] : ''}}" placeholder="Enter Personnel Cost" required>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('hotel_rooms', __('Hotel Rooms'), ['class' => 'form-label']) }}
-                        <input type="number" name="hotel_rooms" class="form-control" value="{{ isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''}}" placeholder="Enter Hotel Rooms Cost" required>
+                        {{ Form::label('hotel_rooms', __('Reimbursements'), ['class' => 'form-label']) }}
+                        <input type="number" name="hotel_rooms" class="form-control" value="{{ isset($billing['hotel_rooms']) ? $billing['hotel_rooms'] : ''}}" placeholder="Enter Reimbursements" required>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('special_req', __('Special Request/Others'), ['class' => 'form-label']) }}
-                        <input type="number" name="special_req" class="form-control" value="{{ isset($billing['special_req']) ? $billing['special_req'] : ''}}" placeholder="Enter  Cost" required>
+                        {{ Form::label('special_req', __('Others'), ['class' => 'form-label']) }}
+                        <input type="number" name="special_req" class="form-control" value="{{ isset($billing['special_req']) ? $billing['special_req'] : ''}}" placeholder="Enter Others" required>
                     </div>
                 </div>
             </div>

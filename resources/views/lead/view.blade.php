@@ -223,8 +223,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         <span class="">{{ @$secondary_contact->relationship ?? '--'}}</span>
                     </dd>
 
-                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;">{{__('Training Location')}}</span></dt>
-                    <dd class="col-md-12"><span class="">{{ !empty($lead->venue_selection)? $lead->venue_selection :'--'}}</span></dd>
+                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;">{{__('Training Details')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
+                    <dd class="col-md-6"><span class="">{{ !empty($lead->venue_selection)? $lead->venue_selection :'--'}}</span></dd>
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Type')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->type }}</span></dd>
 
