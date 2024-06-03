@@ -89,7 +89,7 @@
                                                 <th>Action</th>
                                             </thead>
                                             <tbody>
-                                                @foreach ($docs as $doc)
+                                                @foreach (@$docs as $doc)
                                                 @if(Storage::disk('public')->exists($doc->filepath))
                                                 <tr>
                                                     <td>{{$doc->filename}}</td>
@@ -116,7 +116,7 @@
                                                 <th>Date</th>
                                             </thead>
                                             <tbody>
-                                                @foreach($notes as $note)
+                                                @foreach(@$notes as $note)
                                                 <tr>
                                                     <td>{{ucfirst($note->notes)}}</td>
                                                     <td>{{(App\Models\User::where('id',$note->created_by)->first()->name)}}

@@ -110,10 +110,7 @@ $additional_items = json_decode($settings['additional_items'],true);
         <div class="form-group">
             <?php echo e(Form::label('name',__('Name'),['class'=>'form-label'])); ?>
 
-            <span class="text-sm">
-                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-            </span>
-            <?php echo e(Form::text('secondary[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+            <?php echo e(Form::text('secondary[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name')))); ?>
 
         </div>
     </div>
@@ -131,9 +128,6 @@ $additional_items = json_decode($settings['additional_items'],true);
         <div class="form-group">
             <?php echo e(Form::label('email',__('Email'),['class'=>'form-label'])); ?>
 
-            <span class="text-sm">
-                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-            </span>
             <?php echo e(Form::text('secondary[email]',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))); ?>
 
         </div>

@@ -146,7 +146,7 @@ foreach ($token as $key => $val) {
         </div>
         <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this,'clipboard')" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
+            <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(event,this,'clipboard')" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
                 <i class="ti ti-copy"></i>
             </button>
             <!-- <button type="button" class="btn btn-primary" data-toggle="tooltip" onclick="formSubmit(this,'mail')" title='Send to mail'>Share via mail</button> -->
@@ -159,33 +159,11 @@ foreach ($token as $key => $val) {
     </div>
 </div>
 <script>
-
-
     txtEditor('agreement');
     txtEditor('remarks');
     txtEditor('scopeOfService');
     txtEditor('costBusiness');
     txtEditor('cancenllation');
-    (function() {
-        /*  var agreement = CKEDITOR.replace('agreement', {
-             allowedContent: true,
-         });
-         agreement.on('change', function(ev) {
-             document.getElementById('agreement').innerHTML = agreement.getData();
-         });
-         var remarks = CKEDITOR.replace('remarks', {
-             allowedContent: true,
-         });
-         remarks.on('change', function(ev) {
-             document.getElementById('remarks').innerHTML = remarks.getData();
-         }); */
-    })();
-    /* jQuery(function($) {
-        $('#agreement').richText();
-        $('#remarks').richText();
-        $('#address').richText();
-        $('#footer').richText();
-    }); */
 </script>
 <style>
     #notification {
@@ -199,10 +177,10 @@ foreach ($token as $key => $val) {
         // alert("Copied the data URL: " + dataUrl);
     } */
 
-    function formSubmit(element, type) {
+    function formSubmit(event, element, type) {
         event.preventDefault();
         event.stopPropagation();
-        type = type ?? 'clipboard';
+        // type = type == 'clipboard' ? 'clipboard' : 'mail';
         var dataURL = $(element).data('url');
         var url = "<?php echo e(route('lead.pdf', urlencode(encrypt($lead->id)))); ?>";
         $(element).closest('form').submit(function(e) {
@@ -217,7 +195,9 @@ foreach ($token as $key => $val) {
                 contentType: false,
                 success: function(response) {
                     console.log(response);
-                    copyToClipboard(dataURL);
+                    if (type == 'clipboard') {
+                        copyToClipboard(dataURL);
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.log(status);

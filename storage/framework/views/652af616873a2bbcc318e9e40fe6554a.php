@@ -1,8 +1,8 @@
 <?php
 $selectedvenue = explode(',', $lead->venue_selection);
-$billing = App\Models\ProposalInfo::where('lead_id',$lead->id)->orderby('id','desc')->first();
-if(isset($billing) && !empty($billing)){
-    $billing= json_decode($billing->proposal_info,true);
+$billing = App\Models\ProposalInfo::where('lead_id', $lead->id)->orderby('id', 'desc')->first();
+if (isset($billing) && !empty($billing)) {
+    $billing = json_decode($billing->proposal_info, true);
 }
 $startdate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->start_date)->format('d/m/Y');
 $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d/m/Y');
@@ -32,7 +32,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Venue Rental</td>
+                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Training Location. Rental</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
@@ -48,7 +48,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
 
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        <?php echo e($lead->venue_selection); ?></td>
+                        <?php echo e($lead->venue_selection); ?>
+
+                    </td>
                 </tr>
 
                 <tr>
@@ -66,7 +68,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
 
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        <?php echo e($lead->function); ?></td>
+                        <?php echo e($lead->function); ?>
+
+                    </td>
 
                 </tr>
 
@@ -161,8 +165,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                 </tr>
                 <tr>
-                    <td
-                        style="background-color:#ffff00;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">
+                    <td style="background-color:#ffff00;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">
                         balance due</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">
@@ -212,8 +215,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <?php
                     @$secondary_contact = json_decode($lead->secondary_contact);
                     ?>
-                    
-                    
+
+
                     <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;"><?php echo e(__('Secondary Contact')); ?></span></dt>
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Name')); ?></span></dt>
                     <dd class="col-md-6">
@@ -235,15 +238,10 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dd class="col-md-6">
                         <span class=""><?php echo e(@$secondary_contact->relationship ?? '--'); ?></span>
                     </dd>
-                    
-                    
-                    
-                    
-                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Venue')); ?></span></dt>
-                    <dd class="col-md-6">
-                        <span class=""><?php echo e(!empty($lead->venue_selection)? $lead->venue_selection :'--'); ?></span>
-                    </dd>
 
+                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;"><?php echo e(__('Training Details')); ?></span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Location')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e(!empty($lead->venue_selection)? $lead->venue_selection :'--'); ?></span></dd>
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Type')); ?></span></dt>
                     <dd class="col-md-6"><span class=""><?php echo e($lead->type); ?></span></dd>
 
@@ -251,8 +249,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dd class="col-md-6"><span class=""><?php echo e($lead->guest_count); ?></span></dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Assigned Staff')); ?></span></dt>
-                    <dd class="col-md-6"><span
-                            class=""><?php echo e(!empty($lead->assign_user)?$lead->assign_user->name:'Not Assigned Yet'); ?>
+                    <dd class="col-md-6"><span class=""><?php echo e(!empty($lead->assign_user)?$lead->assign_user->name:'Not Assigned Yet'); ?>
 
                             <?php echo e(!empty($lead->assign_user)? '('.$lead->assign_user->type.')' :''); ?></span></dd>
 
@@ -271,23 +268,17 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Status')); ?></span></dt>
                     <dd class="col-md-6"><span class="">
                             <?php if($lead->status == 0): ?>
-                            <span
-                                class="badge bg-info p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <span class="badge bg-info p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
                             <?php elseif($lead->status == 1): ?>
-                            <span
-                                class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <span class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
                             <?php elseif($lead->status == 2): ?>
-                            <span
-                                class="badge bg-secondary p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <span class="badge bg-secondary p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
                             <?php elseif($lead->status == 3): ?>
-                            <span
-                                class="badge bg-danger p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <span class="badge bg-danger p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
                             <?php elseif($lead->status == 4): ?>
-                            <span
-                                class="badge bg-success p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <span class="badge bg-success p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
                             <?php elseif($lead->status == 5): ?>
-                            <span
-                                class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <span class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
                             <?php endif; ?>
                     </dd>
                 </dl>
@@ -297,9 +288,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                 <div class="w-100 text-end pr-2">
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Lead')): ?>
                     <div class="action-btn bg-info ms-2">
-                        <a href="<?php echo e(route('lead.edit',$lead->id)); ?>"
-                            class="mx-3 btn btn-sm d-inline-flex align-items-center text-white" data-bs-toggle="tooltip"
-                            data-title="<?php echo e(__('Lead Edit')); ?>" title="<?php echo e(__('Edit')); ?>"><i class="ti ti-edit"></i>
+                        <a href="<?php echo e(route('lead.edit',$lead->id)); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white" data-bs-toggle="tooltip" data-title="<?php echo e(__('Lead Edit')); ?>" title="<?php echo e(__('Edit')); ?>"><i class="ti ti-edit"></i>
                         </a>
                     </div>
                     <?php endif; ?>
