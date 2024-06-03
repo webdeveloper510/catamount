@@ -968,18 +968,13 @@ class LeadController extends Controller
     }
     public function lead_user_info($id)
     {
-
         $id = decrypt(urldecode($id));
-        $email = Lead::withTrashed()->find($id)->email;
-        $leads = Lead::withTrashed()->where('email', $email)->get();
-        foreach($leads as $leadKey => $leadValue) {
-            $notes = NotesLeads::where('lead_id', $leadValue->id)->first();
-            @$notes = $notes ? $notes : [];
-            
-            $docs = LeadDoc::where('lead_id', $leadValue->id)->first();
-            @$docs = $docs ? $docs : [];
-        }
-        // $docs = LeadDoc::where('lead_id', $id)->get();
+        $leaddata = Lead::withTrashed()->find($id);
+        $email = $leaddata->email;
+        $phone = $leaddata->primary_contact;
+        $leads = Lead::withTrashed()->where('email', $email)->orWhere('primary_contact', $phone)->get();
+        $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
+        $docs = LeadDoc::where('lead_id', $id)->get();
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
     public function lead_upload($id)
@@ -1009,26 +1004,11 @@ class LeadController extends Controller
                 Log::error('File upload failed: ' . $e->getMessage());
                 return redirect()->back()->with('error', 'File upload failed');
             }
-            // $document = new LeadDoc();
-            // $document->lead_id = $id; // Assuming you have a lead_id field
-            // $document->filename = $originalName; // Store original file name
-            // $document->filepath = $path; // Store file path
-            // $document->save();
-            
-            
-             $document = LeadDoc::updateOrCreate(
-            [
-                'lead_id' => $id,
-            ],
-            [
-                'lead_id' => $id,
-                'filename' => $originalName,
-                'filepath' => $path,
-
-            ]
-        );
-        
-        
+            $document = new LeadDoc();
+            $document->lead_id = $id; // Assuming you have a lead_id field
+            $document->filename = $originalName; // Store original file name
+            $document->filepath = $path; // Store file path
+            $document->save();
             return redirect()->back()->with('success', 'Document Uploaded Successfully');
         } else {
             return redirect()->back()->with('error', 'No file uploaded');
@@ -1065,19 +1045,7 @@ class LeadController extends Controller
         $notes->notes = $request->notes;
         $notes->created_by = $request->createrid;
         $notes->lead_id = $id;
-
-
-        $notes = NotesLeads::updateOrCreate(
-            [
-                'lead_id' => $id,
-            ],
-            [
-                'lead_id' => $id,
-                'notes' => $request->notes,
-                'created_by' => $request->createrid,
-
-            ]
-        );
+        $notes->save();
         return true;
     }
 }
