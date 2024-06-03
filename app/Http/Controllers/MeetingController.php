@@ -192,7 +192,7 @@ class MeetingController extends Controller
             }
 
 
-            $_REQUEST['secondary_contact'] = serialize($request->secondary_contact);
+            $secondary_contact = serialize($request->secondary_contact);
 
             $phone = preg_replace('/\D/', '', $request->input('phone'));
             $meeting                      = new Meeting();
@@ -226,7 +226,7 @@ class MeetingController extends Controller
             $meeting['ad_opts']             = $additional;
             $meeting['floor_plan']          = $request->uploadedImage;
             $meeting['allergies']          = $request->allergies;
-            $meeting['secondary_contact']  = $_REQUEST['secondary_contact'];
+            $meeting['secondary_contact']  = $secondary_contact;
             $meeting['created_by']          = \Auth::user()->creatorId();
 
             $meeting->save();
@@ -1278,8 +1278,6 @@ class MeetingController extends Controller
     public function detailed_info($id)
     {
         $id = decrypt(urldecode($id));
-        // echo "<pre>";print_r($id);die;
-        // $event = Meeting::find($id);
         $event = Meeting::find($id);
 
         return view('meeting.detailed_view', compact('event'));

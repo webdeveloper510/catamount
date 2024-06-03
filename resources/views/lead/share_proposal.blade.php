@@ -156,7 +156,8 @@ foreach ($token as $key => $val) {
     </div>
 </div>
 <script>
-   
+
+
     txtEditor('agreement');
     txtEditor('remarks');
     txtEditor('scopeOfService');
@@ -221,6 +222,7 @@ foreach ($token as $key => $val) {
                 }
             });
         });
+        event.stopPropagation();
         $(element).closest('form').trigger('submit');
     }
 

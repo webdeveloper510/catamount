@@ -113,7 +113,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            <?php echo e(Form::text('secondary["name"]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+            <?php echo e(Form::text('secondary[name]',null,array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
 
         </div>
     </div>
@@ -122,7 +122,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <?php echo e(Form::label('name',__('Phone'),['class'=>'form-label'])); ?>
 
             <div class="intl-tel-input">
-                <input type="tel" id="phone-input1" name="secondary['secondary_contact']" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
+                <input type="tel" id="phone-input1" name="secondary[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16">
                 <input type="hidden" name="secondary_countrycode" id="secondary-country-code">
             </div>
         </div>
@@ -134,7 +134,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            <?php echo e(Form::text('secondary["email"]',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))); ?>
+            <?php echo e(Form::text('secondary[email]',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))); ?>
 
         </div>
     </div>
@@ -142,7 +142,7 @@ $additional_items = json_decode($settings['additional_items'],true);
         <div class="form-group">
             <?php echo e(Form::label('lead_address',__('Address'),['class'=>'form-label'])); ?>
 
-            <?php echo e(Form::text('secondary["lead_address"]',null,array('class'=>'form-control','placeholder'=>__('Address')))); ?>
+            <?php echo e(Form::text('secondary[lead_address]',null,array('class'=>'form-control','placeholder'=>__('Address')))); ?>
 
         </div>
     </div>
@@ -150,7 +150,7 @@ $additional_items = json_decode($settings['additional_items'],true);
         <div class="form-group">
             <?php echo e(Form::label('relationship',__('Title'),['class'=>'form-label'])); ?>
 
-            <?php echo e(Form::text('secondary["relationship"]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
+            <?php echo e(Form::text('secondary[relationship]',null,array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
 
         </div>
     </div>
@@ -378,7 +378,7 @@ $additional_items = json_decode($settings['additional_items'],true);
 </div>
 <div class="modal-footer">
     <button type="button" class="btn  btn-light" data-bs-dismiss="modal">Close</button>
-    <?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary '))); ?>
+    <?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary'))); ?>
 
 </div>
 <style>

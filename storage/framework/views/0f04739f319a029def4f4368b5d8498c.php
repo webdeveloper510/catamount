@@ -28,8 +28,8 @@ $proposalstatus = \App\Models\Lead::$status;
 <?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="container-field">
 
+<div class="container-field">
     <div id="wrapper">
         <div id="page-content-wrapper">
             <div class="container-fluid xyz p0">
@@ -141,9 +141,13 @@ $proposalstatus = \App\Models\Lead::$status;
                                                         <?php echo Form::open(['method' => 'DELETE', 'route' =>
                                                         ['lead.destroy', $lead->id]]); ?>
 
-                                                        <button type="submit" class="mx-3 btn btn-sm  align-items-center text-white show_confirms" data-bs-toggle="tooltip" title='Delete'>
-                                                            <i class="ti ti-trash"></i>
-                                                        </button>
+                                                        <?php echo csrf_field(); ?>
+                                                        <!--<button type="submit" class="mx-3 btn btn-sm  align-items-center text-white show_confirm" data-bs-toggle="tooltip" title='Delete'>-->
+                                                        <!--    <i class="ti ti-trash"></i>-->
+                                                        <!--</button>-->
+                                                        <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white show_confirmdlt" data-bs-toggle="tooltip" title="" data-bs-original-title="Delete">
+                                                                <i class="ti ti-trash"></i>
+                                                            </a>
                                                         <?php echo Form::close(); ?>
 
                                                     </div>

@@ -79,7 +79,7 @@
                 <div class="container-fluid xyz mt-3">
                     <div class="row">
 
-                        <div class="col-lg-6">
+                       {{-- <div class="col-lg-6">
                             <div class="card" id="useradd-1">
                                 <div class="card-body table-border-style">
                                     <h3>Attachments</h3>
@@ -104,7 +104,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
                         {{--<div class="col-lg-6">
                             <div class="card" id="useradd-1">
                                 <div class="card-body table-border-style">
@@ -140,6 +140,8 @@
                     <input type="file" name="customerattachment" id="customerattachment" class="form-control" required>
                     <input type="submit" value="Submit" class="btn btn-primary mt-4" style="float: right;">
                     {{Form::close()}}
+                    
+                    <a href="{{ Storage::url('app/public/'.@$docs->filepath) }}" download style="color: teal;" title="Download">View Document <i class="fa fa-download"></i></a>
                 </div>
             </div>
         </div>
@@ -151,7 +153,7 @@
                     <form method="POST" id="addnotes">
                         @csrf
                         <label for="notes">Notes</label>
-                        <input type="text" class="form-control" name="notes" value="{{$notes->notes}}" required>
+                        <input type="text" class="form-control" name="notes" value="{{@$notes->notes}}" required>
                         <input type="submit" value="Submit" class="btn btn-primary mt-4" style=" float: right;">
                     </form>
                 </div>

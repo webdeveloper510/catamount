@@ -71,7 +71,14 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
 print_r($proposal);
 echo '</pre>'; */
 
-@$proposal = unserialize($proposal['proposal_data']);
+@$proposal = unserialize($proposal['proposal_data']) ?: [];
+@$proposal_settings = unserialize($settings['proposal']);
+
+
+$finalProposalArg = [];
+foreach ($proposal as $proCustKey => $proCustValue) {
+    @$finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
+}
 
 $token = array(
     'USER_EMAIL'  => $users->email,
@@ -80,11 +87,11 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-@$proposal['address'] = strtr($proposal['address'], $varMap);
+@$finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
+
 ?>
 <div class="row">
     <div class="col-lg-12">
-        <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
         <?php echo e(Form::model($lead, ['route' => ['lead.pdf', urlencode(encrypt($lead->id))], 'method' => 'POST','enctype'=>'multipart/form-data'])); ?>
 
 
@@ -110,53 +117,75 @@ foreach ($token as $key => $val) {
                 <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Upload Document')); ?></span></dt>
                 <dd class="col-md-12"><input type="file" name="attachment" id="attachment" class="form-control"></dd>
                 <hr class="mt-4 mb-4">
+                <h5 class="bb"><?php echo e(__('PDF')); ?></h5>
+                <dl class="row">
+                    <dt class="col-md-12"><span class="h6 mb-0"><?php echo e(__('Agreement')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="agreement" class="form-control" id="agreement"><?php echo e(@$finalProposalArg['agreement']); ?></textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Remarks')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="remarks" class="form-control" id="remarks"><?php echo e((@$finalProposalArg['remarks'])); ?></textarea>
+                    </dd>
 
-                
-        <h5 class="bb"><?php echo e(__('PDF')); ?></h5>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Scope of Services')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="scopeOfService" class="form-control" id="scopeOfService"><?php echo e((@$finalProposalArg['scopeOfService'])); ?></textarea>
+                    </dd>
 
-        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Title')); ?></span></dt>
-        <dd class="col-md-9">
-            <input type="text" name="title" class="form-control" id="title" value="<?php echo e(__(@$proposal['title'])); ?>" />
-        </dd>
-        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
-        <dd class="col-md-9">
-            <textarea name="address" class="form-control" id="address"><?php echo e(__(@$proposal['address'])); ?></textarea>
-        </dd>
-        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Agreement')); ?></span></dt>
-        <dd class="col-md-9">
-            <textarea name="agreement" class="form-control" id="agreement"><?php echo e(__(@$proposal['agreement'])); ?></textarea>
-        </dd>
-        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Remarks')); ?></span></dt>
-        <dd class="col-md-9">
-            <textarea name="remarks" class="form-control" id="remarks"><?php echo e(__(@$proposal['remarks'])); ?></textarea>
-        </dd>
-        <dt class="col-md-3"><span class="h6  mb-0"><?php echo e(__('Footer')); ?></span></dt>
-        <dd class="col-md-9">
-            <textarea name="footer" class="form-control" id="footer"><?php echo e(__(@$proposal['footer'])); ?></textarea>
-        </dd>
-        </dl>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Cost and Business Terms')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="costBusiness" class="form-control" id="costBusiness"><?php echo e((@$finalProposalArg['costBusiness'])); ?></textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('CANCELLATION')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea name="cancenllation" class="form-control" id="cancenllation"><?php echo e((@$finalProposalArg['cancenllation'])); ?></textarea>
+                    </dd>
+                </dl>
+            </dl>
+        </div>
+        <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this,'clipboard')" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
+                <i class="ti ti-copy"></i>
+            </button>
+            <!-- <button type="button" class="btn btn-primary" data-toggle="tooltip" onclick="formSubmit(this,'mail')" title='Send to mail'>Share via mail</button> -->
+            <?php echo e(Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))); ?>
+
+        </div>
+
+        <?php echo e(Form::close()); ?>
 
     </div>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(this)" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
-            <i class="ti ti-copy"></i>
-        </button>
-        <?php echo e(Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))); ?>
-
-    </div>
-
-    <?php echo e(Form::close()); ?>
-
-</div>
 </div>
 <script>
-    jQuery(function($) {
+
+
+    txtEditor('agreement');
+    txtEditor('remarks');
+    txtEditor('scopeOfService');
+    txtEditor('costBusiness');
+    txtEditor('cancenllation');
+    (function() {
+        /*  var agreement = CKEDITOR.replace('agreement', {
+             allowedContent: true,
+         });
+         agreement.on('change', function(ev) {
+             document.getElementById('agreement').innerHTML = agreement.getData();
+         });
+         var remarks = CKEDITOR.replace('remarks', {
+             allowedContent: true,
+         });
+         remarks.on('change', function(ev) {
+             document.getElementById('remarks').innerHTML = remarks.getData();
+         }); */
+    })();
+    /* jQuery(function($) {
         $('#agreement').richText();
         $('#remarks').richText();
         $('#address').richText();
         $('#footer').richText();
-    });
+    }); */
 </script>
 <style>
     #notification {
@@ -170,13 +199,16 @@ foreach ($token as $key => $val) {
         // alert("Copied the data URL: " + dataUrl);
     } */
 
-    function formSubmit(element) {
+    function formSubmit(element, type) {
+        event.preventDefault();
+        event.stopPropagation();
+        type = type ?? 'clipboard';
         var dataURL = $(element).data('url');
         var url = "<?php echo e(route('lead.pdf', urlencode(encrypt($lead->id)))); ?>";
         $(element).closest('form').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
-            formData.append('action', 'clipboard');
+            formData.append('action', type);
             $.ajax({
                 url: url,
                 type: 'post',
@@ -184,14 +216,16 @@ foreach ($token as $key => $val) {
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log('success');
+                    console.log(response);
                     copyToClipboard(dataURL);
                 },
                 error: function(xhr, status, error) {
-                    console.log('error');
+                    console.log(status);
+                    console.log(error);
                 }
             });
         });
+        event.stopPropagation();
         $(element).closest('form').trigger('submit');
     }
 

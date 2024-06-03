@@ -136,9 +136,13 @@ $proposalstatus = \App\Models\Lead::$status;
                                                     <div class="action-btn bg-danger ms-2">
                                                         {!! Form::open(['method' => 'DELETE', 'route' =>
                                                         ['lead.destroy', $lead->id]]) !!}
-                                                        <button type="submit" class="mx-3 btn btn-sm  align-items-center text-white show_confirms" data-bs-toggle="tooltip" title='Delete'>
-                                                            <i class="ti ti-trash"></i>
-                                                        </button>
+                                                        @csrf
+                                                        <!--<button type="submit" class="mx-3 btn btn-sm  align-items-center text-white show_confirm" data-bs-toggle="tooltip" title='Delete'>-->
+                                                        <!--    <i class="ti ti-trash"></i>-->
+                                                        <!--</button>-->
+                                                        <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white show_confirmdlt" data-bs-toggle="tooltip" title="" data-bs-original-title="Delete">
+                                                                <i class="ti ti-trash"></i>
+                                                            </a>
                                                         {!! Form::close() !!}
                                                     </div>
                                                     @endcan

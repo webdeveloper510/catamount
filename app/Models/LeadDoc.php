@@ -9,4 +9,9 @@ class LeadDoc extends Model
 {
     use HasFactory;
     protected $table = 'lead_document';
+    protected $fillable = [
+'lead_id',
+'filename',
+        'filepath',
+        ];
 }

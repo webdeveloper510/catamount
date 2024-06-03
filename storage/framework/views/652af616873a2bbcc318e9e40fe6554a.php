@@ -14,12 +14,12 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
             <thead>
                 <tr>
                     <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">
-                        Name : {{ucfirst($lead->name)}}</th>
+                        Name : <?php echo e(ucfirst($lead->name)); ?></th>
                     <th colspan="2" style="padding:5px 0px;margin-left: 5px;font-size:13px"></th>
                     <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">
                         Date:<?php echo date("d/m/Y"); ?> </th>
                     <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">
-                        Trainings: {{ucfirst($lead->type)}}</th>
+                        Trainings: <?php echo e(ucfirst($lead->type)); ?></th>
                 </tr>
                 <tr style="background-color:#063806;">
                     <th>Description</th>
@@ -36,16 +36,19 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{$billing['venue_rental']['cost'] ?? 0 }}
+                        $<?php echo e($billing['venue_rental']['cost'] ?? 0); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        {{$billing['venue_rental']['quantity'] ?? 1}}
+                        <?php echo e($billing['venue_rental']['quantity'] ?? 1); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{$total[] = ($billing['venue_rental']['cost']?? 0)  * ($billing['venue_rental']['quantity'] ?? 1)}}
+                        $<?php echo e($total[] = ($billing['venue_rental']['cost']?? 0)  * ($billing['venue_rental']['quantity'] ?? 1)); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        {{$lead->venue_selection}}</td>
+                        <?php echo e($lead->venue_selection); ?></td>
                 </tr>
 
                 <tr>
@@ -53,15 +56,17 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         Dinner Package</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{$billing['food_package']['cost'] ?? 0}}</td>
+                        $<?php echo e($billing['food_package']['cost'] ?? 0); ?></td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        {{$billing['food_package']['quantity'] ?? 1}}
+                        <?php echo e($billing['food_package']['quantity'] ?? 1); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{$total[] = ($billing['food_package']['cost'] ?? 0) * ($billing['food_package']['quantity'] ?? 1)}}
+                        $<?php echo e($total[] = ($billing['food_package']['cost'] ?? 0) * ($billing['food_package']['quantity'] ?? 1)); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        {{$lead->function}}</td>
+                        <?php echo e($lead->function); ?></td>
 
                 </tr>
 
@@ -69,14 +74,17 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Hotel Rooms</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;"></td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{$billing['hotel_rooms']['cost'] ?? 0 }}
+                        $<?php echo e($billing['hotel_rooms']['cost'] ?? 0); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        {{$billing['hotel_rooms']['quantity'] ?? 1}}
+                        <?php echo e($billing['hotel_rooms']['quantity'] ?? 1); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
 
-                        ${{$total[] =($billing['hotel_rooms']['cost'] ?? 0)* ( $billing['hotel_rooms']['quantity']??1)}}
+                        $<?php echo e($total[] =($billing['hotel_rooms']['cost'] ?? 0)* ( $billing['hotel_rooms']['quantity']??1)); ?>
+
 
 
                     </td>
@@ -95,7 +103,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{array_sum($total)}}
+                        $<?php echo e(array_sum($total)); ?>
+
                     </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                 </tr>
@@ -105,7 +114,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{ 7* array_sum($total)/100 }}
+                        $<?php echo e(7* array_sum($total)/100); ?>
+
                     </td>
                     <td></td>
                 </tr>
@@ -115,7 +125,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{ 20 * array_sum($total)/100 }}
+                        $<?php echo e(20 * array_sum($total)/100); ?>
+
                     </td>
 
                     <td></td>
@@ -134,7 +145,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                        ${{$grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100}}
+                        $<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?>
+
                     </td>
 
                     <td></td>
@@ -154,7 +166,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         balance due</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">
-                        ${{$grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100}}
+                        $<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?>
+
 
                     </td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
@@ -170,127 +183,129 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
             <div class="card-body">
 
                 <dl class="row">
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->leadname }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Lead')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->leadname); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Email')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->email }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Email')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->email); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Phone')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->primary_contact }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Phone')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->primary_contact); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Address')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->lead_address ?? '--'}}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->lead_address ?? '--'); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Trainings Date')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ \Auth::user()->dateFormat($lead->start_date) }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Trainings Date')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($lead->start_date)); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Time')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Time')); ?></span></dt>
                     <dd class="col-md-6"><span class="">
-                            @if($lead->start_time == $lead->end_time)
+                            <?php if($lead->start_time == $lead->end_time): ?>
                             --
-                            @else
-                            {{date('h:i A', strtotime($lead->start_time))}} -
-                            {{date('h:i A', strtotime($lead->end_time))}}
-                            @endif
+                            <?php else: ?>
+                            <?php echo e(date('h:i A', strtotime($lead->start_time))); ?> -
+                            <?php echo e(date('h:i A', strtotime($lead->end_time))); ?>
+
+                            <?php endif; ?>
                         </span>
                     </dd>
-                    @php
+                    <?php
                     @$secondary_contact = json_decode($lead->secondary_contact);
-                    @endphp
+                    ?>
                     
                     
-                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;">{{__('Secondary Contact')}}</span></dt>
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Name')}}</span></dt>
+                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;"><?php echo e(__('Secondary Contact')); ?></span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Name')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class="">{{ @$secondary_contact->name ?? '--'}}</span>
+                        <span class=""><?php echo e(@$secondary_contact->name ?? '--'); ?></span>
                     </dd>
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Phone')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Phone')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class="">{{ @$secondary_contact->secondary_contact ?? '--'}}</span>
+                        <span class=""><?php echo e(@$secondary_contact->secondary_contact ?? '--'); ?></span>
                     </dd>
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Email')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Email')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class="">{{ @$secondary_contact->email ?? '--'}}</span>
+                        <span class=""><?php echo e(@$secondary_contact->email ?? '--'); ?></span>
                     </dd>
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Address')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class="">{{ @$secondary_contact->lead_address ?? '--'}}</span>
+                        <span class=""><?php echo e(@$secondary_contact->lead_address ?? '--'); ?></span>
                     </dd>
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Title')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Title')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class="">{{ @$secondary_contact->relationship ?? '--'}}</span>
+                        <span class=""><?php echo e(@$secondary_contact->relationship ?? '--'); ?></span>
                     </dd>
                     
                     
                     
                     
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Venue')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Venue')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class="">{{  !empty($lead->venue_selection)? $lead->venue_selection :'--'}}</span>
+                        <span class=""><?php echo e(!empty($lead->venue_selection)? $lead->venue_selection :'--'); ?></span>
                     </dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Type')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->type }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Type')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->type); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->guest_count }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Guest Count')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->guest_count); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Assigned Staff')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Assigned Staff')); ?></span></dt>
                     <dd class="col-md-6"><span
-                            class="">{{ !empty($lead->assign_user)?$lead->assign_user->name:'Not Assigned Yet'}}
-                            {{ !empty($lead->assign_user)? '('.$lead->assign_user->type.')' :''}}</span></dd>
+                            class=""><?php echo e(!empty($lead->assign_user)?$lead->assign_user->name:'Not Assigned Yet'); ?>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead Created')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{\Auth::user()->dateFormat($lead->created_at)}}</span></dd>
+                            <?php echo e(!empty($lead->assign_user)? '('.$lead->assign_user->type.')' :''); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Any Special Requirements')}}</span></dt>
-                    @if($lead->spcl_req)
-                    <dd class="col-md-6"><span class="">{{$lead->spcl_req}}</span></dd>
-                    @else
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Lead Created')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($lead->created_at)); ?></span></dd>
+
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Any Special Requirements')); ?></span></dt>
+                    <?php if($lead->spcl_req): ?>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->spcl_req); ?></span></dd>
+                    <?php else: ?>
                     <dd class="col-md-6"><span class="">--</span></dd>
-                    @endif
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Estimate Amount')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $grandtotal != 0 ? '$'. $grandtotal : '--' }}</span></dd>
+                    <?php endif; ?>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Estimate Amount')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($grandtotal != 0 ? '$'. $grandtotal : '--'); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Status')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Status')); ?></span></dt>
                     <dd class="col-md-6"><span class="">
-                            @if($lead->status == 0)
+                            <?php if($lead->status == 0): ?>
                             <span
-                                class="badge bg-info p-2 px-3 rounded">{{ __(\App\Models\Lead::$status[$lead->status]) }}</span>
-                            @elseif($lead->status == 1)
+                                class="badge bg-info p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <?php elseif($lead->status == 1): ?>
                             <span
-                                class="badge bg-warning p-2 px-3 rounded">{{ __(\App\Models\Lead::$status[$lead->status]) }}</span>
-                            @elseif($lead->status == 2)
+                                class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <?php elseif($lead->status == 2): ?>
                             <span
-                                class="badge bg-secondary p-2 px-3 rounded">{{ __(\App\Models\Lead::$status[$lead->status]) }}</span>
-                            @elseif($lead->status == 3)
+                                class="badge bg-secondary p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <?php elseif($lead->status == 3): ?>
                             <span
-                                class="badge bg-danger p-2 px-3 rounded">{{ __(\App\Models\Lead::$status[$lead->status]) }}</span>
-                            @elseif($lead->status == 4)
+                                class="badge bg-danger p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <?php elseif($lead->status == 4): ?>
                             <span
-                                class="badge bg-success p-2 px-3 rounded">{{ __(\App\Models\Lead::$status[$lead->status]) }}</span>
-                            @elseif($lead->status == 5)
+                                class="badge bg-success p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <?php elseif($lead->status == 5): ?>
                             <span
-                                class="badge bg-warning p-2 px-3 rounded">{{ __(\App\Models\Lead::$status[$lead->status]) }}</span>
-                            @endif
+                                class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></span>
+                            <?php endif; ?>
                     </dd>
                 </dl>
             </div>
-            @if($lead->status == 0)
+            <?php if($lead->status == 0): ?>
             <div class="card-footer">
                 <div class="w-100 text-end pr-2">
-                    @can('Edit Lead')
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Lead')): ?>
                     <div class="action-btn bg-info ms-2">
-                        <a href="{{ route('lead.edit',$lead->id) }}"
+                        <a href="<?php echo e(route('lead.edit',$lead->id)); ?>"
                             class="mx-3 btn btn-sm d-inline-flex align-items-center text-white" data-bs-toggle="tooltip"
-                            data-title="{{__('Lead Edit')}}" title="{{__('Edit')}}"><i class="ti ti-edit"></i>
+                            data-title="<?php echo e(__('Lead Edit')); ?>" title="<?php echo e(__('Edit')); ?>"><i class="ti ti-edit"></i>
                         </a>
                     </div>
-                    @endcan
+                    <?php endif; ?>
                 </div>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
-</div>
+</div><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/lead/view.blade.php ENDPATH**/ ?>

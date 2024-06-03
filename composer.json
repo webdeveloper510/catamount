@@ -65,7 +65,10 @@
             "Database\\Seeders\\": "database/seeders/",
             "Modules\\": "Modules/",
             "MercadoPago\\": "vendor/mercadopago/dx-php/src/MercadoPago/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

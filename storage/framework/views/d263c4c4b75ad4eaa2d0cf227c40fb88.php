@@ -37,7 +37,7 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-$finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
+@$proposal_settings['address'] = strtr($proposal_settings['address'], $varMap);
 // echo '<pre>';
 // print_r($proposal_info);
 // echo '</pre>';
@@ -99,10 +99,10 @@ $finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
                             </div>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <h4 class="center-new"><?php echo __(@$finalProposalArg['title']); ?></h4>
+                            <h4 class="center-new"><?php echo __(@$proposal_settings['title']); ?></h4>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <?php echo __(@$finalProposalArg['address']); ?>
+                            <?php echo __(@$proposal_settings['address']); ?>
 
                             <!--  <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                             <h5 class="center-new input-new">
@@ -173,14 +173,14 @@ $finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
                                 <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                             </h5>
                         </div>
-                        <?php echo @$finalProposalArg['footer']; ?>
+                        <?php echo @$proposal_settings['scopeOfService']; ?>
+
+                        <?php echo @$proposal_settings['costBusiness']; ?>
+
+                        <?php echo @$proposal_settings['cancenllation']; ?>
 
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-                                <tr style="color: #000; text-align: left;">
-                                    <th style="padding: 12px;">Label</th>
-                                    <th style="padding: 12px;">Details</th>
-                                </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
                                     <td style="padding: 8px;"><?php echo e(__($users->name)); ?></td>

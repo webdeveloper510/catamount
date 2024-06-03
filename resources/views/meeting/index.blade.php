@@ -170,8 +170,9 @@
                                                     <div class="action-btn bg-danger ms-2">
                                                         {!! Form::open(['method' => 'DELETE', 'route' =>
                                                         ['meeting.destroy', $meeting->id]]) !!}
+                                                        
                                                         <a href="#!"
-                                                            class="mx-3 btn btn-sm   align-items-center text-white show_confirm"
+                                                            class="mx-3 btn btn-sm   align-items-center text-white show_confirmdlt"
                                                             data-bs-toggle="tooltip" title='Delete'>
                                                             <i class="ti ti-trash"></i>
                                                         </a>

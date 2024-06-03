@@ -305,7 +305,15 @@ class CustomerInformation extends Controller
     public function siteusers(){
         // $leadcust = Lead::distinct()->withTrashed()->get();
         // $eventcust = Meeting::distinct()->withTrashed()->get();
-       $allcustomers = MasterCustomer::all();
+       $leads = Lead::where('deleted_at',NULL)->get();
+    //   $allcustomers = MasterCustomer::all();
+    foreach($leads as $keyLead => $valueLead) {
+        @$allcustomers[] = MasterCustomer::where('email',$valueLead->email)->get()->toArray();
+    }
+    
+    // $data['leads'] = $leads->toArray();
+    // $data['allcustomers'] = $allcustomers;
+    // prx($data);
        $importedcustomers = UserImport::distinct()->get();
    
         return view('customer.allcustomers',compact('allcustomers','importedcustomers'));

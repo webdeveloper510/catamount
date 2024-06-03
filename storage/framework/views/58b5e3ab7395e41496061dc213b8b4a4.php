@@ -43,27 +43,30 @@
                                         <tbody>
                                             <?php $__currentLoopData = $allcustomers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customers): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
+                                                <?php
+                                                @$customers = $customers[0];
+                                                ?>
                                                 <td>
-                                                    <?php if($customers->category == 'event'): ?>
-                                                    <a href="<?php echo e(route('event.userinfo',urlencode(encrypt($customers->ref_id)))); ?>"
+                                                    <?php if($customers['category'] == 'event'): ?>
+                                                    <a href="<?php echo e(route('event.userinfo',urlencode(encrypt($customers['ref_id'])))); ?>"
                                                         title="<?php echo e(__('User Details')); ?>"
                                                         class="action-item text-primary"
                                                         style="color:#1551c9 !important;">
-                                                        <b> <?php echo e(ucfirst($customers->name)); ?></b>
+                                                        <b> <?php echo e(ucfirst($customers['name'])); ?></b>
                                                     </a>
                                                     <?php else: ?>
-                                                    <a href="<?php echo e(route('lead.userinfo',urlencode(encrypt($customers->ref_id)))); ?>"
+                                                    <a href="<?php echo e(route('lead.userinfo',urlencode(encrypt($customers['ref_id'])))); ?>"
                                                         data-size="md" title="<?php echo e(__('Lead Details')); ?>"
                                                         class="action-item text-primary"
                                                         style="color:#1551c9 !important;">
-                                                        <b> <?php echo e(ucfirst($customers->name)); ?></b>
+                                                        <b> <?php echo e(ucfirst($customers['name'])); ?></b>
                                                     </a>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td><?php echo e(ucfirst($customers->email)); ?></td>
-                                                <td><?php echo e(ucfirst($customers->phone)); ?></td>
-                                                <td><?php echo e(ucfirst($customers->address)); ?></td>
-                                                <td><?php echo e(ucfirst($customers->type)); ?></td>
+                                                <td><?php echo e(ucfirst($customers['email'])); ?></td>
+                                                <td><?php echo e(ucfirst($customers['phone'])); ?></td>
+                                                <td><?php echo e(ucfirst($customers['address'])); ?></td>
+                                                <td><?php echo e(ucfirst($customers['type'])); ?></td>
                                             </tr>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             <?php $__currentLoopData = $importedcustomers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customers): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

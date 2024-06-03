@@ -972,8 +972,14 @@ class LeadController extends Controller
         $id = decrypt(urldecode($id));
         $email = Lead::withTrashed()->find($id)->email;
         $leads = Lead::withTrashed()->where('email', $email)->get();
-        $notes = NotesLeads::where('lead_id', $id)->first();
-        $docs = LeadDoc::where('lead_id', $id)->get();
+        foreach($leads as $leadKey => $leadValue) {
+            $notes = NotesLeads::where('lead_id', $leadValue->id)->first();
+            @$notes = $notes ? $notes : [];
+            
+            $docs = LeadDoc::where('lead_id', $leadValue->id)->first();
+            @$docs = $docs ? $docs : [];
+        }
+        // $docs = LeadDoc::where('lead_id', $id)->get();
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
     public function lead_upload($id)
@@ -985,14 +991,14 @@ class LeadController extends Controller
         $validator = \Validator::make(
             $request->all(),
             [
-                'lead_file' => 'required|mimes:doc,docx,pdf',
+                'customerattachment' => 'required|mimes:doc,docx,pdf',
             ]
         );
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
             return redirect()->back()->with('error', $messages->first());
         }
-        $file = $request->file('lead_file');
+        $file = $request->file('customerattachment');
         if ($file) {
             $originalName = $file->getClientOriginalName();
             $filename = Str::random(4) . '.' . $file->getClientOriginalExtension();
@@ -1003,11 +1009,26 @@ class LeadController extends Controller
                 Log::error('File upload failed: ' . $e->getMessage());
                 return redirect()->back()->with('error', 'File upload failed');
             }
-            $document = new LeadDoc();
-            $document->lead_id = $id; // Assuming you have a lead_id field
-            $document->filename = $originalName; // Store original file name
-            $document->filepath = $path; // Store file path
-            $document->save();
+            // $document = new LeadDoc();
+            // $document->lead_id = $id; // Assuming you have a lead_id field
+            // $document->filename = $originalName; // Store original file name
+            // $document->filepath = $path; // Store file path
+            // $document->save();
+            
+            
+             $document = LeadDoc::updateOrCreate(
+            [
+                'lead_id' => $id,
+            ],
+            [
+                'lead_id' => $id,
+                'filename' => $originalName,
+                'filepath' => $path,
+
+            ]
+        );
+        
+        
             return redirect()->back()->with('success', 'Document Uploaded Successfully');
         } else {
             return redirect()->back()->with('error', 'No file uploaded');

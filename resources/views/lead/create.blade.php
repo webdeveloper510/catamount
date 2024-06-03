@@ -330,7 +330,7 @@ $additional_items = json_decode($settings['additional_items'],true);
 </div>
 <div class="modal-footer">
     <button type="button" class="btn  btn-light" data-bs-dismiss="modal">Close</button>
-    {{Form::submit(__('Save'),array('class'=>'btn btn-primary '))}}
+    {{Form::submit(__('Save'),array('class'=>'btn btn-primary'))}}
 </div>
 <style>
     .iti.iti--allow-dropdown.iti--separate-dial-code {
