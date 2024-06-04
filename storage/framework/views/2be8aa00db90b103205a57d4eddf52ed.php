@@ -1,22 +1,23 @@
-@extends('layouts.admin')
-@section('page-title')
-{{__('Lead Client')}}
-@endsection
-@section('title')
-<div class="page-header-title">
-    {{__('Lead Client')}}
-</div>
-@endsection
-@section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('siteusers') }}">{{__('Clients')}}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('lead_customers') }}">{{__('Lead Clients')}}</a></li>
-<li class="breadcrumb-item">{{__('Client Details')}}</li>
-@endsection
-@section('action-btn')
+<?php $__env->startSection('page-title'); ?>
+<?php echo e(__('Lead Client')); ?>
 
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('title'); ?>
+<div class="page-header-title">
+    <?php echo e(__('Lead Client')); ?>
+
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('breadcrumb'); ?>
+<li class="breadcrumb-item"><a href="<?php echo e(route('dashboard')); ?>"><?php echo e(__('Dashboard')); ?></a></li>
+<li class="breadcrumb-item"><a href="<?php echo e(route('siteusers')); ?>"><?php echo e(__('Clients')); ?></a></li>
+<li class="breadcrumb-item"><a href="<?php echo e(route('lead_customers')); ?>"><?php echo e(__('Lead Clients')); ?></a></li>
+<li class="breadcrumb-item"><?php echo e(__('Client Details')); ?></li>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('action-btn'); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <div class="container-field">
     <div id="wrapper">
 
@@ -31,41 +32,42 @@
                                         <table class="table datatable" id="datatable">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
-                                                    <th scope="col" class="sort" data-sort="budget">{{__('Training Type')}}</th>
-                                                    <th scope="col" class="sort">{{__('Guest Count')}}</th>
-                                                    <th scope="col" class="sort">{{__('Event Date')}}</th>
-                                                    <!--<th scope="col" class="sort">{{__('Function')}}</th>-->
-                                                    <!--<th scope="col" class="sort">{{__('Bar')}}</th>-->
-                                                    <!-- <th scope="col" class="sort">{{__('Proposal Status')}}</th> -->
-                                                    <th scope="col" class="sort">{{__('Created On')}}</th>
+                                                    <th scope="col" class="sort" data-sort="name"><?php echo e(__('Name')); ?></th>
+                                                    <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Training Type')); ?></th>
+                                                    <th scope="col" class="sort"><?php echo e(__('Guest Count')); ?></th>
+                                                    <th scope="col" class="sort"><?php echo e(__('Event Date')); ?></th>
+                                                    <!--<th scope="col" class="sort"><?php echo e(__('Function')); ?></th>-->
+                                                    <!--<th scope="col" class="sort"><?php echo e(__('Bar')); ?></th>-->
+                                                    <!-- <th scope="col" class="sort"><?php echo e(__('Proposal Status')); ?></th> -->
+                                                    <th scope="col" class="sort"><?php echo e(__('Created On')); ?></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($leads as $lead)
+                                                <?php $__currentLoopData = $leads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td>
-                                                        <!-- <a href="{{ route('lead.info',urlencode(encrypt($lead->id))) }}"
-                                                        data-size="md" title="{{ __('Lead Details') }}"
+                                                        <!-- <a href="<?php echo e(route('lead.info',urlencode(encrypt($lead->id)))); ?>"
+                                                        data-size="md" title="<?php echo e(__('Lead Details')); ?>"
                                                         class="action-item text-primary"
                                                         style="color:#1551c9 !important;"> -->
-                                                        {{ ucfirst($lead->name) }}
+                                                        <?php echo e(ucfirst($lead->name)); ?>
+
                                                         <!-- </a> -->
                                                     </td>
-                                                    <td><b> {{ ucfirst($lead->type) }}</b></td>
+                                                    <td><b> <?php echo e(ucfirst($lead->type)); ?></b></td>
                                                     <td>
-                                                        <span class="budget">{{ $lead->guest_count }}</span>
+                                                        <span class="budget"><?php echo e($lead->guest_count); ?></span>
                                                     </td>
-                                                    <td>{{\Auth::user()->dateFormat($lead->start_date)}}</td>
+                                                    <td><?php echo e(\Auth::user()->dateFormat($lead->start_date)); ?></td>
 
-                                                    <!--<td>{{ ucfirst($lead->function) }}</td>-->
-                                                    <!--<td>{{($lead->bar)}}</td>-->
+                                                    <!--<td><?php echo e(ucfirst($lead->function)); ?></td>-->
+                                                    <!--<td><?php echo e(($lead->bar)); ?></td>-->
 
-                                                    <!-- <td>{{ __(\App\Models\Lead::$status[$lead->status]) }}</td> -->
-                                                    <td>{{\Auth::user()->dateFormat($lead->created_at)}}</td>
+                                                    <!-- <td><?php echo e(__(\App\Models\Lead::$status[$lead->status])); ?></td> -->
+                                                    <td><?php echo e(\Auth::user()->dateFormat($lead->created_at)); ?></td>
 
                                                 </tr>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -89,14 +91,14 @@
                                                 <th>Action</th>
                                             </thead>
                                             <tbody>
-                                                @foreach (@$docs as $doc)
-                                                @if(Storage::disk('public')->exists($doc->filepath))
+                                                <?php $__currentLoopData = @$docs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if(Storage::disk('public')->exists($doc->filepath)): ?>
                                                 <tr>
-                                                    <td>{{$doc->filename}}</td>
-                                                    <td><a href="{{ Storage::url('app/public/'.$doc->filepath) }}" download style="color: teal;" title="Download">View Document<i class="fa fa-download"></i></a>
+                                                    <td><?php echo e($doc->filename); ?></td>
+                                                    <td><a href="<?php echo e(Storage::url('app/public/'.$doc->filepath)); ?>" download style="color: teal;" title="Download">View Document<i class="fa fa-download"></i></a>
                                                 </tr>
-                                                @endif
-                                                @endforeach
+                                                <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -116,14 +118,15 @@
                                                 <th>Date</th>
                                             </thead>
                                             <tbody>
-                                                @foreach(@$notes as $note)
+                                                <?php $__currentLoopData = @$notes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $note): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
-                                                    <td>{{ucfirst($note->notes)}}</td>
-                                                    <td>{{(App\Models\User::where('id',$note->created_by)->first()->name)}}
+                                                    <td><?php echo e(ucfirst($note->notes)); ?></td>
+                                                    <td><?php echo e((App\Models\User::where('id',$note->created_by)->first()->name)); ?>
+
                                                     </td>
-                                                    <td>{{\Auth::user()->dateFormat($note->created_at)}}</td>
+                                                    <td><?php echo e(\Auth::user()->dateFormat($note->created_at)); ?></td>
                                                 </tr>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -134,11 +137,13 @@
                             <div class="card" id="useradd-1">
                                 <div class="card-body table-border-style">
                                     <h3>Upload Documents</h3>
-                                    {{Form::open(array('route' => ['lead.uploaddoc', $lead->id],'method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))}}
+                                    <?php echo e(Form::open(array('route' => ['lead.uploaddoc', $lead->id],'method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))); ?>
+
                                     <label for="customerattachment">Attachment</label>
                                     <input type="file" name="customerattachment" id="customerattachment" class="form-control" required>
                                     <input type="submit" value="Submit" class="btn btn-primary mt-4" style="float: right;">
-                                    {{Form::close()}}
+                                    <?php echo e(Form::close()); ?>
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +153,7 @@
                                 <div class="card-body table-border-style">
                                     <h3>Add Notes/Comments</h3>
                                     <form method="POST" id="addnotes">
-                                        @csrf
+                                        <?php echo csrf_field(); ?>
                                         <label for="notes">Notes</label>
                                         <input type="text" class="form-control" name="notes" required>
                                         <input type="submit" value="Submit" class="btn btn-primary mt-4" style=" float: right;">
@@ -163,8 +168,8 @@
         </div>
     </div>
 
-    @endsection
-    @push('script-page')
+    <?php $__env->stopSection(); ?>
+    <?php $__env->startPush('script-page'); ?>
     <script>
         $(document).ready(function() {
             $('#addnotes').on('submit', function(e) {
@@ -174,12 +179,12 @@
                 var createrid = <?php echo Auth::user()->id; ?>;
 
                 $.ajax({
-                    url: "{{ route('addleadnotes', ['id' => $lead->id]) }}", // URL based on the route with the actual user ID
+                    url: "<?php echo e(route('addleadnotes', ['id' => $lead->id])); ?>", // URL based on the route with the actual user ID
                     type: 'POST',
                     data: {
                         "notes": notes,
                         "createrid": createrid,
-                        "_token": "{{ csrf_token() }}",
+                        "_token": "<?php echo e(csrf_token()); ?>",
                     },
                     success: function(data) {
                         location.reload();
@@ -189,4 +194,5 @@
             });
         });
     </script>
-    @endpush
+    <?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/customer/leaduserview.blade.php ENDPATH**/ ?>
