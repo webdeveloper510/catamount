@@ -66,7 +66,7 @@ $leaddata['venue_rental_cost'] = $venueRentalCost;
 $leaddata['food_package_cost'] = $totalFoodPackageCost;
 $leaddata['bar_package_cost'] = $totalBarPackageCost;
 
-$proposalDataArg = json_decode($proposal->proposal_data);
+$proposalDataArg = isset($proposal->proposal_data) ? json_decode($proposal->proposal_data) : [];
 $proposalSettingArg = unserialize($settings['proposal']);
 
 $agreement = isset($proposalDataArg->content->agreement) ? $proposalDataArg->content->agreement : $proposalSettingArg['agreement'];
