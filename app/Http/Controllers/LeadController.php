@@ -601,11 +601,9 @@ class LeadController extends Controller
 
         if ($request->action == 'clipboard') {
 
-            $pdfData = [
-                'agreement' => html_entity_decode($request->agreement),
-                'remarks' => html_entity_decode($request->remarks),
-            ];
-            $pdfDatadasda = serialize($pdfData);
+
+            // $pdfDatadasda = serialize($request->pdf);
+            $pdfDatadasda = json_encode($request->pdf);
 
             $proposalinfo = ProposalInfo::updateOrCreate(
                 [
@@ -1046,5 +1044,17 @@ class LeadController extends Controller
         $notes->lead_id = $id;
         $notes->save();
         return true;
+    }
+    public function copyurloflead(Request $request, $id)
+    {
+        $id = decrypt(urldecode($id));
+        $proposalinfo = new ProposalInfo();
+        $proposalinfo->lead_id = $id;
+        $proposalinfo->email = '';
+        $proposalinfo->subject = '';
+        $proposalinfo->content = '';
+        $proposalinfo->proposal_info = json_encode($request->billingdata, true);
+        $proposalinfo->save();
+        return $proposalinfo;
     }
 }

@@ -9,27 +9,7 @@ $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
 $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 
-// $data['lead'] = $lead->toArray();
-// $data['users'] = $users->toArray();
-// $data['venue'] = $venue;
-// $data['settings'] = $settings;
-// $data['fixed_cost'] = $fixed_cost;
-// $data['proposal_info'] = $proposal_info;
-
-$proposal = unserialize($proposal_info['proposal_data']);
 $proposal_settings = unserialize($settings['proposal']);
-// echo "old : {$proposal['address']}";
-$finalProposalArg = [];
-foreach ($proposal as $proCustKey => $proCustValue) {
-    @$finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
-}
-/* $sdsfsdf['proposal'] = $proposal;
-$sdsfsdf['proposal_settings'] = $proposal_settings;
-$sdsfsdf['finalProposalArg'] = $finalProposalArg;
-echo '<pre>';
-print_r($sdsfsdf);
-echo '<pre>'; */
-
 $token = array(
     'USER_EMAIL'  => $users->email,
 );
@@ -38,10 +18,9 @@ foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
 @$proposal_settings['address'] = strtr($proposal_settings['address'], $varMap);
-// echo '<pre>';
-// print_r($proposal_info);
-// echo '</pre>';
-// echo "new : {$proposal['address']}";
+
+$proposal_info = json_decode($proposal_info->proposal_data);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,9 +81,8 @@ foreach ($token as $key => $val) {
                             <h4 class="center-new"><?php echo __(@$proposal_settings['title']); ?></h4>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <?php echo __(@$proposal_settings['address']); ?>
-
-                            <!--  <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
+                            <h5 class="center-new"><?php echo __(@$proposal_settings['address']); ?></h5>
+                            <!-- <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                             <h5 class="center-new input-new">
                                 <label for="email"><?php echo e(__('Email')); ?>: </label><?php echo e(__($users->email)); ?>
 
@@ -113,31 +91,31 @@ foreach ($token as $key => $val) {
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="client"><?php echo e(__('Client')); ?>:</label><?php echo e(__($lead->name)); ?>
+                                <label for="client"><?php echo e(__('Client')); ?>:</label><?php echo e(__($proposal_info->client->name)); ?>
 
                             </h5>
                         </div>
                         <div class="col-sm-6 border-new">
                             <h5 class="input-new">
-                                <label for="phone"><?php echo e(__('Phone')); ?>:</label><?php echo e(__($lead->primary_contact)); ?>
+                                <label for="phone"><?php echo e(__('Phone')); ?>:</label><?php echo e(__($proposal_info->client->phone)); ?>
 
                             </h5>
                         </div>
                         <div class="col-sm-6 border-new">
                             <h5 class="input-new">
-                                <label for="email2"><?php echo e(__('Email')); ?></label><?php echo e(__($lead->email)); ?>
+                                <label for="email2"><?php echo e(__('Email')); ?>:</label><?php echo e(__($proposal_info->client->email)); ?>
 
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="servicesDate"><?php echo e(__('Date of service')); ?>:</label><?php echo e(__($lead->start_date)); ?>
+                                <label for="servicesDate"><?php echo e(__('Date of service')); ?>:</label><?php echo e(__($proposal_info->client->dateOfService)); ?>
 
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="services"><?php echo e(__('Services')); ?>:</label><?php echo e(__($lead->type)); ?>
+                                <label for="services"><?php echo e(__('Services')); ?>:</label><?php echo e(__($proposal_info->client->services)); ?>
 
                             </h5>
                         </div>
@@ -145,7 +123,7 @@ foreach ($token as $key => $val) {
                             <h5 class="input-new">
                                 <label for="agreement"><?php echo e(__('Agreement')); ?>:</label>
                             </h5>
-                            <?php echo @$finalProposalArg['agreement']; ?>
+                            <?php echo @$proposal_info->content->agreement; ?>
 
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
@@ -163,50 +141,71 @@ foreach ($token as $key => $val) {
                             <h5 class="input-new">
                                 <label for="remarks"><?php echo e(__('Remarks')); ?>:</label>
                             </h5>
-                            <?php echo __(@$finalProposalArg['remarks']); ?>
+                            <?php echo @$proposal_info->content->remarks; ?>
 
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
-
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
                                 <label for="date"><?php echo e(__('Date')); ?>: <?php echo e(__($lead->start_date)); ?></label>
                             </h5>
                         </div>
-                        <?php echo @$proposal_settings['scopeOfService']; ?>
-
-                        <?php echo @$proposal_settings['costBusiness']; ?>
-
-                        <?php echo @$proposal_settings['cancenllation']; ?>
+                        <div class="col-sm-12  mt-5">
+                            <h5 class="input-new">
+                                <label for="scopeServices"><?php echo e(__('Scope of Services')); ?>:</label>
+                                <p><?php echo @$proposal_settings['scopeOfService']; ?></p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">
+                                <label for="schedule"><?php echo e(__('Schedule')); ?>:</label>
+                                <p><?php echo @$proposal_settings['schedule']; ?></p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">
+                                <label for="costBusinessTerms"><?php echo e(__('Cost and Business Terms')); ?>:</label>
+                                <p><?php echo @$proposal_settings['costBusiness']; ?></p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">
+                                <label for="cencellation"><?php echo e(__('CANCELLATION')); ?>:</label>
+                                <p><?php echo @$proposal_settings['cancenllation']; ?></p>
+                            </h5>
+                        </div>
+                        <!-- <div class="col-sm-12 mt-5">
+                            <h5 class="input-new"><?php echo @$proposal_settings['cancenllation']; ?></h5>
+                        </div> -->
 
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;"><?php echo e(__($users->name)); ?></td>
+                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->from->name)); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;"><?php echo e(__($users->type)); ?></td>
+                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->from->designation)); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><?php echo e(__(date('Y-m-d'))); ?></td>
+                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->from->date)); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;"><input type="text" name="to_name" id="to_name" value="" /></td>
+                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->to->name)); ?></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;"><input type="text" name="to_designation" id="to_designation" value="" /></td>
+                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->to->designation)); ?></td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><input type="date" name="to_date" id="to_date" value="" /></td>
+                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->to->date)); ?></td>
                                 </tr>
                             </table>
                         </div>

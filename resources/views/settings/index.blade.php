@@ -731,27 +731,31 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Address')}}</h6>
-                                                            <textarea name="address" class="form-control" id="address">{{__(@$proposal['address'])}}</textarea>
+                                                            <textarea rows="5" name="address" class="form-control" id="address">{{__(@$proposal['address'])}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Agreement')}}</h6>
-                                                            <textarea name="agreement" class="form-control" id="agreement">{{__(@$proposal['agreement'])}}</textarea>
+                                                            <textarea rows="5" name="agreement" class="form-control" id="agreement">{{__(@$proposal['agreement'])}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Remarks')}}</h6>
-                                                            <textarea name="remarks" class="form-control" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
+                                                            <textarea rows="5" name="remarks" class="form-control" id="remarks">{{__(@$proposal['remarks'])}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('Scope of Services')}}</h6>
-                                                            <textarea name="scopeOfService" class="form-control" id="scopeOfService">{{__(@$proposal['scopeOfService'])}}</textarea>
+                                                            <textarea rows="5" name="scopeOfService" class="form-control" id="scopeOfService">{{__(@$proposal['scopeOfService'])}}</textarea>
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <h6>{{__('Schedule')}}</h6>
+                                                            <textarea rows="5" name="schedule" class="form-control" id="schedule">{{__(@$proposal['schedule'])}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('Cost and Business Terms')}}</h6>
-                                                            <textarea name="costBusiness" class="form-control" id="costBusiness">{{__(@$proposal['costBusiness'])}}</textarea>
+                                                            <textarea rows="5" name="costBusiness" class="form-control" id="costBusiness">{{__(@$proposal['costBusiness'])}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('CANCELLATION')}}</h6>
-                                                            <textarea name="cancenllation" class="form-control" id="cancenllation">{{__(@$proposal['cancenllation'])}}</textarea>
+                                                            <textarea rows="5" name="cancenllation" class="form-control" id="cancenllation">{{__(@$proposal['cancenllation'])}}</textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
@@ -4337,38 +4341,12 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 @endsection
 @push('script-page')
 <script>
-    /* (function() {
-        var address = CKEDITOR.replace('address', {
-            allowedContent: true,
-        });
-        address.on('change', function(ev) {
-            document.getElementById('address').innerHTML = address.getData();
-        });
-        var agreement = CKEDITOR.replace('agreement', {
-            allowedContent: true,
-        });
-        agreement.on('change', function(ev) {
-            document.getElementById('agreement').innerHTML = agreement.getData();
-        });
-        var remarks = CKEDITOR.replace('remarks', {
-            allowedContent: true,
-        });
-        remarks.on('change', function(ev) {
-            document.getElementById('remarks').innerHTML = remarks.getData();
-        });
-        var footer = CKEDITOR.replace('footer', {
-            allowedContent: true,
-        });
-        footer.on('change', function(ev) {
-            document.getElementById('footer').innerHTML = footer.getData();
-        });
-    })(); */
-    txtEditor('address');
+    /* txtEditor('address');
     txtEditor('agreement');
     txtEditor('remarks');
     txtEditor('scopeOfService');
     txtEditor('costBusiness');
-    txtEditor('cancenllation');
+    txtEditor('cancenllation'); */
     $('.fxnnames').click(function() {
         var value = $(this).text();
         var funrr = <?= (isset($function) && !empty($function)) ? json_encode($function) : 'null' ?>;

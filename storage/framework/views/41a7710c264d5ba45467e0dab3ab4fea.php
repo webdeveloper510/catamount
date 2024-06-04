@@ -66,29 +66,11 @@ $leaddata['venue_rental_cost'] = $venueRentalCost;
 $leaddata['food_package_cost'] = $totalFoodPackageCost;
 $leaddata['bar_package_cost'] = $totalBarPackageCost;
 
+$proposalDataArg = json_decode($proposal->proposal_data);
+$proposalSettingArg = unserialize($settings['proposal']);
 
-/* echo '<pre>';
-print_r($proposal);
-echo '</pre>'; */
-
-@$proposal = unserialize($proposal['proposal_data']) ?: [];
-@$proposal_settings = unserialize($settings['proposal']);
-
-
-$finalProposalArg = [];
-foreach ($proposal as $proCustKey => $proCustValue) {
-    @$finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
-}
-
-$token = array(
-    'USER_EMAIL'  => $users->email,
-);
-$pattern = '[%s]';
-foreach ($token as $key => $val) {
-    $varMap[sprintf($pattern, $key)] = $val;
-}
-@$finalProposalArg['address'] = strtr($finalProposalArg['address'], $varMap);
-
+$agreement = isset($proposalDataArg->content->agreement) ? $proposalDataArg->content->agreement : $proposalSettingArg['agreement'];
+$remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content->remarks : $proposalSettingArg['remarks'];
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -97,15 +79,15 @@ foreach ($token as $key => $val) {
 
         <div class="">
             <dl class="row">
-                <input type="hidden" name="lead" value="<?php echo e($lead->id); ?>">
+                <input type="hidden" name="lead" value="<?php echo e(@$lead->id); ?>">
                 <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Name')); ?></span></dt>
                 <dd class="col-md-6">
-                    <input type="text" name="name" class="form-control" value="<?php echo e($lead->name); ?>" readonly>
+                    <input type="text" name="name" class="form-control" value="<?php echo e(@$lead->name); ?>" readonly>
                 </dd>
 
                 <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Recipient')); ?></span></dt>
                 <dd class="col-md-6">
-                    <input type="email" name="email" class="form-control" value="<?php echo e($lead->email); ?>" required>
+                    <input type="email" name="email" class="form-control" value="<?php echo e(@$lead->email); ?>" required>
                 </dd>
 
                 <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Subject')); ?></span></dt>
@@ -117,119 +99,158 @@ foreach ($token as $key => $val) {
                 <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Upload Document')); ?></span></dt>
                 <dd class="col-md-12"><input type="file" name="attachment" id="attachment" class="form-control"></dd>
                 <hr class="mt-4 mb-4">
-                <h5 class="bb"><?php echo e(__('PDF')); ?></h5>
                 <dl class="row">
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Client')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][name]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->client->name ? $proposalDataArg->client->name : $lead->name); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Phone')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][phone]" class="form-control" id="phone" value="<?php echo e(@$proposalDataArg->client->phone ? $proposalDataArg->client->phone : $lead->primary_contact); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Email')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][email]" class="form-control" id="email" value="<?php echo e(@$proposalDataArg->client->email ? $proposalDataArg->client->email : $lead->email); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Date of service')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][dateOfService]" class="form-control" id="dateOfService" value="<?php echo e(@$proposalDataArg->client->dateOfService ? $proposalDataArg->client->dateOfService : $lead->start_date); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Services')); ?></span></dt>
+                    <dd class="col-md-10">
+                        <input type="text" name="pdf[client][services]" class="form-control" id="services" value="<?php echo e(@$proposalDataArg->client->services ? $proposalDataArg->client->services : $lead->type); ?>">
+                    </dd>
+                    <hr class="mt-4 mb-4">
                     <dt class="col-md-12"><span class="h6 mb-0"><?php echo e(__('Agreement')); ?></span></dt>
                     <dd class="col-md-12">
-                        <textarea name="agreement" class="form-control" id="agreement"><?php echo e(@$finalProposalArg['agreement']); ?></textarea>
+                        <textarea rows="5" name="pdf[content][agreement]" class="form-control" id="agreement"><?php echo e(@$agreement); ?></textarea>
                     </dd>
                     <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Remarks')); ?></span></dt>
                     <dd class="col-md-12">
-                        <textarea name="remarks" class="form-control" id="remarks"><?php echo e((@$finalProposalArg['remarks'])); ?></textarea>
+                        <textarea rows="5" name="pdf[content][remarks]" class="form-control" id="remarks"><?php echo e(@$remarks); ?></textarea>
+                    </dd>
+                    <hr class="mt-4 mb-4">
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Name')); ?></span></dt>
+                    <dd class="col-md-10">
+                        <input type="text" name="pdf[from][name]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->name ? $proposalDataArg->from->name : $users->name); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Designation')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->type); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Date')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="date" name="pdf[from][date]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->date ? $proposalDataArg->from->date : date('Y-m-d')); ?>">
+                    </dd>
+                    <hr class="mt-4 mb-4">
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Name')); ?></span></dt>
+                    <dd class="col-md-10">
+                        <input type="text" name="pdf[to][name]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->to->name ? $proposalDataArg->to->name : $lead->name); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Designation')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[to][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->to->designation ? $proposalDataArg->to->designation : $lead->type); ?>">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Date')); ?></span></dt>
+                    <dd class="col-md-4">
+                        <input type="date" name="pdf[to][date]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->to->date ? $proposalDataArg->to->date : $lead->start_date); ?>">
                     </dd>
 
-                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Scope of Services')); ?></span></dt>
-                    <dd class="col-md-12">
-                        <textarea name="scopeOfService" class="form-control" id="scopeOfService"><?php echo e((@$finalProposalArg['scopeOfService'])); ?></textarea>
-                    </dd>
-
-                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Cost and Business Terms')); ?></span></dt>
-                    <dd class="col-md-12">
-                        <textarea name="costBusiness" class="form-control" id="costBusiness"><?php echo e((@$finalProposalArg['costBusiness'])); ?></textarea>
-                    </dd>
-                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('CANCELLATION')); ?></span></dt>
-                    <dd class="col-md-12">
-                        <textarea name="cancenllation" class="form-control" id="cancenllation"><?php echo e((@$finalProposalArg['cancenllation'])); ?></textarea>
-                    </dd>
                 </dl>
             </dl>
         </div>
         <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="formSubmit(event,this,'clipboard')" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
+            <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="getDataUrlAndCopy(this)" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
                 <i class="ti ti-copy"></i>
             </button>
-            <!-- <button type="button" class="btn btn-primary" data-toggle="tooltip" onclick="formSubmit(this,'mail')" title='Send to mail'>Share via mail</button> -->
             <?php echo e(Form::submit(__('Share via mail'),array('class'=>'btn btn-primary'))); ?>
 
         </div>
-
         <?php echo e(Form::close()); ?>
 
     </div>
 </div>
-<script>
-    txtEditor('agreement');
-    txtEditor('remarks');
-    txtEditor('scopeOfService');
-    txtEditor('costBusiness');
-    txtEditor('cancenllation');
-</script>
 <style>
     #notification {
         display: none;
     }
 </style>
 <script>
+    /*  txtEditor('agreement');
+    txtEditor('remarks');
+    txtEditor('scopeOfService');
+    txtEditor('costBusiness');
+    txtEditor('cancenllation'); */
     /* function getDataUrlAndCopy(button) {
         var dataUrl = button.getAttribute('data-url');
         copyToClipboard(dataUrl);
         // alert("Copied the data URL: " + dataUrl);
     } */
 
-    function formSubmit(event, element, type) {
-        event.preventDefault();
-        event.stopPropagation();
-        // type = type == 'clipboard' ? 'clipboard' : 'mail';
-        var dataURL = $(element).data('url');
-        var url = "<?php echo e(route('lead.pdf', urlencode(encrypt($lead->id)))); ?>";
-        $(element).closest('form').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            formData.append('action', type);
+    function getDataUrlAndCopy(button) {
+
+        var dataUrl = button.getAttribute('data-url');
+
+        $('.error-message').hide().html('');
+        var billingData = {};
+        var hasError = false;
+        var errorMessages = [];
+        $('input[name^="billing"]').each(function() {
+            var name = $(this).attr('name');
+            var value = $(this).val();
+
+            var matches = name.match(/^billing\[(.+?)\]\[(.+?)\]$/);
+            if (matches) {
+                var key = matches[1];
+                var field = matches[2];
+
+                if (!billingData[key]) {
+                    billingData[key] = {};
+                }
+                billingData[key][field] = value;
+
+                if (field !== 'notes' && !value) {
+                    hasError = true;
+                    errorMessages.push(`The ${key} ${field} field is required.`);
+                    $(this).addClass('error');
+                } else {
+                    $(this).removeClass('error');
+                }
+            }
+        });
+
+        if (hasError) {
+            $('#validationErrors').html(errorMessages.join('<br>')).show();
+        } else {
+            $('#validationErrors').hide();
+            var url = '<?php echo e(route("lead.copyurl",urlencode(encrypt($lead->id)))); ?>';
             $.ajax({
                 url: url,
-                type: 'post',
-                data: formData,
-                processData: false,
-                contentType: false,
+                type: 'POST',
+                data: {
+                    "_token": "<?php echo e(csrf_token()); ?>",
+                    "billingdata": billingData,
+                },
                 success: function(response) {
+                    copyToClipboard(dataUrl);
                     console.log(response);
-                    if (type == 'clipboard') {
-                        copyToClipboard(dataURL);
-                    }
                 },
                 error: function(xhr, status, error) {
-                    console.log(status);
-                    console.log(error);
+                    console.error(xhr.responseText);
                 }
             });
-        });
-        event.stopPropagation();
-        $(element).closest('form').trigger('submit');
+        }
     }
 
-
     function copyToClipboard(text) {
-        /* Create a temporary input element */
         var tempInput = document.createElement("input");
-
-        /* Set the value of the input element to the text to be copied */
         tempInput.value = text;
-
         document.body.appendChild(tempInput);
-
-        /* Select the text in the input element */
         tempInput.select();
-
-        /* Copy the selected text to the clipboard */
         document.execCommand("copy");
-
-        /* Remove the temporary input element from the DOM */
         document.body.removeChild(tempInput);
         showNotification();
-
-        /* Hide the notification after 2 seconds (adjust as needed) */
         setTimeout(hideNotification, 2000);
     }
 

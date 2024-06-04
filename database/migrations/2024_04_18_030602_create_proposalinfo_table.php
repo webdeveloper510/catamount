@@ -21,9 +21,8 @@ return new class extends Migration
             $table->text('proposal_info')->nullable();
             $table->string('attachments')->nullable();
             $table->integer('created_by')->nullable();
-
             $table->string('proposal_mode')->nullable()->default('email');
-            $table->text('proposal_data')->nullable();
+            $table->longText('proposal_data')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

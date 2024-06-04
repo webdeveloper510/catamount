@@ -9,27 +9,7 @@ $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
 $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 
-// $data['lead'] = $lead->toArray();
-// $data['users'] = $users->toArray();
-// $data['venue'] = $venue;
-// $data['settings'] = $settings;
-// $data['fixed_cost'] = $fixed_cost;
-// $data['proposal_info'] = $proposal_info;
-
-$proposal = unserialize($proposal_info['proposal_data']);
 $proposal_settings = unserialize($settings['proposal']);
-// echo "old : {$proposal['address']}";
-$finalProposalArg = [];
-foreach ($proposal as $proCustKey => $proCustValue) {
-    @$finalProposalArg[$proCustKey] = $proCustValue != NULL ? $proCustValue : $proposal_settings[$proCustKey];
-}
-/* $sdsfsdf['proposal'] = $proposal;
-$sdsfsdf['proposal_settings'] = $proposal_settings;
-$sdsfsdf['finalProposalArg'] = $finalProposalArg;
-echo '<pre>';
-print_r($sdsfsdf);
-echo '<pre>'; */
-
 $token = array(
     'USER_EMAIL'  => $users->email,
 );
@@ -38,10 +18,9 @@ foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
 @$proposal_settings['address'] = strtr($proposal_settings['address'], $varMap);
-// echo '<pre>';
-// print_r($proposal_info);
-// echo '</pre>';
-// echo "new : {$proposal['address']}";
+
+$proposal_info = json_decode($proposal_info->proposal_data);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,8 +81,8 @@ foreach ($token as $key => $val) {
                             <h4 class="center-new">{!!__(@$proposal_settings['title'])!!}</h4>
                         </div>
                         <div class="col-sm-12 border-new">
-                            {!!__(@$proposal_settings['address'])!!}
-                            <!--  <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
+                            <h5 class="center-new">{!!__(@$proposal_settings['address'])!!}</h5>
+                            <!-- <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                             <h5 class="center-new input-new">
                                 <label for="email">{{__('Email')}}: </label>{{__($users->email)}}
                             </h5>
@@ -111,34 +90,34 @@ foreach ($token as $key => $val) {
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="client">{{__('Client')}}:</label>{{__($lead->name)}}
+                                <label for="client">{{__('Client')}}:</label>{{__($proposal_info->client->name)}}
                             </h5>
                         </div>
                         <div class="col-sm-6 border-new">
                             <h5 class="input-new">
-                                <label for="phone">{{__('Phone')}}:</label>{{__($lead->primary_contact)}}
+                                <label for="phone">{{__('Phone')}}:</label>{{__($proposal_info->client->phone)}}
                             </h5>
                         </div>
                         <div class="col-sm-6 border-new">
                             <h5 class="input-new">
-                                <label for="email2">{{__('Email')}}</label>{{__($lead->email)}}
+                                <label for="email2">{{__('Email')}}:</label>{{__($proposal_info->client->email)}}
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="servicesDate">{{__('Date of service')}}:</label>{{__($lead->start_date)}}
+                                <label for="servicesDate">{{__('Date of service')}}:</label>{{__($proposal_info->client->dateOfService)}}
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="services">{{__('Services')}}:</label>{{__($lead->type)}}
+                                <label for="services">{{__('Services')}}:</label>{{__($proposal_info->client->services)}}
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
                             <h5 class="input-new">
                                 <label for="agreement">{{__('Agreement')}}:</label>
                             </h5>
-                            {!!@$finalProposalArg['agreement']!!}
+                            {!!@$proposal_info->content->agreement!!}
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
                         <div class="col-sm-12 border-new">
@@ -155,46 +134,70 @@ foreach ($token as $key => $val) {
                             <h5 class="input-new">
                                 <label for="remarks">{{__('Remarks')}}:</label>
                             </h5>
-                            {!!__(@$finalProposalArg['remarks'])!!}
+                            {!!@$proposal_info->content->remarks!!}
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
-
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
                                 <label for="date">{{__('Date')}}: {{__($lead->start_date)}}</label>
                             </h5>
                         </div>
-                        {!!@$proposal_settings['scopeOfService']!!}
-                        {!!@$proposal_settings['costBusiness']!!}
-                        {!!@$proposal_settings['cancenllation']!!}
+                        <div class="col-sm-12  mt-5">
+                            <h5 class="input-new">
+                                <label for="scopeServices">{{__('Scope of Services')}}:</label>
+                                <p>{!!@$proposal_settings['scopeOfService']!!}</p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">
+                                <label for="schedule">{{__('Schedule')}}:</label>
+                                <p>{!!@$proposal_settings['schedule']!!}</p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">
+                                <label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label>
+                                <p>{!!@$proposal_settings['costBusiness']!!}</p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">
+                                <label for="cencellation">{{__('CANCELLATION')}}:</label>
+                                <p>{!!@$proposal_settings['cancenllation']!!}</p>
+                            </h5>
+                        </div>
+                        <!-- <div class="col-sm-12 mt-5">
+                            <h5 class="input-new">{!!@$proposal_settings['cancenllation']!!}</h5>
+                        </div> -->
+
                         <div class="table">
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;">{{__($users->name)}}</td>
+                                    <td style="padding: 8px;">{{__($proposal_info->from->name)}}</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;">{{__($users->type)}}</td>
+                                    <td style="padding: 8px;">{{__($proposal_info->from->designation)}}</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;">{{__(date('Y-m-d'))}}</td>
+                                    <td style="padding: 8px;">{{__($proposal_info->from->date)}}</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;"><input type="text" name="to_name" id="to_name" value="" /></td>
+                                    <td style="padding: 8px;">{{__($proposal_info->to->name)}}</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;"><input type="text" name="to_designation" id="to_designation" value="" /></td>
+                                    <td style="padding: 8px;">{{__($proposal_info->to->designation)}}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><input type="date" name="to_date" id="to_date" value="" /></td>
+                                    <td style="padding: 8px;">{{__($proposal_info->to->date)}}</td>
                                 </tr>
                             </table>
                         </div>
