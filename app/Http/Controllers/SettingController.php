@@ -1617,7 +1617,7 @@ class SettingController extends Controller
                 ]
             );
         }
-        return redirect()->back()->with('success', __('Venue Added.'));
+        return redirect()->back()->with('success', __('Training Location Added.'));
     }
     public function delete_venue(Request $request)
     {
