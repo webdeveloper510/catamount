@@ -66,11 +66,14 @@ $leaddata['venue_rental_cost'] = $venueRentalCost;
 $leaddata['food_package_cost'] = $totalFoodPackageCost;
 $leaddata['bar_package_cost'] = $totalBarPackageCost;
 
-$proposalDataArg = json_decode($proposal->proposal_data);
+$proposalDataArg = isset($proposal->proposal_data) ? json_decode($proposal->proposal_data) : [];
 $proposalSettingArg = unserialize($settings['proposal']);
 
 $agreement = isset($proposalDataArg->content->agreement) ? $proposalDataArg->content->agreement : $proposalSettingArg['agreement'];
 $remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content->remarks : $proposalSettingArg['remarks'];
+$scopeOfService = isset($proposalDataArg->content->scopeOfService) ? $proposalDataArg->content->scopeOfService : $proposalSettingArg['scopeOfService'];
+$costBusiness = isset($proposalDataArg->content->costBusiness) ? $proposalDataArg->content->costBusiness : $proposalSettingArg['costBusiness'];
+$cancenllation = isset($proposalDataArg->content->cancenllation) ? $proposalDataArg->content->cancenllation : $proposalSettingArg['cancenllation'];
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -123,11 +126,23 @@ $remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-12"><span class="h6 mb-0"><?php echo e(__('Agreement')); ?></span></dt>
                     <dd class="col-md-12">
-                        <textarea rows="5" name="pdf[content][agreement]" class="form-control" id="agreement"><?php echo e(@$agreement); ?></textarea>
+                        <textarea rows="5" name="pdf[settings][agreement]" class="form-control" id="agreement"><?php echo e(@$agreement); ?></textarea>
                     </dd>
                     <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Remarks')); ?></span></dt>
                     <dd class="col-md-12">
-                        <textarea rows="5" name="pdf[content][remarks]" class="form-control" id="remarks"><?php echo e(@$remarks); ?></textarea>
+                        <textarea rows="5" name="pdf[settings][remarks]" class="form-control" id="remarks"><?php echo e(@$remarks); ?></textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Scope of Services')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea rows="5" name="pdf[settings][scopeOfService]" class="form-control" id="scopeOfService"><?php echo e(@$scopeOfService); ?></textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Cost and Business Terms')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea rows="5" name="pdf[settings][costBusiness]" class="form-control" id="costBusiness"><?php echo e(@$costBusiness); ?></textarea>
+                    </dd>
+                    <dt class="col-md-12"><span class="h6  mb-0"><?php echo e(__('Cancellation')); ?></span></dt>
+                    <dd class="col-md-12">
+                        <textarea rows="5" name="pdf[settings][cancenllation]" class="form-control" id="cancenllation"><?php echo e(@$cancenllation); ?></textarea>
                     </dd>
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Name')); ?></span></dt>
@@ -160,6 +175,7 @@ $remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content
             </dl>
         </div>
         <div id="notification" class="alert alert-success mt-1">Link copied to clipboard!</div>
+        <div id="validationErrors" style="display: none;" class="alert alert-danger mt-1"></div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" data-toggle="tooltip" onclick="getDataUrlAndCopy(this)" data-url="<?php echo e(route('lead.signedproposal',urlencode(encrypt($lead->id)))); ?>" title='Copy To Clipboard'>
                 <i class="ti ti-copy"></i>
@@ -193,22 +209,22 @@ $remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content
         var dataUrl = button.getAttribute('data-url');
 
         $('.error-message').hide().html('');
-        var billingData = {};
+        var pdfData = {};
         var hasError = false;
         var errorMessages = [];
-        $('input[name^="billing"]').each(function() {
+        $('input[name^="pdf"],textarea[name^="pdf"]').each(function() {
             var name = $(this).attr('name');
             var value = $(this).val();
 
-            var matches = name.match(/^billing\[(.+?)\]\[(.+?)\]$/);
+            var matches = name.match(/^pdf\[(.+?)\]\[(.+?)\]$/);
             if (matches) {
                 var key = matches[1];
                 var field = matches[2];
 
-                if (!billingData[key]) {
-                    billingData[key] = {};
+                if (!pdfData[key]) {
+                    pdfData[key] = {};
                 }
-                billingData[key][field] = value;
+                pdfData[key][field] = value;
 
                 if (field !== 'notes' && !value) {
                     hasError = true;
@@ -230,7 +246,7 @@ $remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content
                 type: 'POST',
                 data: {
                     "_token": "<?php echo e(csrf_token()); ?>",
-                    "billingdata": billingData,
+                    "pdfData": pdfData,
                 },
                 success: function(response) {
                     copyToClipboard(dataUrl);

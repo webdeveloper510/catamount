@@ -19,7 +19,7 @@ foreach ($token as $key => $val) {
 }
 @$proposal_settings['address'] = strtr($proposal_settings['address'], $varMap);
 
-$proposal_info = json_decode($proposal_info->proposal_data);
+$proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_info->proposal_data) : [];
 
 ?>
 <!DOCTYPE html>

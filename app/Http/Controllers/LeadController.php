@@ -1048,13 +1048,18 @@ class LeadController extends Controller
     public function copyurloflead(Request $request, $id)
     {
         $id = decrypt(urldecode($id));
-        $proposalinfo = new ProposalInfo();
-        $proposalinfo->lead_id = $id;
-        $proposalinfo->email = '';
-        $proposalinfo->subject = '';
-        $proposalinfo->content = '';
-        $proposalinfo->proposal_info = json_encode($request->billingdata, true);
-        $proposalinfo->save();
+        $proposalinfo = ProposalInfo::updateOrCreate(
+            [
+                'lead_id' => $id,
+            ],
+            [
+                'lead_id' => $id,
+                'email' => $request['pdfData']['client']['email'],
+                'created_by' => Auth::user()->id,
+                'proposal_mode' => 'clipboard',
+                'proposal_data' => json_encode($request->pdfData, true),
+            ]
+        );
         return $proposalinfo;
     }
 }
