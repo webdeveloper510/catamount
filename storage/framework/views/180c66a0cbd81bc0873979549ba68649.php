@@ -757,35 +757,35 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                     <div class="row">
                                                         <div class="form-group col-sm-6">
                                                             <h6><?php echo e(__('Title')); ?></h6>
-                                                            <input type="text" class="form-control" name="title" id="title" value="<?php echo e(__(@$proposal['title'])); ?>">
+                                                            <input type="text" class="form-control" name="title" id="title" value="<?php echo e(__(@$proposal['title'])); ?>" required>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6><?php echo e(__('Address')); ?></h6>
-                                                            <textarea rows="5" name="address" class="form-control" id="address"><?php echo e(__(@$proposal['address'])); ?></textarea>
+                                                            <textarea rows="5" name="address" class="form-control" id="address" required><?php echo e(__(@$proposal['address'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6><?php echo e(__('Agreement')); ?></h6>
-                                                            <textarea rows="5" name="agreement" class="form-control" id="agreement"><?php echo e(__(@$proposal['agreement'])); ?></textarea>
+                                                            <textarea rows="5" name="agreement" class="form-control" id="agreement" required><?php echo e(__(@$proposal['agreement'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6><?php echo e(__('Remarks')); ?></h6>
-                                                            <textarea rows="5" name="remarks" class="form-control" id="remarks"><?php echo e(__(@$proposal['remarks'])); ?></textarea>
+                                                            <textarea rows="5" name="remarks" class="form-control" id="remarks" required><?php echo e(__(@$proposal['remarks'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6><?php echo e(__('Scope of Services')); ?></h6>
-                                                            <textarea rows="5" name="scopeOfService" class="form-control" id="scopeOfService"><?php echo e(__(@$proposal['scopeOfService'])); ?></textarea>
+                                                            <textarea rows="5" name="scopeOfService" class="form-control" id="scopeOfService" required><?php echo e(__(@$proposal['scopeOfService'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6><?php echo e(__('Schedule')); ?></h6>
-                                                            <textarea rows="5" name="schedule" class="form-control" id="schedule"><?php echo e(__(@$proposal['schedule'])); ?></textarea>
+                                                            <textarea rows="5" name="schedule" class="form-control" id="schedule" required><?php echo e(__(@$proposal['schedule'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6><?php echo e(__('Cost and Business Terms')); ?></h6>
-                                                            <textarea rows="5" name="costBusiness" class="form-control" id="costBusiness"><?php echo e(__(@$proposal['costBusiness'])); ?></textarea>
+                                                            <textarea rows="5" name="costBusiness" class="form-control" id="costBusiness" required><?php echo e(__(@$proposal['costBusiness'])); ?></textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6><?php echo e(__('CANCELLATION')); ?></h6>
-                                                            <textarea rows="5" name="cancenllation" class="form-control" id="cancenllation"><?php echo e(__(@$proposal['cancenllation'])); ?></textarea>
+                                                            <textarea rows="5" name="cancenllation" class="form-control" id="cancenllation" required><?php echo e(__(@$proposal['cancenllation'])); ?></textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             <?php echo e(Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary'])); ?>
