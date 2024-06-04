@@ -307,6 +307,7 @@ class CustomerInformation extends Controller
         // $eventcust = Meeting::distinct()->withTrashed()->get();
        $leads = Lead::where('deleted_at',NULL)->get();
     //   $allcustomers = MasterCustomer::all();
+    @$allcustomers = [];
     foreach($leads as $keyLead => $valueLead) {
         @$allcustomers[] = MasterCustomer::where('email',$valueLead->email)->get()->toArray();
     }
