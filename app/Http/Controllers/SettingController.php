@@ -2144,6 +2144,7 @@ class SettingController extends Controller
         $address = html_entity_decode($request->address);
         $agreement = html_entity_decode($request->agreement);
         $remarks = html_entity_decode($request->remarks);
+        $schedule = html_entity_decode($request->schedule);
         $scopeOfService = html_entity_decode($request->scopeOfService);
         $costBusiness = html_entity_decode($request->costBusiness);
         $cancenllation = html_entity_decode($request->cancenllation);
@@ -2152,6 +2153,7 @@ class SettingController extends Controller
             'address' =>  $address,
             'agreement' =>  $agreement,
             'remarks' =>  $remarks,
+            'schedule' =>  $schedule,
             'scopeOfService' => $scopeOfService,
             'costBusiness' => $costBusiness,
             'cancenllation' => $cancenllation,

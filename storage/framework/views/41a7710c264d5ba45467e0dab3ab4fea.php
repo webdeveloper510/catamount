@@ -160,11 +160,11 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Name')); ?></span></dt>
                     <dd class="col-md-10">
-                        <input type="text" name="pdf[to][name]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->to->name ? $proposalDataArg->to->name : $lead->name); ?>">
+                        <input type="text" name="pdf[to][name]" class="form-control" id="client" value=" <?php echo e(@$proposalDataArg->to->name ? $proposalDataArg->to->name : $lead->name); ?>">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Designation')); ?></span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[to][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->to->designation ? $proposalDataArg->to->designation : $lead->type); ?>">
+                        <input type="text" name="pdf[to][designation]" class="form-control" id="client" value=" <?php echo e(@$proposalDataArg->to->designation ? $proposalDataArg->to->designation : $lead->type); ?>">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Date')); ?></span></dt>
                     <dd class="col-md-4">
@@ -209,6 +209,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
         var dataUrl = button.getAttribute('data-url');
 
         $('.error-message').hide().html('');
+        var optionalFields = ['pdf[to][name]', 'pdf[to][designation]'];
         var pdfData = {};
         var hasError = false;
         var errorMessages = [];
@@ -226,13 +227,21 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                 }
                 pdfData[key][field] = value;
 
-                if (field !== 'notes' && !value) {
+                /* if (!optionalFields.includes(field) && !value) {
                     hasError = true;
                     errorMessages.push(`The ${key} ${field} field is required.`);
                     $(this).addClass('error');
                 } else {
                     $(this).removeClass('error');
-                }
+                } */
+
+                /* if (field !== 'notes' && !value) {
+                    hasError = true;
+                    errorMessages.push(`The ${key} ${field} field is required.`);
+                    $(this).addClass('error');
+                } else {
+                    $(this).removeClass('error');
+                } */
             }
         });
 

@@ -159,15 +159,18 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Name')}}</span></dt>
                     <dd class="col-md-10">
-                        <input type="text" name="pdf[to][name]" class="form-control" id="client" value="{{ @$proposalDataArg->to->name ? $proposalDataArg->to->name : $lead->name }}">
+                        <!-- <input type="text" name="pdf[to][name]" class="form-control" id="client" value=" {{ @$proposalDataArg->to->name ? $proposalDataArg->to->name : $lead->name }}"> -->
+                        <input type="text" name="pdf[to][name]" class="form-control" id="client" value="">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Designation')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[to][designation]" class="form-control" id="client" value="{{ @$proposalDataArg->to->designation ? $proposalDataArg->to->designation : $lead->type }}">
+                        <!-- <input type="text" name="pdf[to][designation]" class="form-control" id="client" value=" {{ @$proposalDataArg->to->designation ? $proposalDataArg->to->designation : $lead->type }}"> -->
+                        <input type="text" name="pdf[to][designation]" class="form-control" id="client" value="">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="date" name="pdf[to][date]" class="form-control" id="client" value="{{ @$proposalDataArg->to->date ? $proposalDataArg->to->date : $lead->start_date }}">
+                        <!-- <input type="date" name="pdf[to][date]" class="form-control" id="client" value="{{ @$proposalDataArg->to->date ? $proposalDataArg->to->date : $lead->start_date }}"> -->
+                        <input type="date" name="pdf[to][date]" class="form-control" id="client" value="">
                     </dd>
 
                 </dl>
@@ -206,6 +209,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
         var dataUrl = button.getAttribute('data-url');
 
         $('.error-message').hide().html('');
+        var optionalFields = ['pdf[to][name]', 'pdf[to][designation]'];
         var pdfData = {};
         var hasError = false;
         var errorMessages = [];
@@ -223,13 +227,21 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                 }
                 pdfData[key][field] = value;
 
-                if (field !== 'notes' && !value) {
+                /* if (!optionalFields.includes(field) && !value) {
                     hasError = true;
                     errorMessages.push(`The ${key} ${field} field is required.`);
                     $(this).addClass('error');
                 } else {
                     $(this).removeClass('error');
-                }
+                } */
+
+                /* if (field !== 'notes' && !value) {
+                    hasError = true;
+                    errorMessages.push(`The ${key} ${field} field is required.`);
+                    $(this).addClass('error');
+                } else {
+                    $(this).removeClass('error');
+                } */
             }
         });
 

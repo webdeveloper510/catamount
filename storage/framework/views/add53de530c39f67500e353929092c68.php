@@ -18,6 +18,7 @@ if (isset($proposal) && ($proposal['image'] != null)) {
 
 $proposalDataArg = json_decode($proposal_info->proposal_data);
 
+// prx($proposalDataArg);
 /* $proposalSettingsArg = [];
 foreach ($proposal_settings as $proCustKey => $proCustValue) {
     if (array_key_exists($proCustKey, $proposalSettings)) {
@@ -177,7 +178,7 @@ foreach ($token as $key => $val) {
                     <label for="agreement"><?php echo e(__('Agreement')); ?>: </label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo $proposalDataArg->content->agreement; ?></p>
+                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo $proposalDataArg->settings->agreement; ?></p>
                 </div>
             </div>
             <div class="col-sm-12 border-new">
@@ -191,7 +192,7 @@ foreach ($token as $key => $val) {
                     <label for="remarks"><?php echo e(__('Remarks')); ?>:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposalDataArg->content->remarks; ?></p>
+                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposalDataArg->settings->remarks; ?></p>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -204,7 +205,7 @@ foreach ($token as $key => $val) {
                     <label for="scopeServices"><?php echo e(__('Scope of Services')); ?>:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposal_settings['scopeOfService']; ?></p>
+                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposalDataArg->settings->scopeOfService; ?></p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -220,7 +221,7 @@ foreach ($token as $key => $val) {
                     <label for="costBusinessTerms"><?php echo e(__('Cost and Business Terms')); ?>:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposal_settings['costBusiness']; ?></p>
+                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposalDataArg->settings->costBusiness; ?></p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -228,7 +229,7 @@ foreach ($token as $key => $val) {
                     <label for="cencellation"><?php echo e(__('CANCELLATION')); ?>:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposal_settings['cancenllation']; ?></p>
+                    <p style="font-family: 'Open Sans', sans-serif;"><?php echo @$proposalDataArg->settings->cancenllation; ?></p>
                 </div>
             </div>
             <!-- <div class="col-sm-12 border-new1">

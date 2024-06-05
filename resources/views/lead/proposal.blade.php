@@ -21,6 +21,9 @@ foreach ($token as $key => $val) {
 
 $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_info->proposal_data) : [];
 
+// pr($proposal_settings);
+// pr($proposal_info->settings);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +120,7 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                             <h5 class="input-new">
                                 <label for="agreement">{{__('Agreement')}}:</label>
                             </h5>
-                            {!!@$proposal_info->content->agreement!!}
+                            {!!@$proposal_info->settings->agreement!!}
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
                         <div class="col-sm-12 border-new">
@@ -134,7 +137,7 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                             <h5 class="input-new">
                                 <label for="remarks">{{__('Remarks')}}:</label>
                             </h5>
-                            {!!@$proposal_info->content->remarks!!}
+                            {!!@$proposal_info->settings->remarks!!}
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
                         </div>
                         <div class="col-sm-12 mt-5">
@@ -145,7 +148,7 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                         <div class="col-sm-12  mt-5">
                             <h5 class="input-new">
                                 <label for="scopeServices">{{__('Scope of Services')}}:</label>
-                                <p>{!!@$proposal_settings['scopeOfService']!!}</p>
+                                <p>{!!@$proposal_info->settings->scopeOfService!!}</p>
                             </h5>
                         </div>
                         <div class="col-sm-12 mt-5">
@@ -157,13 +160,13 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
                                 <label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label>
-                                <p>{!!@$proposal_settings['costBusiness']!!}</p>
+                                <p>{!!@$proposal_info->settings->costBusiness!!}</p>
                             </h5>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
                                 <label for="cencellation">{{__('CANCELLATION')}}:</label>
-                                <p>{!!@$proposal_settings['cancenllation']!!}</p>
+                                <p>{!!@@$proposal_info->settings->cancenllation!!}</p>
                             </h5>
                         </div>
                         <!-- <div class="col-sm-12 mt-5">

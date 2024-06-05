@@ -18,6 +18,7 @@ if (isset($proposal) && ($proposal['image'] != null)) {
 
 $proposalDataArg = json_decode($proposal_info->proposal_data);
 
+// prx($proposalDataArg);
 /* $proposalSettingsArg = [];
 foreach ($proposal_settings as $proCustKey => $proCustValue) {
     if (array_key_exists($proCustKey, $proposalSettings)) {
@@ -177,7 +178,7 @@ foreach ($token as $key => $val) {
                     <label for="agreement">{{__('Agreement')}}: </label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!$proposalDataArg->content->agreement!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!$proposalDataArg->settings->agreement!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 border-new">
@@ -191,7 +192,7 @@ foreach ($token as $key => $val) {
                     <label for="remarks">{{__('Remarks')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->content->remarks!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->remarks!!}</p>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -204,7 +205,7 @@ foreach ($token as $key => $val) {
                     <label for="scopeServices">{{__('Scope of Services')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposal_settings['scopeOfService']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->scopeOfService!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -220,7 +221,7 @@ foreach ($token as $key => $val) {
                     <label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposal_settings['costBusiness']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->costBusiness!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -228,7 +229,7 @@ foreach ($token as $key => $val) {
                     <label for="cencellation">{{__('CANCELLATION')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposal_settings['cancenllation']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->cancenllation!!}</p>
                 </div>
             </div>
             <!-- <div class="col-sm-12 border-new1">
