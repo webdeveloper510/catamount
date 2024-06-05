@@ -49,7 +49,7 @@ class DashboardController extends Controller
                 $data['totalUser']          = User::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalAccount']       = Account::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalContact']       = Contact::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalLead']          = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->count();
+                $data['totalLead']          = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->count();
                 $data['totalSalesorder']    = $totalSalesOrder = SalesOrder::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalInvoice']       = $totalInvoice = Invoice::where('created_by', \Auth::user()->creatorId())->count();
                 $data['totalQuote']         = $totalQuote = Quote::where('created_by', \Auth::user()->creatorId())->count();
@@ -59,7 +59,7 @@ class DashboardController extends Controller
 
                 $date = today()->format('Y-m-d');
 
-                $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->get();
+                $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->get();
                 $revenue = Meeting::all();
                 $events_revenue = 0;
                 foreach ($revenue as $key => $value) {

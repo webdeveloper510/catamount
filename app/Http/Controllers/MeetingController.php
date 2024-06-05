@@ -170,7 +170,7 @@ class MeetingController extends Controller
                 })->count();
 
             if ($overlapping_event > 0) {
-                return redirect()->back()->with('error', 'Event exists for correspomding time or venue!');
+                return redirect()->back()->with('error', 'Trainings exists for correspomding time or Training Location!');
             }
 
             $overlapping_event = Blockdate::where('start_date', '<=', $end_date)
@@ -188,7 +188,7 @@ class MeetingController extends Controller
                 })->count();
 
             if ($overlapping_event > 0) {
-                return redirect()->back()->with('error', 'Date is Blocked for corrosponding time and venue');
+                return redirect()->back()->with('error', 'Date is Blocked for corrosponding time and Training Location');
             }
 
 
@@ -232,6 +232,31 @@ class MeetingController extends Controller
             $meeting->save();
             // echo "<pre>";print_r($meeting);die;
 
+            if ($meeting->attendees_lead != 0) {
+                Lead::find($request->lead)
+                    ->update([
+                        'converted_to' => 1,
+                        'lead_status' => 0,
+                        'name' => $request->name,
+                        'start_date' => $request->start_date,
+                        'email' => $request->email,
+                        'lead_address' => $request->lead_address ?? '',
+                        'company_name' => $request->company_name,
+                        'relationship' => $request->relationship,
+                        'type' => $request->type,
+                        'venue_selection' => implode(',', $request->venue),
+                        'func_package' => $package,
+                        // 'function' => implode(',', $request->function),
+                        'guest_count' => $request->guest_count,
+                        'rooms' => $request->rooms ?? 0,
+                        'bar' => $request->baropt,
+                        'bar_package' => $bar_pack,
+                        'spcl_req' => $request->spcl_request,
+                        'phone' => $phone,
+                        'allergies' => $request->allergies
+                    ]);
+            }
+
             if (!empty($request->file('atttachment'))) {
                 $file = $request->file('atttachment');
                 $originalName = $file->getClientOriginalName();
@@ -249,17 +274,6 @@ class MeetingController extends Controller
                     return redirect()->back()->with('error', 'File upload failed');
                 }
             }
-            // if (!empty($request->file('atttachment'))){
-            //     $file =  $request->file('atttachment');
-            //     $filename = 'Event_'.Str::random(7) . '.' . $file->getClientOriginalExtension();
-            //     $folder = 'Event/' . $meeting->id; 
-            //     try {
-            //         $path = $file->storeAs($folder, $filename, 'public');
-            //     } catch (\Exception $e) {
-            //         Log::error('File upload failed: ' . $e->getMessage());
-            //         return redirect()->back()->with('error', 'File upload failed');
-            //     }
-            // }
             $existingcustomer = MasterCustomer::where('email', $request->email)->first();
             if (!$existingcustomer) {
                 $customer = new MasterCustomer();
@@ -306,8 +320,8 @@ class MeetingController extends Controller
             $data = [
                 "to" => $FcmToken,
                 "notification" => [
-                    "title" => 'Event created.',
-                    "body" => 'New Event is Created',
+                    "title" => 'Trainings created.',
+                    "body" => 'New Trainings is Created',
                 ]
             ];
             $encodedData = json_encode($data);
@@ -325,10 +339,8 @@ class MeetingController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-            // Disabling SSL Certificate support temporarly
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
-            // Execute post
             $result = curl_exec($ch);
             if ($result === FALSE) {
                 die('Curl failed: ' . curl_error($ch));
@@ -345,7 +357,7 @@ class MeetingController extends Controller
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
-            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event created!'));
+            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));
         }
     }
     /**
@@ -415,7 +427,7 @@ class MeetingController extends Controller
                     'lead_address' => 'required|max:120',
                     'type' => 'required',
                     'venue' => 'required|max:120',
-                    'function' => 'required|max:120',
+                    // 'function' => 'required|max:120',
                     'guest_count' => 'required',
                     'start_time' => 'required',
                     'end_time' => 'required',
@@ -448,7 +460,7 @@ class MeetingController extends Controller
                 })->where('id', '<>', $meeting->id)->count();
 
             if ($overlapping_event > 0) {
-                return redirect()->back()->with('error', 'Event with overlapping time and matching venue already exists!')
+                return redirect()->back()->with('error', 'Trainings with overlapping time and matching Training location already exists!')
                     ->withInput();
             }
 
@@ -467,15 +479,15 @@ class MeetingController extends Controller
                 })->where('id', '<>', $meeting->id)->count();
 
             if ($overlapping_event > 0) {
-                return redirect()->back()->with('error', 'Date Already Blocked for corresponding time and Venue');
+                return redirect()->back()->with('error', 'Date Already Blocked for corresponding time and Training Location');
             }
 
             if (isset($_REQUEST['venue'])) {
                 $venue = implode(',', $_REQUEST['venue']);
             }
-            if (isset($_REQUEST['function'])) {
+            /* if (isset($_REQUEST['function'])) {
                 $function = implode(',', $_REQUEST['function']);
-            }
+            } */
             if (isset($_REQUEST['meal'])) {
                 $meal = $_REQUEST['meal'];
             }
@@ -527,7 +539,7 @@ class MeetingController extends Controller
             $meeting['venue_selection']    = $request->venue_selection;
             $meeting['email']              = $request->email;
             $meeting['lead_address']      = $request->lead_address;
-            $meeting['function']           = $function;
+            // $meeting['function']           = $function;
             $meeting['venue_selection']    = $venue;
             $meeting['func_package']       = $package;
             $meeting['guest_count']        = $request->guest_count;
@@ -581,7 +593,7 @@ class MeetingController extends Controller
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
-            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Updated!'));
+            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Updated!'));
         } else {
             return redirect()->back()->with('error', 'Permission Denied');
         }
@@ -601,7 +613,7 @@ class MeetingController extends Controller
             Billing::where('event_id', $meeting->id)->delete();
             // Billingdetail::where('event_id', $meeting->id)->delete();
             Agreement::where('event_id', $meeting->id)->delete();
-            return redirect()->back()->with('success', 'Event Deleted!');
+            return redirect()->back()->with('success', 'Trainings Deleted!');
         } else {
             return redirect()->back()->with('error', 'permission Denied');
         }
@@ -734,7 +746,7 @@ class MeetingController extends Controller
             })->count();
 
         if ($overlapping_meetings > 0) {
-            return redirect()->back()->with('error', 'Event is Already Booked For this date or time');
+            return redirect()->back()->with('error', 'Trainings is Already Booked For this date or time');
         }
 
         $overlapping_event = Blockdate::where('start_date', '<=', $end_date)
@@ -752,7 +764,7 @@ class MeetingController extends Controller
             })->count();
 
         if ($overlapping_event > 0) {
-            return redirect()->back()->with('error', 'Date Already Blocked for corrosponding time and Venue');
+            return redirect()->back()->with('error', 'Date Already Blocked for corrosponding time and Training Location');
         }
 
         $venue = implode(',', $_REQUEST['venue']);
@@ -1162,7 +1174,7 @@ class MeetingController extends Controller
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
-            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Approved!'));
+            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Approved!'));
         } elseif ($status == 4) {
             Agreement::where('event_id', $id)->delete();
             try {
@@ -1194,21 +1206,21 @@ class MeetingController extends Controller
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
-            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Resent!'));
+            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Resent!'));
         } elseif ($status == 5) {
             if (\Auth::user()->type == 'owner') {
                 $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
-            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Withdrawn!'));
+            return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Withdrawn!'));
         }
         if (\Auth::user()->type == 'owner') {
             $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
         } else {
             $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
         }
-        return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Event Updated!'));
+        return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Updated!'));
     }
     public function buffer_time(Request $request)
     {

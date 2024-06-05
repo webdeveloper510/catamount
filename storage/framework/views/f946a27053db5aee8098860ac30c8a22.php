@@ -1,15 +1,16 @@
-@extends('layouts.admin')
-@section('breadcrumb')
-@endsection
-@section('page-title')
-{{ __('Home') }}
-@endsection
-@section('title')
-{{ __('Dashboard') }}
-@endsection
-@section('action-btn')
-@endsection
-@section('content')
+<?php $__env->startSection('breadcrumb'); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('page-title'); ?>
+<?php echo e(__('Home')); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('title'); ?>
+<?php echo e(__('Dashboard')); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('action-btn'); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <style>
     h6 {
         font-size: 12px !important;
@@ -20,32 +21,32 @@
         <div id="page-content-wrapper">
             <div class="container-fluid xyz" id="useradd-1">
                 <div class="row">
-                    @if (\Auth::user()->type == 'owner'||\Auth::user()->type == 'Admin')
+                    <?php if(\Auth::user()->type == 'owner'||\Auth::user()->type == 'Admin'): ?>
                     <div class="col-lg-4 col-sm-12 totallead" style="padding: 15px;">
-                        <a href="{{route('lead.index')}}" target="_blank">
+                        <a href="<?php echo e(route('lead.index')); ?>" target="_blank">
                             <div class="card">
                                 <div class="card-body newcard_body" onclick="leads();">
                                     <div class="theme-avtar bg-info">
                                         <i class="fas fa-address-card"></i>
                                     </div>
                                     <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Active Leads') }}</h6>
-                                        <h3 class="mb-0">{{ $data['totalLead'] }}</h3>
+                                        <h6 class="mb-3"><?php echo e(__('Active Leads')); ?></h6>
+                                        <h3 class="mb-0"><?php echo e($data['totalLead']); ?></h3>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-12" id="toggleDiv" style="padding: 15px;">
-                        <a href="{{route('meeting.index')}}" target="_blank">
+                        <a href="<?php echo e(route('meeting.index')); ?>" target="_blank">
                             <div class="card">
                                 <div class="card-body newcard_body">
                                     <div class="theme-avtar bg-warning">
                                         <i class="fa fa-tasks"></i>
                                     </div>
                                     <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Active/Upcoming Trainings') }}</h6>
-                                        <h3 class="mb-0">{{ @$upcoming }} </h3>
+                                        <h6 class="mb-3"><?php echo e(__('Active/Upcoming Trainings')); ?></h6>
+                                        <h3 class="mb-0"><?php echo e(@$upcoming); ?> </h3>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +54,7 @@
                     </div>
 
                     <div class="col-lg-4 col-sm-12" style="padding: 15px;">
-                        <a href="{{route('billing.index')}}" target="_blank">
+                        <a href="<?php echo e(route('billing.index')); ?>" target="_blank">
                             <div class="card">
                                 <div class="card-body newcard_body new-div">
                                     <div class="theme-avtar bg-success">
@@ -61,15 +62,17 @@
                                     </div>
                                     <div class="flex-div">
                                         <div style="">
-                                            <h6 class="mb-0">{{ __('Amount(E)') }}</h6>
+                                            <h6 class="mb-0"><?php echo e(__('Amount(E)')); ?></h6>
                                             <h3 class="mb-0">
-                                                {{ $events_revenue != 0 ? '$'.number_format($events_revenue) : '--' }}
+                                                <?php echo e($events_revenue != 0 ? '$'.number_format($events_revenue) : '--'); ?>
+
                                             </h3>
                                         </div>
                                         <div class="mt10">
-                                            <h6 class="mb-0">{{ __('Amount Recieved(E)') }}</h6>
+                                            <h6 class="mb-0"><?php echo e(__('Amount Recieved(E)')); ?></h6>
                                             <h3 class="mb-0">
-                                                {{ $events_revenue_generated != 0 ? '$'.number_format($events_revenue_generated) : '--' }}
+                                                <?php echo e($events_revenue_generated != 0 ? '$'.number_format($events_revenue_generated) : '--'); ?>
+
                                             </h3>
 
                                         </div>
@@ -80,10 +83,10 @@
                             </div>
                     </div>
                     </a>
-                    @endif
-                    @php
+                    <?php endif; ?>
+                    <?php
                     $setting = App\Models\Utility::settings();
-                    @endphp
+                    ?>
                 </div>
                 <div class="row">
                     <div class="col-sm">
@@ -91,79 +94,82 @@
                             <h5 class="card-title mb-2">Active Leads</h5>
                             <div class="scrol-card">
 
-                                @foreach($activeLeads as $lead)
+                                <?php $__currentLoopData = $activeLeads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
-                                        <h5 class="card-text">{{ $lead['leadname'] }}
-                                            <span>({{ $lead['type'] }})</span>
+                                        <h5 class="card-text"><?php echo e($lead['leadname']); ?>
+
+                                            <span>(<?php echo e($lead['type']); ?>)</span>
                                         </h5>
 
-                                        @if($lead['start_date'] == $lead['end_date'])
-                                        <p>{{ Carbon\Carbon::parse($lead['start_date'])->format('M d')}}</p>
-                                        @else
-                                        <p>{{ Carbon\Carbon::parse($lead['start_date'])->format('M d')}} -
-                                            {{ \Auth::user()->dateFormat($lead['end_date'])}}
+                                        <?php if($lead['start_date'] == $lead['end_date']): ?>
+                                        <p><?php echo e(Carbon\Carbon::parse($lead['start_date'])->format('M d')); ?></p>
+                                        <?php else: ?>
+                                        <p><?php echo e(Carbon\Carbon::parse($lead['start_date'])->format('M d')); ?> -
+                                            <?php echo e(\Auth::user()->dateFormat($lead['end_date'])); ?>
+
                                         </p>
-                                        @endif
-                                        @can('Show Lead')
+                                        <?php endif; ?>
+                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Lead')): ?>
                                         <div class="action-btn bg-warning ms-2">
-                                            <a href="javascript:void(0);" data-size="md" data-url="{{ route('lead.show',$lead['id']) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('Lead Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                            <a href="javascript:void(0);" data-size="md" data-url="<?php echo e(route('lead.show',$lead['id'])); ?>" data-bs-toggle="tooltip" title="<?php echo e(__('Quick View')); ?>" data-ajax-popup="true" data-title="<?php echo e(__('Lead Details')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                 <i class="ti ti-eye"></i>
                                             </a>
                                         </div>
-                                        @endcan
+                                        <?php endif; ?>
                                     </div>
 
                                 </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
-                            @can('Create Lead')
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Lead')): ?>
                             <div class="col-12 text-end mt-3">
-                                <a href="javascript:void(0);" data-url="{{ route('lead.create',['lead',0]) }}" data-size="lg" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{__('Create New Lead')}}" title="{{__('Create Lead')}}" class="btn btn-sm btn-primary btn-icon m-1">
+                                <a href="javascript:void(0);" data-url="<?php echo e(route('lead.create',['lead',0])); ?>" data-size="lg" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="<?php echo e(__('Create New Lead')); ?>" title="<?php echo e(__('Create Lead')); ?>" class="btn btn-sm btn-primary btn-icon m-1">
                                     <i class="ti ti-plus"></i>
                                 </a>
                             </div>
-                            @endcan
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
-                                @foreach($activeEvent as $event)
+                                <?php $__currentLoopData = $activeEvent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
-                                        <h5 class="card-text"><a href="{{ route('meeting.detailview',urlencode(encrypt($event['id'])))}}" style="color:#8490a7;">{{ $event['name'] }}</a>
-                                            <span>({{ $event['type'] }})</span>
+                                        <h5 class="card-text"><a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($event['id'])))); ?>" style="color:#8490a7;"><?php echo e($event['name']); ?></a>
+                                            <span>(<?php echo e($event['type']); ?>)</span>
                                         </h5>
-                                        @if($event['start_date'] == $event['end_date'])
-                                        <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d')}}</p>
-                                        @else
-                                        <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d')}} -
-                                            {{ \Auth::user()->dateFormat($event['end_date'])}}
+                                        <?php if($event['start_date'] == $event['end_date']): ?>
+                                        <p><?php echo e(Carbon\Carbon::parse($event['start_date'])->format('M d')); ?></p>
+                                        <?php else: ?>
+                                        <p><?php echo e(Carbon\Carbon::parse($event['start_date'])->format('M d')); ?> -
+                                            <?php echo e(\Auth::user()->dateFormat($event['end_date'])); ?>
+
                                         </p>
-                                        @endif
-                                        @can('Show Meeting')
+                                        <?php endif; ?>
+                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Meeting')): ?>
                                         <div class="action-btn bg-warning ms-2">
-                                            <a href="javascript:void(0);" data-size="md" data-url="{{ route('meeting.show', $event['id']) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Training Details') }}" title="{{ __('Quick View') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                            <a href="javascript:void(0);" data-size="md" data-url="<?php echo e(route('meeting.show', $event['id'])); ?>" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="<?php echo e(__('Training Details')); ?>" title="<?php echo e(__('Quick View')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                 <i class="ti ti-eye"></i>
                                             </a>
                                         </div>
-                                        @endcan
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
-                            @can('Create Meeting')
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Meeting')): ?>
                             <div class="col-12 text-end mt-3">
-                                <a href="{{ route('meeting.create',['meeting',0]) }}">
-                                    <button data-bs-toggle="tooltip" title="{{ __('Create Training') }}" class="btn btn-sm btn-primary btn-icon m-1">
+                                <a href="<?php echo e(route('meeting.create',['meeting',0])); ?>">
+                                    <button data-bs-toggle="tooltip" title="<?php echo e(__('Create Training')); ?>" class="btn btn-sm btn-primary btn-icon m-1">
                                         <i class="ti ti-plus"></i></button>
                                 </a>
                             </div>
-                            @endcan
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -172,7 +178,7 @@
                             <div class="scrol-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        @foreach($events as $event)
+                                        <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php
                                         $pay = App\Models\PaymentLogs::where('event_id', $event['id'])->get();
                                         $total = 0;
@@ -182,37 +188,42 @@
                                         ?>
                                         <div class="card">
                                             <div class="card-body">
-                                                <h5 class="card-text">{{ $event['name'] }}
-                                                    <span>({{ $event['type'] }})</span>
+                                                <h5 class="card-text"><?php echo e($event['name']); ?>
+
+                                                    <span>(<?php echo e($event['type']); ?>)</span>
                                                 </h5>
 
                                                 <div style="color: #a99595;">
-                                                    Billing Amount: ${{ number_format($event['total'])}}<br>
-                                                    Pending Amount: ${{number_format($event['total']- $total)}}
+                                                    Billing Amount: $<?php echo e(number_format($event['total'])); ?><br>
+                                                    Pending Amount: $<?php echo e(number_format($event['total']- $total)); ?>
+
                                                 </div>
 
                                                 <div class="date-y">
-                                                    @if($event['start_date'] == $event['end_date'])
-                                                    <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d, Y')}}
+                                                    <?php if($event['start_date'] == $event['end_date']): ?>
+                                                    <p><?php echo e(Carbon\Carbon::parse($event['start_date'])->format('M d, Y')); ?>
+
                                                     </p>
-                                                    @else
-                                                    <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d, Y')}}
+                                                    <?php else: ?>
+                                                    <p><?php echo e(Carbon\Carbon::parse($event['start_date'])->format('M d, Y')); ?>
+
                                                         -
-                                                        {{ \Auth::user()->dateFormat($event['end_date'])}}
+                                                        <?php echo e(\Auth::user()->dateFormat($event['end_date'])); ?>
+
                                                     </p>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </div>
-                                                @can('Show Invoice')
+                                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Invoice')): ?>
                                                 <div class="action-btn bg-warning ms-2">
-                                                    <a href="#" data-size="md" data-url="{{ route('billing.show',$event['id']) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('Invoice Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                    <a href="#" data-size="md" data-url="<?php echo e(route('billing.show',$event['id'])); ?>" data-bs-toggle="tooltip" title="<?php echo e(__('Quick View')); ?>" data-ajax-popup="true" data-title="<?php echo e(__('Invoice Details')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                         <i class="ti ti-eye"></i>
                                                     </a>
                                                 </div>
-                                                @endcan
+                                                <?php endif; ?>
 
                                             </div>
                                         </div>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
                             </div>
@@ -297,8 +308,8 @@
     }
 </style>
 
-@endsection
-@push('script-page')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('script-page'); ?>
 <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
@@ -340,7 +351,7 @@
                     }
                 });
                 $.ajax({
-                    url: '{{ route("store.token") }}',
+                    url: '<?php echo e(route("store.token")); ?>',
                     type: 'POST',
                     data: {
                         token: response
@@ -366,4 +377,5 @@
         });
     })
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/home.blade.php ENDPATH**/ ?>

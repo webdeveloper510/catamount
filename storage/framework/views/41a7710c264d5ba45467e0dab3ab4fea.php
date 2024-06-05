@@ -5,7 +5,7 @@ $foodpcks = json_decode($lead->func_package, true);
 $barpcks = json_decode($lead->bar_package, true);
 // $barpcks = json_decode($lead->bar,true);
 $labels = [
-    'venue_rental' => 'Venue',
+    'venue_rental' => 'Training Location',
     'hotel_rooms' => 'Hotel Rooms',
     'food_package' => 'Food Package',
     'bar_package' => 'Beverage/Bar Package'
@@ -69,11 +69,11 @@ $leaddata['bar_package_cost'] = $totalBarPackageCost;
 $proposalDataArg = isset($proposal->proposal_data) ? json_decode($proposal->proposal_data) : [];
 $proposalSettingArg = unserialize($settings['proposal']);
 
-$agreement = isset($proposalDataArg->content->agreement) ? $proposalDataArg->content->agreement : $proposalSettingArg['agreement'];
-$remarks = isset($proposalDataArg->content->remarks) ? $proposalDataArg->content->remarks : $proposalSettingArg['remarks'];
-$scopeOfService = isset($proposalDataArg->content->scopeOfService) ? $proposalDataArg->content->scopeOfService : $proposalSettingArg['scopeOfService'];
-$costBusiness = isset($proposalDataArg->content->costBusiness) ? $proposalDataArg->content->costBusiness : $proposalSettingArg['costBusiness'];
-$cancenllation = isset($proposalDataArg->content->cancenllation) ? $proposalDataArg->content->cancenllation : $proposalSettingArg['cancenllation'];
+$agreement = isset($proposalDataArg->settings->agreement) ? $proposalDataArg->settings->agreement : $proposalSettingArg['agreement'];
+$remarks = isset($proposalDataArg->settings->remarks) ? $proposalDataArg->settings->remarks : $proposalSettingArg['remarks'];
+$scopeOfService = isset($proposalDataArg->settings->scopeOfService) ? $proposalDataArg->settings->scopeOfService : $proposalSettingArg['scopeOfService'];
+$costBusiness = isset($proposalDataArg->settings->costBusiness) ? $proposalDataArg->settings->costBusiness : $proposalSettingArg['costBusiness'];
+$cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDataArg->settings->cancenllation : $proposalSettingArg['cancenllation'];
 ?>
 <div class="row">
     <div class="col-lg-12">

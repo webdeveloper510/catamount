@@ -21,6 +21,7 @@ $billing = App\Models\ProposalInfo::where('lead_id', $lead->id)->orderby('id', '
 if (isset($billing) && !empty($billing)) {
     $billing = json_decode($billing->proposal_info, true);
 }
+$converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->exists();
 ?>
 <div class="row card" style="display:none">
     <div class="col-md-12">
@@ -47,7 +48,7 @@ if (isset($billing) && !empty($billing)) {
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Venue Rental</td>
+                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Training Location Rental</td>
                     <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
                     <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
@@ -246,7 +247,7 @@ if (isset($billing) && !empty($billing)) {
                                     <dl class="row">
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->guest_count }}</span></dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Venue ')}}</span></dt>
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->venue_selection ??'--' }}</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Function')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{$lead->function ?? '--'}}</span></dd>
@@ -353,7 +354,7 @@ if (isset($billing) && !empty($billing)) {
                                             } else {
                                                 echo "<tr>";
                                                 echo "<td></td>";
-                                                echo "<td style='text-align: center;'><b><h6 class='text-secondary'>Lead Not Converted to Event Yet.</h6><b></td>";
+                                                echo "<td style='text-align: center;'><b><h6 class='text-secondary'>Lead Not Converted to Trainings Yet.</h6><b></td>";
                                                 echo "<td></td>";
                                                 echo "</tr>";
                                             }

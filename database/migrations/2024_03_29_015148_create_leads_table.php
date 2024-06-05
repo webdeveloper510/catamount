@@ -42,6 +42,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->string('ad_opts')->nullable();
+            $table->string('converted_to')->default(0)->nullable();
             $table->integer('created_by')->default(0);
             $table->timestamps();
             $table->softDeletes(); 

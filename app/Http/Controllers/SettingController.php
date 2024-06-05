@@ -1566,7 +1566,7 @@ class SettingController extends Controller
                 ]
             );
         }
-        return redirect()->back()->with('success', __('Event Type Added.'));
+        return redirect()->back()->with('success', __('Trainings Type Added.'));
     }
 
     public function delete_event_type(Request $request)

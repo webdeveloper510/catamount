@@ -35,6 +35,7 @@
                                                     <th scope="col" class="sort" data-sort="budget">{{__('Training Type')}}</th>
                                                     <th scope="col" class="sort">{{__('Guest Count')}}</th>
                                                     <th scope="col" class="sort">{{__('Event Date')}}</th>
+                                                    <th scope="col" class="sort">{{__('Converted to event')}}</th>
                                                     <!--<th scope="col" class="sort">{{__('Function')}}</th>-->
                                                     <!--<th scope="col" class="sort">{{__('Bar')}}</th>-->
                                                     <!-- <th scope="col" class="sort">{{__('Proposal Status')}}</th> -->
@@ -57,6 +58,7 @@
                                                         <span class="budget">{{ $lead->guest_count }}</span>
                                                     </td>
                                                     <td>{{\Auth::user()->dateFormat($lead->start_date)}}</td>
+                                                    <td>{{ ($lead->converted_to == 0 ? 'No': 'Yes') }}</td>
 
                                                     <!--<td>{{ ucfirst($lead->function) }}</td>-->
                                                     <!--<td>{{($lead->bar)}}</td>-->

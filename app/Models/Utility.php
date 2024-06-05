@@ -2090,7 +2090,7 @@ class Utility extends Model
 
             ],
             'New Event' => [
-                'subject' => 'Event',
+                'subject' => 'Trainings',
                 'lang' => [
                     'en' => '<p>Hi {contract_client}</p>
                     <p>Contract Subject: {contract_subject}</p>
