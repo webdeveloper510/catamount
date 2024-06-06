@@ -81,7 +81,7 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
             </thead>
             <tbody>
                 <tr>
-                    <td>Event Type</td>
+                    <td>Training Type</td>
                     <td>{{ $lead->type ?? '--' }}</td>
                 </tr>
                 <tr>
@@ -89,14 +89,14 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
                     <td>{{ $lead->guest_count ?? '--' }}</td>
                 </tr>
                 <tr>
-                    <td>Venue</td>
+                    <td>Training Location</td>
                     <td>{{ $lead->venue_selection ?? '--' }}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td>Function</td>
                     <td>{{ $lead->function ?? '--' }}</td>
                 </tr>
-                <tr>
+                 <tr>
                     <td>Package</td>
                     <td>
                         @if(isset($package) && !empty($package))
@@ -107,7 +107,7 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
                             --
                         @endif
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
 

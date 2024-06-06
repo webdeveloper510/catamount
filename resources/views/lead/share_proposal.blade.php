@@ -74,6 +74,8 @@ $remarks = isset($proposalDataArg->settings->remarks) ? $proposalDataArg->settin
 $scopeOfService = isset($proposalDataArg->settings->scopeOfService) ? $proposalDataArg->settings->scopeOfService : $proposalSettingArg['scopeOfService'];
 $costBusiness = isset($proposalDataArg->settings->costBusiness) ? $proposalDataArg->settings->costBusiness : $proposalSettingArg['costBusiness'];
 $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDataArg->settings->cancenllation : $proposalSettingArg['cancenllation'];
+
+
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -288,4 +290,10 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
         var notification = document.getElementById('notification');
         notification.style.display = 'none';
     }
+
+
+    $('input[name="email"]').keyup(function() {
+        var email = $(this).val();
+        $('input[name="pdf[client][email]"]').val(email);
+    });
 </script>

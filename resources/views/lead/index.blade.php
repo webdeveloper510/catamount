@@ -27,6 +27,16 @@ $proposalstatus = \App\Models\Lead::$status;
 @endsection
 @section('content')
 
+<style>
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 70%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+</style>
+
 <div class="container-field">
     <div id="wrapper">
         <div id="page-content-wrapper">
@@ -141,8 +151,8 @@ $proposalstatus = \App\Models\Lead::$status;
                                                         <!--    <i class="ti ti-trash"></i>-->
                                                         <!--</button>-->
                                                         <a href="javascript:void(0);" class="mx-3 btn btn-sm  align-items-center text-white show_confirmdlt" data-bs-toggle="tooltip" title="" data-bs-original-title="Delete">
-                                                                <i class="ti ti-trash"></i>
-                                                            </a>
+                                                            <i class="ti ti-trash"></i>
+                                                        </a>
                                                         {!! Form::close() !!}
                                                     </div>
                                                     @endcan

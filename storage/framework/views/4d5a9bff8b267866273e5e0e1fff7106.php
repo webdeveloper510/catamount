@@ -162,4 +162,4 @@
 
 
 </html>
-<?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/layouts/admin.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

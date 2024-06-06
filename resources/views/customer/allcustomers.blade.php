@@ -46,26 +46,26 @@
                                                 @$customers = $customers[0];
                                                 @endphp
                                                 <td>
-                                                    @if($customers['category'] == 'event')
-                                                    <a href="{{route('event.userinfo',urlencode(encrypt($customers['ref_id'])))}}"
+                                                    @if(@$customers['category'] == 'event')
+                                                    <a href="{{route('event.userinfo',urlencode(encrypt(@$customers['ref_id'])))}}"
                                                         title="{{ __('User Details') }}"
                                                         class="action-item text-primary"
                                                         style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst($customers['name']) }}</b>
                                                     </a>
                                                     @else
-                                                    <a href="{{ route('lead.userinfo',urlencode(encrypt($customers['ref_id']))) }}"
+                                                    <a href="{{ route('lead.userinfo',urlencode(encrypt(@$customers['ref_id']))) }}"
                                                         data-size="md" title="{{ __('Lead Details') }}"
                                                         class="action-item text-primary"
                                                         style="color:#1551c9 !important;">
-                                                        <b> {{ ucfirst($customers['name']) }}</b>
+                                                        <b> {{ ucfirst(@$customers['name']) }}</b>
                                                     </a>
                                                     @endif
                                                 </td>
-                                                <td>{{ucfirst($customers['email'])}}</td>
-                                                <td>{{ucfirst($customers['phone'])}}</td>
-                                                <td>{{ucfirst($customers['address'])}}</td>
-                                                <td>{{ucfirst($customers['type'])}}</td>
+                                                <td>{{ucfirst(@$customers['email'])}}</td>
+                                                <td>{{ucfirst(@$customers['phone'])}}</td>
+                                                <td>{{ucfirst(@$customers['address'])}}</td>
+                                                <td>{{ucfirst(@$customers['type'])}}</td>
                                             </tr>
                                             @endforeach
                                             @foreach($importedcustomers as $customers)

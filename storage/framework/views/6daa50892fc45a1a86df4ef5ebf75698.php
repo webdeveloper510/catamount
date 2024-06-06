@@ -221,4 +221,4 @@ __('Approved'),
 __('Rejected'),
 __('Canceled'),
 ];
-?><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/partials/admin/footer.blade.php ENDPATH**/ ?>
+?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/partials/admin/footer.blade.php ENDPATH**/ ?>

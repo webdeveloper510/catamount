@@ -144,7 +144,7 @@ foreach ($token as $key => $val) {
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
-                    <label for="client">{{__('Client')}}: </label><span>{{__($proposalDataArg->client->name)}}</span>
+                    <label for="client">{{__('Client')}}: </label><span>{{__(@$proposalDataArg->client->name)}}</span>
                 </h5>
             </div>
         </div>
@@ -152,12 +152,12 @@ foreach ($token as $key => $val) {
             <div class="sidebyside">
                 <div class="col-sm-6 border-new">
                     <h5 class="input-new">
-                        <label for="phone">{{__('Phone')}}: </label><span>{{__($proposalDataArg->client->phone)}}</span>
+                        <label for="phone">{{__('Phone')}}: </label><span>{{__(@$proposalDataArg->client->phone)}}</span>
                     </h5>
                 </div>
                 <div class="col-sm-6 border-new">
                     <h5 class="input-new">
-                        <label for="email2">{{__('Email')}}: </label><span>{{__($proposalDataArg->client->email)}}</span>
+                        <label for="email2">{{__('Email')}}: </label><span>{{__(@$lead->email)}}</span>
                     </h5>
                 </div>
             </div>
@@ -170,7 +170,7 @@ foreach ($token as $key => $val) {
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
-                    <label for="services">{{__('Services')}}: </label><span>{{__($proposalDataArg->client->services)}}</span>
+                    <label for="services">{{__('Services')}}: </label><span>{{__(@$proposalDataArg->client->services)}}</span>
                 </h5>
             </div>
             <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
@@ -178,7 +178,7 @@ foreach ($token as $key => $val) {
                     <label for="agreement">{{__('Agreement')}}: </label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!$proposalDataArg->settings->agreement!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->agreement!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 border-new">
@@ -197,7 +197,7 @@ foreach ($token as $key => $val) {
             </div>
             <div class="col-sm-12">
                 <h5 class="input-new">
-                    <label for="date">{{__('Date')}}: </label> <span>{{__($lead->start_date)}}</span>
+                    <label for="date">{{__('Date')}}: </label> <span>{{__(@$lead->start_date)}}</span>
                 </h5>
             </div>
             <div class="col-sm-12  mt-5">
@@ -263,30 +263,33 @@ foreach ($token as $key => $val) {
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
-                        <td style="padding: 8px;">{{__($proposalDataArg->from->name)}}</td>
+                        <td style="padding: 8px;">{{__(@$proposalDataArg->from->name)}}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Designation</td>
-                        <td style="padding: 8px;">{{__($proposalDataArg->from->designation)}}</td>
+                        <td style="padding: 8px;">{{__(@$proposalDataArg->from->designation)}}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;">{{__($proposalDataArg->from->date)}}</td>
+                        <td style="padding: 8px;">{{__(@$proposalDataArg->from->date)}}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
-                        <td style="padding: 8px;">{{__($proposalDataArg->to->name)}}</td>
+                        <td style="padding: 8px;">{{__($request['to']['name'])}}</td>
+                        <!-- <td style="padding: 8px;">{{__(@$proposalDataArg->to->name)}}</td> -->
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Designation</td>
-                        <td style="padding: 8px;">{{__($proposalDataArg->to->designation)}}</td>
+                        <td style="padding: 8px;">{{__($request['to']['designation'])}}</td>
+                        <!-- <td style="padding: 8px;">{{__(@$proposalDataArg->to->designation)}}</td> -->
                     </tr>
                     <tr>
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;">{{__($proposalDataArg->to->date)}}</td>
+                        <td style="padding: 8px;">{{__($request['to']['date'])}}</td>
+                        <!-- <td style="padding: 8px;">{{__(@$proposalDataArg->to->date)}}</td> -->
                     </tr>
                 </table>
             </div>

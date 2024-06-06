@@ -249,4 +249,4 @@ $settings = App\Models\Utility::settings();
             $('#' + dataId).addClass('show');
         }
     }
-</script><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/partials/admin/sidebar.blade.php ENDPATH**/ ?>
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/partials/admin/sidebar.blade.php ENDPATH**/ ?>

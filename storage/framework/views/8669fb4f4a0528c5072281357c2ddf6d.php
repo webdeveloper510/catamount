@@ -24,6 +24,7 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
 // pr($proposal_settings);
 // pr($proposal_info->settings);
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -200,15 +201,18 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->to->name)); ?></td>
+                                    <td style="padding: 8px;"><input type="text" name="to[name]" id="name"></td>
+                                    <!-- <td style="padding: 8px;"><?php echo e(__($proposal_info->to->name)); ?></td> -->
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->to->designation)); ?></td>
+                                    <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation"></td>
+                                    <!-- <td style="padding: 8px;"><?php echo e(__($proposal_info->to->designation)); ?></td> -->
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><?php echo e(__($proposal_info->to->date)); ?></td>
+                                    <td style="padding: 8px;"><input type="date" name="to[date]" id="date"></td>
+                                    <!-- <td style="padding: 8px;"><?php echo e(__($proposal_info->to->date)); ?></td> -->
                                 </tr>
                             </table>
                         </div>
@@ -268,4 +272,4 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
             }
         });
     });
-</script><?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/lead/proposal.blade.php ENDPATH**/ ?>
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/lead/proposal.blade.php ENDPATH**/ ?>

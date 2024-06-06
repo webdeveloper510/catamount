@@ -15,4 +15,4 @@
 </script>
 <script src="<?php echo e(asset('js/chatify/utils.js')); ?>"></script>
 <script src="<?php echo e(asset('js/chatify/code.js')); ?>"></script>
-<?php /**PATH /home/crmcentraverse/public_html/catamount/resources/views/vendor/Chatify/layouts/footerLinks.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/vendor/Chatify/layouts/footerLinks.blade.php ENDPATH**/ ?>
