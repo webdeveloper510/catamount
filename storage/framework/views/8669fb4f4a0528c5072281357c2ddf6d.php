@@ -155,28 +155,20 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                             </h5>
                         </div>
                         <div class="col-sm-12  mt-5">
-                            <h5 class="input-new">
-                                <label for="scopeServices"><?php echo e(__('Scope of Services')); ?>:</label>
-                                <p><?php echo @$proposal_info->settings->scopeOfService; ?></p>
-                            </h5>
+                            <h5 class="input-new"><label for="scopeServices"><?php echo e(__('Scope of Services')); ?>:</label></h5>
+                            <p><?php echo @$proposal_info->settings->scopeOfService; ?></p>
                         </div>
                         <div class="col-sm-12 mt-5">
-                            <h5 class="input-new">
-                                <label for="schedule"><?php echo e(__('Schedule')); ?>:</label>
-                                <p><?php echo @$proposal_settings['schedule']; ?></p>
-                            </h5>
+                            <h5 class="input-new"><label for="schedule"><?php echo e(__('Schedule')); ?>:</label></h5>
+                            <p><?php echo @$proposal_settings['schedule']; ?></p>
                         </div>
                         <div class="col-sm-12 mt-5">
-                            <h5 class="input-new">
-                                <label for="costBusinessTerms"><?php echo e(__('Cost and Business Terms')); ?>:</label>
-                                <p><?php echo @$proposal_info->settings->costBusiness; ?></p>
-                            </h5>
+                            <h5 class="input-new"><label for="costBusinessTerms"><?php echo e(__('Cost and Business Terms')); ?>:</label></h5>
+                            <p><?php echo @$proposal_info->settings->costBusiness; ?></p>
                         </div>
                         <div class="col-sm-12 mt-5">
-                            <h5 class="input-new">
-                                <label for="cencellation"><?php echo e(__('CANCELLATION')); ?>:</label>
-                                <p><?php echo @@$proposal_info->settings->cancenllation; ?></p>
-                            </h5>
+                            <h5 class="input-new"><label for="cencellation"><?php echo e(__('CANCELLATION')); ?>:</label></h5>
+                            <div class="textarea"><p><?php echo @@$proposal_info->settings->cancenllation; ?></p></div>
                         </div>
                         <!-- <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><?php echo @$proposal_settings['cancenllation']; ?></h5>
