@@ -45,9 +45,9 @@ class LeadController extends Controller
     {
         if (\Auth::user()->can('Manage Lead')) {
             $statuss = Lead::$stat;
-
             if (\Auth::user()->type == 'owner') {
-                $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->where('converted_to', 0)->orderby('id', 'desc')->get();
+                // $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->where('converted_to', 0)->orderby('id', 'desc')->get();
+                $leads = Lead::with('accounts', 'assign_user')->where('converted_to', 0)->orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();
                 $defualtView->route  = \Request::route()->getName();
                 $defualtView->module = 'lead';
@@ -73,7 +73,11 @@ class LeadController extends Controller
     public function create($type, $id)
     {
         if (\Auth::user()->can('Create Lead')) {
-            $users       = User::where('created_by', \Auth::user()->creatorId())->get();
+            if (\Auth::user()->type == 'owner') {
+                $users = User::all();
+            } else {
+                $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            }
             $status     = Lead::$status;
             return view('lead.create', compact('status', 'users', 'id', 'type'));
         } else {

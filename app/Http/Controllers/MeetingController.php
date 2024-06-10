@@ -47,7 +47,7 @@ class MeetingController extends Controller
     {
         if (\Auth::user()->can('Manage Meeting')) {
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
+                $meetings = Meeting::orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();
                 $defualtView->route  = \Request::route()->getName();
                 $defualtView->module = 'meeting';
@@ -71,8 +71,13 @@ class MeetingController extends Controller
         if (\Auth::user()->can('Create Meeting')) {
             $status            = Meeting::$status;
             $parent            = Meeting::$parent;
-            $users              = User::where('created_by', \Auth::user()->creatorId())->get();
-            $attendees_lead    = Lead::where('created_by', \Auth::user()->creatorId())->where('status', 4)->where('lead_status', 1)->get()->pluck('leadname', 'id');
+            if (\Auth::user()->type == 'owner') {
+                $users = User::all();
+                $attendees_lead = Lead::where('status', 4)->where('lead_status', 1)->get()->pluck('leadname', 'id');
+            } else {
+                $users = User::where('created_by', \Auth::user()->creatorId())->get();
+                $attendees_lead = Lead::where('created_by', \Auth::user()->creatorId())->where('status', 4)->where('lead_status', 1)->get()->pluck('leadname', 'id');
+            }
             $attendees_lead->prepend('Select Lead', 0);
             $setup = Setup::all();
             return view('meeting.create', compact('status', 'type',  'setup', 'parent', 'users', 'attendees_lead'));
