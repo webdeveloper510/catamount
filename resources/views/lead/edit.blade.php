@@ -123,14 +123,14 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('name',__('Name'),['class'=>'form-label']) }}
-                                            {{Form::text('secondary[name]',$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name')))}}
+                                            {{Form::text('secondary[name]',@$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name')))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">
                                         <div class="form-group intl-tel-input">
                                             {{ Form::label('phone', __('Phone'), ['class' => 'form-label']) }}
                                             <div class="intl-tel-input">
-                                                <input type="tel" id="phone-input1" name="secondary[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" value="{{$secondary_contact['secondary_contact']}}">
+                                                <input type="tel" id="phone-input1" name="secondary[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" value="{{@$secondary_contact['secondary_contact']}}">
                                                 <input type="hidden" name="countrycode" id="country-code1">
                                             </div>
                                         </div>
@@ -139,19 +139,19 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('email',__('Email'),['class'=>'form-label']) }}
-                                            {{Form::text('secondary[email]',$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email'),'required' =>'required'))}}
+                                            {{Form::text('secondary[email]',@$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email'),'required' =>'required'))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('lead_address',__('Address'),['class'=>'form-label']) }}
-                                            {{Form::text('secondary[lead_address]',$secondary_contact['lead_address'],array('class'=>'form-control','placeholder'=>__('Address')))}}
+                                            {{Form::text('secondary[lead_address]',@$secondary_contact['lead_address'],array('class'=>'form-control','placeholder'=>__('Address')))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('secondary[relationship]',__('Title'),['class'=>'form-label']) }}
-                                            {{Form::text('relationship',$secondary_contact['relationship'],array('class'=>'form-control','placeholder'=>__('Enter Title')))}}
+                                            {{Form::text('relationship',@$secondary_contact['relationship'],array('class'=>'form-control','placeholder'=>__('Enter Title')))}}
                                         </div>
                                     </div>
                                     <div class="col-12  p-0 modaltitle ">
@@ -455,7 +455,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
             lastTenDigits.substr(6);
         $('#phone-input').val(formattedPhoneNumber);
 
-        var phoneNumber1 = "<?php echo $secondary_contact['secondary_contact']; ?>";
+        var phoneNumber1 = "<?php echo @$secondary_contact['secondary_contact']; ?>";
         var num = phoneNumber1.trim();
         var lastTenDigits1 = phoneNumber1.substr(-10);
         var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' +

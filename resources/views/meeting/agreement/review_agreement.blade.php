@@ -348,7 +348,7 @@ $additional_items = json_decode($setting['additional_items'],true);
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group">
+                                        {{--<div class="form-group">
                                             <!-- {!! Form::checkbox('room', 1, null, ['id'=>'room', 'class' => 'checkbox']) !!}
                                                 {!! Form::label('room', 'Rooms at the hotel') !!}  -->
                                             {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
@@ -390,7 +390,7 @@ $additional_items = json_decode($setting['additional_items'],true);
                                             </div>
                                             @endforeach
                                             @endif
-                                        </div>
+                                        </div>--}}
 
                                         <div class="col-12">
                                             <div class="form-group">

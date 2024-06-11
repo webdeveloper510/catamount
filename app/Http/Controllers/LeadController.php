@@ -93,10 +93,7 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-
         if (\Auth::user()->can('Create Lead')) {
-            // echo"<pre>";
-            // print_r($request->all());die;
 
             $validator = \Validator::make(
                 $request->all(),
@@ -121,22 +118,17 @@ class LeadController extends Controller
                     $package[$newKey] = $values;
                 }
                 if (strpos($key, 'additional_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = strtolower(str_replace('additional_', '', $key));
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($additional[$newKey])) {
                         $additional[$newKey] = [];
                     }
                     $additional[$newKey] = $values;
                 }
                 if (strpos($key, 'bar_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = ucfirst(strtolower(str_replace('bar_', '', $key)));
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($bar_pack[$newKey])) {
                         $bar_pack[$newKey] = [];
                     }
-                    // Assign the values to the new key in the output array
                     $bar_pack[$newKey] = $values;
                 }
             }
@@ -164,21 +156,21 @@ class LeadController extends Controller
             $lead['start_date'] = $request->start_date;
             $lead['end_date'] = $request->start_date;
             $lead['type'] = $request->type;
-            $lead['venue_selection'] = isset($request->venue) ? implode(',', $request->venue) : '';
-            $lead['function'] = isset($request->function) ? implode(',', $request->function) : '';
-            $lead['func_package'] = isset($package) && (!empty($package)) ? $package : '';
+            $lead['venue_selection'] = isset($request->venue) ? implode(',', $request->venue) : [];
             $lead['guest_count'] = $request->guest_count ?? 0;
             $lead['description'] = $request->description;
             $lead['spcl_req'] = $request->spcl_req;
             $lead['allergies'] = $request->allergies;
             $lead['start_time'] = $request->start_time ?? '';
             $lead['end_time'] = $request->end_time ?? '';
-            $lead['bar'] = $request->baropt;
-            $lead['bar_package'] = isset($bar_pack) && !empty($bar_pack) ? $bar_pack : '';
             $lead['ad_opts'] = isset($additional) && !empty($additional) ? $additional : '';
             $lead['rooms'] = $request->rooms ?? 0;
             $lead['lead_status'] = ($request->is_active == 'on') ? 1 : 0;
             $lead['created_by'] = \Auth::user()->creatorId();
+            // $lead['function'] = isset($request->function) ? implode(',', $request->function) : '';
+            // $lead['func_package'] = isset($package) && (!empty($package)) ? $package : '';
+            // $lead['bar'] = $request->baropt;
+            // $lead['bar_package'] = isset($bar_pack) && !empty($bar_pack) ? $bar_pack : '';
             $lead->save();
 
             $existingcustomer = MasterCustomer::where('email', $lead->email)->first();
@@ -297,10 +289,7 @@ class LeadController extends Controller
      */
     public function edit(Lead $lead)
     {
-        /* echo '<pre>';
-        print_r($lead);
-        echo '</pre>';
-        die(); */
+        // prx($lead);
         if (\Auth::user()->can('Edit Lead')) {
             $venue_function = explode(',', $lead->venue_selection);
             $function_package =  explode(',', $lead->function);
@@ -322,7 +311,6 @@ class LeadController extends Controller
      */
     public function update(Request $request, Lead $lead)
     {
-
         if (\Auth::user()->can('Edit Lead')) {
 
             $validator = \Validator::make(
@@ -380,13 +368,17 @@ class LeadController extends Controller
             $bar_pack = json_encode($bar_pack);
             $primary_contact = preg_replace('/\D/', '', $request->input('primary_contact'));
             $secondary_contact = preg_replace('/\D/', '', $request->input('secondary_contact'));
+
+            $_REQUEST['secondary']['secondary_contact'] = $secondary_contact;
+            $scondData = json_encode($_REQUEST['secondary']);
+
             $lead['user_id'] = $request->user;
             $lead['name'] = $request->name;
             $lead['leadname'] = $request->lead_name;
             $lead['email'] = $request->email;
             $lead['assigned_user'] = $request->user ?? '';
             $lead['primary_contact'] = $primary_contact;
-            $lead['secondary_contact'] = $secondary_contact;
+            $lead['secondary_contact'] = $scondData;
             $lead['lead_address'] = $request->lead_address;
             $lead['company_name'] = $request->company_name;
             $lead['relationship'] = $request->relationship;

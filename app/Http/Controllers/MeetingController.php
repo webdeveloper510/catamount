@@ -129,25 +129,17 @@ class MeetingController extends Controller
                     $package[$newKey] = $values;
                 }
                 if (strpos($key, 'additional_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = strtolower(str_replace('additional_', '', $key));
-
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($additional[$newKey])) {
                         $additional[$newKey] = [];
                     }
                     $additional[$newKey] = $values;
                 }
                 if (strpos($key, 'bar_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = ucfirst(strtolower(str_replace('bar_', '', $key)));
-
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($bar_pack[$newKey])) {
                         $bar_pack[$newKey] = [];
                     }
-
-                    // Assign the values to the new key in the output array
                     $bar_pack[$newKey] = $values;
                 }
             }
@@ -197,45 +189,53 @@ class MeetingController extends Controller
             }
 
 
-            $secondary_contact = serialize($request->secondary_contact);
+            $secondary_contact = json_encode($request->secondary_contact);
+            $users = isset($request->user) ? $request->user : [];
+
+            $filteredUsers = array_filter($users, function ($user) {
+                return !is_null($user['amount']);
+            });
+
+            foreach ($filteredUsers as $filteredUsersValue) {
+                $filteredUsersKeys[] = array_keys($filteredUsersValue);
+            }
 
             $phone = preg_replace('/\D/', '', $request->input('phone'));
-            $meeting                      = new Meeting();
-            $meeting['user_id']           = isset($request->user) ? implode(',', $request->user) : '';
-            $meeting['name']              = $request->name;
-            $meeting['start_date']        = $request->start_date;
-            $meeting['end_date']          = $request->start_date;
-            $meeting['email']              = $request->email;
-            $meeting['lead_address']       = $request->lead_address ?? '';
-            $meeting['company_name']      = $request->company_name;
-            $meeting['relationship']       = $request->relationship;
-            $meeting['type']               = $request->type;
-            $meeting['venue_selection']    = implode(',', $request->venue);
-            $meeting['func_package']       = $package;
-            // $meeting['function']            = implode(',', $request->function);
-            $meeting['guest_count']         = $request->guest_count;
-            $meeting['room']                = $request->rooms ?? 0;
-            $meeting['meal']                = $request->meal ?? '';
-            $meeting['bar']                 = $request->baropt;
-            $meeting['bar_package']         = $bar_pack;
-            $meeting['spcl_request']        = $request->spcl_request;
-            $meeting['alter_name']          = $request->alter_name;
-            $meeting['alter_email']         = $request->alter_email;
-            $meeting['alter_relationship']  = $request->alter_relationship;
-            $meeting['alter_lead_address']  = $request->alter_lead_address;
-            $meeting['attendees_lead']      = $request->lead;
-            $meeting['eventname']           = $request->eventname ?? $request->name;
-            $meeting['phone']               = $phone;
-            $meeting['start_time']          = $request->start_time;
-            $meeting['end_time']            = $request->end_time;
-            $meeting['ad_opts']             = $additional;
-            $meeting['floor_plan']          = $request->uploadedImage;
-            $meeting['allergies']          = $request->allergies;
-            $meeting['secondary_contact']  = $secondary_contact;
-            $meeting['created_by']          = \Auth::user()->creatorId();
-
+            $meeting = new Meeting();
+            $meeting['user_id'] = isset($filteredUsersKeys) ? implode(',', $filteredUsersKeys) : [];
+            $meeting['user_data'] = isset($filteredUsers) ? json_encode($filteredUsers) : [];
+            $meeting['name'] = $request->name;
+            $meeting['start_date'] = $request->start_date;
+            $meeting['end_date'] = $request->start_date;
+            $meeting['email'] = $request->email;
+            $meeting['lead_address'] = $request->lead_address ?? '';
+            $meeting['company_name'] = $request->company_name;
+            $meeting['relationship'] = $request->relationship;
+            $meeting['type'] = $request->type;
+            $meeting['venue_selection'] = implode(',', $request->venue);
+            $meeting['func_package'] = $package;
+            // $meeting['function'] = implode(',', $request->function);
+            $meeting['guest_count'] = $request->guest_count;
+            $meeting['room'] = $request->rooms ?? 0;
+            $meeting['meal'] = $request->meal ?? '';
+            $meeting['bar'] = $request->baropt;
+            $meeting['bar_package'] = $bar_pack;
+            $meeting['spcl_request'] = $request->spcl_request;
+            $meeting['alter_name'] = $request->alter_name;
+            $meeting['alter_email'] = $request->alter_email;
+            $meeting['alter_relationship'] = $request->alter_relationship;
+            $meeting['alter_lead_address'] = $request->alter_lead_address;
+            $meeting['attendees_lead'] = $request->lead;
+            $meeting['eventname'] = $request->eventname ?? $request->name;
+            $meeting['phone'] = $phone;
+            $meeting['start_time'] = $request->start_time;
+            $meeting['end_time'] = $request->end_time;
+            $meeting['ad_opts'] = $additional;
+            $meeting['floor_plan'] = $request->uploadedImage;
+            $meeting['allergies'] = $request->allergies;
+            $meeting['secondary_contact'] = $secondary_contact;
+            $meeting['created_by'] = \Auth::user()->creatorId();
             $meeting->save();
-            // echo "<pre>";print_r($meeting);die;
 
             if ($meeting->attendees_lead != 0) {
                 Lead::find($request->lead)
@@ -273,7 +273,7 @@ class MeetingController extends Controller
                     $document->event_id =  $meeting->id; // Assuming you have a lead_id field
                     $document->filename = $filename; // Store original file name
                     $document->filepath = $path; // Store file path
-                    $document->save();
+                    // $document->save();
                 } catch (\Exception $e) {
                     Log::error('File upload failed: ' . $e->getMessage());
                     return redirect()->back()->with('error', 'File upload failed');
@@ -291,22 +291,25 @@ class MeetingController extends Controller
                 $customer->type = $request->type;
                 $customer->save();
             }
-            $Assign_user_phone = User::where('id', $request->user)->first();
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $uArr = [
                 'meeting_name' => $request->name,
                 'meeting_start_date' => $request->start_date,
                 'meeting_due_date' => $request->start_date,
             ];
-            $resp = Utility::sendEmailTemplate('meeting_assigned', [$meeting->id => $Assign_user_phone->email], $uArr);
-            if (isset($setting['twilio_meeting_create']) && $setting['twilio_meeting_create'] == 1) {
-                $uArr = [
-                    'meeting_name' => $request->name,
-                    'meeting_start_date' => $request->start_date,
-                    'meeting_due_date' => $request->start_date,
-                    'user_name' => \Auth::user()->name,
-                ];
-                Utility::send_twilio_msg($Assign_user_phone->phone, 'new_meeting', $uArr);
+            $userDecode = $request->user;
+            foreach ($userDecode as $udKey => $udValue) {
+                $Assign_user_phone = User::where('id', $udKey)->first();
+                $resp = Utility::sendEmailTemplate('meeting_assigned', [$meeting->id => $Assign_user_phone->email], $uArr);
+                if (isset($setting['twilio_meeting_create']) && $setting['twilio_meeting_create'] == 1) {
+                    $uArr = [
+                        'meeting_name' => $request->name,
+                        'meeting_start_date' => $request->start_date,
+                        'meeting_due_date' => $request->start_date,
+                        'user_name' => \Auth::user()->name,
+                    ];
+                    Utility::send_twilio_msg($Assign_user_phone->phone, 'new_meeting', $uArr);
+                }
             }
             if ($request->get('is_check')  == '1') {
                 $type = 'meeting';
@@ -402,9 +405,13 @@ class MeetingController extends Controller
             $function_p = explode(',', $meeting->function);
             $venue_function = explode(',', $meeting->venue_selection);
             $food_package =  json_decode($meeting->func_package, true);
-            $user_id = explode(',', $meeting->user_id);
+            // $user_id = explode(',', $meeting->user_id);
+            $user_id = json_decode($meeting->user_data);
+            foreach ($user_id as $user_idKey => $user_idValue) {
+                $user_idNew[] = $user_idKey;
+            }
             $setup = Setup::all();
-            return view('meeting.edit', compact('user_id', 'users', 'setup', 'food_package', 'function_p', 'venue_function', 'meeting', 'status', 'attendees_lead'))->with('start_date', $meeting->start_date)->with('end_date', $meeting->start_date);
+            return view('meeting.edit', compact('user_idNew', 'users', 'setup', 'food_package', 'function_p', 'venue_function', 'meeting', 'status', 'attendees_lead'))->with('start_date', $meeting->start_date)->with('end_date', $meeting->start_date);
         } else {
             return redirect()->back()->with('error', 'permission Denied');
         }
@@ -535,35 +542,44 @@ class MeetingController extends Controller
             $bar_pack = json_encode($bar_pack);
             $phone = preg_replace('/\D/', '', $request->input('phone'));
 
-            $meeting['user_id']           = implode(',', $request->user);
-            $meeting['name']              = $request->name;
-            $meeting['start_date']        = $request->start_date;
-            $meeting['end_date']          = $request->start_date;
-            $meeting['relationship']       = $request->relationship;
-            $meeting['type']               = $request->type;
-            $meeting['venue_selection']    = $request->venue_selection;
-            $meeting['email']              = $request->email;
-            $meeting['lead_address']      = $request->lead_address;
-            // $meeting['function']           = $function;
-            $meeting['venue_selection']    = $venue;
-            $meeting['func_package']       = $package;
-            $meeting['guest_count']        = $request->guest_count;
-            $meeting['room']                = $request->rooms;
-            $meeting['meal']                = $meal ?? '';
-            $meeting['bar']                 = $request->baropt;
-            $meeting['bar_package']         = $bar_pack;
-            $meeting['spcl_request']        = $request->spcl_request;
-            $meeting['alter_name']          = $request->alter_name;
-            $meeting['alter_email']         = $request->alter_email;
-            $meeting['alter_relationship']  = $request->alter_relationship;
-            $meeting['alter_lead_address']  = $request->alter_lead_address;
-            $meeting['phone']               = $phone;
-            $meeting['start_time']          = $request->start_time;
-            $meeting['end_time']            = $request->end_time;
-            $meeting['ad_opts']             = isset($additional) ? $additional : '';
-            $meeting['floor_plan']          = $request->uploadedImage;
-            $meeting['allergies']          = $request->allergies;
-            $meeting['created_by']        = \Auth::user()->creatorId();
+
+            $secondary_contact = json_encode($request->secondary_contact);
+            $users = isset($request->user) ? $request->user : [];
+
+            $filteredUsers = array_filter($users, function ($user) {
+                return !is_null($user['amount']);
+            });
+
+            $meeting['user_id'] = json_encode($filteredUsers);
+            $meeting['name'] = $request->name;
+            $meeting['start_date'] = $request->start_date;
+            $meeting['end_date'] = $request->start_date;
+            $meeting['relationship'] = $request->relationship;
+            $meeting['type'] = $request->type;
+            $meeting['venue_selection'] = $request->venue_selection;
+            $meeting['email'] = $request->email;
+            $meeting['lead_address'] = $request->lead_address;
+            // $meeting['function'] = $function;
+            $meeting['venue_selection'] = $venue;
+            $meeting['func_package'] = $package;
+            $meeting['guest_count'] = $request->guest_count;
+            $meeting['room'] = $request->rooms;
+            $meeting['meal'] = $meal ?? '';
+            $meeting['bar'] = $request->baropt;
+            $meeting['bar_package'] = $bar_pack;
+            $meeting['spcl_request'] = $request->spcl_request;
+            $meeting['alter_name'] = $request->alter_name;
+            $meeting['alter_email'] = $request->alter_email;
+            $meeting['alter_relationship'] = $request->alter_relationship;
+            $meeting['alter_lead_address'] = $request->alter_lead_address;
+            $meeting['phone'] = $phone;
+            $meeting['secondary_contact'] = $secondary_contact;
+            $meeting['start_time'] = $request->start_time;
+            $meeting['end_time'] = $request->end_time;
+            $meeting['ad_opts'] = isset($additional) ? $additional : '';
+            $meeting['floor_plan'] = $request->uploadedImage;
+            $meeting['allergies'] = $request->allergies;
+            $meeting['created_by'] = \Auth::user()->creatorId();
             $meeting->update();
             if (!empty($request->file('atttachment'))) {
                 $file = $request->file('atttachment');
@@ -709,7 +725,6 @@ class MeetingController extends Controller
     public function get_lead_data(Request $request)
     {
         $lead = Lead::where('id', $request->venue)->first();
-        $lead->secondary_contact = json_decode($lead->secondary_contact, true);
         return $lead;
     }
 
@@ -879,6 +894,14 @@ class MeetingController extends Controller
             return redirect()->back()->with('error', 'Email Not Sent');
         }
         return redirect()->back()->with('success', 'Email Sent Successfully');
+    }
+    public function agreementstatus(Request $request)
+    {
+        $id = $request->id;
+        Meeting::where('id', $id)->update([
+            'status' => $request->status
+        ]);
+        return true;
     }
     public function download_meeting($id)
     {

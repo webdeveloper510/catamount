@@ -107,7 +107,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                                     </div>
                                                     @endif
                                                     @if($lead->status >= 2 )
-                                                    <div class="action-btn bg-info ms-2 test">
+                                                    <div class="action-btn bg-info ms-2">
                                                         <a href="{{route('lead.review',urlencode(encrypt($lead->id))) }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white " data-bs-toggle="tooltip" title="{{__('Review')}}" data-title="{{__('Review Lead')}}">
                                                             <i class="fas fa-pen"></i></a>
                                                     </div>

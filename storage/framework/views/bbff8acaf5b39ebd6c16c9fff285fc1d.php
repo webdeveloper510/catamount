@@ -135,14 +135,15 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             </div>
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
-                                                    <?php echo e(Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label'])); ?>
+                                                    <?php echo e(Form::label('Assigned Training',__('Assigned Training'),['class'=>'form-label'])); ?>
 
                                                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="user[]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>">
+                                                        <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>">
                                                         <label class="form-check-label" for="user_<?php echo e($user->id); ?>">
                                                             <?php echo e($user->name); ?> (<?php echo e($user->type); ?>)
                                                         </label>
+                                                        <input type="number" name="user[<?php echo e($user->id); ?>][amount]" id="user_amount_<?php echo e($user->id); ?>" disabled required>
                                                     </div>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     <?php if($errors->has('user')): ?>
@@ -152,6 +153,21 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
+
+                                            <script>
+                                                document.querySelectorAll('input.inputDisable').forEach(function(element) {
+                                                    element.addEventListener('click', function() {
+                                                        var value = element.value;
+                                                        var checked = element.checked;
+                                                        var userAmountInput = document.querySelector(`input#user_amount_${value}`);
+                                                        if (!checked) {
+                                                            userAmountInput.disabled = true;
+                                                        } else {
+                                                            userAmountInput.disabled = false;
+                                                        }
+                                                    });
+                                                });
+                                            </script>
 
                                             <div class="col-6 need_full">
                                                 <?php echo e(Form::label('type',__('Training Type'),['class'=>'form-label'])); ?>
@@ -208,7 +224,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     <div class="intl-tel-input">
                                                         <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
 
-                                                        
+
                                                         <input type="hidden" name="countrycode" id="country-code">
                                                     </div>
                                                 </div>
@@ -548,7 +564,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                         <?php endif; ?>
 
                                     </div>
-
+                                    <?php if($setup->isNotEmpty()): ?>
                                     <div class="col-12">
                                         <div class="row">
                                             <label><b>Setup</b></label>
@@ -572,7 +588,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                     </div>
-
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -700,13 +716,11 @@ unset($__errorArgs, $__bag); ?>
 
 <script>
     $(document).ready(function() {
-        // Retrieve leadId from localStorage
+
         var leadId = localStorage.getItem('leadId');
 
-        // Check if leadId exists in localStorage
         if (leadId) {
             $('select[name="lead"]').val(leadId);
-            // Use the leadId as needed, for example:
             console.log('Lead ID:', leadId);
             var venu = leadId;
             $.ajax({
@@ -718,13 +732,17 @@ unset($__errorArgs, $__bag); ?>
                 },
                 success: function(data) {
                     console.log(data);
+                    secondary_contact = JSON.parse(data.secondary_contact);
+
                     // func_pack = json_decode(data.func_package);
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
-                    func_str = data.function;
-                    func_arr = func_str.split(",");
+                    // func_str = data.function;
+                    // func_arr = func_str.split(",");
                     $('input[name ="company_name"]').val(data.company_name);
                     $('input[name ="name"]').val(data.name);
+                    $('input[name ="allergies"]').val(data.allergies);
+                    $('input[name ="spcl_request"]').val(data.spcl_req);
                     // Phone number formatting
                     // var phoneInput = $('input[name ="phone"]');
                     // phoneInput.val(data.phone);
@@ -741,33 +759,33 @@ unset($__errorArgs, $__bag); ?>
                     $('input[name ="primary_contact"]').val(data.primary_contact);
 
 
-                    $('input[name ="secondary_contact[name]"]').val(data.secondary_contact.name);
-                    $('input[name ="secondary_contact[secondary_contact]"]').val(data.secondary_contact.secondary_contact);
-                    $('input[name ="secondary_contact[email]"]').val(data.secondary_contact.email);
-                    $('input[name ="secondary_contact[lead_address]"]').val(data.secondary_contact.lead_address);
-                    $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
+                    $('input[name ="secondary_contact[name]"]').val(secondary_contact.name);
+                    $('input[name ="secondary_contact[secondary_contact]"]').val(secondary_contact.secondary_contact);
+                    $('input[name ="secondary_contact[email]"]').val(secondary_contact.email);
+                    $('input[name ="secondary_contact[lead_address]"]').val(secondary_contact.lead_address);
+                    $('input[name ="secondary_contact[relationship]"]').val(secondary_contact.relationship);
 
 
                     $('input[name ="lead_address"]').val(data.lead_address);
                     $("select[name='type'] option[value='" + data.type + "']").prop("selected",
                         true);
                     $("input[name='bar'][value='" + data.bar + "']").prop('checked', true);
-                    $("input[name='user[]'][value='" + data.assigned_user + "']").prop(
-                        'checked', true);
+                    // $("input[name='user[]'][value='" + data.assigned_user + "']").prop('checked', true);
+                    $("input[name='user[" + data.assigned_user + "][checkbox]'][value='" + data.assigned_user + "']").prop('checked', true);
                     $.each(venue_arr, function(i, val) {
                         $("input[name='venue[]'][value='" + val + "']").prop('checked',
                             true);
                     });
 
-                    $.each(func_arr, function(i, val) {
+                    /* $.each(func_arr, function(i, val) {
                         $("input[name='function[]'][value='" + val + "']").prop(
                             'checked', true);
-                    });
+                    }); */
                     $('input[name ="guest_count"]').val(data.guest_count);
-                    var checkedFunctions = $('input[name="function[]"]:checked').map(
+                    /* var checkedFunctions = $('input[name="function[]"]:checked').map(
                         function() {
                             return $(this).val();
-                        }).get();
+                        }).get(); */
                     var mailFunctionSection = document.getElementById('mailFunctionSection');
                     var divs = mailFunctionSection.querySelectorAll('.form-group');
                     divs.forEach(function(div) {
@@ -778,11 +796,23 @@ unset($__errorArgs, $__bag); ?>
                             div.style.display = 'none';
                         }
                     });
+
+                    document.querySelectorAll('input.inputDisable').forEach(function(input) {
+                        var val = input.value;
+                        var checked = input.checked;
+                        var targetInput = document.getElementById('user_amount_' + val);
+                        if (checked) {
+                            targetInput.disabled = false;
+                        } else {
+                            targetInput.disabled = true;
+                        }
+                    });
                 }
             });
             // Clear the leadId from localStorage (optional)
-            localStorage.removeItem('leadId');
+            // localStorage.removeItem('leadId');
         }
+
     });
 </script>
 <style>
@@ -982,8 +1012,8 @@ $(document).ready(function() {
                     $("select[name='type'] option[value='" + data.type + "']").prop("selected",
                         true);
                     $("input[name='baropt'][value='" + data.bar + "']").prop('checked', true);
-                    $("input[name='user[]'][value='" + data.assigned_user + "']").prop(
-                        'checked', true);
+                    // $("input[name='user[]'][value='" + data.assigned_user + "']").prop('checked', true);
+                    $("input[name='user[" + data.assigned_user + "][checkbox]'][value='" + data.assigned_user + "']").prop('checked', true);
                     $.each(venue_arr, function(i, val) {
                         $("input[name='venue[]'][value='" + val + "']").prop('checked',
                             true);

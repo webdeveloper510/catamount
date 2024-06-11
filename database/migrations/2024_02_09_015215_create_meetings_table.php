@@ -14,18 +14,19 @@ class CreateMeetingsTable extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('name')->nullable();  
+            $table->longText('user_data')->nullable();
+            $table->string('name')->nullable();
             $table->string('email');
-            $table->string('lead_address');    
-            $table->string('eventname')->nullable();    
-            $table->string('relationship')->nullable();  
+            $table->string('lead_address');
+            $table->string('eventname')->nullable();
+            $table->string('relationship')->nullable();
             $table->integer('phone')->default(0);
             $table->string('alter_name')->nullable();
             $table->integer('alter_phone')->nullable();
             $table->string('alter_email')->nullable();
             $table->string('alter_relationship')->nullable();
-            $table->string('alter_lead_address')->nullable(); 
-            $table->string('company_name')->nullable();    
+            $table->string('alter_lead_address')->nullable();
+            $table->string('company_name')->nullable();
             $table->integer('status')->default(0);
             $table->date('start_date');
             $table->date('end_date');
@@ -46,10 +47,10 @@ class CreateMeetingsTable extends Migration
             $table->string('type')->nullable();
             $table->string('ad_opts')->nullable();
             $table->integer('total')->default(0);
-            $table->text('secondary_contact')->nullable();
+            $table->longText('secondary_contact')->nullable();
             $table->integer('created_by')->default(0);
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

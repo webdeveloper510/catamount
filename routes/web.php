@@ -542,6 +542,7 @@ Route::group(['middleware' => ['verified']], function () {
             Route::get('event/detailed-view/{id}', [MeetingController::class, 'detailed_info'])->name('meeting.detailview');
             Route::get('event/user-information/{id}', [MeetingController::class, 'event_user_info'])->name('event.userinfo');
             Route::post('event/upload_doc/{id}', [MeetingController::class, 'event_upload_doc'])->name('event.uploaddoc');
+            Route::post('event/change_agree_status/', [MeetingController::class, 'agreementstatus'])->name('event.changeagreementstat');
             Route::post('event-notes/{id}', [MeetingController::class, 'eventnotes'])->name('addeventnotes');
             Route::get('/get-encoded-id/{id}', function ($id) {
                 $encryptedId = Crypt::encrypt($id);

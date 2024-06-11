@@ -15,14 +15,14 @@ $files = Storage::files('app/public/Event/'.$event->id);
 ?>
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Event Information') }}
+{{ __('Training Information') }}
 @endsection
 @section('title')
-{{ __('Event Information') }}
+{{ __('Training Information') }}
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item">{{ __('Event Information') }}</li>
+<li class="breadcrumb-item">{{ __('Training Information') }}</li>
 @endsection
 @section('action-btn')
 
@@ -36,7 +36,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
             <div class="container-fluid xyz">
                 <div class="row">
                     <dl class="row ">
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Event')}}</span></dt>
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training')}}</span></dt>
                         @if($event->attendees_lead != 0)
                         <dd class="col-md-6 need_half"><span
                                 class="">{{ !empty($event->attendees_leads->leadname)?$event->attendees_leads->leadname:'--' }}</span>
@@ -44,7 +44,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         @else
                         <dd class="col-md-6 need_half"><span class="">{{$event->eventname}}</span></dd>
                         @endif
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Event Type')}}</span></dt>
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Type')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">{{$event->type}}</span></dd>
 
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Date')}}</span></dt>
@@ -63,7 +63,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">{{$event->guest_count}}</span></dd>
 
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Venue')}}</span></dt>
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Trainings Location')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">{{$event->venue_selection}}</span></dd>
 
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Room')}}</span></dt>

@@ -2,7 +2,7 @@
     <div class="col-lg-12 half-col">
         <div class="">
             <dl class="row">
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Event')}}</span></dt>
+                <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead')}}</span></dt>
                 @if($meeting->attendees_lead != 0)
                 <dd class="col-md-6"><span class="">{{ !empty($meeting->attendees_leads->leadname)?$meeting->attendees_leads->leadname:'--' }}</span>
                 </dd>
@@ -37,8 +37,8 @@
                 <dt class="col-md-6"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
                 <dd class="col-md-6"><span class="">{{$meeting->venue_selection}}</span></dd>
 
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Function')}}</span></dt>
-                <dd class="col-md-6"><span class="">{{$meeting->function}}</span></dd>
+                <!-- <dt class="col-md-6"><span class="h6  mb-0">{{__('Function')}}</span></dt>
+                <dd class="col-md-6"><span class="">{{$meeting->function}}</span></dd> -->
 
                 <dt class="col-md-6"><span class="h6  mb-0">{{__('Training Type')}}</span></dt>
                 <dd class="col-md-6"><span class="">{{$meeting->type}}</span></dd>
