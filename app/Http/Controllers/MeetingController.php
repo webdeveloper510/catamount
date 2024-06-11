@@ -196,8 +196,8 @@ class MeetingController extends Controller
                 return !is_null($user['amount']);
             });
 
-            foreach ($filteredUsers as $filteredUsersValue) {
-                $filteredUsersKeys[] = array_keys($filteredUsersValue);
+            foreach ($filteredUsers as $filteredUsersKey => $filteredUsersValue) {
+                $filteredUsersKeys[] = $filteredUsersKey;
             }
 
             $phone = preg_replace('/\D/', '', $request->input('phone'));
