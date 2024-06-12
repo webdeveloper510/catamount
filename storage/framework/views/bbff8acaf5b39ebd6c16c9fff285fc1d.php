@@ -755,9 +755,9 @@ unset($__errorArgs, $__bag); ?>
                     // // phoneInput.trigger('input');
                     // // phoneInput.addEventListener('input', enforceFormat);
                     // // phoneInput.addEventListener('input', formatToPhone); 
+                    // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="relationship"]').val(data.relationship);
                     $('input[name ="start_date"]').val(data.start_date);
-                    // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);
                     $('input[name ="rooms"]').val(data.rooms);
@@ -773,25 +773,17 @@ unset($__errorArgs, $__bag); ?>
 
 
                     $('input[name ="lead_address"]').val(data.lead_address);
-                    $("select[name='type'] option[value='" + data.type + "']").prop("selected",
-                        true);
+                    $("select[name='type'] option[value='" + data.type + "']").prop("selected", true);
                     $("input[name='bar'][value='" + data.bar + "']").prop('checked', true);
                     // $("input[name='user[]'][value='" + data.assigned_user + "']").prop('checked', true);
                     $("input[name='user[" + data.assigned_user + "][checkbox]'][value='" + data.assigned_user + "']").prop('checked', true);
                     $.each(venue_arr, function(i, val) {
-                        $("input[name='venue[]'][value='" + val + "']").prop('checked',
-                            true);
+                        $("input[name='venue[]'][value='" + val + "']").prop('checked', true);
                     });
-
-                    /* $.each(func_arr, function(i, val) {
-                        $("input[name='function[]'][value='" + val + "']").prop(
-                            'checked', true);
-                    }); */
                     $('input[name ="guest_count"]').val(data.guest_count);
-                    /* var checkedFunctions = $('input[name="function[]"]:checked').map(
-                        function() {
-                            return $(this).val();
-                        }).get(); */
+
+                    // $.each(func_arr, function(i, val) {$("input[name='function[]'][value='" + val + "']").prop('checked', true);});
+                    // var checkedFunctions = $('input[name="function[]"]:checked').map(function() {return $(this).val();}).get();
                     var mailFunctionSection = document.getElementById('mailFunctionSection');
                     var divs = mailFunctionSection.querySelectorAll('.form-group');
                     divs.forEach(function(div) {

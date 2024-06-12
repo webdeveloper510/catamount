@@ -34,7 +34,7 @@ $additional_items = json_decode($setting['additional_items'],true);
     .floorimages {
         height: 400px;
         width: 600px;
-        margin:0px !important;
+        margin: 0px !important;
     }
 
     .selected-image {
@@ -77,36 +77,43 @@ $additional_items = json_decode($setting['additional_items'],true);
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                    @if($meeting->attendees_lead != 0 )
-                                        <div class="col-6 need_full">
+                                        @if($meeting->attendees_lead != 0 )
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('attendees_lead', __('Lead'), ['class' => 'form-label']) }}
                                                 {{Form::text('attendees_lead',$attendees_lead,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))}}
                                             </div>
                                         </div>
                                         @else
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('eventname', __('Event Name'), ['class' => 'form-label']) }}
                                                 {{Form::text('eventname',$meeting->eventname,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))}}
                                             </div>
                                         </div>
                                         @endif
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) }}
                                                 @foreach($users as $user)
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="user[]" value="{{ $user->id }}" id="user_{{ $user->id }}" {{ in_array($user->id, $user_id) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="user_{{ $user->id }}">
-                                                        {{ $user->name }} ({{ $user->type }})
-                                                    </label>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}">
+                                                            <label class="form-check-label" for="user_{{ $user->id }}">
+                                                                {{ $user->name }} ({{ $user->type }})
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="number" class="form-control" name="user[{{ $user->id }}][amount]" id="user_amount_{{ $user->id }}" disabled required>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 @endforeach
 
                                             </div>
                                         </div>
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
                                                 {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name'),'required'=>'required'))}}
@@ -268,7 +275,7 @@ $additional_items = json_decode($setting['additional_items'],true);
                                                 @if(isset($function) && !empty($function))
                                                 @foreach($function as $key => $value)
                                                 <div class="form-check">
-                                                    {!! Form::checkbox('function[]',$value['function'],   in_array( $value['function'], $function_p) ? true : false , ['id' => 'function_' . $key, 'class' => 'form-check-input']) !!}
+                                                    {!! Form::checkbox('function[]',$value['function'], in_array( $value['function'], $function_p) ? true : false , ['id' => 'function_' . $key, 'class' => 'form-check-input']) !!}
                                                     {{ Form::label($value['function'], $value['function'], ['class' => 'form-check-label']) }}
                                                 </div>
                                                 @endforeach
@@ -283,15 +290,15 @@ $additional_items = json_decode($setting['additional_items'],true);
                                                 {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
                                                 @foreach($value['package'] as $k => $package)
                                                 <?php $isChecked = false; ?>
-                                            @if(isset($food_package) && !empty($food_package))
-                                            @foreach($food_package as $func => $pack)
-                                            @foreach($pack as $keypac => $packval)
-                                            @if($package == $packval)
-                                            <?php $isChecked = true; ?>
-                                            @endif
-                                            @endforeach
-                                            @endforeach
-                                            @endif
+                                                @if(isset($food_package) && !empty($food_package))
+                                                @foreach($food_package as $func => $pack)
+                                                @foreach($pack as $keypac => $packval)
+                                                @if($package == $packval)
+                                                <?php $isChecked = true; ?>
+                                                @endif
+                                                @endforeach
+                                                @endforeach
+                                                @endif
                                                 <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
                                                     {!! Form::checkbox('package_'.str_replace(' ', '', strtolower($value['function'])).'[]',$package, $isChecked, ['id' => 'package_' . $key.$k, 'data-function' => $value['function'], 'class' => 'form-check-input']) !!}
                                                     {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
@@ -352,116 +359,116 @@ $additional_items = json_decode($setting['additional_items'],true);
                                             <!-- {!! Form::checkbox('room', 1, null, ['id'=>'room', 'class' => 'checkbox']) !!}
                                                 {!! Form::label('room', 'Rooms at the hotel') !!}  -->
                                             {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-                                            <input type="number" name="rooms" min=0 class="form-control" value="{{$meeting->room}}">
-                                        </div>
-                                        <div class="col-6 need_full">
-                                            <div class="form-group">
-                                                {!! Form::label('meal', 'Meal Preference') !!}
-                                                @foreach($meal as $key => $label)
-                                                <div>
-                                                    {{ Form::radio('meal', $label , false, ['id' => $label]) }}
-                                                    {{ Form::label('meal' . ($key + 1), $label) }}
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="col-6 need_full">
-                                            <div class="form-group">
-                                                {!! Form::label('baropt', 'Bar') !!}
-                                                @foreach($baropt as $key => $label)
-                                                <div>
-                                                    {{ Form::radio('baropt', $label, isset($meeting->bar) && $meeting->bar == $label ? true :false, ['id' => $label]) }}
-                                                    {{ Form::label('baropt' . ($key + 1), $label) }}
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
-                                            @if(isset($bar_package) && !empty($bar_package))
-                                            @foreach($bar_package as $key =>$value)
-                                            <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
-                                                {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
-                                                @foreach($value['barpackage'] as $k => $bar)
-                                                <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
-                                                    {!! Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_' . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
-                                                    {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
-                                                </div>
-                                                @endforeach
+                                        <input type="number" name="rooms" min=0 class="form-control" value="{{$meeting->room}}">
+                                    </div>
+                                    <div class="col-6 need_full">
+                                        <div class="form-group">
+                                            {!! Form::label('meal', 'Meal Preference') !!}
+                                            @foreach($meal as $key => $label)
+                                            <div>
+                                                {{ Form::radio('meal', $label , false, ['id' => $label]) }}
+                                                {{ Form::label('meal' . ($key + 1), $label) }}
                                             </div>
                                             @endforeach
-                                            @endif
-                                        </div>--}}
-
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                {{Form::label('spcl_request',__('Special Requests / Considerations'),['class'=>'form-label']) }}
-                                                {{Form::text('spcl_request',null,array('class'=>'form-control'))}}
+                                        </div>
+                                    </div>
+                                    <div class="col-6 need_full">
+                                        <div class="form-group">
+                                            {!! Form::label('baropt', 'Bar') !!}
+                                            @foreach($baropt as $key => $label)
+                                            <div>
+                                                {{ Form::radio('baropt', $label, isset($meeting->bar) && $meeting->bar == $label ? true :false, ['id' => $label]) }}
+                                                {{ Form::label('baropt' . ($key + 1), $label) }}
                                             </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
+                                        @if(isset($bar_package) && !empty($bar_package))
+                                        @foreach($bar_package as $key =>$value)
+                                        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
+                                            {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
+                                            @foreach($value['barpackage'] as $k => $bar)
+                                            <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
+                                                {!! Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_' . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
+                                                {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                    </div>--}}
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{Form::label('spcl_request',__('Special Requests / Considerations'),['class'=>'form-label']) }}
+                                            {{Form::text('spcl_request',null,array('class'=>'form-control'))}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="other_info" class="card">
-                            <div class="col-md-12">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5>{{ __('Other Information') }}</h5>
-                                        </div>
+                    </div>
+                    <div id="other_info" class="card">
+                        <div class="col-md-12">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <h5>{{ __('Other Information') }}</h5>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
 
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-                                                {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
-                                            </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
+                                            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
                                         </div>
-                                        <div class="col-12">
-                                                <div class="form-group">
-                                                    {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
-                                                    <input type="file" name="atttachment" id="atttachment" class="form-control">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
+                                            <input type="file" name="atttachment" id="atttachment" class="form-control">
 
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="col-6 need_full">
+                                            <div class="form-group">
+                                                {{ Form::label('status', __('Status'), ['class' => 'form-label']) }}
+                                                <div class="checkbox-group">
+                                                    <input type="checkbox" id="approveCheckbox" name="status" value="Approve" {{ $meeting->status == 2 ? 'checked' : '' }}>
+                                                    <label for="approveCheckbox">Approve</label>
+
+                                                    <input type="checkbox" id="resendCheckbox" name="status" value="Resend" {{ $meeting->status == 0 ? 'checked' : '' }}>
+                                                    <label for="resendCheckbox">Resend</label>
+
+                                                    <input type="checkbox" id="withdrawCheckbox" name="status" value="Withdraw" {{ $meeting->status == 3 ? 'checked' : '' }}>
+                                                    <label for="withdrawCheckbox">Withdraw</label>
                                                 </div>
                                             </div>
-
-                                    </div>
-                              
-                                <div class="row">
-                                <div class="col-12">
-                                <div class="col-6 need_full">
-                                    <div class="form-group">
-                                        {{ Form::label('status', __('Status'), ['class' => 'form-label']) }}
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="approveCheckbox" name="status" value="Approve" {{ $meeting->status == 2 ? 'checked' : '' }}>
-                                            <label for="approveCheckbox">Approve</label>
-
-                                            <input type="checkbox" id="resendCheckbox" name="status" value="Resend" {{ $meeting->status == 0 ? 'checked' : '' }}>
-                                            <label for="resendCheckbox">Resend</label>
-
-                                            <input type="checkbox" id="withdrawCheckbox" name="status" value="Withdraw" {{ $meeting->status == 3 ? 'checked' : '' }}>
-                                            <label for="withdrawCheckbox">Withdraw</label>
                                         </div>
                                     </div>
                                 </div>
-</div>
-</div>
-</div>
-                                <div class="card-footer text-end">
-                                    {{ Form::submit(__('Submit'), ['class' => 'btn  btn-primary ']) }}
-                                </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                {{ Form::submit(__('Submit'), ['class' => 'btn  btn-primary ']) }}
                             </div>
                         </div>
-
-                        {{ Form::close() }}
                     </div>
+
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @endsection

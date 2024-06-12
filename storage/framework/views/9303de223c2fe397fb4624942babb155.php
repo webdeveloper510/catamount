@@ -98,13 +98,9 @@ $agreestatus= \App\Models\Meeting::$status;
                                                 <?php if(Gate::check('Show Meeting') || Gate::check('Edit Meeting') ||
                                                 Gate::check('Delete Meeting')): ?>
                                                 <td class="text-end">
-                                                    <div class="action-btn bg-secondary ms-2">
-                                                        <a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($meeting->id)))); ?>" data-size="md" title="<?php echo e(__('Detailed view ')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
-                                                            <i class="fa fa-info"></i> </a>
-                                                    </div>
                                                     <?php if($meeting->status == 0): ?>
                                                     <div class="action-btn bg-primary ms-2">
-                                                        <a href="#" data-size="md" data-url="<?php echo e(route('meeting.share', $meeting->id)); ?>" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="<?php echo e(__('Training Details')); ?>" title="<?php echo e(__('Share')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                        <a href="#" data-size="md" data-url="<?php echo e(route('meeting.share', $meeting->id)); ?>" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="<?php echo e(__('Event Details')); ?>" title="<?php echo e(__('Share')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-share"></i>
                                                         </a>
                                                     </div>
@@ -114,7 +110,7 @@ $agreestatus= \App\Models\Meeting::$status;
                                                             <i class="ti ti-clock"></i>
                                                         </a>
                                                     </div>
-                                                    <?php elseif($meeting->status == 2 ||$meeting->status == 3): ?>
+                                                    <?php elseif($meeting->status == 2): ?>
                                                     <div class="action-btn bg-primary ms-2">
                                                         <a href="<?php echo e(route('meeting.review',urlencode(encrypt($meeting->id)))); ?>" data-size="md" data-title="<?php echo e(__('Agreement')); ?>" title="<?php echo e(__('Review Agreement')); ?>" data-bs-toggle="tooltip" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="fa fa-pen"></i>
@@ -199,36 +195,36 @@ $agreestatus= \App\Models\Meeting::$status;
     })
 
 
-   /*  $(document).on('change', 'select[name=parent]', function() {
+    /*  $(document).on('change', 'select[name=parent]', function() {
 
-        var parent = $(this).val();
+         var parent = $(this).val();
 
-        getparent(parent);
-    });
+         getparent(parent);
+     });
 
-    function getparent(bid) {
+     function getparent(bid) {
 
-        $.ajax({
-            url: '<?php echo e(route("meeting.getparent")); ?>',
-            type: 'POST',
-            data: {
-                "parent": bid,
-                "_token": "<?php echo e(csrf_token()); ?>",
-            },
-            success: function(data) {
-                console.log(data);
-                $('#parent_id').empty();
-                {
-                    {
-                        $('#parent_id').append('<option value=""><?php echo e(__("Select Parent")); ?></option>');
-                    }
-                }
-                $.each(data, function(key, value) {
-                    $('#parent_id').append('<option value="' + key + '">' + value + '</option>');
-                });
-            }
-        });
-    } */
+         $.ajax({
+             url: '<?php echo e(route("meeting.getparent")); ?>',
+             type: 'POST',
+             data: {
+                 "parent": bid,
+                 "_token": "<?php echo e(csrf_token()); ?>",
+             },
+             success: function(data) {
+                 console.log(data);
+                 $('#parent_id').empty();
+                 {
+                     {
+                         $('#parent_id').append('<option value=""><?php echo e(__("Select Parent")); ?></option>');
+                     }
+                 }
+                 $.each(data, function(key, value) {
+                     $('#parent_id').append('<option value="' + key + '">' + value + '</option>');
+                 });
+             }
+         });
+     } */
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/meeting/index.blade.php ENDPATH**/ ?>

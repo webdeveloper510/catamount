@@ -774,7 +774,6 @@ class LeadController extends Controller
     }
     public function review_proposal_data(Request $request, $id)
     {
-        // echo "<pre>";print_r($request->all());die;
         $settings = Utility::settings();
         $validator = \Validator::make($request->all(), [
             'status' => 'required|in:Approve,Resend,Withdraw',
@@ -790,7 +789,9 @@ class LeadController extends Controller
         $venue_function = isset($request->venue) ? implode(',', $_REQUEST['venue']) : '';
         $function =  isset($request->function) ? implode(',', $_REQUEST['function']) : '';
         $primary_contact = preg_replace('/\D/', '', $request->input('primary_contact'));
-        $secondary_contact = preg_replace('/\D/', '', $request->input('secondary_contact'));
+        $secondary_contact = preg_replace('/\D/', '', $request->input('secondary_contact')['secondary_contact']);
+
+        $secondary_contact = json_encode($request->input('secondary_contact'));
 
         if ($request->status == 'Approve') {
             $status = 4;
@@ -889,12 +890,7 @@ class LeadController extends Controller
                 // unlink($tempFilePath);
                 // $upd = Lead::where('id',$id)->update(['status' => 1]);
             } catch (\Exception $e) {
-                //   return response()->json(
-                //             [
-                //                 'is_success' => false,
-                //                 'message' => $e->getMessage(),
-                //             ]
-                //         );
+                // return response()->json(['is_success' => false,'message' => $e->getMessage(),]);
                 return redirect()->route('lead.index', compact('leads', 'statuss'))->with('danger', __('Email Not Sent!'));
             }
             return redirect()->route('lead.index', compact('leads', 'statuss'))->with('danger', __('Lead Resent!'));
@@ -902,7 +898,6 @@ class LeadController extends Controller
     }
     public function duplicate($id)
     {
-
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
         $newlead = new Lead();
@@ -974,9 +969,9 @@ class LeadController extends Controller
                 return redirect()->back()->with('error', 'File upload failed');
             }
             $document = new LeadDoc();
-            $document->lead_id = $id; // Assuming you have a lead_id field
-            $document->filename = $originalName; // Store original file name
-            $document->filepath = $path; // Store file path
+            $document->lead_id = $id;
+            $document->filename = $originalName;
+            $document->filepath = $path;
             $document->save();
             return redirect()->back()->with('success', 'Document Uploaded Successfully');
         } else {

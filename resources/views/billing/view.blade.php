@@ -38,7 +38,7 @@ $total += $p->amount;
                     </span>
                 </dd>
            
-            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Venue')}}</span></dt>
+            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
             <dd class="col-md-6 need_half"><span class="">{{ $event->venue_selection }}</span></dd>
 
             <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Invoice Amount')}}</span></dt>
@@ -48,7 +48,7 @@ $total += $p->amount;
             <dd class="col-md-6 need_half"><span class="">${{ number_format($event->total - $total) }}</span></dd>
             
 
-            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Event Created')}}</span></dt>
+            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Created')}}</span></dt>
             <dd class="col-md-6 need_half"><span class="">{{\Auth::user()->dateFormat($event->created_at)}}</span></dd>
             
             <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Any Special Requirements')}}</span></dt>

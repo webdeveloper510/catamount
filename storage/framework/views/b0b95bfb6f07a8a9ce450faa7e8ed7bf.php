@@ -1,4 +1,4 @@
-@php
+<?php
 $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
 $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
@@ -11,7 +11,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
 $total =[];
 $startdate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['start_date'])->format('d/m/Y');
 $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->format('d/m/Y');
-@endphp
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,7 +90,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     <div class="invoice-container">
         <header>
             <div class="header-left">
-                <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" alt="Catamount Consulting">
+                <img src="<?php echo e(url('storage/uploads/logo/3_logo-light.png')); ?>" alt="Catamount Consulting">
                 <p>
                     <strong>Catamount Consulting</strong><br>
                     PO Box 442<br>
@@ -180,30 +180,30 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     <div class="row" style="display:flex; border:1px solid black;padding:2px 0px 10px;">
         <div class="col-md-6" style="text-align:left; margin-left:10px;">
             <dl>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Name')}}: {{ $meeting['name'] }}</span><br>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Phone & Email')}}: {{ $meeting['phone'] }} , {{ $meeting['email'] }}</span><br>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Address')}}: {{ $meeting['lead_address'] }}</span><br>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Event Date')}}: {{ $startdate }}</span>
+                <span style="font-size:14px;margin-bottom:10px;color:black;"><?php echo e(__('Name')); ?>: <?php echo e($meeting['name']); ?></span><br>
+                <span style="font-size:14px;margin-bottom:10px;color:black;"><?php echo e(__('Phone & Email')); ?>: <?php echo e($meeting['phone']); ?> , <?php echo e($meeting['email']); ?></span><br>
+                <span style="font-size:14px;margin-bottom:10px;color:black;"><?php echo e(__('Address')); ?>: <?php echo e($meeting['lead_address']); ?></span><br>
+                <span style="font-size:14px;margin-bottom:10px;color:black;"><?php echo e(__('Event Date')); ?>: <?php echo e($startdate); ?></span>
             </dl>
         </div>
         <div class="col-md-6" style="text-align:right; margin-top:-9rem;margin-right:20px;">
             <dl class="text-align:left;">
-                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 10px;">{{__('Primary Contact')}}: {{ $meeting['name'] }}</span><br>
-                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;">{{__('Phone')}}: {{ $meeting['phone'] }}</span><br>
-                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;">{{__('Email')}}: {{ $meeting['email'] }}</span><br>
+                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 10px;"><?php echo e(__('Primary Contact')); ?>: <?php echo e($meeting['name']); ?></span><br>
+                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;"><?php echo e(__('Phone')); ?>: <?php echo e($meeting['phone']); ?></span><br>
+                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;"><?php echo e(__('Email')); ?>: <?php echo e($meeting['email']); ?></span><br>
             </dl>
         </div>
     </div>
     <div class="row" style="display:flex;margin-bottom:10px;margin-bottom:10px;margin-bottom:20px; ">
         <div class="col-md-6" style="margin-left:10px;padding:2px 0px 20px;">
             <dl>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Deposit')}}:</span><br>
-                <span style="font-size:14px;margin-bottom:10px;margin-bottom:20px;margin-bottom:20px;padding-top:10px;color:black;padding-bottom:0px;">{{__('Billing Method')}}:</span>
+                <span style="font-size:14px;margin-bottom:10px;color:black;"><?php echo e(__('Deposit')); ?>:</span><br>
+                <span style="font-size:14px;margin-bottom:10px;margin-bottom:20px;margin-bottom:20px;padding-top:10px;color:black;padding-bottom:0px;"><?php echo e(__('Billing Method')); ?>:</span>
             </dl>
         </div>
         <div class="col-md-6" style="text-align:right;margin-top:-5rem;margin-right:10px;">
             <dl>
-                <span style="font-size:14px;margin-bottom:10px;padding-right:15px;color:black;">{{__('Catering Service')}}: NA</span><br>
+                <span style="font-size:14px;margin-bottom:10px;padding-right:15px;color:black;"><?php echo e(__('Catering Service')); ?>: NA</span><br>
             </dl>
         </div>
     </div>
@@ -224,13 +224,13 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         </thead>
         <tbody>
             <tr>
-                <td style="font-size:13px;font-weight:300;padding:8px 10px;">Start Date: {{$startdate}} <br>
-                <td style="font-size:13px;font-weight:300;padding:8px 10px;">Start Time:{{date('h:i A', strtotime($meeting['start_time']))}} <br>
-                    End time:{{date('h:i A', strtotime($meeting['end_time']))}}</td>
-                <td style="font-size:13px;font-weight:300;padding:8px 10px;">{{$meeting['venue_selection']}}</td>
-                <td style="font-size:13px;font-weight:300;padding:8px 10px;">{{$meeting['type']}}</td>
-                <td style="font-size:13px;font-weight:300;padding:8px 10px;">{{$meeting['function']}}</td>
-                <td style="font-size:13px;font-weight:300;padding:8px 10px;">{{$meeting['room']}}</td>
+                <td style="font-size:13px;font-weight:300;padding:8px 10px;">Start Date: <?php echo e($startdate); ?> <br>
+                <td style="font-size:13px;font-weight:300;padding:8px 10px;">Start Time:<?php echo e(date('h:i A', strtotime($meeting['start_time']))); ?> <br>
+                    End time:<?php echo e(date('h:i A', strtotime($meeting['end_time']))); ?></td>
+                <td style="font-size:13px;font-weight:300;padding:8px 10px;"><?php echo e($meeting['venue_selection']); ?></td>
+                <td style="font-size:13px;font-weight:300;padding:8px 10px;"><?php echo e($meeting['type']); ?></td>
+                <td style="font-size:13px;font-weight:300;padding:8px 10px;"><?php echo e($meeting['function']); ?></td>
+                <td style="font-size:13px;font-weight:300;padding:8px 10px;"><?php echo e($meeting['room']); ?></td>
                 <td style="font-size:13px;font-weight:300;padding:8px 10px;">Exp</td>
                 <td style="font-size:13px;font-weight:300;padding:8px 10px;">GTD</td>
                 <td style="font-size:13px;font-weight:300;padding:8px 10px;">Set</td>
@@ -243,7 +243,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     <div class="row" style="margin-top:20px;padding-top:10px;">
         <div class="col-md-12">
             <p>This contract defines the terms and conditions under which Lotus Estate, LLC dba The Bond 1786, (hereinafter referred to as The Bond or The
-                Bond 1786), and <b>{{$meeting['name']}}</b>(hereafter referred to as the Customer) agree to the Customer’s use of The Bond 1786 facilities on <b>{{$startdate}}</b>
+                Bond 1786), and <b><?php echo e($meeting['name']); ?></b>(hereafter referred to as the Customer) agree to the Customer’s use of The Bond 1786 facilities on <b><?php echo e($startdate); ?></b>
                 (reception/event date). This contract constitutes the entire agreement between the parties and becomes binding upon the signature of
                 both parties. The contract may not be amended or changed unless executed in writing and signed by The Bond 1786 and the Customer.
             </p>
@@ -252,7 +252,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     <div class="row">
         <div class="col-md-12">
             <h4>Venue Selected</h4>
-            <p>{{$meeting['venue_selection']}}</p><br><br>
+            <p><?php echo e($meeting['venue_selection']); ?></p><br><br>
             <p>
                 The venue/s described above has been reserved for you for the date and time stipulated. Please note that the hours assigned to your event include all set-up and
                 all clean-up, including the set-up and clean-up of all subcontractors that you may utilize. It is understood you will adhere to and follow the terms of this Agreement,
@@ -271,10 +271,10 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
             <table>
                 <thead>
                     <tr>
-                        <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">Name : {{$meeting['name']}}</th>
+                        <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">Name : <?php echo e($meeting['name']); ?></th>
                         <th colspan="2" style="padding:5px 0px;margin-left :5px;font-size:13px"></th>
                         <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">Date:<?php echo date("d/m/Y"); ?> </th>
-                        <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">Event: {{$meeting['type']}}</th>
+                        <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">Event: <?php echo e($meeting['type']); ?></th>
                     </tr>
                     <tr style="background-color:#063806;">
                         <th style="color:#ffffff; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">Description</th>
@@ -290,62 +290,62 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Venue Rental</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$billing_data['venue_rental']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['venue_rental']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] = $billing_data['venue_rental']['cost'] * $billing_data['venue_rental']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$meeting['venue_selection']}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($billing_data['venue_rental']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['venue_rental']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] = $billing_data['venue_rental']['cost'] * $billing_data['venue_rental']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($meeting['venue_selection']); ?></td>
                     </tr>
 
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Brunch / Lunch / Dinner Package</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"> ${{$billing_data['food_package']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['food_package']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] =$billing_data['food_package']['cost'] * $billing_data['food_package']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$meeting['function']}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"> $<?php echo e($billing_data['food_package']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['food_package']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] =$billing_data['food_package']['cost'] * $billing_data['food_package']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($meeting['function']); ?></td>
 
                     </tr>
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Bar Package</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$billing_data['bar_package']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['bar_package']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] = $billing_data['bar_package']['cost']* $billing_data['bar_package']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{implode(',',$bar_pck)}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($billing_data['bar_package']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['bar_package']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] = $billing_data['bar_package']['cost']* $billing_data['bar_package']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e(implode(',',$bar_pck)); ?></td>
                     </tr>
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Hotel Rooms</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$billing_data['hotel_rooms']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['hotel_rooms']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] = $billing_data['hotel_rooms']['cost'] * $billing_data['hotel_rooms']['quantity']}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($billing_data['hotel_rooms']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['hotel_rooms']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] = $billing_data['hotel_rooms']['cost'] * $billing_data['hotel_rooms']['quantity']); ?></td>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     </tr>
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Tent, Tables, Chairs, AV Equipment</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$billing_data['equipment']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['equipment']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] = $billing_data['equipment']['cost'] * $billing_data['equipment']['quantity']}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($billing_data['equipment']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['equipment']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] = $billing_data['equipment']['cost'] * $billing_data['equipment']['quantity']); ?></td>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     </tr>
 
-                    @if(!$billing_data['setup']['cost'] == '')
+                    <?php if(!$billing_data['setup']['cost'] == ''): ?>
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Welcome / Rehearsal / Special Setup</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$billing_data['setup']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['setup']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] =$billing_data['setup']['cost'] * $billing_data['setup']['quantity']}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($billing_data['setup']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['setup']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] =$billing_data['setup']['cost'] * $billing_data['setup']['quantity']); ?></td>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     </tr>
-                    @endif
+                    <?php endif; ?>
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Special Requests / Others</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$billing_data['additional_items']['cost']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{$billing_data['additional_items']['quantity']}}</td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] =$billing_data['additional_items']['cost'] * $billing_data['additional_items']['quantity']}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($billing_data['additional_items']['cost']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e($billing_data['additional_items']['quantity']); ?></td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] =$billing_data['additional_items']['cost'] * $billing_data['additional_items']['quantity']); ?></td>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
                     </tr>
@@ -360,21 +360,21 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Total</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{array_sum($total)}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(array_sum($total)); ?></td>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     </tr>
                     <tr>
                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Sales, Occupancy Tax</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{ 7* array_sum($total)/100 }}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(7* array_sum($total)/100); ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">Service Charges & Gratuity</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{ 20 * array_sum($total)/100 }}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(20 * array_sum($total)/100); ?></td>
 
                         <td></td>
                     </tr>
@@ -390,20 +390,20 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                         <td style="background-color:#ffff00; padding:5px 5px; margin-left:5px;font-size:13px;">Grand Total / Estimated Total</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100}}</td>
+                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?></td>
 
                         <td></td>
                     </tr>
                     <tr>
                         <td style="background-color:#d7e7d7; padding:5px 5px; margin-left:5px;font-size:13px;">Deposits on file</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td colspan="2" style="background-color:#d7e7d7;padding:5px 5px; margin-left:5px;font-size:13px;">${{$deposit= $billing->deposits}}</td>
+                        <td colspan="2" style="background-color:#d7e7d7;padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($deposit= $billing->deposits); ?></td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     </tr>
                     <tr>
                         <td style="background-color:#ffff00;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">balance due</td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                        <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">${{$grandtotal - $deposit}}</td>
+                        <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">$<?php echo e($grandtotal - $deposit); ?></td>
                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                     </tr>
                 </tbody>
@@ -680,14 +680,14 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <div class="main-div">
             <div class="col col-1">
                 <span class="signature-title">Authorized Signature:</span>
-                <img src="{{$base64Image}}" alt="Authorized Signature">
+                <img src="<?php echo e($base64Image); ?>" alt="Authorized Signature">
             </div>
             <div class="col col-2">
                 <span class="signature-title">Signature:</span>
-                <img src="{{@$sign}}" alt="Signature">
+                <img src="<?php echo e(@$sign); ?>" alt="Signature">
             </div>
         </div>
     </div>
 </body>
 
-</html>
+</html><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/meeting/agreement/view.blade.php ENDPATH**/ ?>

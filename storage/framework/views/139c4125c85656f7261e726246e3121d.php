@@ -75,8 +75,6 @@ $leaddata['hotel_rooms_cost'] = $billings['hotel_rooms'] ?? 0;
 $leaddata['venue_rental_cost'] = $venueRentalCost;
 $leaddata['food_package_cost'] = $totalFoodPackageCost;
 
-// echo "<pre>";print_r($lead->toArray());die;  
-
 ?>
 
 <?php $__env->startSection('title'); ?>
@@ -198,7 +196,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span>
-                                            <?php echo e(Form::text('secondary[name]',$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
+                                            <?php echo e(Form::text('secondary_contact[name]',@$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))); ?>
 
                                         </div>
                                     </div>
@@ -207,7 +205,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             <?php echo e(Form::label('phone', __('Phone'), ['class' => 'form-label'])); ?>
 
                                             <div class="intl-tel-input">
-                                                <input type="tel" id="phone-input1" name="secondary[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" value="<?php echo e($secondary_contact['secondary_contact']); ?>">
+                                                <input type="tel" id="phone-input1" name="secondary_contact[secondary_contact]" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" value="<?php echo e(@$secondary_contact['secondary_contact']); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -216,7 +214,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                         <div class="form-group">
                                             <?php echo e(Form::label('email',__('Email'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::text('secondary[email]',$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email'),'required' =>'required'))); ?>
+                                            <?php echo e(Form::text('secondary_contact[email]',@$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email'),'required' =>'required'))); ?>
 
                                         </div>
                                     </div>
@@ -224,7 +222,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                         <div class="form-group">
                                             <?php echo e(Form::label('lead_address',__('Address'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::text('secondary[lead_address]',$secondary_contact['lead_address'],array('class'=>'form-control','placeholder'=>__('Address')))); ?>
+                                            <?php echo e(Form::text('secondary_contact[lead_address]',@$secondary_contact['lead_address'],array('class'=>'form-control','placeholder'=>__('Address')))); ?>
 
                                         </div>
                                     </div>
@@ -232,7 +230,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                         <div class="form-group">
                                             <?php echo e(Form::label('secondary[relationship]',__('Title'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::text('relationship',$secondary_contact['relationship'],array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
+                                            <?php echo e(Form::text('secondary_contact[relationship]',@$secondary_contact['relationship'],array('class'=>'form-control','placeholder'=>__('Enter Title')))); ?>
 
                                         </div>
                                     </div>
@@ -541,7 +539,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
         $('#phone-input').val(formattedPhoneNumber);
 
 
-        var phoneNumber2 = "<?php echo $secondary_contact['secondary_contact']; ?>";
+        var phoneNumber2 = "<?php echo @$secondary_contact['secondary_contact']; ?>";
         var num = phoneNumber2.trim();
         var lastTenDigits2 = phoneNumber2.substr(-10);
         var formattedphoneNumber2 = '(' + lastTenDigits2.substr(0, 3) + ') ' + lastTenDigits2.substr(3,
