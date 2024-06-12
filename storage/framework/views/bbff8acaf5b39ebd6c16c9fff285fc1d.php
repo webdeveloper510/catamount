@@ -110,7 +110,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-6" id="lead_select">
+                                            <div class="col-12" id="lead_select">
                                                 <div class="form-group">
                                                     <?php echo e(Form::label('lead', __('Lead'), ['class' => 'form-label'])); ?>
 
@@ -122,7 +122,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 
                                                 </div>
                                             </div>
-                                            <div class="col-6" id="new_event" style="display: none;">
+                                            <div class="col-12" id="new_event" style="display: none;">
                                                 <div class="form-group">
                                                     <?php echo e(Form::label('eventname', __('Training Name'), ['class' => 'form-label'])); ?>
 
@@ -133,17 +133,23 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 
                                                 </div>
                                             </div>
-                                            <div class="col-6 need_full">
+                                            <div class="col-12 need_full">
                                                 <div class="form-group">
                                                     <?php echo e(Form::label('Assigned Training',__('Assigned Training'),['class'=>'form-label'])); ?>
 
                                                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <div class="form-check">
-                                                        <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>">
-                                                        <label class="form-check-label" for="user_<?php echo e($user->id); ?>">
-                                                            <?php echo e($user->name); ?> (<?php echo e($user->type); ?>)
-                                                        </label>
-                                                        <input type="number" name="user[<?php echo e($user->id); ?>][amount]" id="user_amount_<?php echo e($user->id); ?>" disabled required>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>">
+                                                                <label class="form-check-label" for="user_<?php echo e($user->id); ?>">
+                                                                    <?php echo e($user->name); ?> (<?php echo e($user->type); ?>)
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <input type="number" class="form-control" name="user[<?php echo e($user->id); ?>][amount]" id="user_amount_<?php echo e($user->id); ?>" disabled required>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     <?php if($errors->has('user')): ?>
@@ -169,7 +175,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 });
                                             </script>
 
-                                            <div class="col-6 need_full">
+                                            <div class="col-12 need_full">
                                                 <?php echo e(Form::label('type',__('Training Type'),['class'=>'form-label'])); ?>
 
                                                 <span class="text-sm">
@@ -810,7 +816,7 @@ unset($__errorArgs, $__bag); ?>
                 }
             });
             // Clear the leadId from localStorage (optional)
-            // localStorage.removeItem('leadId');
+            localStorage.removeItem('leadId');
         }
 
     });

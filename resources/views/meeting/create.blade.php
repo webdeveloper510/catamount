@@ -103,7 +103,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-6" id="lead_select">
+                                            <div class="col-12" id="lead_select">
                                                 <div class="form-group">
                                                     {{ Form::label('lead', __('Lead'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
@@ -113,7 +113,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     'form-control']) !!}
                                                 </div>
                                             </div>
-                                            <div class="col-6" id="new_event" style="display: none;">
+                                            <div class="col-12" id="new_event" style="display: none;">
                                                 <div class="form-group">
                                                     {{ Form::label('eventname', __('Training Name'), ['class' => 'form-label']) }}
                                                     <span class="text-sm">
@@ -122,16 +122,22 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     {{Form::text('eventname',null,array('class'=>'form-control','placeholder'=>__('Enter Training Name')))}}
                                                 </div>
                                             </div>
-                                            <div class="col-6 need_full">
+                                            <div class="col-12 need_full">
                                                 <div class="form-group">
                                                     {{Form::label('Assigned Training',__('Assigned Training'),['class'=>'form-label']) }}
                                                     @foreach($users as $user)
                                                     <div class="form-check">
-                                                        <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}">
-                                                        <label class="form-check-label" for="user_{{ $user->id }}">
-                                                            {{ $user->name }} ({{ $user->type }})
-                                                        </label>
-                                                        <input type="number" name="user[{{ $user->id }}][amount]" id="user_amount_{{ $user->id }}" disabled required>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}">
+                                                                <label class="form-check-label" for="user_{{ $user->id }}">
+                                                                    {{ $user->name }} ({{ $user->type }})
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <input type="number" class="form-control" name="user[{{ $user->id }}][amount]" id="user_amount_{{ $user->id }}" disabled required>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     @endforeach
                                                     @if ($errors->has('user'))
@@ -157,7 +163,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 });
                                             </script>
 
-                                            <div class="col-6 need_full">
+                                            <div class="col-12 need_full">
                                                 {{Form::label('type',__('Training Type'),['class'=>'form-label']) }}
                                                 <span class="text-sm">
                                                     <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
@@ -804,7 +810,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                 }
             });
             // Clear the leadId from localStorage (optional)
-            // localStorage.removeItem('leadId');
+            localStorage.removeItem('leadId');
         }
 
     });

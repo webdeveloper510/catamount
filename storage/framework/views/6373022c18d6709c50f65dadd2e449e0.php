@@ -88,7 +88,7 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="card-body">
                                     <div class="row">
                                         <?php if($meeting->attendees_lead != 0 ): ?>
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 <?php echo e(Form::label('attendees_lead', __('Lead'), ['class' => 'form-label'])); ?>
 
@@ -97,7 +97,7 @@ $user_data = json_decode($meeting->user_data,true);
                                             </div>
                                         </div>
                                         <?php else: ?>
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 <?php echo e(Form::label('eventname', __('Event Name'), ['class' => 'form-label'])); ?>
 
@@ -106,15 +106,23 @@ $user_data = json_decode($meeting->user_data,true);
                                             </div>
                                         </div>
                                         <?php endif; ?>
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
-                                                <?php echo e(Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label'])); ?>
-
+                                                <div class="col-12  p-0 modaltitle pb-3 mb0">
+                                                    <h5 style="margin-left: 14px;" class="mb-0"><?php echo e(__('Assigned Staff')); ?></h5>
+                                                </div>
+                                                
                                                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <div class="form-check">
-                                                    <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>" <?php echo e(in_array($user->id, $user_idNew) ? 'checked' : ''); ?>>
-                                                    <label class="form-check-label" for="user_<?php echo e($user->id); ?>"><?php echo e($user->name); ?> (<?php echo e($user->type); ?>)</label>
-                                                    <input type="number" name="user[<?php echo e($user->id); ?>][amount]" id="user_amount_<?php echo e($user->id); ?>" value="<?php echo e(@$user_data[$user->id]['amount']); ?>" disabled required>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>" <?php echo e(in_array($user->id, $user_idNew) ? 'checked' : ''); ?>>
+                                                            <label class="form-check-label" for="user_<?php echo e($user->id); ?>"><?php echo e($user->name); ?> (<?php echo e($user->type); ?>)</label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="number" name="user[<?php echo e($user->id); ?>][amount]" id="user_amount_<?php echo e($user->id); ?>" class="form-control" value="<?php echo e(@$user_data[$user->id]['amount']); ?>" disabled required>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 <script>
@@ -130,10 +138,21 @@ $user_data = json_decode($meeting->user_data,true);
                                                             }
                                                         });
                                                     });
+
+                                                    document.querySelectorAll('input.inputDisable').forEach(function(input) {
+                                                        var val = input.value;
+                                                        var checked = input.checked;
+                                                        var targetInput = document.getElementById('user_amount_' + val);
+                                                        if (checked) {
+                                                            targetInput.disabled = false;
+                                                        } else {
+                                                            targetInput.disabled = true;
+                                                        }
+                                                    });
                                                 </script>
                                             </div>
                                         </div>
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 <?php echo e(Form::label('company_name',__('Company Name'),['class'=>'form-label'])); ?>
 

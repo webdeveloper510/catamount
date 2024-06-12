@@ -10,8 +10,7 @@ class Meeting extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    protected 
-    $fillable = [
+    protected $fillable = [
         'user_id',
         'name',
         'status',
@@ -21,7 +20,9 @@ class Meeting extends Model
         'attendees_user',
         'attendees_lead',
         'food_package',
-        'total','ad_opts','phone'
+        'total',
+        'ad_opts',
+        'phone',
     ];
     public static $status   = [
         'Share Agreement',
@@ -65,7 +66,7 @@ class Meeting extends Model
     //     'Elite Wedding',
     //     'Plated Wedding Package'        
     // ];
-   
+
     public function assign_user()
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
@@ -114,6 +115,6 @@ class Meeting extends Model
 
     public function user()
     {
-    return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

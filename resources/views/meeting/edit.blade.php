@@ -86,28 +86,37 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="card-body">
                                     <div class="row">
                                         @if($meeting->attendees_lead != 0 )
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('attendees_lead', __('Lead'), ['class' => 'form-label']) }}
                                                 {{Form::text('attendees_lead',$attendees_lead,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))}}
                                             </div>
                                         </div>
                                         @else
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('eventname', __('Event Name'), ['class' => 'form-label']) }}
                                                 {{Form::text('eventname',$meeting->eventname,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))}}
                                             </div>
                                         </div>
                                         @endif
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
-                                                {{Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) }}
+                                                <div class="col-12  p-0 modaltitle pb-3 mb0">
+                                                    <h5 style="margin-left: 14px;" class="mb-0">{{ __('Assigned Staff') }}</h5>
+                                                </div>
+                                                {{-- Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) --}}
                                                 @foreach($users as $user)
                                                 <div class="form-check">
-                                                    <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}" {{ in_array($user->id, $user_idNew) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="user_{{ $user->id }}">{{ $user->name }} ({{ $user->type }})</label>
-                                                    <input type="number" name="user[{{ $user->id }}][amount]" id="user_amount_{{ $user->id }}" value="{{ @$user_data[$user->id]['amount'] }}" disabled required>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}" {{ in_array($user->id, $user_idNew) ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="user_{{ $user->id }}">{{ $user->name }} ({{ $user->type }})</label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="number" name="user[{{ $user->id }}][amount]" id="user_amount_{{ $user->id }}" class="form-control" value="{{ @$user_data[$user->id]['amount'] }}" disabled required>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 @endforeach
                                                 <script>
@@ -123,10 +132,21 @@ $user_data = json_decode($meeting->user_data,true);
                                                             }
                                                         });
                                                     });
+
+                                                    document.querySelectorAll('input.inputDisable').forEach(function(input) {
+                                                        var val = input.value;
+                                                        var checked = input.checked;
+                                                        var targetInput = document.getElementById('user_amount_' + val);
+                                                        if (checked) {
+                                                            targetInput.disabled = false;
+                                                        } else {
+                                                            targetInput.disabled = true;
+                                                        }
+                                                    });
                                                 </script>
                                             </div>
                                         </div>
-                                        <div class="col-6 need_full">
+                                        <div class="col-12 need_full">
                                             <div class="form-group">
                                                 {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
                                                 {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name'),'required'=>'required'))}}
