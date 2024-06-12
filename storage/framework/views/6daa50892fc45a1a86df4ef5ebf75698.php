@@ -19,11 +19,11 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
 <!-- <script src="https://www.jqueryscript.net/demo/Rich-Text-Editor-jQuery-RichText/jquery.richtext.js" type="text/javascript"></script> -->
 <script>
-    (function() {
+    /* (function() {
         const d_week = new Datepicker(document.querySelector('#pc-datepicker-2_modal'), {
             buttonClass: 'btn',
         });
-    })();
+    })(); */
 </script>
 <script>
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {

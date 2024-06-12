@@ -1,12 +1,12 @@
 <?php
-    $settings = \App\Models\Utility::settings();
-    $color = !empty($settings['color']) ? $settings['color'] : 'theme-3';
-    $logo = \App\Models\Utility::get_file('uploads/logo/');
-    $company_favicon = Utility::getValByName('company_favicon');
-    $users = \Auth::user();
-    $currantLang = $users->currentLanguage();
-    $languages = \App\Models\Utility::languages();
-    $footer_text = isset($settings['footer_text']) ? $settings['footer_text'] : '';
+$settings = \App\Models\Utility::settings();
+$color = !empty($settings['color']) ? $settings['color'] : 'theme-3';
+$logo = \App\Models\Utility::get_file('uploads/logo/');
+$company_favicon = Utility::getValByName('company_favicon');
+$users = \Auth::user();
+$currantLang = $users->currentLanguage();
+$languages = \App\Models\Utility::languages();
+$footer_text = isset($settings['footer_text']) ? $settings['footer_text'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="<?php echo e($settings['SITE_RTL'] == 'on' ? 'rtl' : ''); ?>">
@@ -47,8 +47,7 @@
         </div>
     </footer> -->
 
-    <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModal"
-        aria-hidden="true">
+    <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,8 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="commonModalOver" tabindex="-1" role="dialog" aria-labelledby="commonModal"
-        aria-hidden="true">
+    <div class="modal fade" id="commonModalOver" tabindex="-1" role="dialog" aria-labelledby="commonModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,43 +108,46 @@
         }
 
         var custthemebg = document.querySelector("#cust-theme-bg");
-        custthemebg.addEventListener("click", function() {
-            if (custthemebg.checked) {
-                document.querySelector(".dash-sidebar").classList.add("transprent-bg");
-                document
-                    .querySelector(".dash-header:not(.dash-mob-header)")
-                    .classList.add("transprent-bg");
-            } else {
-                document.querySelector(".dash-sidebar").classList.remove("transprent-bg");
-                document
-                    .querySelector(".dash-header:not(.dash-mob-header)")
-                    .classList.remove("transprent-bg");
-            }
-        });
+        if (custthemebg) {
+            custthemebg.addEventListener("click", function() {
+                if (custthemebg.checked) {
+                    document.querySelector(".dash-sidebar").classList.add("transprent-bg");
+                    document
+                        .querySelector(".dash-header:not(.dash-mob-header)")
+                        .classList.add("transprent-bg");
+                } else {
+                    document.querySelector(".dash-sidebar").classList.remove("transprent-bg");
+                    document
+                        .querySelector(".dash-header:not(.dash-mob-header)")
+                        .classList.remove("transprent-bg");
+                }
+            });
+        }
 
 
 
         var custdarklayout = document.querySelector("#cust-darklayout");
-        custdarklayout.addEventListener("click", function() {
-            if (custdarklayout.checked) {
+        if (custdarklayout) {
+            custdarklayout.addEventListener("click", function() {
+                if (custdarklayout.checked) {
 
-                document
-                    .querySelector("#main-style-link")
-                    .setAttribute("href", "<?php echo e(asset('assets/css/style-dark.css')); ?>");
-                document
-                    .querySelector(".m-header > .b-brand > .logo-lg")
-                    .setAttribute("src", "<?php echo e(asset('/storage/uploads/logo/logo.png')); ?>");
-            } else {
+                    document
+                        .querySelector("#main-style-link")
+                        .setAttribute("href", "<?php echo e(asset('assets/css/style-dark.css')); ?>");
+                    document
+                        .querySelector(".m-header > .b-brand > .logo-lg")
+                        .setAttribute("src", "<?php echo e(asset('/storage/uploads/logo/logo.png')); ?>");
+                } else {
 
-                document
-                    .querySelector("#main-style-link")
-                    .setAttribute("href", "<?php echo e(asset('assets/css/style.css')); ?>");
-                document
-                    .querySelector(".m-header > .b-brand > .logo-lg")
-                    .setAttribute("src", "<?php echo e(asset('/storage/uploads/logo/logo.png')); ?>");
-            }
-        });
-
+                    document
+                        .querySelector("#main-style-link")
+                        .setAttribute("href", "<?php echo e(asset('assets/css/style.css')); ?>");
+                    document
+                        .querySelector(".m-header > .b-brand > .logo-lg")
+                        .setAttribute("src", "<?php echo e(asset('/storage/uploads/logo/logo.png')); ?>");
+                }
+            });
+        }
 
         function removeClassByPrefix(node, prefix) {
             for (let i = 0; i < node.classList.length; i++) {
@@ -161,5 +162,4 @@
 </body>
 
 
-</html>
-<?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
