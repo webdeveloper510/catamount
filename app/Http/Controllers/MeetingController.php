@@ -544,13 +544,19 @@ class MeetingController extends Controller
 
 
             $secondary_contact = json_encode($request->secondary_contact);
-            $users = isset($request->user) ? $request->user : [];
 
+            $users = isset($request->user) ? $request->user : [];
             $filteredUsers = array_filter($users, function ($user) {
                 return !is_null($user['amount']);
             });
 
-            $meeting['user_id'] = json_encode($filteredUsers);
+            foreach ($filteredUsers as $filteredUsersKey => $filteredUsersValue) {
+                $filteredUsersKeys[] = $filteredUsersKey;
+            }
+
+
+            $meeting['user_id'] = isset($filteredUsersKeys) ? implode(',', $filteredUsersKeys) : [];
+            $meeting['user_data'] = isset($filteredUsers) ? json_encode($filteredUsers) : [];
             $meeting['name'] = $request->name;
             $meeting['start_date'] = $request->start_date;
             $meeting['end_date'] = $request->start_date;

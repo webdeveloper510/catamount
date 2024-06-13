@@ -289,7 +289,6 @@ class LeadController extends Controller
      */
     public function edit(Lead $lead)
     {
-        // prx($lead);
         if (\Auth::user()->can('Edit Lead')) {
             $venue_function = explode(',', $lead->venue_selection);
             $function_package =  explode(',', $lead->function);

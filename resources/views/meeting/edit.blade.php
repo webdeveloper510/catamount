@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Event Edit') }}
+{{ __('Training Edit') }}
 @endsection
 @section('title')
-{{ __('Edit Event') }}
+{{ __('Edit Training') }}
 @endsection
 @php
 
@@ -33,7 +33,7 @@ $user_data = json_decode($meeting->user_data,true);
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('meeting.index') }}">{{ __('Event') }}</a></li>
+<li class="breadcrumb-item"><a href="{{ route('meeting.index') }}">{{ __('Training') }}</a></li>
 <li class="breadcrumb-item">{{ __('Edit') }}</li>
 @endsection
 @section('content')
@@ -79,7 +79,7 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5>{{ __('Event') }}</h5>
+                                            <h5>{{ __('Training') }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         @else
                                         <div class="col-12 need_full">
                                             <div class="form-group">
-                                                {{ Form::label('eventname', __('Event Name'), ['class' => 'form-label']) }}
+                                                {{ Form::label('eventname', __('Training Name'), ['class' => 'form-label']) }}
                                                 {{Form::text('eventname',$meeting->eventname,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))}}
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         <div class="col-12 need_full">
                                             <div class="form-group">
                                                 <div class="col-12  p-0 modaltitle pb-3 mb0">
-                                                    <h5 style="margin-left: 14px;" class="mb-0">{{ __('Assigned Staff') }}</h5>
+                                                    <h5 style="margin-left: 14px;" class="mb-0">{{ __('Assigned Trainer') }}</h5>
                                                 </div>
                                                 {{-- Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) --}}
                                                 @foreach($users as $user)
@@ -321,7 +321,7 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5>{{ __('Event Details') }}</h5>
+                                            <h5>{{ __('Training Details') }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -330,7 +330,7 @@ $user_data = json_decode($meeting->user_data,true);
 
                                         <div class="col-6 need_full">
                                             <div class="form-group">
-                                                {{Form::label('type',__('Event Type'),['class'=>'form-label']) }}
+                                                {{Form::label('type',__('Training Type'),['class'=>'form-label']) }}
                                                 {!! Form::select('type', $type_arr, null,array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
@@ -527,8 +527,8 @@ $user_data = json_decode($meeting->user_data,true);
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-                                    {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+                                    {{Form::label('allergies',__('Other Remarks'),['class'=>'form-label']) }}
+                                    {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Other Remarks (if any)')))}}
                                 </div>
                             </div>
                             <div class="col-12">

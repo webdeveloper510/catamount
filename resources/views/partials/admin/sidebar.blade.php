@@ -143,7 +143,7 @@ $settings = App\Models\Utility::settings();
                     <span class="dash-mtext">{{ __('All Clients') }} </span></a>
 
                 <a href="{{route('event_customers')}}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'event_customers' ?'active' : ''}}">
-                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Event Clients"></i></span>
+                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Training Clients"></i></span>
                     <span class="dash-mtext">{{ __('Trainings') }} </span></a>
                 <a href="{{route('lead_customers')}}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'lead_customers' ?'active' : ''}}">
                     <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Lead Clients"></i></span>
@@ -192,7 +192,7 @@ $settings = App\Models\Utility::settings();
                 @if(\Request::route()->getName() == 'meeting.create' ||\Request::route()->getName() == 'meeting.edit' )
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext">{{ __('Event Details') }} </span></a>
+                    <span class="dash-mtext">{{ __('Training Details') }} </span></a>
                 <!-- <a href="#event-details" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-info"></i></span>
                     <span class="dash-mtext">{{ __('Event Details') }} </span></a>
@@ -206,7 +206,7 @@ $settings = App\Models\Utility::settings();
                 @if(\Request::route()->getName() == 'meeting.review' )
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext">{{ __('Review Event') }} </span></a>
+                    <span class="dash-mtext">{{ __('Review Training') }} </span></a>
                 @endif
                 @if(\Request::route()->getName() == 'lead.index' )
                 <a href="#useradd-1" class="list-group-item list-group-item-action"><span class="fa-stack fa-lg pull-left"><i class="fas fa-address-card"></i></span>

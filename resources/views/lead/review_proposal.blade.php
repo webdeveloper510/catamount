@@ -369,18 +369,18 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                     <div class="col-12  p-0 modaltitle pb-3 mb-3">
                                         <h5 style="margin-left: 14px;">{{ __('Other Information') }}</h5>
                                     </div>
-                                    <div class="col-6 need_full">
+                                    <div class="col-12 need_full">
                                         <div class="form-group">
-                                            {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-                                            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+                                            {{Form::label('allergies',__('Other Remarks'),['class'=>'form-label']) }}
+                                            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Other Remarks (if any)')))}}
                                         </div>
                                     </div>
-                                    <div class="col-6 need_full">
+                                    {{--<div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
                                             {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
                                         </div>
-                                    </div>
+                                    </div>--}}
                                     <div class="col-12">
                                         <div class="form-group">
                                             {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}

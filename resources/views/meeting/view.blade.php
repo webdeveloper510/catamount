@@ -43,7 +43,7 @@
                 <dt class="col-md-6"><span class="h6  mb-0">{{__('Training Type')}}</span></dt>
                 <dd class="col-md-6"><span class="">{{$meeting->type}}</span></dd>
 
-                <dt class="col-md-6"><span class="h6 text-sm mb-0">{{__('Assigned Staff')}}</span></dt>
+                <dt class="col-md-6"><span class="h6 text-sm mb-0">{{__('Assigned Trainer')}}</span></dt>
                 <dd class="col-md-6"><span class="">{{ $name }}</span></dd>
 
                 <dt class="col-md-6"><span class="h6 text-sm mb-0">{{__('Created')}}</span></dt>

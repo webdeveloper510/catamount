@@ -22,7 +22,7 @@ foreach ($token as $key => $val) {
 $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_info->proposal_data) : [];
 
 // pr($proposal_settings);
-// pr($proposal_info->settings);
+// pr($proposal_info);
 
 
 ?>
@@ -160,7 +160,9 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="cencellation">{{__('CANCELLATION')}}:</label></h5>
-                            <div class="textarea"><p>{!!@@$proposal_info->settings->cancenllation!!}</p></div>
+                            <div class="textarea">
+                                <p>{!!@@$proposal_info->settings->cancenllation!!}</p>
+                            </div>
                         </div>
                         <!-- <div class="col-sm-12 mt-5">
                             <h5 class="input-new">{!!@$proposal_settings['cancenllation']!!}</h5>
@@ -185,17 +187,17 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
-                                    <td style="padding: 8px;"><input type="text" name="to[name]" id="name"></td>
+                                    <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{isset($proposal_info->to->name) ? $proposal_info->to->name : '' }}"></td>
                                     <!-- <td style="padding: 8px;">{{__($proposal_info->to->name)}}</td> -->
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Designation</td>
-                                    <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation"></td>
+                                    <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{isset($proposal_info->to->name) ? $proposal_info->to->designation : '' }}"></td>
                                     <!-- <td style="padding: 8px;">{{__($proposal_info->to->designation)}}</td> -->
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><input type="date" name="to[date]" id="date"></td>
+                                    <td style="padding: 8px;"><input type="date" name="to[date]" id="date" value="{{isset($proposal_info->to->name) ? $proposal_info->to->date : '' }}"></td>
                                     <!-- <td style="padding: 8px;">{{__($proposal_info->to->date)}}</td> -->
                                 </tr>
                             </table>

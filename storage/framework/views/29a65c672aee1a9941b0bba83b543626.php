@@ -291,22 +291,15 @@ $additional_items = json_decode($settings['additional_items'],true);
         <!-- <hr class="mt-2 mb-2"> -->
         <h5 style="margin-left: 14px;"><?php echo e(__('Other Information')); ?></h5>
     </div>
-    <div class="col-6 need_full">
+    <div class="col-12 need_full">
         <div class="form-group">
-            <?php echo e(Form::label('allergies',__('Allergies'),['class'=>'form-label'])); ?>
+            <?php echo e(Form::label('allergies',__('Other Remarks'),['class'=>'form-label'])); ?>
 
-            <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))); ?>
+            <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Other Remarks (if any)')))); ?>
 
         </div>
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            <?php echo e(Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label'])); ?>
-
-            <?php echo e(Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))); ?>
-
-        </div>
-    </div>
+    
     <div class="col-12">
         <div class="form-group">
             <?php echo e(Form::label('Description',__('How did you hear about us?'),['class'=>'form-label'])); ?>
@@ -320,55 +313,55 @@ $additional_items = json_decode($settings['additional_items'],true);
         <h5 style="margin-left: 14px;"><?php echo e(__('Estimate Billing Summary Details')); ?></h5>
     </div>
     
-    <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
-        <?php if(isset($bar_package) && !empty($bar_package)): ?>
-        <?php $__currentLoopData = $bar_package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="form-group" data-main-index="<?php echo e($key); ?>" data-main-value="<?php echo e($value['bar']); ?>">
-            <?php echo e(Form::label('bar', __($value['bar']), ['class' => 'form-label'])); ?>
+<div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
+    <?php if(isset($bar_package) && !empty($bar_package)): ?>
+    <?php $__currentLoopData = $bar_package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div class="form-group" data-main-index="<?php echo e($key); ?>" data-main-value="<?php echo e($value['bar']); ?>">
+        <?php echo e(Form::label('bar', __($value['bar']), ['class' => 'form-label'])); ?>
 
-            <?php $__currentLoopData = $value['barpackage']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $bar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="form-check" data-main-index="<?php echo e($k); ?>" data-main-package="<?php echo e($bar); ?>">
-                <?php echo Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_'
-                . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']); ?>
+        <?php $__currentLoopData = $value['barpackage']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $bar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="form-check" data-main-index="<?php echo e($k); ?>" data-main-package="<?php echo e($bar); ?>">
+            <?php echo Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_'
+            . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']); ?>
 
-                <?php echo e(Form::label($bar, $bar, ['class' => 'form-check-label'])); ?>
+            <?php echo e(Form::label($bar, $bar, ['class' => 'form-check-label'])); ?>
 
-            </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        <?php endif; ?>
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            <?php echo e(Form::label('rooms',__('Room'),['class'=>'form-label'])); ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        <?php echo e(Form::label('rooms',__('Room'),['class'=>'form-label'])); ?>
 
-            <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="<?php echo e(old('guest_count')); ?>">
-        </div>
+        <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="<?php echo e(old('guest_count')); ?>">
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            <?php echo e(Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label'])); ?>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        <?php echo e(Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label'])); ?>
 
-            <?php echo Form::input('time', 'start_time', 'null', ['class' => 'form-control']); ?>
+        <?php echo Form::input('time', 'start_time', 'null', ['class' => 'form-control']); ?>
 
-        </div>
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            <?php echo e(Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label'])); ?>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        <?php echo e(Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label'])); ?>
 
-            <?php echo Form::input('time', 'end_time', 'null', ['class' => 'form-control']); ?>
+        <?php echo Form::input('time', 'end_time', 'null', ['class' => 'form-control']); ?>
 
-        </div>
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            <?php echo e(Form::label('is_active',__('Active'),['class'=>'form-label'])); ?>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        <?php echo e(Form::label('is_active',__('Active'),['class'=>'form-label'])); ?>
 
-            <input type="checkbox" class="form-check-input" name="is_active" checked>
-        </div>
+        <input type="checkbox" class="form-check-input" name="is_active" checked>
     </div>
+</div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn  btn-light" data-bs-dismiss="modal">Close</button>

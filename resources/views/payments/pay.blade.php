@@ -38,8 +38,7 @@ $payinfo = App\Models\PaymentInfo::where('event_id',$event->id)->orderBy('id', '
                             <div class="row form-group ">
                                 <div class="col-md-6">
                                     <label>Owner</label>
-                                    <input type="text" name="owner" class="form-control" value="{{$event->name}}"
-                                        required>
+                                    <input type="text" name="owner" class="form-control" value="{{$event->name}}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label>CVV</label>
@@ -54,9 +53,7 @@ $payinfo = App\Models\PaymentInfo::where('event_id',$event->id)->orderBy('id', '
                                 </div>
                                 <div class="col-md-6">
                                     <label>Amount</label>
-                                    <input type="number" name="amount" class="form-control"
-                                        value="{{ isset($balance) ? $balance :($event->total - $total) }}"
-                                        >
+                                    <input type="number" name="amount" class="form-control" value="{{ isset($balance) ? $balance :($event->total - $total) }}">
                                     <!-- <input type="number" name="amount" class="form-control"
                                         value="{{ isset($payinfo) ? $payinfo->amounttobepaid : ($event->total - $total) }}"
                                         > -->
@@ -97,14 +94,14 @@ $payinfo = App\Models\PaymentInfo::where('event_id',$event->id)->orderBy('id', '
 
 </html>
 <style>
-.container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 550px;
-    width: 100%;
-    animation: fadeInUp 0.6s ease;
-}
+    .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        max-width: 550px;
+        width: 100%;
+        animation: fadeInUp 0.6s ease;
+    }
 </style>
 @include('partials.admin.footer')

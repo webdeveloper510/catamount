@@ -124,7 +124,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             </div>
                                             <div class="col-12 need_full">
                                                 <div class="form-group">
-                                                    {{Form::label('Assigned Training',__('Assigned Training'),['class'=>'form-label']) }}
+                                                    {{Form::label('Assigned Trainer',__('Assigned Trainer'),['class'=>'form-label']) }}
                                                     @foreach($users as $user)
                                                     <div class="form-check">
                                                         <div class="row">
@@ -635,8 +635,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-                                        {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+                                        {{Form::label('allergies',__('Other Remarks'),['class'=>'form-label']) }}
+                                        {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Other Remarks (if any)')))}}
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -829,21 +829,22 @@ $(document).ready(function() {
         var iti = window.intlTelInput(input, {
             separateDialCode: true,
         });
-        var input1 = document.querySelector("#phone-input1");
-        var iti1 = window.intlTelInput(input1, {
-            separateDialCode: true,
-        });
-
         var indiaCountryCode = iti.getSelectedCountryData().iso2;
         var countryCode = iti.getSelectedCountryData().dialCode;
         $('#country-code').val(countryCode);
         if (indiaCountryCode !== 'us') {
             iti.setCountry('us');
         }
-        var indiaCountryCode1 = iti1.getSelectedCountryData().iso2;
-        var countryCode1 = iti1.getSelectedCountryData().dialCode;
-        $('#country-code').val(countryCode1);
-        if (indiaCountryCode1 !== 'us') {
+
+
+        var input1 = document.querySelector("#phone-input1");
+        var iti1 = window.intlTelInput(input1, {
+            separateDialCode: true,
+        });
+        var indiaCountryCode = iti1.getSelectedCountryData().iso2;
+        var countryCode = iti1.getSelectedCountryData().dialCode;
+        $('#country-code1').val(countryCode);
+        if (indiaCountryCode !== 'us') {
             iti1.setCountry('us');
         }
 
@@ -912,6 +913,9 @@ $(document).ready(function() {
     const inputElement = document.getElementById('phone-input');
     inputElement.addEventListener('keydown', enforceFormat);
     inputElement.addEventListener('keyup', formatToPhone);
+    const inputElement1 = document.getElementById('phone-input1');
+    inputElement1.addEventListener('keydown', enforceFormat);
+    inputElement1.addEventListener('keyup', formatToPhone);
 </script>
 <script>
     $(document).ready(function() {

@@ -106,7 +106,7 @@ $meetingData['setup_cost'] = '';
     padding: 11px;
     border-radius: 5px;"><b>Guest Count: <?php echo e($event->guest_count); ?></b></h4>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="invoiceTable">
                 <thead>
                     <tr>
                         <th><?php echo e(__('Description')); ?> <span class="opticy"> dddd</span></th>
@@ -116,21 +116,72 @@ $meetingData['setup_cost'] = '';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $__currentLoopData = $labels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    
                     <tr>
-                        <td><?php echo e(ucfirst($label)); ?></td>
-                        <td>
-                            <input type="text" name="billing[<?php echo e($key); ?>][cost]" value="<?php echo e(isset($meetingData[$key.'_cost']) && $meetingData[$key.'_cost'] != '' ? $meetingData[$key.'_cost'] : 1); ?>" class="form-control dlr">
-                        </td>
-                        <td>
-                            <input type="number" name="billing[<?php echo e($key); ?>][quantity]" min='1' class="form-control" value="<?php echo e(isset($meetingData[$key]) && $meetingData[$key] != '' ? $meetingData[$key] : 1); ?>" required>
-                        </td>
-                        <td>
-                            <input type="text" name="billing[<?php echo e($key); ?>][notes]" class="form-control" value="<?php echo e(($key !== 'hotel_rooms') ? $meetingData[$key] ?? 1 : 1); ?>">
+                        <td><textarea name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
+                        <td><input type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
+                        <td><input type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
+                        <td><input type="text" name="billing[1][note]" id="note" value=""></td>
+                        <td class="action-buttons">
+                            <div class="action-btn bg-primary ms-2">
+                                <a href="javascript:void(0);" onclick="addRowAfter(this)" data-size="md" data-bs-toggle="tooltip" title="" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                    <i class="ti ti-plus"></i>
+                                </a>
+                            </div>
+                            <div class="action-btn bg-danger ms-2">
+                                <a href="javascript:void(0);" onclick="deleteRow(this)" class="mx-3 btn btn-sm  align-items-center text-white" data-bs-toggle="tooltip" title='Delete'>
+                                    <i class="ti ti-trash"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
+                <script>
+                    let rowCount = 1;
+
+                    function addRowAfter(button) {
+                        const row = button.closest('tr');
+                        const newRow = row.cloneNode(true);
+                        clearRow(newRow);
+                        updateRowNames(newRow);
+                        row.parentNode.insertBefore(newRow, row.nextSibling);
+                    }
+
+                    function deleteRow(button) {
+                        const row = button.closest('tr');
+                        const table = row.parentNode;
+                        if (table.rows.length > 1) {
+                            row.remove();
+                            updateAllRowNames();
+                        } else {
+                            alert("At least one row must be present.");
+                        }
+                    }
+
+                    function clearRow(row) {
+                        row.querySelectorAll('textarea, input').forEach(input => input.value = '');
+                    }
+
+                    function updateRowNames(row) {
+                        rowCount++;
+                        row.querySelector('textarea').name = `billing[${rowCount}][description]`;
+                        row.querySelector('input[id="cost"]').name = `billing[${rowCount}][cost]`;
+                        row.querySelector('input[id="quantity"]').name = `billing[${rowCount}][quantity]`;
+                        row.querySelector('input[id="note"]').name = `billing[${rowCount}][note]`;
+                    }
+
+                    function updateAllRowNames() {
+                        const rows = document.querySelectorAll('#billingTable tbody tr');
+                        rowCount = 0;
+                        rows.forEach((row, index) => {
+                            rowCount = index + 1;
+                            row.querySelector('textarea').name = `billing[${rowCount}][description]`;
+                            row.querySelector('input[id="cost"]').name = `billing[${rowCount}][cost]`;
+                            row.querySelector('input[id="quantity"]').name = `billing[${rowCount}][quantity]`;
+                            row.querySelector('input[id="note"]').name = `billing[${rowCount}][note]`;
+                        });
+                    }
+                </script>
             </table>
         </div>
     </div>

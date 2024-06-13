@@ -143,7 +143,7 @@ $settings = App\Models\Utility::settings();
                     <span class="dash-mtext"><?php echo e(__('All Clients')); ?> </span></a>
 
                 <a href="<?php echo e(route('event_customers')); ?>" class="list-group-item list-group-item-action <?php echo e(\Request::route()->getName() == 'event_customers' ?'active' : ''); ?>">
-                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Event Clients"></i></span>
+                    <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Training Clients"></i></span>
                     <span class="dash-mtext"><?php echo e(__('Trainings')); ?> </span></a>
                 <a href="<?php echo e(route('lead_customers')); ?>" class="list-group-item list-group-item-action <?php echo e(\Request::route()->getName() == 'lead_customers' ?'active' : ''); ?>">
                     <span class="fa-stack fa-lg pull-left"><i class="ti ti-user" title="Lead Clients"></i></span>
@@ -186,7 +186,7 @@ $settings = App\Models\Utility::settings();
                 <?php if(\Request::route()->getName() == 'meeting.create' ||\Request::route()->getName() == 'meeting.edit' ): ?>
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext"><?php echo e(__('Event Details')); ?> </span></a>
+                    <span class="dash-mtext"><?php echo e(__('Training Details')); ?> </span></a>
                 <!-- <a href="#event-details" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-info"></i></span>
                     <span class="dash-mtext"><?php echo e(__('Event Details')); ?> </span></a>
@@ -200,7 +200,7 @@ $settings = App\Models\Utility::settings();
                 <?php if(\Request::route()->getName() == 'meeting.review' ): ?>
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
-                    <span class="dash-mtext"><?php echo e(__('Review Event')); ?> </span></a>
+                    <span class="dash-mtext"><?php echo e(__('Review Training')); ?> </span></a>
                 <?php endif; ?>
                 <?php if(\Request::route()->getName() == 'lead.index' ): ?>
                 <a href="#useradd-1" class="list-group-item list-group-item-action"><span class="fa-stack fa-lg pull-left"><i class="fas fa-address-card"></i></span>

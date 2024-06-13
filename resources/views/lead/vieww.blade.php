@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 @section('page-title')
-{{__('Lead - Quick View')}}
+{{__('Training - Quick View')}}
 @endsection
 @section('title')
 <div class="page-header-title">
-    {{__('Lead - Quick View')}}
+    {{__('Training - Quick View')}}
 </div>
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('lead.index') }}">{{__('Leads')}}</a></li>
+<li class="breadcrumb-item"><a href="{{ route('lead.index') }}">{{__('Trainings')}}</a></li>
 <li class="breadcrumb-item">{{__('Quick View')}}</li>
 @endsection
 <?php 
@@ -394,7 +394,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         <div class="action-btn bg-info ms-2">
                             <a href="{{ route('lead.edit',$lead->id) }}"
                                 class="mx-3 btn btn-sm d-inline-flex align-items-center text-white"
-                                data-bs-toggle="tooltip" data-title="{{__('Lead Edit')}}" title="{{__('Edit')}}"><i
+                                data-bs-toggle="tooltip" data-title="{{__('Training Edit')}}" title="{{__('Edit')}}"><i
                                     class="ti ti-edit"></i>
                             </a>
                         </div>

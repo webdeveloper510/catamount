@@ -91,24 +91,16 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <header>
             <div class="header-left">
                 <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" alt="Catamount Consulting">
-                <p>
-                    <strong>Catamount Consulting</strong><br>
-                    PO Box 442<br>
-                    Warrensburg, NY 12885<br>
-                    Ph. (518) 623-2352
-                </p>
+                <p><strong>Catamount Consulting</strong><br>PO Box 442<br>Warrensburg, NY 12885<br>Ph. (518) 623-2352</p>
             </div>
             <div class="header-right">
                 <h2>Invoice</h2>
-                <p>Date: 1/5/2022<br>
-                    Invoice #: 8233</p>
+                <p>Date: 1/5/2022<br>Invoice #: 8233</p>
             </div>
         </header>
         <section class="bill-to">
             <p><strong>Bill To</strong></p>
-            <p>Bylada Foods<br>
-                140 West Commercial Ave<br>
-                Moonachie, NJ 07074</p>
+            <p>Bylada Foods<br>140 West Commercial Ave<br>Moonachie, NJ 07074</p>
         </section>
         <section class="details">
             <table>
@@ -171,7 +163,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     </div>
 
 
-    <!-- <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12" style=" display:flex;justify-content:center; margin:0 auto; width:50%;font-size:12px;margin-bottom:15px;">
             <span style="text-align:left;font-size:14px;margin-bottom:10px;color:black;">The Bond 1786</span><br>
             <span style="text-align:left;font-size:14px;margin-bottom:10px;color:black;">Venue Rental Agreement & Banquet Event Order</span>
@@ -181,18 +173,18 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <div class="col-md-6" style="text-align:left; margin-left:10px;">
             <dl>
                 <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Name')}}: {{ $meeting['name'] }}</span><br>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Phone & Email')}}: {{ $meeting['phone'] }} , {{ $meeting['email'] }}</span><br>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Address')}}: {{ $meeting['lead_address'] }}</span><br>
-                <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Event Date')}}: {{ $startdate }}</span>
-            </dl>
-        </div>
-        <div class="col-md-6" style="text-align:right; margin-top:-9rem;margin-right:20px;">
-            <dl class="text-align:left;">
-                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 10px;">{{__('Primary Contact')}}: {{ $meeting['name'] }}</span><br>
-                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;">{{__('Phone')}}: {{ $meeting['phone'] }}</span><br>
-                <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;">{{__('Email')}}: {{ $meeting['email'] }}</span><br>
-            </dl>
-        </div>
+    <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Phone & Email')}}: {{ $meeting['phone'] }} , {{ $meeting['email'] }}</span><br>
+    <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Address')}}: {{ $meeting['lead_address'] }}</span><br>
+    <span style="font-size:14px;margin-bottom:10px;color:black;">{{__('Event Date')}}: {{ $startdate }}</span>
+    </dl>
+    </div>
+    <div class="col-md-6" style="text-align:right; margin-top:-9rem;margin-right:20px;">
+        <dl class="text-align:left;">
+            <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 10px;">{{__('Primary Contact')}}: {{ $meeting['name'] }}</span><br>
+            <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;">{{__('Phone')}}: {{ $meeting['phone'] }}</span><br>
+            <span style="font-size:14px;color:black;margin-bottom:10px;padding-right:15px;padding:5px 5px;">{{__('Email')}}: {{ $meeting['email'] }}</span><br>
+        </dl>
+    </div>
     </div>
     <div class="row" style="display:flex;margin-bottom:10px;margin-bottom:10px;margin-bottom:20px; ">
         <div class="col-md-6" style="margin-left:10px;padding:2px 0px 20px;">
@@ -643,51 +635,51 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                 No Personal Checks are accepted for final payment. <br><br>
                 The Rules and Conditions for Usage are incorporated herein and are made a part hereof. <br><br>
 
-            </p> -->
-    <style>
-        .main-div {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
+            </p>
+            <style>
+                .main-div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 20px;
+                }
 
-        .col {
-            width: 45%;
-        }
+                .col {
+                    width: 45%;
+                }
 
-        .col img {
-            width: 100%;
-            border-bottom: 1px solid black;
-        }
+                .col img {
+                    width: 100%;
+                    border-bottom: 1px solid black;
+                }
 
-        .col-1 img {
-            width: 30%;
-        }
+                .col-1 img {
+                    width: 30%;
+                }
 
-        .col-2 img {
-            width: 40%;
-            margin-top: 10%;
-        }
+                .col-2 img {
+                    width: 40%;
+                    margin-top: 10%;
+                }
 
-        .signature-title {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-        }
-    </style>
-    <div class="container">
-        <div class="main-div">
-            <div class="col col-1">
-                <span class="signature-title">Authorized Signature:</span>
-                <img src="{{$base64Image}}" alt="Authorized Signature">
-            </div>
-            <div class="col col-2">
-                <span class="signature-title">Signature:</span>
-                <img src="{{@$sign}}" alt="Signature">
-            </div>
-        </div>
-    </div>
+                .signature-title {
+                    font-weight: bold;
+                    display: block;
+                    margin-bottom: 10px;
+                }
+            </style>
+            <div class="container">
+                <div class="main-div">
+                    <div class="col col-1">
+                        <span class="signature-title">Authorized Signature:</span>
+                        <img src="{{$base64Image}}" alt="Authorized Signature">
+                    </div>
+                    <div class="col col-2">
+                        <span class="signature-title">Signature:</span>
+                        <img src="{{@$sign}}" alt="Signature">
+                    </div>
+                </div>
+            </div> --}}
 </body>
 
 </html>

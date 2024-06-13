@@ -248,18 +248,18 @@ $additional_items = json_decode($settings['additional_items'],true);
         <!-- <hr class="mt-2 mb-2"> -->
         <h5 style="margin-left: 14px;">{{ __('Other Information') }}</h5>
     </div>
-    <div class="col-6 need_full">
+    <div class="col-12 need_full">
         <div class="form-group">
-            {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+            {{Form::label('allergies',__('Other Remarks'),['class'=>'form-label']) }}
+            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Other Remarks (if any)')))}}
         </div>
     </div>
-    <div class="col-6 need_full">
+    {{--<div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
             {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
         </div>
-    </div>
+    </div>--}}
     <div class="col-12">
         <div class="form-group">
             {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
@@ -276,51 +276,51 @@ $additional_items = json_decode($settings['additional_items'],true);
             @foreach($baropt as $key => $label)
             <div>
                 {{ Form::radio('baropt', $label, false, ['id' => $label]) }}
-                {{ Form::label('baropt' . ($key + 1), $label) }}
-            </div>
-            @endforeach
-        </div>
-    </div>--}}
-    <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
-        @if(isset($bar_package) && !empty($bar_package))
-        @foreach($bar_package as $key =>$value)
-        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
-            {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
-            @foreach($value['barpackage'] as $k => $bar)
-            <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
-                {!! Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_'
-                . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
-                {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
-            </div>
-            @endforeach
+    {{ Form::label('baropt' . ($key + 1), $label) }}
+</div>
+@endforeach
+</div>
+</div>--}}
+<div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
+    @if(isset($bar_package) && !empty($bar_package))
+    @foreach($bar_package as $key =>$value)
+    <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
+        {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
+        @foreach($value['barpackage'] as $k => $bar)
+        <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
+            {!! Form::radio('bar'.'_'.str_replace(' ', '', strtolower($value['bar'])), $bar, false, ['id' => 'bar_'
+            . $key.$k, 'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
+            {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
         </div>
         @endforeach
-        @endif
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-            <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="{{old('guest_count')}}">
-        </div>
+    @endforeach
+    @endif
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
+        <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="{{old('guest_count')}}">
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{ Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label']) }}
-            {!! Form::input('time', 'start_time', 'null', ['class' => 'form-control']) !!}
-        </div>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        {{ Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label']) }}
+        {!! Form::input('time', 'start_time', 'null', ['class' => 'form-control']) !!}
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{ Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label']) }}
-            {!! Form::input('time', 'end_time', 'null', ['class' => 'form-control']) !!}
-        </div>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        {{ Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label']) }}
+        {!! Form::input('time', 'end_time', 'null', ['class' => 'form-control']) !!}
     </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{Form::label('is_active',__('Active'),['class'=>'form-label']) }}
-            <input type="checkbox" class="form-check-input" name="is_active" checked>
-        </div>
+</div>
+<div class="col-6 need_full">
+    <div class="form-group">
+        {{Form::label('is_active',__('Active'),['class'=>'form-label']) }}
+        <input type="checkbox" class="form-check-input" name="is_active" checked>
     </div>
+</div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn  btn-light" data-bs-dismiss="modal">Close</button>

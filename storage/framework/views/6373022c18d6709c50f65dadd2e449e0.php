@@ -1,9 +1,9 @@
 <?php $__env->startSection('page-title'); ?>
-<?php echo e(__('Event Edit')); ?>
+<?php echo e(__('Training Edit')); ?>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('title'); ?>
-<?php echo e(__('Edit Event')); ?>
+<?php echo e(__('Edit Training')); ?>
 
 <?php $__env->stopSection(); ?>
 <?php
@@ -34,7 +34,7 @@ $user_data = json_decode($meeting->user_data,true);
 
 <?php $__env->startSection('breadcrumb'); ?>
 <li class="breadcrumb-item"><a href="<?php echo e(route('dashboard')); ?>"><?php echo e(__('Dashboard')); ?></a></li>
-<li class="breadcrumb-item"><a href="<?php echo e(route('meeting.index')); ?>"><?php echo e(__('Event')); ?></a></li>
+<li class="breadcrumb-item"><a href="<?php echo e(route('meeting.index')); ?>"><?php echo e(__('Training')); ?></a></li>
 <li class="breadcrumb-item"><?php echo e(__('Edit')); ?></li>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
@@ -81,7 +81,7 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5><?php echo e(__('Event')); ?></h5>
+                                            <h5><?php echo e(__('Training')); ?></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         <?php else: ?>
                                         <div class="col-12 need_full">
                                             <div class="form-group">
-                                                <?php echo e(Form::label('eventname', __('Event Name'), ['class' => 'form-label'])); ?>
+                                                <?php echo e(Form::label('eventname', __('Training Name'), ['class' => 'form-label'])); ?>
 
                                                 <?php echo e(Form::text('eventname',$meeting->eventname,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))); ?>
 
@@ -109,7 +109,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         <div class="col-12 need_full">
                                             <div class="form-group">
                                                 <div class="col-12  p-0 modaltitle pb-3 mb0">
-                                                    <h5 style="margin-left: 14px;" class="mb-0"><?php echo e(__('Assigned Staff')); ?></h5>
+                                                    <h5 style="margin-left: 14px;" class="mb-0"><?php echo e(__('Assigned Trainer')); ?></h5>
                                                 </div>
                                                 
                                                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -357,7 +357,7 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5><?php echo e(__('Event Details')); ?></h5>
+                                            <h5><?php echo e(__('Training Details')); ?></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -366,7 +366,7 @@ $user_data = json_decode($meeting->user_data,true);
 
                                         <div class="col-6 need_full">
                                             <div class="form-group">
-                                                <?php echo e(Form::label('type',__('Event Type'),['class'=>'form-label'])); ?>
+                                                <?php echo e(Form::label('type',__('Training Type'),['class'=>'form-label'])); ?>
 
                                                 <?php echo Form::select('type', $type_arr, null,array('class' => 'form-control')); ?>
 
@@ -532,9 +532,9 @@ $user_data = json_decode($meeting->user_data,true);
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <?php echo e(Form::label('allergies',__('Allergies'),['class'=>'form-label'])); ?>
+                                    <?php echo e(Form::label('allergies',__('Other Remarks'),['class'=>'form-label'])); ?>
 
-                                    <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))); ?>
+                                    <?php echo e(Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Other Remarks (if any)')))); ?>
 
                                 </div>
                             </div>
