@@ -118,16 +118,16 @@ $meetingData['setup_cost'] = '';
                 <tbody>
                     
                     <tr>
-                        <td><textarea name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
-                        <td><input type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
-                        <td><input type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
-                        <td><input type="text" name="billing[1][note]" id="note" value=""></td>
+                        <td><textarea class="form-control" name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
+                        <td><input class="form-control" type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
+                        <td><input class="form-control" type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
+                        <td><input class="form-control" type="text" name="billing[1][note]" id="note" value=""></td>
                         <td class="action-buttons">
-                            <div class="action-btn bg-primary ms-2">
-                                <a href="javascript:void(0);" onclick="addRowAfter(this)" data-size="md" data-bs-toggle="tooltip" title="" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                            <!-- <div class="action-btn bg-primary ms-2" style="display: none;">
+                                <a href="javascript:void(0);" onclick="addRowAfter(this)" data-size="md" data-bs-toggle="tooltip" title="" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white extra">
                                     <i class="ti ti-plus"></i>
                                 </a>
-                            </div>
+                            </div> -->
                             <div class="action-btn bg-danger ms-2">
                                 <a href="javascript:void(0);" onclick="deleteRow(this)" class="mx-3 btn btn-sm  align-items-center text-white" data-bs-toggle="tooltip" title='Delete'>
                                     <i class="ti ti-trash"></i>
@@ -136,61 +136,67 @@ $meetingData['setup_cost'] = '';
                         </td>
                     </tr>
                 </tbody>
-                <script>
-                    let rowCount = 1;
-
-                    function addRowAfter(button) {
-                        const row = button.closest('tr');
-                        const newRow = row.cloneNode(true);
-                        clearRow(newRow);
-                        updateRowNames(newRow);
-                        row.parentNode.insertBefore(newRow, row.nextSibling);
-                    }
-
-                    function deleteRow(button) {
-                        const row = button.closest('tr');
-                        const table = row.parentNode;
-                        if (table.rows.length > 1) {
-                            row.remove();
-                            updateAllRowNames();
-                        } else {
-                            alert("At least one row must be present.");
-                        }
-                    }
-
-                    function clearRow(row) {
-                        row.querySelectorAll('textarea, input').forEach(input => input.value = '');
-                    }
-
-                    function updateRowNames(row) {
-                        rowCount++;
-                        row.querySelector('textarea').name = `billing[${rowCount}][description]`;
-                        row.querySelector('input[id="cost"]').name = `billing[${rowCount}][cost]`;
-                        row.querySelector('input[id="quantity"]').name = `billing[${rowCount}][quantity]`;
-                        row.querySelector('input[id="note"]').name = `billing[${rowCount}][note]`;
-                    }
-
-                    function updateAllRowNames() {
-                        const rows = document.querySelectorAll('#billingTable tbody tr');
-                        rowCount = 0;
-                        rows.forEach((row, index) => {
-                            rowCount = index + 1;
-                            row.querySelector('textarea').name = `billing[${rowCount}][description]`;
-                            row.querySelector('input[id="cost"]').name = `billing[${rowCount}][cost]`;
-                            row.querySelector('input[id="quantity"]').name = `billing[${rowCount}][quantity]`;
-                            row.querySelector('input[id="note"]').name = `billing[${rowCount}][note]`;
-                        });
-                    }
-                </script>
             </table>
+            <div class="" style="float:right;left:-2%;position: relative;">
+                <a href="javascript:void(0);" onclick="addRowAfter()" data-size="md" data-bs-toggle="tooltip" title="Add new Row" class="btn btn-primary">
+                    Add Row <i class="ti ti-plus"></i>
+                </a>
+            </div>
+
+            <script>
+                let rowCount = 1;
+
+                function addRowAfter() {
+                    const tableBody = document.querySelector('#invoiceTable tbody');
+                    const lastRow = tableBody.querySelector('tr:last-child');
+                    const newRow = lastRow.cloneNode(true);
+                    clearRow(newRow);
+                    updateRowNames(newRow);
+                    tableBody.appendChild(newRow);
+                }
+
+                function deleteRow(button) {
+                    const row = button.closest('tr');
+                    const table = row.parentNode;
+                    if (table.rows.length > 1) {
+                        row.remove();
+                        updateAllRowNames();
+                    } else {
+                        alert("At least one row must be present.");
+                    }
+                }
+
+                function clearRow(row) {
+                    row.querySelectorAll('textarea, input').forEach(input => input.value = '');
+                }
+
+                function updateRowNames(row) {
+                    rowCount++;
+                    row.querySelector('textarea').name = `invoice[${rowCount}][description]`;
+                    row.querySelector('input[id="cost"]').name = `invoice[${rowCount}][cost]`;
+                    row.querySelector('input[id="quantity"]').name = `invoice[${rowCount}][quantity]`;
+                    row.querySelector('input[id="note"]').name = `invoice[${rowCount}][note]`;
+                }
+
+                function updateAllRowNames() {
+                    const rows = document.querySelectorAll('#invoiceTable tbody tr');
+                    rowCount = 0;
+                    rows.forEach((row, index) => {
+                        rowCount = index + 1;
+                        row.querySelector('textarea').name = `invoice[${rowCount}][description]`;
+                        row.querySelector('input[id="cost"]').name = `invoice[${rowCount}][cost]`;
+                        row.querySelector('input[id="quantity"]').name = `invoice[${rowCount}][quantity]`;
+                        row.querySelector('input[id="note"]').name = `invoice[${rowCount}][note]`;
+                    });
+                }
+            </script>
         </div>
     </div>
     <div class="row form-group">
         <div class="col-md-12">
             <label class="form-label"> Deposit on file: </label>
-            <input type="number" name="deposits" min='0' class="form-control">
+            <input type="number" name="deposits" min="1" class="form-control">
         </div>
-
     </div>
 
 </div>
