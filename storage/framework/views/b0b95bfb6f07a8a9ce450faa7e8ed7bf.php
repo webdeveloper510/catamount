@@ -20,148 +20,280 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agreement</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo e(public_path('assets/css/style.css')); ?>">
     <style>
-        .invoice-container {
-            /* width: 800px; */
+        body {
+            font-family: "Open Sans", sans-serif;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .invoice {
+            width: 100%;
             margin: 0 auto;
-            padding: 20px;
             /* border: 1px solid #000; */
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
+        .header {
+            display: block;
         }
 
-        .header-left img {
-            width: 100px;
-            height: auto;
+        .logo {
+            position: relative;
+            font-weight: bold;
+            font-size: 16px;
+            width: 70%;
+            left: 20%;
         }
 
-        .header-left p,
-        .header-right p {
-            margin: 0;
+        .logo img {
+            max-width: 100px;
+            max-height: 80px;
+            position: relative;
+            top: 12%;
+            right: 25%;
         }
 
-        .header-right {
-            text-align: right;
+        .invoice-details table {
+            border-collapse: collapse;
+        }
+
+        .invoice-details td {
+            border: 1px solid #000;
+            padding: 3px 8px;
         }
 
         .bill-to {
-            margin-top: 20px;
+            position: relative;
+            left: 6%;
+            top: -2%;
+            border: 1px solid #000;
+            width: 40%;
         }
 
-        .details table,
-        .totals table {
+        .bill-to p {
+            margin: 0;
+        }
+
+        .items table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
-        .details table td,
-        .totals table td {
+        .items th,
+        .items td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 2px 5px;
         }
 
-        .details table td:first-child {
-            width: 70%;
+        .items th {
+            background-color: #f0f0f0;
         }
 
-        .totals table td {
-            text-align: right;
-        }
-
-        footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            border-top: 2px solid #000;
-            padding-top: 10px;
+        .notes {
+            position: relative;
+            left: 6%;
+            top: -7%;
+            width: 60%;
             text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+        }
+
+        /* custom CSS */
+
+        .tdTotal {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .borderN {
+            border: none !important;
+        }
+
+        .logoTxt {
+            position: relative;
+            left: 18%;
+        }
+
+        .invoice-details {
+            position: relative;
+            left: 80%;
+            top: -10%;
+        }
+
+        .invoice-details h2,
+        .logoTxt h2 {
+            font-size: 28px;
+        }
+
+        .strong {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .notes strong {
+            font-size: 18px;
+        }
+
+        .notes p {
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        .boxBorder {
+            position: relative;
+            left: 15%;
+            top: -10%;
+            border: 1px solid #000;
+            width: 50%;
+            word-wrap: break-word;
+        }
+
+        .contactTable {
+            position: relative;
+            left: 30%;
+            width: 20%;
+            text-align: center;
+        }
+
+        .contactTable table:nth-child(1) {
+            position: relative;
+            right: 60%;
+            text-align: center;
+        }
+
+        .contactTable table:nth-child(2) {
+            position: relative;
+            left: 100%;
+            top: -20%;
+            text-align: center;
+        }
+
+        .lateFee {
+            position: relative;
+            width: 50%;
+            left: 20%;
+            padding: 5px 8px;
         }
     </style>
 </head>
 
 <body>
 
-
-    <div class="invoice-container">
-        <header>
-            <div class="header-left">
+    <div class="invoice">
+        <div class="header">
+            <div class="logo">
                 <img src="<?php echo e(url('storage/uploads/logo/3_logo-light.png')); ?>" alt="Catamount Consulting">
-                <p><strong>Catamount Consulting</strong><br>PO Box 442<br>Warrensburg, NY 12885<br>Ph. (518) 623-2352</p>
+                <p class="logoTxt">
+                <h2>Catamount Consulting</h2><br>PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
             </div>
-            <div class="header-right">
+            <div class="invoice-details">
                 <h2>Invoice</h2>
-                <p>Date: 1/5/2022<br>Invoice #: 8233</p>
+                <table>
+                    <tr>
+                        <td class="strong">Date</td>
+                        <td class="strong">Invoice #</td>
+                    </tr>
+                    <tr>
+                        <td>1/5/2023</td>
+                        <td>8231</td>
+                    </tr>
+                </table>
             </div>
-        </header>
-        <section class="bill-to">
-            <p><strong>Bill To</strong></p>
-            <p>Bylada Foods<br>140 West Commercial Ave<br>Moonachie, NJ 07074</p>
-        </section>
-        <section class="details">
+        </div>
+        <div class="bill-to">
+            <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
+            <hr style="border: 1px solid #000">
+            <p>Ryder Truck Rental</p>
+            <p>160 West Commercial Ave</p>
+            <p>Moonachie, NJ 07074</p>
+        </div>
+        <div class="items">
             <table>
                 <tr>
-                    <td>Description</td>
-                    <td>Qty</td>
-                    <td>Rate</td>
-                    <td>Amount</td>
+                    <td colspan="2" class="borderN"></td>
+                    <th>P.O. No.</th>
+                    <th>Terms</th>
+                </tr>
+                <tr>
+                    <td colspan="2" class="borderN"></td>
+                    <td></td>
+                    <td>Due on receipt</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
                 </tr>
                 <tr>
                     <td>BALANCE DUE For Onsite Audiometric Testing conducted on 1/4/22 45 people tested<br>
-                        Due to Scheduling and timing of the groups testing took 12 hours which required a second overnight<br>
-                        ***Deposit of $850.00 was paid on 10/21/21***</td>
+                        **Due to Scheduling and timing of the group testing took 12 hours which required a second overnight<br>
+                        ***Deposit of $850.00 was paid on 10/21/21**</td>
                     <td>1</td>
                     <td>$850.00</td>
                     <td>$850.00</td>
                 </tr>
                 <tr>
-                    <td>Due to Scheduling and timing of the groups testing took 12 hours which required a second overnight</td>
-                    <td>1</td>
-                    <td>$800.00</td>
-                    <td>$800.00</td>
+                    <td colspan="2"></td>
+                    <td class="tdTotal" style="border-right: none;">Subtotal</td>
+                    <td style="border-left: none;">$1.6232</td>
+                </tr>
+                <tr>
+                    <td class="borderN" colspan="2"></td>
+                    <td class="tdTotal" style="border-right: none;">Sales Tax (0.0%)</td>
+                    <td style="border-left: none;">$0.00</td>
+                </tr>
+                <tr>
+                    <td class="borderN" colspan="2"></td>
+                    <td class="tdTotal" style="border-right: none;">Total</td>
+                    <td style="border-left: none;">$1,650.00</td>
+                </tr>
+                <tr>
+                    <td class="borderN" colspan="2"></td>
+                    <td class="tdTotal" style="border-right: none;">Payments/Credits</td>
+                    <td style="border-left: none;">-$1,650.00</td>
+                </tr>
+                <tr>
+                    <td class="borderN" colspan="2"></td>
+                    <td class="tdTotal" style="border-right: none;">Balance Due </td>
+                    <td style="border-left: none;">$0.00</td>
                 </tr>
             </table>
-        </section>
-        <section class="totals">
-            <table>
-                <tr>
-                    <td>Subtotal</td>
-                    <td>$1,650.00</td>
-                </tr>
-                <tr>
-                    <td>Sales Tax (0.0%)</td>
-                    <td>$0.00</td>
-                </tr>
-                <tr>
-                    <td>Total</td>
-                    <td>$1,650.00</td>
-                </tr>
-                <tr>
-                    <td>Payments/Credits</td>
-                    <td>-$1,650.00</td>
-                </tr>
-                <tr>
-                    <td><strong>Balance Due</strong></td>
-                    <td><strong>$0.00</strong></td>
-                </tr>
-            </table>
-        </section>
-        <footer>
-            <p>
-                <strong>*NEW*</strong> Please Note that ALL Invoices are DUE ON RECEIPT. ALL invoices that are not paid on invoice date can and will be subject to Late Fees.<br>
-                Late fees charged will consist of 2% of unpaid balance, accrued every 30 days after invoice date.
-            </p>
-            <p>
-                E-mail: accounting@catamountconsultingllc.com<br>
-                Web Site: catamountconsultingllc.com
-            </p>
-        </footer>
+        </div>
+        <div class="notes strong">
+            <strong>*NEW*</strong> Please Note that ALL Invoices are DUE ON RECEIPT. ALL Invoices that are not paid on Invoice date due and will be subject to Late Fees.
+        </div>
+        <div class="lateFee strong">
+            <p class="boxBorder">Late fees charged will consist of 2% of unpaid balance, accrued every 30 days after invoice date.</p>
+        </div>
+        <div class="footer">
+            <div class="items contactTable">
+                <table>
+                    <tr>
+                        <th>E-mail</th>
+                    </tr>
+                    <tr>
+                        <td>accounting@catamountconsultingllc.com</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Web Site</th>
+                    </tr>
+                    <tr>
+                        <td>catamountconsultingllc.com</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 
+    <!-- Old  -->
 
     
 </body>

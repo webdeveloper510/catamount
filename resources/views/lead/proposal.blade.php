@@ -183,7 +183,7 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
                                     <td style="padding: 8px;">{{__($proposal_info->from->date)}}</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">To</td>
+                                    <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">For</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>

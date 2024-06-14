@@ -928,7 +928,7 @@ class MeetingController extends Controller
             'billing_data' => unserialize($fixed_cost->data),
         ];
         // return view('meeting.agreement.view', $data);
-        $pdf = Pdf::loadView('meeting.agreement.view', $data);
+        $pdf = PDF::loadView('meeting.agreement.view', $data);
         return $pdf->stream('agreement.pdf');
     }
     public function signedagreementview($id)
