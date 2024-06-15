@@ -389,7 +389,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     </span>
                                                     @foreach($venue as $key => $label)
                                                     <div>
-                                                        <input type="checkbox" name="venue[]" value="{{ $label }}" id="venue{{ $key + 1 }}" required>
+                                                        <input type="checkbox" name="venue[]" value="{{ $label }}" id="venue{{ $key + 1 }}">
                                                         <label for="{{ $label }}">{{ $label }}</label>
                                                     </div>
                                                     @endforeach
