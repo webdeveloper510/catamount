@@ -97,38 +97,26 @@ $meetingData['additional_items_cost'] = $additionalItemsCost ?? '';
 $meetingData['special_req_cost'] = $billings['special_req'] ?? '';
 $meetingData['setup_cost'] = '';
 ?>
-{{Form::open(array('route' => ['billing.addbilling', $id],'method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))}}
+<?php echo e(Form::open(array('route' => ['billing.addbilling', $id],'method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))); ?>
+
 <div class="col-md-12">
     <div class="form-group">
         <h4 style="float:right;    background: teal;
     color: white;
     padding: 11px;
-    border-radius: 5px;"><b>Guest Count: {{$event->guest_count}}</b></h4>
+    border-radius: 5px;"><b>Guest Count: <?php echo e($event->guest_count); ?></b></h4>
         <div class="table-responsive">
             <table class="table" id="invoiceTable">
                 <thead>
                     <tr>
-                        <th>{{__('Description')}} <span class="opticy"> dddd</span></th>
-                        <th>{{__('Cost(per person)')}} <span class="opticy"> dddd</span></th>
-                        <th>{{__('Quantity')}} <span class="opticy"> dddd</span></th>
-                        <th>{{__('Notes')}} <span class="opticy"> dddd</span></th>
+                        <th><?php echo e(__('Description')); ?> <span class="opticy"> dddd</span></th>
+                        <th><?php echo e(__('Cost(per person)')); ?> <span class="opticy"> dddd</span></th>
+                        <th><?php echo e(__('Quantity')); ?> <span class="opticy"> dddd</span></th>
+                        <th><?php echo e(__('Notes')); ?> <span class="opticy"> dddd</span></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{--@foreach($labels as $key => $label)
-                    <tr>
-                        <td>{{ucfirst($label)}}</td>
-                    <td>
-                        <input type="text" name="billing[{{$key}}][cost]" value="{{ isset($meetingData[$key.'_cost']) && $meetingData[$key.'_cost'] != '' ? $meetingData[$key.'_cost'] : 1 }}" class="form-control dlr">
-                    </td>
-                    <td>
-                        <input type="number" name="billing[{{$key}}][quantity]" min='1' class="form-control" value="{{isset($meetingData[$key]) && $meetingData[$key] != '' ? $meetingData[$key] : 1}}" required>
-                    </td>
-                    <td>
-                        <input type="text" name="billing[{{$key}}][notes]" class="form-control" value="{{ ($key !== 'hotel_rooms') ? $meetingData[$key] ?? 1 : 1 }}">
-                    </td>
-                    </tr>
-                    @endforeach--}}
+                    
                     <tr>
                         <td><textarea class="form-control" name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
                         <td><input class="form-control" type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
@@ -212,8 +200,10 @@ $meetingData['setup_cost'] = '';
     </div>
 
 </div>
-{{Form::submit(__('Save'),array('class'=>'btn btn-primary '))}}
-{{ Form::close() }}
+<?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary '))); ?>
+
+<?php echo e(Form::close()); ?>
+
 <style>
     .modal-dialog.modal-md {
         max-width: max-content;
@@ -223,4 +213,4 @@ $meetingData['setup_cost'] = '';
         float: left;
         width: 100%;
     }
-</style>
+</style><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/billing/create.blade.php ENDPATH**/ ?>

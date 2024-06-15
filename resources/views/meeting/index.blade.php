@@ -16,10 +16,15 @@ $agreestatus= \App\Models\Meeting::$status;
 @can('Create Meeting')
 <div class="col-12 text-end mt-3">
     <a href="{{ route('meeting.create',['meeting',0]) }}">
-        <button data-bs-toggle="tooltip" title="{{ __('Create') }}" class="btn btn-sm btn-primary btn-icon m-1">
+        <button id="rmLocalStorage" data-bs-toggle="tooltip" title="{{ __('Create') }}" class="btn btn-sm btn-primary btn-icon m-1">
             <i class="ti ti-plus"></i></button>
     </a>
 </div>
+<script>
+    document.getElementById('rmLocalStorage').onclick = function() {
+        localStorage.removeItem('leadId');
+    }
+</script>
 @endcan
 @endsection
 @section('filter')

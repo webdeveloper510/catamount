@@ -69,6 +69,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
             top: -2%;
             border: 1px solid #000;
             width: 40%;
+            padding: 2px 8px;
         }
 
         .bill-to p {
@@ -92,9 +93,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .notes {
             position: relative;
-            left: 6%;
-            top: -7%;
-            width: 60%;
+            top: -8%;
+            left: 10%;
+            width: 50%;
             text-align: center;
         }
 
@@ -121,8 +122,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .invoice-details {
             position: relative;
-            left: 80%;
+            right: -70%;
             top: -10%;
+            width: 20%;
         }
 
         .invoice-details h2,
@@ -147,43 +149,50 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         .boxBorder {
             position: relative;
             left: 15%;
-            top: -10%;
+            top: -12%;
             border: 1px solid #000;
             width: 50%;
             word-wrap: break-word;
+            padding: 8px 12px;
+            margin: 0;
         }
 
         .contactTable {
-            position: relative;
-            left: 30%;
-            width: 20%;
-            text-align: center;
+            position: absolute;
+            display: flex;
+            width: 35%;
         }
 
-        .contactTable table:nth-child(1) {
-            position: relative;
-            right: 60%;
+        .contactTable table {
             text-align: center;
         }
 
         .contactTable table:nth-child(2) {
             position: relative;
-            left: 100%;
-            top: -20%;
-            text-align: center;
+            left: 380px;
+            top: -38px;
         }
 
-        .lateFee {
-            position: relative;
-            width: 50%;
-            left: 20%;
-            padding: 5px 8px;
+        .spacer p {
+            text-indent: 8rem;
+        }
+
+        .paidStemp {
+            position: fixed;
+            top: 20%;
+            left: 40%;
+            transform: rotate(-22deg);
+            font-weight: 700;
+            font-size: 22px;
         }
     </style>
 </head>
 
 <body>
-
+    <div class="paidStemp">
+        <h2>PAID</h2>
+        <h2>{{ date('d/m/Y')}}</h2>
+    </div>
     <div class="invoice">
         <div class="header">
             <div class="logo">
@@ -214,30 +223,53 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         </div>
         <div class="items">
             <table>
-                <tr>
-                    <td colspan="2" class="borderN"></td>
-                    <th>P.O. No.</th>
-                    <th>Terms</th>
-                </tr>
-                <tr>
-                    <td colspan="2" class="borderN"></td>
-                    <td></td>
-                    <td>Due on receipt</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <th>Qty</th>
-                    <th>Rate</th>
-                    <th>Amount</th>
-                </tr>
-                <tr>
-                    <td>BALANCE DUE For Onsite Audiometric Testing conducted on 1/4/22 45 people tested<br>
-                        **Due to Scheduling and timing of the group testing took 12 hours which required a second overnight<br>
-                        ***Deposit of $850.00 was paid on 10/21/21**</td>
-                    <td>1</td>
-                    <td>$850.00</td>
-                    <td>$850.00</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <td colspan="2" class="borderN"></td>
+                        <th>P.O. No.</th>
+                        <th>Terms</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="borderN"></td>
+                        <td></td>
+                        <td>Due on receipt</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 60%;">Description</th>
+                        <th style="width: 5%;">Qty</th>
+                        <th style="width: 15%;">Rate</th>
+                        <th style="width: 20%;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BALANCE DUE For Onsite Audiometric Testing conducted on 1/4/22 45 people tested<br>
+                            **Due to Scheduling and timing of the group testing took 12 hours which required a second overnight<br>
+                            ***Deposit of $850.00 was paid on 10/21/21**</td>
+                        <td>1</td>
+                        <td>$850.00</td>
+                        <td>$850.00</td>
+                    </tr>
+                    <tr class="spacer">
+                        <td>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
                 <tr>
                     <td colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Subtotal</td>
