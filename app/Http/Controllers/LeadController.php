@@ -916,7 +916,7 @@ class LeadController extends Controller
         $newlead->save();
         return redirect()->back()->with('success', 'Lead Cloned successfully');
     }
-    public function lead_info($id)
+    /* public function lead_info($id)
     {
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
@@ -928,7 +928,18 @@ class LeadController extends Controller
         $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
         $docs = LeadDoc::where('lead_id', $id)->get();
         return view('lead.leadinfo', compact('leads', 'lead', 'docs', 'notes'));
+    } */
+
+    public function lead_info($id)
+    {
+        $id = decrypt(urldecode($id));
+        $lead = Lead::withTrashed()->find($id);
+        $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
+        $docs = LeadDoc::where('lead_id', $id)->get();
+        return view('lead.leadinfo', compact('lead', 'docs', 'notes'));
     }
+
+
     public function lead_user_info($id)
     {
         $id = decrypt(urldecode($id));
