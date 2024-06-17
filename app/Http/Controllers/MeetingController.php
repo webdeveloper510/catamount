@@ -53,6 +53,21 @@ class MeetingController extends Controller
                 $defualtView->module = 'meeting';
                 $defualtView->view   = 'list';
                 User::userDefualtView($defualtView);
+            } elseif (\Auth::user()->type == 'Trainer') {
+                // $meetings = Meeting::orderby('id', 'desc')->get();
+                $crnt_user = \Auth::user()->id;
+                $meetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
+                    $user_data = json_decode($meeting->user_data, true);
+                    if (isset($user_data[$crnt_user])) {
+                        return true;
+                    }
+                    return false;
+                });
+                $defualtView = new UserDefualtView();
+                $defualtView->route = \Request::route()->getName();
+                $defualtView->module = 'meeting';
+                $defualtView->view = 'list';
+                User::userDefualtView($defualtView);
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();

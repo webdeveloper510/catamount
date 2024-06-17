@@ -53,6 +53,14 @@ class LeadController extends Controller
                 $defualtView->module = 'lead';
                 $defualtView->view   = 'list';
                 User::userDefualtView($defualtView);
+            } elseif (\Auth::user()->type == 'Trainer') {
+                // $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->where('converted_to', 0)->orderby('id', 'desc')->get();
+                $leads = Lead::where('assigned_user', \Auth::user()->id)->orderby('id', 'desc')->get();
+                $defualtView = new UserDefualtView();
+                $defualtView->route = \Request::route()->getName();
+                $defualtView->module = 'lead';
+                $defualtView->view = 'list';
+                User::userDefualtView($defualtView);
             } else {
                 $leads = Lead::with('accounts', 'assign_user')->where('user_id', \Auth::user()->id)->where('converted_to', 0)->get();
                 $defualtView         = new UserDefualtView();

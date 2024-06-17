@@ -16,6 +16,11 @@ class CalenderNewController extends Controller
     public function index()
     {
         $blockeddate = Blockdate::all();
+        /*
+        if (\Auth::user()->type == 'Trainer') {
+
+        }
+        */
         return view('calender_new.index',compact('blockeddate'));
     }
     public function get_event_data(Request $request)

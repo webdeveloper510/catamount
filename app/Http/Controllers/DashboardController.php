@@ -35,27 +35,27 @@ class DashboardController extends Controller
     {
         if (\Auth::check()) {
             if (\Auth::user()->type == 'super admin') {
-                $user                       = \Auth::user();
-                $user['total_user']         = $user->countCompany();
-                $user['total_paid_user']    = $user->countPaidCompany();
-                $user['total_orders']       = Order::total_orders();
+                $user = \Auth::user();
+                $user['total_user'] = $user->countCompany();
+                $user['total_paid_user'] = $user->countPaidCompany();
+                $user['total_orders'] = Order::total_orders();
                 $user['total_orders_price'] = Order::total_orders_price();
-                $user['total_plan']         = Plan::total_plan();
+                $user['total_plan'] = Plan::total_plan();
                 $user['most_purchese_plan'] = (!empty(Plan::most_purchese_plan()) ? Plan::most_purchese_plan()->name : '-');
-                $chartData                  = $this->getOrderChart(['duration' => 'week']);
+                $chartData = $this->getOrderChart(['duration' => 'week']);
 
                 return view('super_admin', compact('user', 'chartData'));
             } else {
-                $data['totalUser']          = User::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalAccount']       = Account::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalContact']       = Contact::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalLead']          = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->count();
-                $data['totalSalesorder']    = $totalSalesOrder = SalesOrder::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalInvoice']       = $totalInvoice = Invoice::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalQuote']         = $totalQuote = Quote::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalOpportunities'] = Opportunities::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalProduct']       = Product::where('created_by', \Auth::user()->creatorId())->count();
-                $data['invoiceColor']       = Invoice::$statuesColor;
+                $data['totalUser'] = User::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalAccount'] = Account::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalContact'] = Contact::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalLead'] = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->count();
+                $data['totalSalesorder'] = $totalSalesOrder = SalesOrder::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalInvoice'] = $totalInvoice = Invoice::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalQuote'] = $totalQuote = Quote::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalOpportunities'] =  Opportunities::where('created_by', \Auth::user()->creatorId())->count();
+                $data['totalProduct'] = Product::where('created_by', \Auth::user()->creatorId())->count();
+                $data['invoiceColor'] = Invoice::$statuesColor;
 
                 $date = today()->format('Y-m-d');
 
@@ -69,7 +69,6 @@ class DashboardController extends Controller
                 $events_revenue_generated = 0;
                 foreach ($paymentlogs as $key => $value) {
                     $events_revenue_generated += $value->amount;
-                    # code...
                 }
 
                 $lostLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('proposal_status', '==', 3)->take(4)->get();
@@ -83,7 +82,7 @@ class DashboardController extends Controller
                 $settings = Utility::settings();
                 $venue = $settings['venue'];
                 $venue_dropdown = explode(",", $venue);
-                $statuss  = Invoice::$status;
+                $statuss = Invoice::$status;
 
                 $eventinvoice = Billing::pluck('event_id')->toArray();
 
@@ -93,12 +92,12 @@ class DashboardController extends Controller
                 $events = isset($events) ? $events : [];
                 $invoices = [];
                 foreach ($statuss as $id => $status) {
-                    $invoice                   = $total = Invoice::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
-                    $percentage                = ($totalInvoice != 0) ? ($total * 100) / $totalInvoice : '0';
+                    $invoice = $total = Invoice::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
+                    $percentage = ($totalInvoice != 0) ? ($total * 100) / $totalInvoice : '0';
                     $invoicedata['percentage'] = number_format($percentage, 2);
-                    $invoicedata['data']       = $invoice;
-                    $invoicedata['status']     = $status;
-                    $invoices[]                = $invoicedata;
+                    $invoicedata['data'] = $invoice;
+                    $invoicedata['status'] = $status;
+                    $invoices[] = $invoicedata;
                 }
 
                 $data['invoice'] = $invoices;
@@ -108,24 +107,24 @@ class DashboardController extends Controller
                 foreach ($statuss as $id => $status) {
                     $quote = $total = Quote::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
 
-                    $percentage              = ($totalQuote != 0) ? ($total * 100) / $totalQuote : '0';
+                    $percentage = ($totalQuote != 0) ? ($total * 100) / $totalQuote : '0';
                     $quotedata['percentage'] = number_format($percentage, 2);
-                    $quotedata['data']       = $quote;
-                    $quotedata['status']     = $status;
-                    $quotes[]                = $quotedata;
+                    $quotedata['data'] = $quote;
+                    $quotedata['status'] = $status;
+                    $quotes[] = $quotedata;
                 }
                 $data['quote'] = $quotes;
 
 
-                $statuss     = SalesOrder::$status;
+                $statuss = SalesOrder::$status;
                 $salesOrders = [];
                 foreach ($statuss as $id => $status) {
-                    $salesorder                   = SalesOrder::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
-                    $percentage                   = ($totalSalesOrder != 0) ? ($total * 100) / $totalSalesOrder : '0';
+                    $salesorder = SalesOrder::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
+                    $percentage = ($totalSalesOrder != 0) ? ($total * 100) / $totalSalesOrder : '0';
                     $salesorderdata['percentage'] = number_format($percentage, 2);
-                    $salesorderdata['data']       = $salesorder;
-                    $salesorderdata['status']     = $status;
-                    $salesOrders[]                = $salesorderdata;
+                    $salesorderdata['data'] = $salesorder;
+                    $salesorderdata['status'] = $status;
+                    $salesOrders[] = $salesorderdata;
                 }
                 $data['salesOrder'] = $salesOrders;
 
@@ -133,9 +132,9 @@ class DashboardController extends Controller
 
                 $data['calendar'] = $this->calendarData();
 
-                $data['topDueTask']         = Task::select('*')->where('created_by', \Auth::user()->creatorId())->where('due_date', '<', date('Y-m-d'))->limit(5)->get();
-                $data['topMeeting']         = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>', date('Y-m-d'))->limit(5)->get();
-                $data['thisMonthCall']      = Call::whereBetween(
+                $data['topDueTask'] = Task::select('*')->where('created_by', \Auth::user()->creatorId())->where('due_date', '<', date('Y-m-d'))->limit(5)->get();
+                $data['topMeeting'] = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>', date('Y-m-d'))->limit(5)->get();
+                $data['thisMonthCall'] = Call::whereBetween(
                     'start_date',
                     [
                         Carbon::now()->startOfMonth(),
@@ -176,14 +175,14 @@ class DashboardController extends Controller
             }
         }
 
-        $arrTask          = [];
+        $arrTask = [];
         $arrTask['label'] = [];
-        $arrTask['data']  = [];
+        $arrTask['data'] = [];
         foreach ($arrDuration as $date => $label) {
 
-            $data               = Order::select(\DB::raw('count(*) as total'))->whereDate('created_at', '=', $date)->first();
+            $data = Order::select(\DB::raw('count(*) as total'))->whereDate('created_at', '=', $date)->first();
             $arrTask['label'][] = $label;
-            $arrTask['data'][]  = $data->total;
+            $arrTask['data'][] = $data->total;
         }
 
         return $arrTask;
@@ -191,15 +190,15 @@ class DashboardController extends Controller
 
     public  function calendarData($calenderdata = 'all')
     {
-        $calls    = Call::where('created_by', \Auth::user()->creatorId())->get();
+        $calls = Call::where('created_by', \Auth::user()->creatorId())->get();
         $meetings = Meeting::where('created_by', \Auth::user()->creatorId())->get();
-        $tasks    = Task::where('created_by', \Auth::user()->creatorId())->get();
+        $tasks = Task::where('created_by', \Auth::user()->creatorId())->get();
         $blockeddate = Blockdate::where('created_by', \Auth::user()->creatorId())->get();
 
         $arrMeeting = [];
-        $arrTask    = [];
-        $arrCall    = [];
-        $arrblock   = [];
+        $arrTask = [];
+        $arrCall = [];
+        $arrblock = [];
 
         if ($calenderdata == 'call') {
             foreach ($calls as $call) {
