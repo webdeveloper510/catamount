@@ -32,6 +32,7 @@ use Log;
 use Mail;
 use Str;
 use App\Models\LeadDoc;
+use App\Models\Meeting;
 use Storage;
 
 class LeadController extends Controller
@@ -573,13 +574,15 @@ class LeadController extends Controller
         }
         $additional_items = json_decode($settings['additional_items'], true);
         $proposal = Proposal::where('lead_id', $decryptedId)->first();
+        $usersDetail = User::find($lead->user_id);
         $data = [
             'settings' => $settings,
             'proposal_info' => $proposal_info,
+            'usersDetail' => $usersDetail,
             'proposal' => $proposal,
             'lead' => $lead,
             'fixed_cost' => $fixed_cost,
-            'additional_items' => $additional_items
+            'additional_items' => $additional_items,
         ];
 
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
@@ -933,9 +936,30 @@ class LeadController extends Controller
         } else {
             $leads = Lead::where('primary_contact', $lead->primary_contact)->get();
         }
+
+        // $crnt_user = \Auth::user()->id;
+        /* foreach ($leads as $lKey => $lValue) {
+            $crnt_user = $lValue->assigned_user;
+            $filteredMeetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
+                $user_data = json_decode($meeting->user_data, true);
+                return isset($user_data[$crnt_user]);
+            })->map(function ($meeting) use ($lValue) {
+                $meeting->training = $lValue;
+                return $meeting;
+            });
+        } */
+
+
+        foreach ($leads as $lKey => $lValue) {
+            $assigned_user = $lValue->assigned_user;
+            $filteredMeetings[] = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($assigned_user) {
+                $user_data = json_decode($meeting->user_data, true);
+                return isset($user_data[$assigned_user]);
+            });
+        }
         $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
         $docs = LeadDoc::where('lead_id', $id)->get();
-        return view('lead.leadinfo', compact('leads', 'lead', 'docs', 'notes'));
+        return view('lead.leadinfo', compact('leads', 'lead', 'docs', 'notes', 'filteredMeetings'));
     }
     public function lead_user_info($id)
     {

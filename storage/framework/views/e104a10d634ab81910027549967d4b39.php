@@ -1,5 +1,5 @@
-<?php   
-$logo=\App\Models\Utility::get_file('uploads/logo/');
+<?php
+$proposalUrl = route('lead.signedproposal',urlencode(encrypt($lead->id)));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,6 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
 
         h1 {
             color: #333;
-            text-align: center;
         }
 
         table {
@@ -53,10 +52,13 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
             margin-bottom: 20px;
         }
 
-        .logo {
-            display: block;
-            margin: 0 auto;
-            text-align: center;
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         .footer {
@@ -68,7 +70,7 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
 </head>
 
 <body>
-    <p>Dear {{ ucfirst($lead->name), }}</p>
+    <p>Dear <?php echo e(ucfirst($lead->name)); ?></p>
     <div class="container">
         <h1>Proposal Details</h1>
 
@@ -82,43 +84,43 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
             <tbody>
                 <tr>
                     <td>Training Type</td>
-                    <td>{{ $lead->type ?? '--' }}</td>
+                    <td><?php echo e($lead->type ?? '--'); ?></td>
                 </tr>
                 <tr>
                     <td>No. of Guests</td>
-                    <td>{{ $lead->guest_count ?? '--' }}</td>
+                    <td><?php echo e($lead->guest_count ?? '--'); ?></td>
                 </tr>
                 <tr>
-                    <td>Training Location</td>
-                    <td>{{ $lead->venue_selection ?? '--' }}</td>
+                    <td>Training Location.</td>
+                    <td><?php echo e($lead->venue_selection ?? '--'); ?></td>
                 </tr>
-                <!-- <tr>
+                <!--  <tr>
                     <td>Function</td>
-                    <td>{{ $lead->function ?? '--' }}</td>
+                    <td><?php echo e($lead->function ?? '--'); ?></td>
                 </tr>
                  <tr>
                     <td>Package</td>
                     <td>
-                        @if(isset($package) && !empty($package))
-                            @foreach ($package as $key => $value)
-                                {{ implode(',', $value) }}
-                            @endforeach
-                        @else
-                            --
-                        @endif
+                        <?php if(isset($package) && !empty($package)): ?>
+                        <?php $__currentLoopData = $package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php echo e(implode(',', $value)); ?>
+
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                        --
+                        <?php endif; ?>
                     </td>
                 </tr> -->
             </tbody>
         </table>
 
+        <p><?php echo e($content); ?></p>
+
+        <p>Click the link below to see the Lead details/proposal with estimated billing:</p>
+        <p><a href="<?php echo e($proposalUrl); ?>?prop=<?php echo e($propid); ?>"><?php echo e($proposalUrl); ?></a></p>
+
         <p>Thank you for your time and collaboration.</p>
         <p><strong>With regards,</strong></p>
-        <div class="logo">
-        <img src="{{$logo.'3_logo-light.png'}}" alt="{{ config('app.name', 'The Bond 1786') }}"
-                        class="logo logo-lg nav-sidebar-logo" height="50" />
-            <img src="{{ $logo.'3_logo-light.png' }}" alt="{{ config('app.name', 'The Bond 1786') }}"
-                height="50">
-        </div>
     </div>
 
     <div class="footer">
@@ -126,4 +128,4 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
     </div>
 </body>
 
-</html>
+</html><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/lead/mail/view.blade.php ENDPATH**/ ?>

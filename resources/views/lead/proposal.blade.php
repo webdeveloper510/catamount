@@ -26,6 +26,7 @@ $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_in
 $secondary_contact = json_decode($lead->secondary_contact);
 
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -189,12 +190,12 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Name</td>
                                     <!-- <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{isset($proposal_info->to->name) ? $proposal_info->to->name : '' }}"></td> -->
-                                    <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{ @$secondary_contact->name}}"></td>
+                                    <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{ @$proposal_info->to->name}}"></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Title</td>
                                     <!-- <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{isset($proposal_info->to->name) ? $proposal_info->to->designation : '' }}"></td> -->
-                                    <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{ @$secondary_contact->relationship}}"></td>
+                                    <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{ @$proposal_info->to->designation}}"></td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px;">Date</td>
@@ -224,6 +225,12 @@ $secondary_contact = json_decode($lead->secondary_contact);
         border-radius: 8px;
     }
 
+    #clearButton,
+    #signatureCanvas {
+        margin: 10px auto;
+        display: -webkit-box;
+    }
+
     .mt-3.auuthsig {
         border: 1px solid black;
         width: 100%;
@@ -241,6 +248,8 @@ $secondary_contact = json_decode($lead->secondary_contact);
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var canvas = document.getElementById('signatureCanvas');
+        canvas.width = 400;
+        canvas.height = 200;
         var signaturePad = new SignaturePad(canvas);
 
         function clearCanvas() {

@@ -75,12 +75,12 @@ $proposalUrl = route('lead.signedproposal',urlencode(encrypt($lead->id)));
         <h1>Proposal Details</h1>
 
         <table>
-            <thead>
+            <!-- <thead>
                 <tr>
                     <th>Category</th>
                     <th>Details</th>
                 </tr>
-            </thead>
+            </thead> -->
             <tbody>
                 <tr>
                     <td>Training Type</td>

@@ -58,8 +58,11 @@ class DashboardController extends Controller
                 $data['invoiceColor'] = Invoice::$statuesColor;
 
                 $date = today()->format('Y-m-d');
-
-                $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->get();
+                if (\Auth::user()->type == 'Trainer') {
+                    $activeLeads = Lead::where('assigned_user', \Auth::user()->id)->where('lead_status', 1)->where('converted_to', 0)->get();
+                } else {
+                    $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->get();
+                }
                 $revenue = Meeting::all();
                 $events_revenue = 0;
                 foreach ($revenue as $key => $value) {
@@ -72,7 +75,18 @@ class DashboardController extends Controller
                 }
 
                 $lostLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('proposal_status', '==', 3)->take(4)->get();
-                $activeEvent = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>=', $date)->get();
+                if (\Auth::user()->type == 'Trainer') {
+                    $crnt_user = \Auth::user()->id;
+                    $activeEvent =  Meeting::where('start_date', '>=', $date)->get()->filter(function ($meeting) use ($crnt_user) {
+                        $user_data = json_decode($meeting->user_data, true);
+                        if (isset($user_data[$crnt_user])) {
+                            return true;
+                        }
+                        return false;
+                    });
+                } else {
+                    $activeEvent = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>=', $date)->get();
+                }
                 $pastEvents = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '<', $date)->take(4)->get();
 
                 $upcoming = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>=', $date)->get()->count();
