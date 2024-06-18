@@ -300,12 +300,12 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class="">{{ $grandtotal != 0 ? '$'. $grandtotal : '--' }}</span></dd>
                                         @php
                                         @$imgPath = App\Models\Proposal::where('lead_id', $lead->id)->orderBy('created_at','desc')->first();
-                                        $imgPathss = explode('/',$imgPath->image);
+                                        @$imgPathss = explode('/', @$imgPath->image);
                                         @endphp
                                         @if($imgPath)
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Proposal signature')}}</span>
                                         </dt>
-                                        <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="{{ asset('upload/' . $imgPathss[1]) }}" alt="" srcset=""></span></dd>
+                                        <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="{{ asset('upload/' . @$imgPathss[1]) }}" alt="" srcset=""></span></dd>
                                         @endif
                                     </dl>
 
