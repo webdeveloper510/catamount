@@ -15,7 +15,7 @@ $agreestatus= \App\Models\Meeting::$status;
 <li class="breadcrumb-item"><?php echo e(__('Trainings')); ?></li>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('action-btn'); ?>
-<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Meeting')): ?>
+<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Create')): ?>
 <div class="col-12 text-end mt-3">
     <a href="<?php echo e(route('meeting.create',['meeting',0])); ?>">
         <button id="rmLocalStorage" data-bs-toggle="tooltip" title="<?php echo e(__('Create')); ?>" class="btn btn-sm btn-primary btn-icon m-1">
@@ -56,8 +56,8 @@ $agreestatus= \App\Models\Meeting::$status;
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     <?php echo e(__('Assigned Staff')); ?> <span class="opticy"> dddd</span>
                                                 </th>
-                                                <?php if(Gate::check('Show Meeting') || Gate::check('Edit Meeting') ||
-                                                Gate::check('Delete Meeting')): ?>
+                                                <?php if(Gate::check('Show Training') || Gate::check('Edit Training') ||
+                                                Gate::check('Delete Training')): ?>
                                                 <th scope="col" class="text-end"><?php echo e(__('Action')); ?> <span class="opticy"> dddd</span></th>
                                                 <?php endif; ?>
                                             </tr>
@@ -100,8 +100,8 @@ $agreestatus= \App\Models\Meeting::$status;
                                                 <td>
                                                     <span class="budget"><?php echo e(App\Models\User::where('id',$meeting->user_id)->pluck('name')->first()); ?></span>
                                                 </td>
-                                                <?php if(Gate::check('Show Meeting') || Gate::check('Edit Meeting') ||
-                                                Gate::check('Delete Meeting')): ?>
+                                                <?php if(Gate::check('Show Training') || Gate::check('Edit Training') ||
+                                                Gate::check('Delete Training')): ?>
                                                 <td class="text-end">
                                                     <?php if($meeting->status == 0): ?>
                                                     <div class="action-btn bg-primary ms-2">
@@ -130,19 +130,19 @@ $agreestatus= \App\Models\Meeting::$status;
                                                     </div>
 
                                                     <?php endif; ?>
-                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Meeting')): ?>
+                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Training')): ?>
                                                     <div class="action-btn bg-warning ms-2">
                                                         <a href="#" data-size="md" data-url="<?php echo e(route('meeting.show', $meeting->id)); ?>" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="<?php echo e(__('Training Details')); ?>" title="<?php echo e(__('Quick View')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-eye"></i>
                                                         </a>
                                                     </div>
                                                     <?php endif; ?>
-                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Meeting')): ?>
+                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Training')): ?>
                                                     <div class="action-btn bg-info ms-2">
                                                         <a href="<?php echo e(route('meeting.edit', $meeting->id)); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white" data-bs-toggle="tooltip" data-title="<?php echo e(__('Details')); ?>" title="<?php echo e(__('Edit')); ?>"><i class="ti ti-edit"></i></a>
                                                     </div>
                                                     <?php endif; ?>
-                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Delete Meeting')): ?>
+                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Delete Training')): ?>
                                                     <div class="action-btn bg-danger ms-2">
                                                         <?php echo Form::open(['method' => 'DELETE', 'route' =>
                                                         ['meeting.destroy', $meeting->id]]); ?>

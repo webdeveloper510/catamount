@@ -14,7 +14,7 @@
 <li class="breadcrumb-item">{{__('Customer Details')}}</li>
 @endsection
 @section('action-btn')
-@can('Create Meeting')
+@can('Create Create')
 <div class="col-12 text-end mt-3">
     <a href="{{ route('meeting.create',['meeting',0]) }}">
         <button data-bs-toggle="tooltip" title="{{ __('Create') }}" class="btn btn-sm btn-primary btn-icon m-1">

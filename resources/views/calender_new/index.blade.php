@@ -176,7 +176,6 @@ $venue = explode(',', $settings['venue']);
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 @push('script-page')
@@ -225,11 +224,10 @@ $venue = explode(',', $settings['venue']);
                 "_token": "{{ csrf_token() }}",
             },
             success: function(data) {
-
+                // console.log(data);
                 var html = '';
                 if (data.length != 0) {
                     $(data).each(function(index, element) {
-
                         var start = element.start_time;
                         var start_time = moment(start, 'HH:mm:ss')
                             .format('h:mm A');
@@ -245,6 +243,26 @@ $venue = explode(',', $settings['venue']);
                             method: 'GET',
                             dataType: 'json',
                             success: function(response) {
+
+                                /* currentUser = "{{ \Auth::user()->type }}";
+                        // if (currentUser == 'Trainer') {
+                            console.log(`currentUser: ${currentUser} | currentUserID: ${currentUserID}`);
+                            user_data = JSON.parse(element.user_data);
+                            current_user_data = user_data[currentUserID];
+                            
+                            // } */
+
+                                user_data = JSON.parse(element.user_data);
+                                current_user_data = user_data;
+
+                                venue_selection = element.venue_selection;
+                                venue_selection = venue_selection.split(',');
+
+
+                                console.log(current_user_data);
+                                console.log('start');
+                                console.log(element);
+                                console.log('end');
                                 var encodedId = response.encodedId;
                                 // Now you have the encoded ID, use it as needed
                                 var url =
@@ -258,9 +276,12 @@ $venue = explode(',', $settings['venue']);
                                         <div class="theme-avtar bg-info">
                                             <i class="ti ti-calendar-event"></i>
                                         </div>
-                                        <div class="ms-3">
-                                            <h6 class="m-0">${element.eventname} (${element.name})</h6>
-                                            <small class="text-muted">${start_date}</small><br>
+                                        <div class="ms-3">`;
+                                $(venue_selection).each(function(venue_selection_index, venue_selection_value) {
+                                    html += `<h6 class="m-0">${venue_selection_value} (${venue_selection_value}) || </h6>`;
+                                });
+                                `<h6 class="m-0">${element.eventname} (${element.name}) | ${element.id}</h6>`
+                                html += `<small class="text-muted">${start_date}</small><br>
                                             <small class="text-muted">${start_time} - ${end_time}</small>
                                         </div>
                                     </div>
@@ -490,9 +511,9 @@ $venue = explode(',', $settings['venue']);
             success: function(response) {
                 document.getElementById('daySelected').innerHTML = '';
                 var eventDates = {};
-                console.log(response);
+                // console.log(response);
                 response.forEach(function(event) {
-                    var startDate = moment(event.start_date).format('Y-m-d');
+                    var startDate = moment(event.start_date).format('yyyy-MM-DD');
                     if (eventDates[startDate]) {
                         eventDates[startDate]++;
                     } else {
@@ -515,19 +536,15 @@ $venue = explode(',', $settings['venue']);
                     success: function(blockedDates) {
 
                         blockedDates.forEach(function(event) {
-                            var startDate = moment(event.start_date).format(
-                                'YYYY-MM-DD');
-                            var endDate = moment(event.end_date).format(
-                                'YYYY-MM-DD');
+                            var startDate = moment(event.start_date).format('YYYY-MM-DD');
+                            var endDate = moment(event.end_date).format('YYYY-MM-DD');
                             backgroundEvents.push({
                                 title: event.purpose + ' (Blocked)',
                                 start: startDate,
                                 end: endDate,
                                 textColor: '#fff',
                                 color: '#8fa6b3',
-                                url: "{{url('/show-blocked-date-popup')}}" +
-                                    '/' +
-                                    event.id
+                                url: "{{url('/show-blocked-date-popup')}}" + '/' + event.id
 
                             });
                         });
@@ -566,22 +583,12 @@ $venue = explode(',', $settings['venue']);
                                 var selectedStartDate = start.startStr;
                                 var selectedEndDate = start.endStr;
 
-                                var formattedStartDate = moment(
-                                        selectedStartDate)
-                                    .format(
-                                        'dddd, MMMM DD, YYYY');
-                                var selectedDate = moment(selectedStartDate)
-                                    .format(
-                                        'Y-MM-DD');
-                                sessionStorage.setItem('selectedDate',
-                                    selectedDate);
-                                document.getElementById('daySelected')
-                                    .innerHTML =
-                                    formattedStartDate;
-                                document.getElementById('selectedDate')
-                                    .setAttribute(
-                                        'data-date-selected',
-                                        selectedDate);
+                                var formattedStartDate = moment(selectedStartDate)
+                                    .format('dddd, MMMM DD, YYYY');
+                                var selectedDate = moment(selectedStartDate).format('yyyy-MM-DD');
+                                sessionStorage.setItem('selectedDate', selectedDate);
+                                document.getElementById('daySelected').innerHTML = formattedStartDate;
+                                document.getElementById('selectedDate').setAttribute('data-date-selected', selectedDate);
                                 fetch("{{url('/calender-meeting-data')}}?start=" +
                                         start
                                         .startStr, {
@@ -653,11 +660,7 @@ $venue = explode(',', $settings['venue']);
                                     `;
                                                 Json.push(lists);
                                             });
-                                            document.getElementById(
-                                                    'listEvent')
-                                                .innerHTML = Json
-                                                .join(
-                                                    '');
+                                            document.getElementById('listEvent').innerHTML = Json.join('');
                                         } else {
                                             // localStorage.setItem('startDate', JSON.stringify(start));
                                             openPopupForm(selectedStartDate,
@@ -680,16 +683,11 @@ $venue = explode(',', $settings['venue']);
                             },
                             eventMouseEnter: function(arg) {
                                 if (arg.event.extendedProps.blocked_by) {
-                                    arg.el.innerHTML +=
-                                        '<div class="blocked-by-tooltip">' +
-                                        'By:' + arg
-                                        .event.extendedProps.blocked_by +
-                                        '</div>';
+                                    arg.el.innerHTML += '<div class="blocked-by-tooltip">' + 'By:' + arg.event.extendedProps.blocked_by + '</div>';
                                 }
                             },
                             eventMouseLeave: function(arg) {
-                                var tooltip = arg.el.querySelector(
-                                    '.blocked-by-tooltip');
+                                var tooltip = arg.el.querySelector('.blocked-by-tooltip');
                                 if (tooltip) {
                                     tooltip.remove();
                                 }

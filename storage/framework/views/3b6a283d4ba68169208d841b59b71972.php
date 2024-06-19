@@ -18,8 +18,8 @@
 
     <!-- Primary Meta Tags -->
 
-    <meta name="title" content="<?php echo e($settings['meta_keywords']); ?>">
-    <meta name="description" content="<?php echo e($settings['meta_description']); ?>">
+    <!-- <meta name="title" content="<?php echo e($settings['meta_keywords']); ?>">
+    <meta name="description" content="<?php echo e($settings['meta_description']); ?>"> -->
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">

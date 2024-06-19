@@ -17,8 +17,8 @@
 
     <!-- Primary Meta Tags -->
 
-    <meta name="title" content="{{ $settings['meta_keywords'] }}">
-    <meta name="description" content="{{ $settings['meta_description'] }}">
+    <!-- <meta name="title" content="{{ $settings['meta_keywords'] }}">
+    <meta name="description" content="{{ $settings['meta_description'] }}"> -->
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">

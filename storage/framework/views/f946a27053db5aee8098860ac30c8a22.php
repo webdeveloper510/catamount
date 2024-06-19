@@ -151,7 +151,7 @@
 
                                         </p>
                                         <?php endif; ?>
-                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Meeting')): ?>
+                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Training')): ?>
                                         <div class="action-btn bg-warning ms-2">
                                             <a href="javascript:void(0);" data-size="md" data-url="<?php echo e(route('meeting.show', $event['id'])); ?>" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="<?php echo e(__('Training Details')); ?>" title="<?php echo e(__('Quick View')); ?>" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                 <i class="ti ti-eye"></i>
@@ -162,7 +162,7 @@
                                 </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Meeting')): ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Training')): ?>
                             <div class="col-12 text-end mt-3">
                                 <a href="<?php echo e(route('meeting.create',['meeting',0])); ?>">
                                     <button data-bs-toggle="tooltip" title="<?php echo e(__('Create Training')); ?>" class="btn btn-sm btn-primary btn-icon m-1">

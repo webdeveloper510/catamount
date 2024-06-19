@@ -10,7 +10,7 @@
 <li class="breadcrumb-item">{{__('Calendar')}}</li>
 @endsection
 @section('action-btn')
-@can('Create Meeting')
+@can('Create Create')
 <a href="{{ route('meeting.create',['meeting',0]) }}" data-title="{{__('Create New Event')}}"
     class="btn btn-sm btn-info">
     {{__('Add Events')}}

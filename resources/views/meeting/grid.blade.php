@@ -15,7 +15,7 @@
         <i class="ti ti-list text-white"></i>
     </a>
 
-    @can('Create Meeting')
+    @can('Create Training')
         <a href="#" data-size="lg" data-url="{{ route('meeting.create', ['meeting', 0]) }}" data-ajax-popup="true"
             data-bs-toggle="tooltip" data-title="{{ __('Create New Event') }}" title="{{ __('Create') }}"
             class="btn btn-sm btn-primary btn-icon m-1">
@@ -50,14 +50,14 @@
                                     <i class="feather icon-more-vertical"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    @if (Gate::check('Show Meeting') || Gate::check('Edit Meeting') || Gate::check('Delete Meeting'))
-                                        @can('Edit Meeting')
+                                    @if (Gate::check('Show Training') || Gate::check('Edit Training') || Gate::check('Delete Training'))
+                                        @can('Edit Training')
                                             <a href="{{ route('meeting.edit', $meeting->id) }}" class="dropdown-item"
-                                                data-bs-whatever="{{ __('Edit Meeting') }}" data-bs-toggle="tooltip"
-                                                data-title="{{ __('Edit Meeting') }}"><i class="ti ti-edit"></i>
+                                                data-bs-whatever="{{ __('Edit Training') }}" data-bs-toggle="tooltip"
+                                                data-title="{{ __('Edit Training') }}"><i class="ti ti-edit"></i>
                                                 {{ __('Edit') }}</a>
                                         @endcan
-                                        @can('Show Meeting')
+                                        @can('Show Training')
                                             <a href="#" data-url="{{ route('meeting.show', $meeting->id) }}"
                                                 data-ajax-popup="true"data-size="md" class="dropdown-item"
                                                 data-bs-whatever="{{ __('Event Details') }}" data-bs-toggle="tooltip"
@@ -65,7 +65,7 @@
                                                 {{ __('Details') }}</a>
                                         @endcan
 
-                                        @can('Delete Meeting')
+                                        @can('Delete Training')
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['meeting.destroy', $meeting->id]]) !!}
                                             <a href="#!"
                                                 class="mx-3 btn btn-sm d-inline-flex align-items-center show_confirm"
@@ -103,7 +103,7 @@
         <div class="col-md-3">
 
             <a href="#" class="btn-addnew-project" data-ajax-popup="true" data-size="lg"
-                data-title="{{ __('Create New Meeting') }}" data-url="{{ route('meeting.create',['meeting',0]) }}">
+                data-title="{{ __('Create New Training') }}" data-url="{{ route('meeting.create',['meeting',0]) }}">
                 <div class="badge bg-primary proj-add-icon">
                     <i class="ti ti-plus"></i>
                 </div>

@@ -61,7 +61,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                     <li class="dash-item <?php echo e(\Request::route()->getName() == 'dashboard' ? ' active' : ''); ?>">
                                         <a href="<?php echo e(route('dashboard')); ?>" class="dash-link"><span class="dash-mtext"><?php echo e(__('Dashboard')); ?></span></a>
                                     </li>
-                                    <?php if(Gate::check('Manage Lead') || Gate::check('Manage Meeting') ||
+                                    <?php if(Gate::check('Manage Lead') || Gate::check('Manage Training') ||
                                     Gate::check('Manage User')): ?>
                                     <li class="dash-item <?php echo e(\Request::route()->getName() == 'siteusers'||\Request::route()->getName() == 'customer.info' ||
                 \Request::route()->getName() == 'event_customers'||
@@ -88,7 +88,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         </a>
                                     </li>
                                     <?php endif; ?>
-                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Meeting')): ?>
+                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Training')): ?>
                                     <li class="dash-item <?php echo e(\Request::route()->getName() == 'meeting.index' || \Request::route()->getName() == 'meeting.show' || \Request::route()->getName() == 'meeting.edit' ? ' active' : ''); ?>">
                                         <a href="<?php echo e(array_key_exists('meeting',$defaultView) ? route($defaultView['meeting']) : route('meeting.index')); ?>" class="dash-link">
                                             <span class="dash-mtext"><?php echo e(__('Trainings')); ?></span>

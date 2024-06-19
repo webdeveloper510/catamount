@@ -61,7 +61,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                     <li class="dash-item {{ \Request::route()->getName() == 'dashboard' ? ' active' : '' }}">
                                         <a href="{{ route('dashboard') }}" class="dash-link"><span class="dash-mtext">{{ __('Dashboard') }}</span></a>
                                     </li>
-                                    @if(Gate::check('Manage Lead') || Gate::check('Manage Meeting') ||
+                                    @if(Gate::check('Manage Lead') || Gate::check('Manage Training') ||
                                     Gate::check('Manage User'))
                                     <li class="dash-item {{ \Request::route()->getName() == 'siteusers'||\Request::route()->getName() == 'customer.info' ||
                 \Request::route()->getName() == 'event_customers'||
@@ -88,7 +88,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         </a>
                                     </li>
                                     @endcan
-                                    @can('Manage Meeting')
+                                    @can('Manage Training')
                                     <li class="dash-item {{ \Request::route()->getName() == 'meeting.index' || \Request::route()->getName() == 'meeting.show' || \Request::route()->getName() == 'meeting.edit' ? ' active' : '' }}">
                                         <a href="{{ array_key_exists('meeting',$defaultView) ? route($defaultView['meeting']) : route('meeting.index') }}" class="dash-link">
                                             <span class="dash-mtext">{{ __('Trainings') }}</span>

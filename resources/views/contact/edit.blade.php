@@ -83,7 +83,7 @@
                                 class="list-group-item list-group-item-action border-0">{{ __('Calls') }} <div
                                     class="float-end"><i class="ti ti-chevron-right"></i></div></a>
                             <a href="#useradd-10"
-                                class="list-group-item list-group-item-action border-0">{{ __('Meetings') }} <div
+                                class="list-group-item list-group-item-action border-0">{{ __('Trainings') }} <div
                                     class="float-end"><i class="ti ti-chevron-right"></i></div></a>
                         </div>
                     </div>
@@ -1186,15 +1186,15 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col">
-                                    <h5>{{ __('Meetings') }}</h5>
-                                    <small class="text-muted">{{ __('Assigned Meeting for this account') }}</small>
+                                    <h5>{{ __('Trainings') }}</h5>
+                                    <small class="text-muted">{{ __('Assigned Training for this account') }}</small>
                                 </div>
                                 <div class="col">
                                     <div class="text-end">
                                         <a href="#" data-size="lg"
                                             data-url="{{ route('meeting.create', ['attendees_contact', 0]) }}"
                                             data-ajax-popup="true" data-bs-toggle="tooltip"
-                                            data-title="{{ __('Create New Meeting') }}" title="{{ __('Create') }}"
+                                            data-title="{{ __('Create New Training') }}" title="{{ __('Create') }}"
                                             class="btn btn-sm btn-primary btn-icon-only ">
                                             <i class="ti ti-plus"></i>
                                         </a>
@@ -1215,7 +1215,7 @@
                                                 {{ __('Date Start') }}</th>
                                             <th scope="col" class="sort" data-sort="completion">
                                                 {{ __('Assigned User') }}</th>
-                                            @if (Gate::check('meeting show') || Gate::check('meeting edit') || Gate::check('meeting delete'))
+                                            @if (Gate::check('Training show') || Gate::check('Training edit') || Gate::check('Training delete'))
                                                 <th scope="col" class="text-end">{{ __('Action') }}</th>
                                             @endif
                                         </tr>
@@ -1225,7 +1225,7 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('meeting.edit', $meeting->id) }}" data-size="md"
-                                                        data-title="{{ __('Meeting') }}"
+                                                        data-title="{{ __('Training') }}"
                                                         class="action-item text-primary">
                                                         {{ $meeting->name }}</a>
                                                 </td>
@@ -1252,30 +1252,30 @@
                                                     <span
                                                         class="budget">{{ ucfirst(!empty($meeting->assign_user) ? $meeting->assign_user->name : '') }}</span>
                                                 </td>
-                                                @if (Gate::check('Show Meeting') || Gate::check('Edit Meeting') || Gate::check('Delete Meeting'))
+                                                @if (Gate::check('Show Training') || Gate::check('Edit Training') || Gate::check('Delete Training'))
                                                     <td class="text-end">
-                                                        @can('Show Meeting')
+                                                        @can('Show Training')
                                                             <div class="action-btn bg-warning ms-2">
                                                                 <a href="#" data-size="md"
                                                                     data-url="{{ route('meeting.show', $meeting->id) }}"
                                                                     data-ajax-popup="true" data-bs-toggle="tooltip"
-                                                                    data-title="{{ __('Meeting Details') }}"title="{{ __('Quick View') }}"
+                                                                    data-title="{{ __('Training Details') }}"title="{{ __('Quick View') }}"
                                                                     class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                                     <i class="ti ti-eye"></i>
                                                                 </a>
                                                             </div>
                                                         @endcan
-                                                        @can('Edit Meeting')
+                                                        @can('Edit Training')
                                                             <div class="action-btn bg-info ms-2">
                                                                 <a href="{{ route('meeting.edit', $meeting->id) }}"
                                                                     class="mx-3 btn btn-sm d-inline-flex align-items-center text-white"
                                                                     data-bs-toggle="tooltip"
-                                                                    data-title="{{ __('Edit Meeting') }}"
+                                                                    data-title="{{ __('Edit Training') }}"
                                                                     title="{{ __('Details') }}"><i
                                                                         class="ti ti-edit"></i></a>
                                                             </div>
                                                         @endcan
-                                                        @can('Delete Meeting')
+                                                        @can('Delete Training')
                                                             <div class="action-btn bg-danger ms-2">
                                                                 {!! Form::open(['method' => 'DELETE', 'route' => ['meeting.destroy', $meeting->id]]) !!}
                                                                 <a href="#!"

@@ -55,7 +55,7 @@
     </div>
 
     <div class="w-100 text-end pr-2">
-        @can('Edit Meeting')
+        @can('Edit Training')
         <div class="action-btn bg-info ms-2">
             <a href="{{ route('meeting.edit',$meeting->id) }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white" data-bs-toggle="tooltip" data-title="{{__('Edit Call')}}" title="{{__('Edit')}}"><i class="ti ti-edit"></i>
             </a>

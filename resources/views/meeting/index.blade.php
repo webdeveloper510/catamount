@@ -13,7 +13,7 @@ $agreestatus= \App\Models\Meeting::$status;
 <li class="breadcrumb-item">{{ __('Trainings') }}</li>
 @endsection
 @section('action-btn')
-@can('Create Meeting')
+@can('Create Create')
 <div class="col-12 text-end mt-3">
     <a href="{{ route('meeting.create',['meeting',0]) }}">
         <button id="rmLocalStorage" data-bs-toggle="tooltip" title="{{ __('Create') }}" class="btn btn-sm btn-primary btn-icon m-1">
@@ -53,8 +53,8 @@ $agreestatus= \App\Models\Meeting::$status;
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Assigned Staff') }} <span class="opticy"> dddd</span>
                                                 </th>
-                                                @if (Gate::check('Show Meeting') || Gate::check('Edit Meeting') ||
-                                                Gate::check('Delete Meeting'))
+                                                @if (Gate::check('Show Training') || Gate::check('Edit Training') ||
+                                                Gate::check('Delete Training'))
                                                 <th scope="col" class="text-end">{{ __('Action') }} <span class="opticy"> dddd</span></th>
                                                 @endif
                                             </tr>
@@ -107,8 +107,8 @@ $agreestatus= \App\Models\Meeting::$status;
                                                 <td>
                                                     <span class="budget">{{ App\Models\User::where('id',$meeting->user_id)->pluck('name')->first() }}</span>
                                                 </td>
-                                                @if (Gate::check('Show Meeting') || Gate::check('Edit Meeting') ||
-                                                Gate::check('Delete Meeting'))
+                                                @if (Gate::check('Show Training') || Gate::check('Edit Training') ||
+                                                Gate::check('Delete Training'))
                                                 <td class="text-end">
                                                     @if($meeting->status == 0)
                                                     <div class="action-btn bg-primary ms-2">
@@ -137,19 +137,19 @@ $agreestatus= \App\Models\Meeting::$status;
                                                     </div>
 
                                                     @endif
-                                                    @can('Show Meeting')
+                                                    @can('Show Training')
                                                     <div class="action-btn bg-warning ms-2">
                                                         <a href="#" data-size="md" data-url="{{ route('meeting.show', $meeting->id) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Training Details') }}" title="{{ __('Quick View') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-eye"></i>
                                                         </a>
                                                     </div>
                                                     @endcan
-                                                    @can('Edit Meeting')
+                                                    @can('Edit Training')
                                                     <div class="action-btn bg-info ms-2">
                                                         <a href="{{ route('meeting.edit', $meeting->id) }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white" data-bs-toggle="tooltip" data-title="{{ __('Details') }}" title="{{ __('Edit') }}"><i class="ti ti-edit"></i></a>
                                                     </div>
                                                     @endcan
-                                                    @can('Delete Meeting')
+                                                    @can('Delete Training')
                                                     <div class="action-btn bg-danger ms-2">
                                                         {!! Form::open(['method' => 'DELETE', 'route' =>
                                                         ['meeting.destroy', $meeting->id]]) !!}

@@ -145,7 +145,7 @@
                                             {{ \Auth::user()->dateFormat($event['end_date'])}}
                                         </p>
                                         @endif
-                                        @can('Show Meeting')
+                                        @can('Show Training')
                                         <div class="action-btn bg-warning ms-2">
                                             <a href="javascript:void(0);" data-size="md" data-url="{{ route('meeting.show', $event['id']) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Training Details') }}" title="{{ __('Quick View') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                 <i class="ti ti-eye"></i>
@@ -156,7 +156,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                            @can('Create Meeting')
+                            @can('Create Training')
                             <div class="col-12 text-end mt-3">
                                 <a href="{{ route('meeting.create',['meeting',0]) }}">
                                     <button data-bs-toggle="tooltip" title="{{ __('Create Training') }}" class="btn btn-sm btn-primary btn-icon m-1">

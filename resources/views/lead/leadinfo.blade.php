@@ -247,8 +247,8 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->guest_count }}</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->venue_selection ??'--' }}</span></dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Function')}}</span></dt>
-                                        <dd class="col-md-6 need_half"><span class="">{{$lead->function ?? '--'}}</span></dd>
+                                        {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Function')}}</span></dt>
+                                        <dd class="col-md-6 need_half"><span class="">{{$lead->function ?? '--'}}</span></dd>--}}
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Assigned User')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">@if($lead->assigned_user != 0)
                                                 {{ App\Models\User::where('id', $lead->assigned_user)->first()->name }}
@@ -346,6 +346,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                             <tr>
                                                 <!-- <th scope="col" class="sort" data-sort="name">{{__('Lead')}}</th> -->
                                                 <th scope="col" class="sort" data-sort="name">{{__('Created On')}}</th>
+                                                <th scope="col" class="sort" data-sort="name">{{__('Training Name')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Name')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Amount')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Due')}}</th>
@@ -355,8 +356,8 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <tbody>
                                             @foreach($leads as $lead)
                                             <?php
-                                            $event = App\Models\Meeting::where('attendees_lead', $lead->id)->first();
 
+                                            $event = App\Models\Meeting::where('attendees_lead', $lead->id)->first();
                                             if ($event) {
                                                 $billing = App\Models\PaymentLogs::where('event_id', $event->id)->get();
 
@@ -370,6 +371,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                                     }
                                                     echo "<tr>";
                                                     echo "<td>" . Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $lastpaid->created_at)->format('M d, Y') . "</td>";
+                                                    echo "<td>" . $event->name . "</td>";
                                                     echo "<td>" . $lead->name . "</td>";
                                                     echo "<td>" . $amount->amount . "</td>";
                                                     echo "<td>" . $amount->amounttobepaid - $amountpaid . "</td>";

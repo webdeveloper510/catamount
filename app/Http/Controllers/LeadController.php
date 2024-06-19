@@ -937,19 +937,6 @@ class LeadController extends Controller
             $leads = Lead::where('primary_contact', $lead->primary_contact)->get();
         }
 
-        // $crnt_user = \Auth::user()->id;
-        /* foreach ($leads as $lKey => $lValue) {
-            $crnt_user = $lValue->assigned_user;
-            $filteredMeetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
-                $user_data = json_decode($meeting->user_data, true);
-                return isset($user_data[$crnt_user]);
-            })->map(function ($meeting) use ($lValue) {
-                $meeting->training = $lValue;
-                return $meeting;
-            });
-        } */
-
-
         foreach ($leads as $lKey => $lValue) {
             $assigned_user = $lValue->assigned_user;
             $filteredMeetings[] = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($assigned_user) {

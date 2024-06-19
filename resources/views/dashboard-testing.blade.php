@@ -134,7 +134,7 @@
                                         </div>
                                     </div>
                                 @endforeach                            
-                                @can('Create Meeting')
+                                @can('Create Create')
                                     <div class="col-12 text-end mt-3">
                                         <a href="{{ route('meeting.create',['meeting',0]) }}"> 
                                             <button  data-bs-toggle="tooltip"title="{{ __('Create Event') }}" class="btn btn-sm btn-primary btn-icon m-1">

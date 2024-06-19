@@ -65,7 +65,7 @@ $settings = App\Models\Utility::settings();
                     <span class="dash-mtext">{{ __('Role') }}</span>
                 </a>
                 @endif
-                @if(Gate::check('Manage Lead') || Gate::check('Manage Meeting'))
+                @if(Gate::check('Manage Lead') || Gate::check('Manage Training'))
                 <a href="#eventtype-settings" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse19')">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
                     <span class="dash-mtext">{{ __('Trainings') }}</span>

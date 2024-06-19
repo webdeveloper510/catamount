@@ -119,8 +119,8 @@ $meetingData['setup_cost'] = '';
                     
                     <tr>
                         <td><textarea class="form-control" name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
-                        <td><input class="form-control" type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
-                        <td><input class="form-control" type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
+                        <td><input class="form-control cost-input" type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
+                        <td><input class="form-control quantity-input" type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
                         <td><textarea class="form-control" name="billing[1][note]" id="note" cols="30" rows="3"></textarea></td>
                         <td class="action-buttons">
                             <!-- <div class="action-btn bg-primary ms-2" style="display: none;">
@@ -197,7 +197,50 @@ $meetingData['setup_cost'] = '';
             <label class="form-label"> Deposit on file: </label>
             <input type="number" name="deposits" min="1" class="form-control">
         </div>
+        <div class="col-md-12">
+            <label class="form-label">Sales Tax (%)</label>
+            <input type="number" name="salesTax" min="1" class="form-control">
+        </div>
+        <style>
+            div.divRgt {
+                position: relative;
+                right: 0;
+                left: 50%;
+            }
+        </style>
+        <div class="col-md-6 divRgt">
+            <label class="form-label">Total Amount: </label>
+            <input type="number" name="totalAmount" id="totalAmount" class="form-control" readonly value="">
+            <label class="form-label">Payments /Credit (-)</label>
+            <input type="number" name="paymentCredit" id="paymentCredit" min="1" class="form-control" value="">
+            <label class="form-label">Due Amount</label>
+            <input type="number" name="dueAmount" id="dueAmount" class="form-control" readonly value="">
+        </div>
     </div>
+
+    <script>
+        /* function calculateTotal() {
+
+            let rows = document.querySelectorAll("#invoiceTable tbody tr");
+            rows.forEach(row => {
+                let costInput = row.querySelector(".cost-input");
+                let quantityInput = row.querySelector(".quantity-input");
+                let totalCostElement = row.querySelector(".total-cost");
+                let cost = parseFloat(costInput.value);
+                let quantity = parseFloat(quantityInput.value);
+                let totalCost = cost * quantity;
+                totalCostElement.textContent = totalCost.toFixed(2);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateTotal();
+            let inputs = document.querySelectorAll(".cost-input, .quantity-input");
+            inputs.forEach(input => {
+                input.addEventListener("input", calculateTotal);
+            });
+        }); */
+    </script>
 
 </div>
 <?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary '))); ?>

@@ -45,7 +45,7 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        if (\Auth::user()->can('Manage Meeting')) {
+        if (\Auth::user()->can('Manage Training')) {
             if (\Auth::user()->type == 'owner') {
                 $meetings = Meeting::orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();
@@ -83,7 +83,7 @@ class MeetingController extends Controller
 
     public function create($type, $id)
     {
-        if (\Auth::user()->can('Create Meeting')) {
+        if (\Auth::user()->can('Create Create')) {
             $status            = Meeting::$status;
             $parent            = Meeting::$parent;
             if (\Auth::user()->type == 'owner') {
@@ -112,7 +112,7 @@ class MeetingController extends Controller
     // WORKING  17-01-2024
     public function store(Request $request)
     {
-        if (\Auth::user()->can('Create Meeting')) {
+        if (\Auth::user()->can('Create Create')) {
             $validator = \Validator::make(
                 $request->all(),
                 [
@@ -392,7 +392,7 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        if (\Auth::user()->can('Show Meeting')) {
+        if (\Auth::user()->can('Show Training')) {
             $status = Meeting::$status;
             $ids = explode(',', $meeting->user_id);
             foreach ($ids as $id) {
@@ -413,7 +413,7 @@ class MeetingController extends Controller
      */
     public function edit(Meeting $meeting)
     {
-        if (\Auth::user()->can('Edit Meeting')) {
+        if (\Auth::user()->can('Edit Training')) {
             $status = Meeting::$status;
             $attendees_lead = Lead::where('id', $meeting->attendees_lead)->where('lead_status', 1)->get()->pluck('leadname')->first();
             $users = User::where('created_by', \Auth::user()->creatorId())->get();
@@ -443,7 +443,7 @@ class MeetingController extends Controller
 
     public function update(Request $request, Meeting $meeting)
     {
-        if (\Auth::user()->can('Edit Meeting')) {
+        if (\Auth::user()->can('Edit Training')) {
             $validator = \Validator::make(
                 $request->all(),
                 [
@@ -650,7 +650,7 @@ class MeetingController extends Controller
      */
     public function destroy(Meeting $meeting)
     {
-        if (\Auth::user()->can('Delete Meeting')) {
+        if (\Auth::user()->can('Delete Training')) {
             $meeting->delete();
             Billing::where('event_id', $meeting->id)->delete();
             // Billingdetail::where('event_id', $meeting->id)->delete();
