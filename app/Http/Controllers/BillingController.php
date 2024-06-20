@@ -52,18 +52,22 @@ class BillingController extends Controller
     public function store(Request $request, $id)
     {
         $items = $request->billing;
-        $totalCost = 0;
-        foreach ($items as $item) {
+        /* $totalCost = 0;
+         foreach ($items as $item) {
             $totalCost += $item['cost'] * $item['quantity'];
-        }
+        } 
         $totalCost = $totalCost + 7 * ($totalCost) / 100 + 20 * ($totalCost) / 100;
+        */
         $billing = new Billing();
         $billing['event_id'] = $id;
         $billing['data'] = serialize($items);
         $billing['status'] = 1;
+        $billing['salesTax'] = $request->salesTax ?? 0;
+        $billing['totalAmount'] = $request->totalAmount ?? 0;
+        $billing['paymentCredit'] = $request->paymentCredit ?? 0;
         $billing['deposits'] = $request->deposits ?? 0;
         $billing->save();
-        Meeting::where('id', $id)->update(['total' => $totalCost]);
+        Meeting::where('id', $id)->update(['total' => $request->dueAmount]);
         return redirect()->back()->with('success', __('Estimated Invoice Created Successfully'));
     }
     /**

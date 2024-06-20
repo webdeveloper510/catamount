@@ -363,6 +363,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                             <tr>
                                                 <!-- <th scope="col" class="sort" data-sort="name"><?php echo e(__('Lead')); ?></th> -->
                                                 <th scope="col" class="sort" data-sort="name"><?php echo e(__('Created On')); ?></th>
+                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Training Name')); ?></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Name')); ?></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Amount')); ?></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Due')); ?></th>
@@ -372,8 +373,8 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <tbody>
                                             <?php $__currentLoopData = $leads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <?php
-                                            $event = App\Models\Meeting::where('attendees_lead', $lead->id)->first();
 
+                                            $event = App\Models\Meeting::where('attendees_lead', $lead->id)->first();
                                             if ($event) {
                                                 $billing = App\Models\PaymentLogs::where('event_id', $event->id)->get();
 
@@ -387,6 +388,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                                     }
                                                     echo "<tr>";
                                                     echo "<td>" . Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $lastpaid->created_at)->format('M d, Y') . "</td>";
+                                                    echo "<td>" . $event->name . "</td>";
                                                     echo "<td>" . $lead->name . "</td>";
                                                     echo "<td>" . $amount->amount . "</td>";
                                                     echo "<td>" . $amount->amounttobepaid - $amountpaid . "</td>";

@@ -111,6 +111,7 @@ $meetingData['setup_cost'] = '';
                         <th>{{__('Description')}} <span class="opticy"> dddd</span></th>
                         <th>{{__('Cost(per person)')}} <span class="opticy"> dddd</span></th>
                         <th>{{__('Quantity')}} <span class="opticy"> dddd</span></th>
+                        <th>{{__('Total')}} <span class="opticy"> dddd</span></th>
                         <th>{{__('Notes')}} <span class="opticy"> dddd</span></th>
                     </tr>
                 </thead>
@@ -133,13 +134,9 @@ $meetingData['setup_cost'] = '';
                         <td><textarea class="form-control" name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
                         <td><input class="form-control cost-input" type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
                         <td><input class="form-control quantity-input" type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
+                        <td><input class="form-control total-input" type="text" name="billing[1][total]" id="total" value="" required></td>
                         <td><textarea class="form-control" name="billing[1][note]" id="note" cols="30" rows="3"></textarea></td>
                         <td class="action-buttons">
-                            <!-- <div class="action-btn bg-primary ms-2" style="display: none;">
-                                <a href="javascript:void(0);" onclick="addRowAfter(this)" data-size="md" data-bs-toggle="tooltip" title="" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white extra">
-                                    <i class="ti ti-plus"></i>
-                                </a>
-                            </div> -->
                             <div class="action-btn bg-danger ms-2">
                                 <a href="javascript:void(0);" onclick="deleteRow(this)" class="mx-3 btn btn-sm  align-items-center text-white" data-bs-toggle="tooltip" title='Delete'>
                                     <i class="ti ti-trash"></i>
@@ -165,6 +162,7 @@ $meetingData['setup_cost'] = '';
                     clearRow(newRow);
                     updateRowNames(newRow);
                     tableBody.appendChild(newRow);
+                    attachEventListeners();
                 }
 
                 function deleteRow(button) {
@@ -184,10 +182,11 @@ $meetingData['setup_cost'] = '';
 
                 function updateRowNames(row) {
                     rowCount++;
-                    row.querySelector('textarea[id="description"]').name = `invoice[${rowCount}][description]`;
-                    row.querySelector('input[id="cost"]').name = `invoice[${rowCount}][cost]`;
-                    row.querySelector('input[id="quantity"]').name = `invoice[${rowCount}][quantity]`;
-                    row.querySelector('textarea[id="note"]').name = `invoice[${rowCount}][note]`;
+                    row.querySelector('textarea[id="description"]').name = `billing[${rowCount}][description]`;
+                    row.querySelector('input[id="cost"]').name = `billing[${rowCount}][cost]`;
+                    row.querySelector('input[id="quantity"]').name = `billing[${rowCount}][quantity]`;
+                    row.querySelector('input[id="total"]').name = `billing[${rowCount}][total]`;
+                    row.querySelector('textarea[id="note"]').name = `billing[${rowCount}][note]`;
                 }
 
                 function updateAllRowNames() {
@@ -195,32 +194,26 @@ $meetingData['setup_cost'] = '';
                     rowCount = 0;
                     rows.forEach((row, index) => {
                         rowCount = index + 1;
-                        row.querySelector('textarea[id="description"]').name = `invoice[${rowCount}][description]`;
-                        row.querySelector('input[id="cost"]').name = `invoice[${rowCount}][cost]`;
-                        row.querySelector('input[id="quantity"]').name = `invoice[${rowCount}][quantity]`;
-                        row.querySelector('textarea[id="note"]').name = `invoice[${rowCount}][note]`;
+                        row.querySelector('textarea[id="description"]').name = `billing[${rowCount}][description]`;
+                        row.querySelector('input[id="cost"]').name = `billing[${rowCount}][cost]`;
+                        row.querySelector('input[id="quantity"]').name = `billing[${rowCount}][quantity]`;
+                        row.querySelector('input[id="total"]').name = `billing[${rowCount}][total]`;
+                        row.querySelector('textarea[id="note"]').name = `billing[${rowCount}][note]`;
                     });
                 }
             </script>
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <label class="form-label"> Deposit on file: </label>
             <input type="number" name="deposits" min="1" class="form-control">
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <label class="form-label">Sales Tax (%)</label>
-            <input type="number" name="salesTax" min="1" class="form-control">
+            <input type="number" name="salesTax" id="salesTax" min="1" class="form-control">
         </div>
-        <style>
-            div.divRgt {
-                position: relative;
-                right: 0;
-                left: 50%;
-            }
-        </style>
-        <div class="col-md-6 divRgt">
+        <div class="col-md-6 divRgt" style="position: relative;right: 0;left: 50%;">
             <label class="form-label">Total Amount: </label>
             <input type="number" name="totalAmount" id="totalAmount" class="form-control" readonly value="">
             <label class="form-label">Payments /Credit (-)</label>
@@ -231,27 +224,43 @@ $meetingData['setup_cost'] = '';
     </div>
 
     <script>
-        /* function calculateTotal() {
+        function calculateTotals() {
+            let totalAmount = 0;
+            const rows = document.querySelectorAll('#invoiceTable tbody tr');
+            rows.forEach((row) => {
+                const cost = parseFloat(row.querySelector('.cost-input').value) || 0;
+                const quantity = parseFloat(row.querySelector('.quantity-input').value) || 0;
+                const totalCost = cost * quantity;
+                row.querySelector('.total-input').value = totalCost.toFixed(2);
+                totalAmount += totalCost;
+            });
+            const salesTax = document.getElementById('salesTax').value;
 
-            let rows = document.querySelectorAll("#invoiceTable tbody tr");
-            rows.forEach(row => {
-                let costInput = row.querySelector(".cost-input");
-                let quantityInput = row.querySelector(".quantity-input");
-                let totalCostElement = row.querySelector(".total-cost");
-                let cost = parseFloat(costInput.value);
-                let quantity = parseFloat(quantityInput.value);
-                let totalCost = cost * quantity;
-                totalCostElement.textContent = totalCost.toFixed(2);
+            salesTaxs = totalAmount / salesTax;
+            totalAmount = totalAmount + salesTaxs;
+            document.getElementById('totalAmount').value = totalAmount.toFixed(2);
+            updateDueAmount();
+        }
+
+        function attachEventListeners() {
+            document.querySelectorAll('.cost-input, .quantity-input, #salesTax').forEach(input => {
+                input.removeEventListener('keyup', calculateTotals);
+                input.removeEventListener('change', calculateTotals);
+                input.addEventListener('keyup', calculateTotals);
+                input.addEventListener('change', calculateTotals);
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            calculateTotal();
-            let inputs = document.querySelectorAll(".cost-input, .quantity-input");
-            inputs.forEach(input => {
-                input.addEventListener("input", calculateTotal);
-            });
-        }); */
+        attachEventListeners();
+
+        function updateDueAmount() {
+            const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
+            const paymentCredit = parseFloat(document.getElementById('paymentCredit').value) || 0;
+            const dueAmount = totalAmount - paymentCredit;
+            document.getElementById('dueAmount').value = dueAmount.toFixed(2);
+        }
+        document.getElementById('paymentCredit').addEventListener('keyup', updateDueAmount);
+        document.getElementById('paymentCredit').addEventListener('change', updateDueAmount);
     </script>
 
 </div>
