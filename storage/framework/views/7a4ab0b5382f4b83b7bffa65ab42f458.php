@@ -112,7 +112,7 @@ $meetingData['setup_cost'] = '';
                         <th><?php echo e(__('Description')); ?> <span class="opticy"> dddd</span></th>
                         <th><?php echo e(__('Cost(per person)')); ?> <span class="opticy"> dddd</span></th>
                         <th><?php echo e(__('Quantity')); ?> <span class="opticy"> dddd</span></th>
-                        <th><?php echo e(__('Total')); ?> <span class="opticy"> dddd</span></th>
+                        <!-- <th><?php echo e(__('Total')); ?> <span class="opticy"> dddd</span></th> -->
                         <th><?php echo e(__('Notes')); ?> <span class="opticy"> dddd</span></th>
                     </tr>
                 </thead>
@@ -122,7 +122,8 @@ $meetingData['setup_cost'] = '';
                         <td><textarea class="form-control" name="billing[1][description]" id="description" cols="30" rows="3"></textarea></td>
                         <td><input class="form-control cost-input" type="number" min="1" name="billing[1][cost]" id="cost" value="" required></td>
                         <td><input class="form-control quantity-input" type="number" min="1" name="billing[1][quantity]" id="quantity" value="" required></td>
-                        <td><input class="form-control total-input" type="text" name="billing[1][total]" id="total" value="" required></td>
+                        <!-- <td><input class="form-control total-input" type="text" name="billing[1][total]" id="total" value="" required></td> -->
+                        <input class="form-control total-input" type="hidden" name="billing[1][total]" id="total" value="" required>
                         <td><textarea class="form-control" name="billing[1][note]" id="note" cols="30" rows="3"></textarea></td>
                         <td class="action-buttons">
                             <div class="action-btn bg-danger ms-2">
