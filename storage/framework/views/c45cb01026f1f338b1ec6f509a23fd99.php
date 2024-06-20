@@ -1,14 +1,15 @@
-@extends('layouts.admin')
-@section('page-title')
-{{__('Calendar')}}
-@endsection
-@section('title')
-{{__('Calendar')}}
-@endsection
-@section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
-<li class="breadcrumb-item">{{__('Calendar')}}</li>
-@endsection
+<?php $__env->startSection('page-title'); ?>
+<?php echo e(__('Calendar')); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('title'); ?>
+<?php echo e(__('Calendar')); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('breadcrumb'); ?>
+<li class="breadcrumb-item"><a href="<?php echo e(route('dashboard')); ?>"><?php echo e(__('Dashboard')); ?></a></li>
+<li class="breadcrumb-item"><?php echo e(__('Calendar')); ?></li>
+<?php $__env->stopSection(); ?>
 <?php
 $settings = App\Models\Utility::settings();
 $venue = explode(',', $settings['venue']);
@@ -74,7 +75,7 @@ $venue = explode(',', $settings['venue']);
         margin-bottom: 0 !important;
     }
 </style>
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container">
     <div class="row calender" id="useradd-1">
         <div class="col-sm-8">
@@ -84,8 +85,8 @@ $venue = explode(',', $settings['venue']);
             <div class="card">
                 <div class="card-body">
                     <h3 class="mb-4">Trainings lists
-                        <a href="{{ route('meeting.create',['meeting',0]) }}" style="float: right;" data-date-selected="" id="selectedDate">
-                            <button data-bs-toggle="tooltip" title="{{ __('Create') }}" class="btn btn-sm btn-primary btn-icon m-1" data-bs-placement="top" data-bs-original-title="Create"><i class="ti ti-plus"></i></button>
+                        <a href="<?php echo e(route('meeting.create',['meeting',0])); ?>" style="float: right;" data-date-selected="" id="selectedDate">
+                            <button data-bs-toggle="tooltip" title="<?php echo e(__('Create')); ?>" class="btn btn-sm btn-primary btn-icon m-1" data-bs-placement="top" data-bs-original-title="Create"><i class="ti ti-plus"></i></button>
                         </a>
                     </h3>
                     <p class="text-muted" id="daySelected"></p>
@@ -98,22 +99,23 @@ $venue = explode(',', $settings['venue']);
     </div>
 </div>
 <div class="blockd_dates">
-    @foreach($blockeddate as $key=> $value)
-    <input type="hidden" name="strt{{$key}}" value="{{$value->start_date}}">
-    <input type="hidden" name="end{{$key}}" value="{{$value->end_date}}">
-    <!-- <input type="hidden" name="title{{$key}}" value="{{$value->title}}"> -->
-    @endforeach
+    <?php $__currentLoopData = $blockeddate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=> $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <input type="hidden" name="strt<?php echo e($key); ?>" value="<?php echo e($value->start_date); ?>">
+    <input type="hidden" name="end<?php echo e($key); ?>" value="<?php echo e($value->end_date); ?>">
+    <!-- <input type="hidden" name="title<?php echo e($key); ?>" value="<?php echo e($value->title); ?>"> -->
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 <div id="overlay"></div>
 <div id="popup-form">
     <div class="row step1 blocked" data-popdate="">
         <div class="card">
             <div class="col-md-12">
-                {{ Form::open(['route' => 'meeting.blockdate', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+                <?php echo e(Form::open(['route' => 'meeting.blockdate', 'method' => 'post', 'enctype' => 'multipart/form-data'])); ?>
+
                 <div class="card-header">
                     <div class="row">
                         <div class="col-12">
-                            <h5>{{ __('Block Date') }}</h5>
+                            <h5><?php echo e(__('Block Date')); ?></h5>
                         </div>
                     </div>
                 </div>
@@ -123,62 +125,74 @@ $venue = explode(',', $settings['venue']);
                             <div class="form-group">
                                 <label class="form-label">Venue</label>
                                 <div class="checkbox-container d-flex flex-wrap">
-                                    @foreach ($venue as $value => $label)
+                                    <?php $__currentLoopData = $venue; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input venue-checkbox" type="checkbox" id="{{ $value }}" name="venue[]" value="{{ $label }}">
-                                        <label class="form-check-label" for="{{ $value }}">{{ $label }}</label>
+                                        <input class="form-check-input venue-checkbox" type="checkbox" id="<?php echo e($value); ?>" name="venue[]" value="<?php echo e($label); ?>">
+                                        <label class="form-check-label" for="<?php echo e($value); ?>"><?php echo e($label); ?></label>
                                     </div>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
-                                {!! Form::date('start_date', date('Y-m-d'), ['class' => 'form-control', 'required' =>
-                                'required']) !!}
+                                <?php echo e(Form::label('start_date', __('Start Date'), ['class' => 'form-label'])); ?>
+
+                                <?php echo Form::date('start_date', date('Y-m-d'), ['class' => 'form-control', 'required' =>
+                                'required']); ?>
+
                             </div>
                         </div>
                         <!-- <div class="col-md-6">
                             <div class="form-group">
-                                {{ Form::label('start_time', __('Start Time'), ['class' => 'form-label']) }}
-                                {!! Form::time('start_time', '00:00', ['class' => 'form-control']) !!}
+                                <?php echo e(Form::label('start_time', __('Start Time'), ['class' => 'form-label'])); ?>
+
+                                <?php echo Form::time('start_time', '00:00', ['class' => 'form-control']); ?>
+
                             </div>
                         </div> -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ Form::label('end_date', __('End Date'), ['class' => 'form-label']) }}
-                                {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control', 'required' =>
-                                'required','required' => 'required']) !!}
+                                <?php echo e(Form::label('end_date', __('End Date'), ['class' => 'form-label'])); ?>
+
+                                <?php echo Form::date('end_date', date('Y-m-d'), ['class' => 'form-control', 'required' =>
+                                'required','required' => 'required']); ?>
+
                             </div>
                         </div>
                         <!-- <div class="col-md-6">
                             <div class="form-group">
-                                {{ Form::label('end_time', __('End Time'), ['class' => 'form-label']) }}
-                                {!! Form::time('end_time', '00:00', ['class' => 'form-control', 'required' =>
-                                'required']) !!}
+                                <?php echo e(Form::label('end_time', __('End Time'), ['class' => 'form-label'])); ?>
+
+                                <?php echo Form::time('end_time', '00:00', ['class' => 'form-control', 'required' =>
+                                'required']); ?>
+
                             </div>
                         </div> -->
                         <div class="col-12">
                             <div class="form-group">
-                                {{Form::label('purpose',__('Purpose'),['class'=>'form-label']) }}
-                                {{Form::textarea('purpose',null,['class'=>'form-control','rows'=>2])}}
+                                <?php echo e(Form::label('purpose',__('Purpose'),['class'=>'form-label'])); ?>
+
+                                <?php echo e(Form::textarea('purpose',null,['class'=>'form-control','rows'=>2])); ?>
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    {{ Form::submit(__('Block'), ['id'=>'block','class' => 'btn  btn-primary ']) }}
-                    <button class="btn btn-primary" id="unblock" data-bs-toggle="tooltip" title="{{__('Close')}}" style="display:none">Unblock</button>
-                    <p class="btn  btn-primary close-popup" data-bs-toggle="tooltip" title="{{__('Close')}}">Close</p>
+                    <?php echo e(Form::submit(__('Block'), ['id'=>'block','class' => 'btn  btn-primary '])); ?>
+
+                    <button class="btn btn-primary" id="unblock" data-bs-toggle="tooltip" title="<?php echo e(__('Close')); ?>" style="display:none">Unblock</button>
+                    <p class="btn  btn-primary close-popup" data-bs-toggle="tooltip" title="<?php echo e(__('Close')); ?>">Close</p>
                 </div>
-                {{Form::close()}}
+                <?php echo e(Form::close()); ?>
+
             </div>
         </div>
     </div>
 </div>
-@endsection
-@push('script-page')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('script-page'); ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
@@ -215,12 +229,12 @@ $venue = explode(',', $settings['venue']);
         var monthNumber = date.getMonth() + 1;
         var year = date.getFullYear();
         $.ajax({
-            url: "{{route('monthbaseddata')}}",
+            url: "<?php echo e(route('monthbaseddata')); ?>",
             type: 'POST',
             data: {
                 "month": monthNumber,
                 "year": year,
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
             },
             success: function(data) {
                 // console.log(data);
@@ -235,15 +249,15 @@ $venue = explode(',', $settings['venue']);
                             'h:mm A');
                         var start_date = moment(element.start_date).format('D MMM, YYYY');
                         // var id = element.id;
-                        // var url = '{{route("meeting.detailview", urlencode(encrypt('.id.'))) }}';
+                        // var url = '<?php echo e(route("meeting.detailview", urlencode(encrypt('.id.')))); ?>';
                         var id = element.id;
                         $.ajax({
-                            url: '{{ route("get.encoded.id", ":id") }}'.replace(':id', id),
+                            url: '<?php echo e(route("get.encoded.id", ":id")); ?>'.replace(':id', id),
                             method: 'GET',
                             dataType: 'json',
                             success: function(response) {
 
-                                /* currentUser = "{{ \Auth::user()->type }}";
+                                /* currentUser = "<?php echo e(\Auth::user()->type); ?>";
                         // if (currentUser == 'Trainer') {
                             console.log(`currentUser: ${currentUser} | currentUserID: ${currentUserID}`);
                             user_data = JSON.parse(element.user_data);
@@ -267,7 +281,7 @@ $venue = explode(',', $settings['venue']);
 
 
                                 var encodedId = response.encodedId;
-                                var url = '{{ route("meeting.detailview", ":encodedId") }}';
+                                var url = '<?php echo e(route("meeting.detailview", ":encodedId")); ?>';
                                 url = url.replace(':encodedId', encodedId);
                                 html += `<a href="${url}"><li class="list-group-item card mb-3">
                             <div class="row align-items-center justify-content-between">
@@ -350,12 +364,12 @@ $venue = explode(',', $settings['venue']);
                 var formattedStartDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' + ('0' + startDate.getDate()).slice(-2);
                 var formattedEndDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' + ('0' + endDate.getDate()).slice(-2);
                 $.ajax({
-                    url: "{{route('weekbaseddata')}}",
+                    url: "<?php echo e(route('weekbaseddata')); ?>",
                     type: 'POST',
                     data: {
                         "startdate": formattedStartDate,
                         "enddate": formattedEndDate,
-                        "_token": "{{ csrf_token() }}",
+                        "_token": "<?php echo e(csrf_token()); ?>",
                     },
                     success: function(data) {
                         // console.log(data);
@@ -369,7 +383,7 @@ $venue = explode(',', $settings['venue']);
                                 var start_date = moment(element.start_date).format('D MMM, YYYY');
                                 var id = element.id;
                                 $.ajax({
-                                    url: '{{ route("get.encoded.id", ":id") }}'.replace(':id', id),
+                                    url: '<?php echo e(route("get.encoded.id", ":id")); ?>'.replace(':id', id),
                                     method: 'GET',
                                     dataType: 'json',
                                     success: function(response) {
@@ -377,7 +391,7 @@ $venue = explode(',', $settings['venue']);
                                         var encodedId = response.encodedId;
 
                                         // Now you have the encoded ID, use it as needed
-                                        var url = '{{ route("meeting.detailview", ":encodedId") }}';
+                                        var url = '<?php echo e(route("meeting.detailview", ":encodedId")); ?>';
                                         url = url.replace(':encodedId', encodedId);
                                         // console.error(url);
                                         html += `<a href="${url}"><li class="list-group-item card mb-3">
@@ -431,11 +445,11 @@ $venue = explode(',', $settings['venue']);
         // Construct the formatted date string
         var formattedDate = year + '-' + monthString + '-' + dayString;
         $.ajax({
-            url: "{{route('daybaseddata')}}",
+            url: "<?php echo e(route('daybaseddata')); ?>",
             type: 'POST',
             data: {
                 "date": formattedDate,
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
             },
             success: function(data) {
                 // console.log(data);
@@ -451,7 +465,7 @@ $venue = explode(',', $settings['venue']);
                         var start_date = moment(element.start_date).format('D MMM, YYYY');
                         var id = element.id;
                         $.ajax({
-                            url: '{{ route("get.encoded.id", ":id") }}'.replace(':id',
+                            url: '<?php echo e(route("get.encoded.id", ":id")); ?>'.replace(':id',
                                 id),
                             method: 'GET',
                             dataType: 'json',
@@ -461,7 +475,7 @@ $venue = explode(',', $settings['venue']);
 
                                 // Now you have the encoded ID, use it as needed
                                 var url =
-                                    '{{ route("meeting.detailview", ":encodedId") }}';
+                                    '<?php echo e(route("meeting.detailview", ":encodedId")); ?>';
                                 url = url.replace(':encodedId', encodedId);
                                 // console.error(url);
                                 html += `<a href="${url}"><li class="list-group-item card mb-3">
@@ -503,7 +517,7 @@ $venue = explode(',', $settings['venue']);
     function display_count() {
         var events = new Array();
         $.ajax({
-            url: '{{route("eventinformation")}}',
+            url: '<?php echo e(route("eventinformation")); ?>',
             method: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -528,7 +542,7 @@ $venue = explode(',', $settings['venue']);
                     });
                 }
                 $.ajax({
-                    url: '{{ route("blockedDatesInformation") }}',
+                    url: '<?php echo e(route("blockedDatesInformation")); ?>',
                     method: 'GET',
                     dataType: 'json',
                     success: function(blockedDates) {
@@ -542,7 +556,7 @@ $venue = explode(',', $settings['venue']);
                                 end: endDate,
                                 textColor: '#fff',
                                 color: '#8fa6b3',
-                                url: "{{url('/show-blocked-date-popup')}}" + '/' + event.id
+                                url: "<?php echo e(url('/show-blocked-date-popup')); ?>" + '/' + event.id
 
                             });
                         });
@@ -554,9 +568,9 @@ $venue = explode(',', $settings['venue']);
                                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
                             },
                             buttonText: {
-                                timeGridDay: "{{ __('Day') }}",
-                                timeGridWeek: "{{ __('Week') }}",
-                                dayGridMonth: "{{ __('Month') }}"
+                                timeGridDay: "<?php echo e(__('Day')); ?>",
+                                timeGridWeek: "<?php echo e(__('Week')); ?>",
+                                dayGridMonth: "<?php echo e(__('Month')); ?>"
                             },
                             slotLabelFormat: {
                                 hour: '2-digit',
@@ -587,13 +601,13 @@ $venue = explode(',', $settings['venue']);
                                 sessionStorage.setItem('selectedDate', selectedDate);
                                 document.getElementById('daySelected').innerHTML = formattedStartDate;
                                 document.getElementById('selectedDate').setAttribute('data-date-selected', selectedDate);
-                                fetch("{{url('/calender-meeting-data')}}?start=" +
+                                fetch("<?php echo e(url('/calender-meeting-data')); ?>?start=" +
                                         start
                                         .startStr, {
                                             method: "POST",
                                             headers: {
                                                 "Content-Type": "application/json",
-                                                "X-CSRF-Token": "{{ csrf_token() }}",
+                                                "X-CSRF-Token": "<?php echo e(csrf_token()); ?>",
                                             },
                                             body: JSON.stringify({
                                                 request_type: 'viewMeeting',
@@ -747,13 +761,13 @@ $venue = explode(',', $settings['venue']);
         });
 
         function ff(startdate, enddate, venue) {
-            var url = "{{url('/buffer-time')}}";
+            var url = "<?php echo e(url('/buffer-time')); ?>";
 
             $.ajax({
                 url: url,
                 method: "POST",
                 data: {
-                    "_token": "{{ csrf_token() }}",
+                    "_token": "<?php echo e(csrf_token()); ?>",
                     startdate: startdate,
                     enddate: enddate,
                     venue: venue,
@@ -801,4 +815,5 @@ $venue = explode(',', $settings['venue']);
     }
 </script>
 
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/calender_new/index.blade.php ENDPATH**/ ?>
