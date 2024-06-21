@@ -67,7 +67,7 @@ class BillingController extends Controller
         $billing['paymentCredit'] = $request->paymentCredit ?? 0;
         $billing['deposits'] = $request->deposits ?? 0;
         $billing->save();
-        Meeting::where('id', $id)->update(['total' => $request->dueAmount]);
+        Meeting::where('id', $id)->update(['total' => $request->totalAmount]);
         return redirect()->back()->with('success', __('Estimated Invoice Created Successfully'));
     }
     /**
@@ -108,48 +108,10 @@ class BillingController extends Controller
         $payment = PaymentInfo::where('event_id', $id)->orderBy('id', 'DESC')->first();
         return view('billing.pay-info', compact('event', 'payment'));
     }
-    // public function paymentupdate(Request $request, $id){         
-    //     $id = decrypt(urldecode($id));
-    //     echo "<pre>";print_r($request->all());die;
-    //     $payment = new PaymentInfo();
-    //     $payment->event_id = $id;
-    //     $payment->amount = $request->amount;
-    //     $payment->date = $request->date;
-    //     $payment->deposits = $request->deposits;
-    //     $payment->adjustments = $request->adjustments;
-    //     $payment->latefee = $request->latefee;
-    //     $payment->adjustmentnotes = $request->adjustmentnotes;
-    //     $payment->paymentref = $request->paymentref;
-    //     $payment->amounttobepaid = $request->amounttobepaid;
-    //     $payment->modeofpayment = $request->mode;
-    //     $payment->notes = $request->notes;
-    //     $balance = $request->balance;
-    //     $event = Meeting::find($id);
-    //     $payment->save();
-    //     $paid = PaymentInfo::where('event_id',$id)->get();
-    //     // echo"<pre>";print_r($paid);die;
-    //     // Meeting::find($id)->update(['total'=> $request->amounttobepaid]);
 
-    //     if($request->mode == 'credit'){
-    //         return view('payments.pay',compact('balance','event'));
-    //     }else{
-    //         PaymentLogs::create([
-    //             'amount' => $balance,
-    //             'transaction_id' => $request->paymentref,
-    //             'name_of_card' => $event->name,
-    //             'event_id' =>$id
-    //         ]);
-    //     }
-    //      return redirect()->back()->with('success','Payment Information Updated Sucessfully');
-    // // }else{
-    // //     return redirect()->back()->with('error','Permission Denied');
-
-    // // }
-    // }
     public function paymentupdate(Request $request, $id)
     {
         $id = decrypt(urldecode($id));
-        // echo "<pre>";print_r($request->all());die;
         $payment = new PaymentInfo();
         $payment->event_id = $id;
         $payment->bill_amount = $request->amount;
@@ -165,8 +127,6 @@ class BillingController extends Controller
         $event = Meeting::find($id);
 
         $paid = PaymentInfo::where('event_id', $id)->get();
-        // echo"<pre>";print_r($paid);die;
-        // Meeting::find($id)->update(['total'=> $request->amounttobepaid]);
         if ($request->mode == 'credit') {
             return view('payments.pay', compact('balance', 'event'));
         } else {
@@ -201,8 +161,8 @@ class BillingController extends Controller
     {
         $id = decrypt(urldecode($id));
         $event = Meeting::where('id', $id)->first();
-        // $collectpayment = PaymentInfo::where('event_id',$id)->orderby('id','desc')->first();
-        return view('payments.pay', compact('event'));
+        $collectpayment = PaymentInfo::where('event_id', $id)->orderby('id', 'desc')->first();
+        return view('payments.pay', compact('event', 'collectpayment'));
     }
     public function sharepaymentlink(Request $request, $id)
     {
@@ -271,5 +231,34 @@ class BillingController extends Controller
         $payment->notes = $request->notes;
         $payment->save();
         return true;
+    }
+    public function edit($id)
+    {
+        if (\Auth::user()->can('Edit Payment')) {
+            $id = decrypt(urldecode($id));
+            $billing = Billing::where('event_id', $id)->first();
+            return view('billing.edit', compact('billing'));
+        } else {
+            return redirect()->back()->with('error', 'permission Denied');
+        }
+    }
+    public function edit_invoice(Request $request, $id)
+    {
+        if (\Auth::user()->can('Edit Payment')) {
+            $items = $request->billing;
+            $billing = Billing::find($id);
+            $billing->data = serialize($items);
+            $billing->deposits = $request->deposits ?? 0;
+            $billing->update();
+            $totalCost = 0;
+            foreach ($items as $item) {
+                $totalCost += ($item['cost'] * $item['quantity']);
+            }
+            $totalCost = $totalCost + (7 * ($totalCost) / 100) + (20 * ($totalCost) / 100);
+            Meeting::where('id', $billing->event_id)->update(['total' => $totalCost]);
+            return redirect()->back()->with('success', __(' Invoice Updated Successfully'));
+        } else {
+            return redirect()->back()->with('error', 'permission Denied');
+        }
     }
 }

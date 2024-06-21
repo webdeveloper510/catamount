@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id')->unique();
             $table->foreign('event_id')->references('id')->on('meetings');
             $table->text('data');
-            $table->integer('deposits')->default(0)->nullable();
-            $table->integer('salesTax')->default(0)->nullable();
-            $table->integer('totalAmount')->default(0)->nullable();
-            $table->integer('paymentCredit')->default(0)->nullable();
+            $table->float('deposits')->default(0)->nullable();
+            $table->float('salesTax')->default(0)->nullable();
+            $table->float('totalAmount')->default(0)->nullable();
+            $table->float('paymentCredit')->default(0)->nullable();
             $table->boolean('status')->default(0);
             $table->integer('created_by')->default(0);
             $table->timestamps();

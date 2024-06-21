@@ -83,7 +83,7 @@ class MeetingController extends Controller
 
     public function create($type, $id)
     {
-        if (\Auth::user()->can('Create Create')) {
+        if (\Auth::user()->can('Create Training')) {
             $status            = Meeting::$status;
             $parent            = Meeting::$parent;
             if (\Auth::user()->type == 'owner') {
@@ -112,7 +112,7 @@ class MeetingController extends Controller
     // WORKING  17-01-2024
     public function store(Request $request)
     {
-        if (\Auth::user()->can('Create Create')) {
+        if (\Auth::user()->can('Create Training')) {
             $validator = \Validator::make(
                 $request->all(),
                 [

@@ -454,6 +454,8 @@ Route::group(['middleware' => ['verified']], function () {
             Route::get('billing/payment-link/{id}', [BillingController::class, 'paymentlink'])->name('billing.paylink');
             Route::get('billing/invoicpdf/{id}', [BillingController::class, 'invoicepdf'])->name('billing.invoicepdf');
             Route::post('billing/addpaymentinfooncopy/{id}', [BillingController::class, 'addpayinfooncopyurl'])->name('billing.addpayinfooncopyurl');
+            Route::get('billing/edit/{id}', [BillingController::class, 'edit'])->name('billing.update');
+            Route::post('billing/update/{id}', [BillingController::class, 'edit_invoice'])->name('billing.edit');
         }
     );
     Route::group(

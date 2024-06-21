@@ -196,7 +196,7 @@ $meetingData['setup_cost'] = '';
     <div class="row form-group">
         <div class="col-md-6">
             <label class="form-label"> Deposit on file: </label>
-            <input type="number" name="deposits" min="1" class="form-control">
+            <input type="number" name="deposits" id="deposits" min="1" class="form-control">
         </div>
         <div class="col-md-6">
             <label class="form-label">Sales Tax (%)</label>
@@ -245,11 +245,14 @@ $meetingData['setup_cost'] = '';
         function updateDueAmount() {
             const totalAmount = parseFloat(document.getElementById('totalAmount').value) || 0;
             const paymentCredit = parseFloat(document.getElementById('paymentCredit').value) || 0;
-            const dueAmount = totalAmount - paymentCredit;
+            const deposits = parseFloat(document.getElementById('deposits').value) || 0;
+            const dueAmount = totalAmount - paymentCredit - deposits;
             document.getElementById('dueAmount').value = dueAmount.toFixed(2);
         }
         document.getElementById('paymentCredit').addEventListener('keyup', updateDueAmount);
         document.getElementById('paymentCredit').addEventListener('change', updateDueAmount);
+        document.getElementById('deposits').addEventListener('keyup', updateDueAmount);
+        document.getElementById('deposits').addEventListener('change', updateDueAmount);
     </script>
 
 </div>

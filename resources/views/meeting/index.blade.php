@@ -13,7 +13,7 @@ $agreestatus= \App\Models\Meeting::$status;
 <li class="breadcrumb-item">{{ __('Trainings') }}</li>
 @endsection
 @section('action-btn')
-@can('Create Create')
+@can('Create Training')
 <div class="col-12 text-end mt-3">
     <a href="{{ route('meeting.create',['meeting',0]) }}">
         <button id="rmLocalStorage" data-bs-toggle="tooltip" title="{{ __('Create') }}" class="btn btn-sm btn-primary btn-icon m-1">

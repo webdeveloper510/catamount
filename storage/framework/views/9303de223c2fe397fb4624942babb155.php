@@ -15,7 +15,7 @@ $agreestatus= \App\Models\Meeting::$status;
 <li class="breadcrumb-item"><?php echo e(__('Trainings')); ?></li>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('action-btn'); ?>
-<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Create')): ?>
+<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Create Training')): ?>
 <div class="col-12 text-end mt-3">
     <a href="<?php echo e(route('meeting.create',['meeting',0])); ?>">
         <button id="rmLocalStorage" data-bs-toggle="tooltip" title="<?php echo e(__('Create')); ?>" class="btn btn-sm btn-primary btn-icon m-1">
