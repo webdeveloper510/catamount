@@ -89,6 +89,7 @@
                     ?>
                 </div>
                 <div class="row">
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Lead')): ?>
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Active Leads</h5>
@@ -132,6 +133,8 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                    <?php endif; ?>
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Training')): ?>
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
@@ -172,6 +175,8 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                    <?php endif; ?>
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Show Invoice')): ?>
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Finances</h5>
@@ -229,6 +234,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

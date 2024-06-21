@@ -18,11 +18,6 @@ foreach ($info as $inf) {
     $adjustments += $inf->adjustments;
 }
 
-// $data['event'] = $event->toArray();
-// $data['paidamount'] = $paidamount;
-$data['bill'] = $bill->toArray();
-// $data['info'] = $info;
-pr($data);
 ?>
 <?php if($event->status == 3): ?>
 <div class="row">

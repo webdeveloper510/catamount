@@ -77,7 +77,7 @@ $(document).ready(function () {
         $(".show_confirm").click(function (event) {
             event.preventDefault();
             var parentTR = $(this).closest("tr");
-            // var form = $(this).closest("form");
+            var form = $(this).closest("form");
             var url = $(this).data("url");
             var token = $(this).data("token");
             const swalWithBootstrapButtons = Swal.mixin({
@@ -99,7 +99,7 @@ $(document).ready(function () {
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        // form.submit();
+                        form.submit();
                         $.ajax({
                             type: "DELETE",
                             url: url,

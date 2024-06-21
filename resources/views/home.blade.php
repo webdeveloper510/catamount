@@ -86,6 +86,7 @@
                     @endphp
                 </div>
                 <div class="row">
+                    @can('Show Lead')
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Active Leads</h5>
@@ -127,6 +128,8 @@
                             @endcan
                         </div>
                     </div>
+                    @endcan
+                    @can('Show Training')
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
@@ -166,6 +169,8 @@
                             @endcan
                         </div>
                     </div>
+                    @endcan
+                    @can('Show Invoice')
                     <div class="col-sm">
                         <div class="inner_col">
                             <h5 class="card-title mb-2">Finances</h5>
@@ -218,6 +223,7 @@
                             </div>
                         </div>
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>

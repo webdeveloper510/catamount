@@ -4,19 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Failed</title>
+    <title>Welcome | Successful Payment</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            display: grid;
+            display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
         }
 
-        .failed-container {
+        .welcome-container {
             text-align: center;
             background-color: #ffffff;
             padding: 30px;
@@ -29,8 +30,7 @@
         }
 
         h1 {
-            color: #e74c3c;
-            /* Red color for the heading */
+            color: #3498db;
             font-size: 36px;
             margin-bottom: 10px;
         }
@@ -49,8 +49,7 @@
             padding: 12px 24px;
             font-size: 18px;
             color: #ffffff;
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            /* Red gradient button */
+            background: linear-gradient(45deg, #219653, #145388);
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -59,8 +58,7 @@
         }
 
         .button:hover {
-            background: linear-gradient(45deg, #c0392b, #e74c3c);
-            /* Darker red gradient on hover */
+            background: linear-gradient(45deg, #145388, #219653);
         }
 
         @keyframes fadeInUp {
@@ -78,17 +76,13 @@
 </head>
 
 <body>
-    <div class="failed-container">
-
+    <div class="welcome-container">
         <div class="logo-container">
-            <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" alt="Logo" class="logo-img">
+            <img src="<?php echo e(url('storage/uploads/logo/3_logo-light.png')); ?>" alt="Logo" class="logo-img" style="width: 50%;">
         </div>
-        <h1>Payment Failed!</h1>
-        <p>We're sorry, but your payment was unsuccessful.</p>
-        <div class="button-container">
-            <a href="{{ url('/') }}" class="button">Return to Homepage</a>
-        </div>
+        <h1>Payment Success!</h1>
+        <p>Thank you for your successful payment.</p>
     </div>
 </body>
 
-</html>
+</html><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/calendar/welcome.blade.php ENDPATH**/ ?>

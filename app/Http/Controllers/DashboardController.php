@@ -370,20 +370,13 @@ class DashboardController extends Controller
 
     public function upcomingevents()
     {
-        // echo "upcomingevents";
-        // echo "<pre>";
         $date = today()->format('Y-m-d');
-        // // $meeting = Meeting::all();
         $meetings = Meeting::where('start_date', '>=', $date)->get();
-        // print_r($meeting);
         return view('meeting.index', compact('meetings'));
     }
     public function completedevents()
     {
-        // echo "completedevents";
-        // echo "<pre>";
-        $date = today()->format('Y-m-d');
-        // $meeting = Meeting::all();
+        $date = today()->format('Y-m-d'); 
         $meetings = Meeting::where('start_date', '<', $date)->get();
         return view('meeting.index', compact('meetings'));
     }

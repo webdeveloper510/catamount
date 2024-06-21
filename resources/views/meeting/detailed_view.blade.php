@@ -66,9 +66,12 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Trainings Location')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">{{$event->venue_selection}}</span></dd>
 
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Room')}}</span></dt>
-                        <dd class="col-md-6 need_half"><span class="">@if($event->room != 0){{$event->room}}@else -- @endif</span>
-                        </dd>
+                        <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Room')}}</span></dt>
+                        <dd class="col-md-6 need_half"><span class="">@if($event->room != 0){{$event->room}}@else -- @endif</span></dd> -->
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Deposits')}}</span></dt>
+                        <dd class="col-md-6 need_half"><span class="">@if($payinfo->deposits != 0){{$payinfo->deposits}}@else -- @endif</span></dd>
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Payments /Credit (-)')}}</span></dt>
+                        <dd class="col-md-6 need_half"><span class="">@if($payinfo->room != 0){{$payinfo->room}}@else -- @endif</span></dd>
                         @if(isset($package) && !empty($package))
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">@foreach ($package as $key => $value)

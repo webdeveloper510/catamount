@@ -116,6 +116,7 @@ class BillingController extends Controller
         $payment->event_id = $id;
         $payment->bill_amount = $request->amount;
         $payment->deposits = $request->deposits;
+        $payment->paymentCredit = $request->paymentCredit;
         $payment->adjustments = $request->adjustments;
         $payment->latefee = $request->latefee;
         $payment->collect_amount = $request->amountcollect;

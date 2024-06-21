@@ -101,10 +101,7 @@ $meetingData['setup_cost'] = '';
 
 <div class="col-md-12">
     <div class="form-group">
-        <h4 style="float:right;    background: teal;
-    color: white;
-    padding: 11px;
-    border-radius: 5px;"><b>Guest Count: <?php echo e($event->guest_count); ?></b></h4>
+        <h4 style="float:right;background: teal;color: white;padding: 11px;border-radius: 5px;"><b>Guest Count: <?php echo e($event->guest_count); ?></b></h4>
         <div class="table-responsive">
             <table class="table" id="invoiceTable">
                 <thead>
@@ -256,7 +253,7 @@ $meetingData['setup_cost'] = '';
     </script>
 
 </div>
-<?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary '))); ?>
+<?php echo e(Form::submit(__('Save'),array('class'=>'btn btn-primary'))); ?>
 
 <?php echo e(Form::close()); ?>
 

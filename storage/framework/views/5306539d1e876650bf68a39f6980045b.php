@@ -68,9 +68,12 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Trainings Location')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php echo e($event->venue_selection); ?></span></dd>
 
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Room')); ?></span></dt>
-                        <dd class="col-md-6 need_half"><span class=""><?php if($event->room != 0): ?><?php echo e($event->room); ?><?php else: ?> -- <?php endif; ?></span>
-                        </dd>
+                        <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Room')); ?></span></dt>
+                        <dd class="col-md-6 need_half"><span class=""><?php if($event->room != 0): ?><?php echo e($event->room); ?><?php else: ?> -- <?php endif; ?></span></dd> -->
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Deposits')); ?></span></dt>
+                        <dd class="col-md-6 need_half"><span class=""><?php if($payinfo->deposits != 0): ?><?php echo e($payinfo->deposits); ?><?php else: ?> -- <?php endif; ?></span></dd>
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Payments /Credit (-)')); ?></span></dt>
+                        <dd class="col-md-6 need_half"><span class=""><?php if($payinfo->room != 0): ?><?php echo e($payinfo->room); ?><?php else: ?> -- <?php endif; ?></span></dd>
                         <?php if(isset($package) && !empty($package)): ?>
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Package')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php $__currentLoopData = $package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

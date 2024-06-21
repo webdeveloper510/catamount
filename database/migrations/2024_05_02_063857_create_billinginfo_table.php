@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('event_id')->references('id')->on('meetings');
             $table->float('bill_amount');
             $table->float('deposits');
+            $table->float('paymentCredit')->nullable();
             $table->float('adjustments');
             $table->float('latefee');
             $table->float('other');
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->string('modeofpayment')->nullable();
             $table->string('notes')->nullable();
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 
