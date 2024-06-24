@@ -173,7 +173,7 @@ class BillingController extends Controller
         $payment = new PaymentInfo();
         $payment->event_id = $id;
         $payment->bill_amount = $request->amount;
-        $payment->deposits = $request->deposit;
+        $payment->paymentCredit = $request->paymentCredit;
         $payment->collect_amount = $request->amountcollect;
         $payment->adjustments = $request->adjustment ?? 0;
         $payment->latefee = $request->latefee ?? 0;
@@ -223,6 +223,7 @@ class BillingController extends Controller
         $payment->event_id = $id;
         $payment->bill_amount = $request->amount;
         $payment->deposits = $request->deposit;
+        $payment->paymentCredit = $request->paymentCredit;
         $payment->adjustments = $request->adjustment ?? 0;
         $payment->latefee = $request->latefee ?? 0;
         // $payment->collect_amount = $request->balance;

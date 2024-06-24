@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('meetings');
             $table->float('bill_amount');
-            $table->float('deposits');
-            $table->float('paymentCredit')->nullable();
+            $table->double('deposits');
+            $table->double('paymentCredit')->nullable();
             $table->float('adjustments');
             $table->float('latefee');
             $table->float('other');

@@ -79,16 +79,20 @@
                                                 <td><?php echo e(($event->total != 0)? '$'. number_format($event->total):'--'); ?>
 
                                                 </td>
-                                                <td> <?php if(\App\Models\PaymentLogs::where('event_id',$event->id)->exists()): ?>
-                                                    <?php $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
-                                                    $deposit = App\Models\Billing::where('event_id', $event->id)->first();
+                                                <td>
+                                                    <?php
+
+                                                    $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+                                                    $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
                                                     $total = 0;
                                                     foreach ($pay as $p) {
                                                         $total += $p->amount;
-                                                    } ?>
-                                                    <?php echo e(($total != 0)?'$'.(isset($deposit)?$deposit->deposits:0) + $total:'--'); ?>
+                                                    }
+                                                    $totalALL = '$' . $total + @$deposit->deposits + @$deposit->paymentCredit;
+                                                    ?>
+                                                    <?php echo e($totalALL); ?>
 
-                                                    <?php endif; ?>
+
                                                 </td>
                                                 <td class="text-end">
                                                     <!-- <div class="action-btn bg-primary ms-2">

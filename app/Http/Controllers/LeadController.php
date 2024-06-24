@@ -707,7 +707,6 @@ class LeadController extends Controller
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
 
         $usersDetail = User::find($lead->user_id);
-        // die;
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
         $data = [
@@ -723,14 +722,12 @@ class LeadController extends Controller
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
 
         try {
-            $filename = 'proposal_' . time() . '.pdf'; // You can adjust the filename as needed
+            $filename = 'proposal_' . time() . '.pdf';
             $folder = 'Proposal_response/' . $id;
             $path = Storage::disk('public')->put($folder . '/' . $filename, $pdf->output());
             $proposals->update(['proposal_response' => $filename]);
         } catch (\Exception $e) {
-            // Log the error for future reference
             \Log::error('File upload failed: ' . $e->getMessage());
-            // Return an error response
             return response()->json([
                 'is_success' => false,
                 'message' => 'Failed to save PDF: ' . $e->getMessage(),

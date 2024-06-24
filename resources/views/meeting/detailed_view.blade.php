@@ -1,17 +1,20 @@
-<?php 
-if(isset($event->func_package) && !empty($event->func_package)){
-    $package = json_decode($event->func_package,true);
+<?php
+if (isset($event->func_package) && !empty($event->func_package)) {
+    $package = json_decode($event->func_package, true);
 }
-if(isset($event->ad_opts) && !empty($event->ad_opts)){
-    $additional = json_decode($event->ad_opts,true);
+if (isset($event->ad_opts) && !empty($event->ad_opts)) {
+    $additional = json_decode($event->ad_opts, true);
 }
-if(isset($event->bar_package) && !empty($event->bar_package)){
-    $bar = json_decode($event->bar_package,true);
+if (isset($event->bar_package) && !empty($event->bar_package)) {
+    $bar = json_decode($event->bar_package, true);
 }
-$payments = App\Models\PaymentLogs::where('event_id',$event->id)->get();
-$payinfo = App\Models\PaymentInfo::where('event_id',$event->id)->orderby('id','desc')->first();
-$files = Storage::files('app/public/Event/'.$event->id);
+$payments = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+$payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->orderby('id', 'desc')->first();
+$files = Storage::files('app/public/Event/' . $event->id);
 
+/* $data['payments'] = $payments;
+$data['payinfo'] = $payinfo;
+pr($data); */
 ?>
 @extends('layouts.admin')
 @section('page-title')
@@ -38,8 +41,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
                     <dl class="row ">
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training')}}</span></dt>
                         @if($event->attendees_lead != 0)
-                        <dd class="col-md-6 need_half"><span
-                                class="">{{ !empty($event->attendees_leads->leadname)?$event->attendees_leads->leadname:'--' }}</span>
+                        <dd class="col-md-6 need_half"><span class="">{{ !empty($event->attendees_leads->leadname)?$event->attendees_leads->leadname:'--' }}</span>
                         </dd>
                         @else
                         <dd class="col-md-6 need_half"><span class="">{{$event->eventname}}</span></dd>
@@ -69,9 +71,9 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Room')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">@if($event->room != 0){{$event->room}}@else -- @endif</span></dd> -->
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Deposits')}}</span></dt>
-                        <dd class="col-md-6 need_half"><span class="">@if($payinfo->deposits != 0){{$payinfo->deposits}}@else -- @endif</span></dd>
+                        <dd class="col-md-6 need_half"><span class="">@if(@$payinfo->deposits != 0){{@$payinfo->deposits}}@else -- @endif</span></dd>
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Payments /Credit (-)')}}</span></dt>
-                        <dd class="col-md-6 need_half"><span class="">@if($payinfo->room != 0){{$payinfo->room}}@else -- @endif</span></dd>
+                        <dd class="col-md-6 need_half"><span class="">@if(@$payinfo->paymentCredit != 0){{@$payinfo->paymentCredit}}@else -- @endif</span></dd>
                         @if(isset($package) && !empty($package))
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">@foreach ($package as $key => $value)
@@ -100,15 +102,15 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Billing Amount')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">@if($event->total != 0)${{$event->total}}@else Billing Not
                                 Created @endif</span>
-</dd>
-                            <hr class="mt-5">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-12">
-                                    <h3>{{ __('Setup') }}</h3>
-                                </div>
+                        </dd>
+                        <hr class="mt-5">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <h3>{{ __('Setup') }}</h3>
                             </div>
-                            <hr>
-                            <img src="{{$event->floor_plan}}" alt="" style="    width: 40% ;" class="need_full">
+                        </div>
+                        <hr>
+                        <img src="{{$event->floor_plan}}" alt="" style="    width: 40% ;" class="need_full">
                     </dl>
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
@@ -121,10 +123,12 @@ $files = Storage::files('app/public/Event/'.$event->id);
                                                 </th>
                                                 <th scope="col" class="sort" data-sort="status">{{ __('Name') }}</th>
                                                 <th scope="col" class="sort" data-sort="completion">
-                                                    {{ __('Transaction Id') }}</th>
-                                               
+                                                    {{ __('Transaction Id') }}
+                                                </th>
+
                                                 <th scope="col" class="sort" data-sort="completion">
-                                                    {{ __('Amount Recieved') }}</th>
+                                                    {{ __('Amount Recieved') }}
+                                                </th>
 
                                             </tr>
                                         </thead>
@@ -168,8 +172,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
                                             <tr>
                                                 <td>{{ basename($file) }}</td>
                                                 <td>
-                                                    <a href="{{ Storage::url($file) }}" download
-                                                        style=" position: absolute;color: #1551c9 !important">
+                                                    <a href="{{ Storage::url($file) }}" download style=" position: absolute;color: #1551c9 !important">
                                                         View Document</a>
                                                 </td>
                                             </tr>

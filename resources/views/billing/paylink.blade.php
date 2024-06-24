@@ -18,6 +18,8 @@ foreach ($info as $inf) {
     $adjustments += $inf->adjustments;
 }
 
+$finalTotal = $totalpaid != 0 ? ($totalpaid + $bill->deposits + $bill->paymentCredit) : ($bill->deposits + $bill->paymentCredit);
+
 ?>
 @if($event->status == 3)
 <div class="row">
@@ -66,7 +68,7 @@ foreach ($info as $inf) {
             <div class="row form-group">
                 <div class="col-md-6">
                     <label for="paidamount" class="form-label">Total Paid</label>
-                    <input type="number" name="paidamount" class="form-control" value="{{$totalpaid + $bill->deposits + $bill->paymentCredit}}" readonly>
+                    <input type="number" name="paidamount" class="form-control" value="{{$finalTotal}}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label for="balance" class="form-label">Balance</label>

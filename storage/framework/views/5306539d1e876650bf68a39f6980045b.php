@@ -1,17 +1,16 @@
-<?php 
-if(isset($event->func_package) && !empty($event->func_package)){
-    $package = json_decode($event->func_package,true);
+<?php
+if (isset($event->func_package) && !empty($event->func_package)) {
+    $package = json_decode($event->func_package, true);
 }
-if(isset($event->ad_opts) && !empty($event->ad_opts)){
-    $additional = json_decode($event->ad_opts,true);
+if (isset($event->ad_opts) && !empty($event->ad_opts)) {
+    $additional = json_decode($event->ad_opts, true);
 }
-if(isset($event->bar_package) && !empty($event->bar_package)){
-    $bar = json_decode($event->bar_package,true);
+if (isset($event->bar_package) && !empty($event->bar_package)) {
+    $bar = json_decode($event->bar_package, true);
 }
-$payments = App\Models\PaymentLogs::where('event_id',$event->id)->get();
-$payinfo = App\Models\PaymentInfo::where('event_id',$event->id)->orderby('id','desc')->first();
-$files = Storage::files('app/public/Event/'.$event->id);
-
+$payments = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+$payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->orderby('id', 'desc')->first();
+$files = Storage::files('app/public/Event/' . $event->id);
 ?>
 
 <?php $__env->startSection('page-title'); ?>
@@ -40,8 +39,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
                     <dl class="row ">
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Training')); ?></span></dt>
                         <?php if($event->attendees_lead != 0): ?>
-                        <dd class="col-md-6 need_half"><span
-                                class=""><?php echo e(!empty($event->attendees_leads->leadname)?$event->attendees_leads->leadname:'--'); ?></span>
+                        <dd class="col-md-6 need_half"><span class=""><?php echo e(!empty($event->attendees_leads->leadname)?$event->attendees_leads->leadname:'--'); ?></span>
                         </dd>
                         <?php else: ?>
                         <dd class="col-md-6 need_half"><span class=""><?php echo e($event->eventname); ?></span></dd>
@@ -71,9 +69,9 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Room')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php if($event->room != 0): ?><?php echo e($event->room); ?><?php else: ?> -- <?php endif; ?></span></dd> -->
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Deposits')); ?></span></dt>
-                        <dd class="col-md-6 need_half"><span class=""><?php if($payinfo->deposits != 0): ?><?php echo e($payinfo->deposits); ?><?php else: ?> -- <?php endif; ?></span></dd>
+                        <dd class="col-md-6 need_half"><span class=""><?php if(@$payinfo->deposits != 0): ?><?php echo e(@$payinfo->deposits); ?><?php else: ?> -- <?php endif; ?></span></dd>
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Payments /Credit (-)')); ?></span></dt>
-                        <dd class="col-md-6 need_half"><span class=""><?php if($payinfo->room != 0): ?><?php echo e($payinfo->room); ?><?php else: ?> -- <?php endif; ?></span></dd>
+                        <dd class="col-md-6 need_half"><span class=""><?php if(@$payinfo->paymentCredit != 0): ?><?php echo e(@$payinfo->paymentCredit); ?><?php else: ?> -- <?php endif; ?></span></dd>
                         <?php if(isset($package) && !empty($package)): ?>
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Package')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php $__currentLoopData = $package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -105,15 +103,15 @@ $files = Storage::files('app/public/Event/'.$event->id);
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Billing Amount')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php if($event->total != 0): ?>$<?php echo e($event->total); ?><?php else: ?> Billing Not
                                 Created <?php endif; ?></span>
-</dd>
-                            <hr class="mt-5">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-12">
-                                    <h3><?php echo e(__('Setup')); ?></h3>
-                                </div>
+                        </dd>
+                        <hr class="mt-5">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <h3><?php echo e(__('Setup')); ?></h3>
                             </div>
-                            <hr>
-                            <img src="<?php echo e($event->floor_plan); ?>" alt="" style="    width: 40% ;" class="need_full">
+                        </div>
+                        <hr>
+                        <img src="<?php echo e($event->floor_plan); ?>" alt="" style="    width: 40% ;" class="need_full">
                     </dl>
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
@@ -127,10 +125,14 @@ $files = Storage::files('app/public/Event/'.$event->id);
                                                 </th>
                                                 <th scope="col" class="sort" data-sort="status"><?php echo e(__('Name')); ?></th>
                                                 <th scope="col" class="sort" data-sort="completion">
-                                                    <?php echo e(__('Transaction Id')); ?></th>
-                                               
+                                                    <?php echo e(__('Transaction Id')); ?>
+
+                                                </th>
+
                                                 <th scope="col" class="sort" data-sort="completion">
-                                                    <?php echo e(__('Amount Recieved')); ?></th>
+                                                    <?php echo e(__('Amount Recieved')); ?>
+
+                                                </th>
 
                                             </tr>
                                         </thead>
@@ -175,8 +177,7 @@ $files = Storage::files('app/public/Event/'.$event->id);
                                             <tr>
                                                 <td><?php echo e(basename($file)); ?></td>
                                                 <td>
-                                                    <a href="<?php echo e(Storage::url($file)); ?>" download
-                                                        style=" position: absolute;color: #1551c9 !important">
+                                                    <a href="<?php echo e(Storage::url($file)); ?>" download style=" position: absolute;color: #1551c9 !important">
                                                         View Document</a>
                                                 </td>
                                             </tr>
