@@ -8,9 +8,20 @@ if (isset($event->ad_opts) && !empty($event->ad_opts)) {
 if (isset($event->bar_package) && !empty($event->bar_package)) {
     $bar = json_decode($event->bar_package, true);
 }
-$payments = App\Models\PaymentLogs::where('event_id', $event->id)->get();
-$payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->orderby('id', 'desc')->first();
+/* $payments = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+$payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->get(); */
 $files = Storage::files('app/public/Event/' . $event->id);
+
+
+if (App\Models\PaymentLogs::where('event_id', $event->id)->exists()) {
+    $payments = App\Models\PaymentLogs::where('event_id', $event->id)->orderBy('id', 'desc')->get();
+    $payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->get();
+}
+if (App\Models\Billing::where('event_id', $event->id)->exists()) {
+    $deposit = App\Models\Billing::where('event_id', $event->id)->first();
+}
+$beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
+
 ?>
 
 <?php $__env->startSection('page-title'); ?>
@@ -65,13 +76,7 @@ $files = Storage::files('app/public/Event/' . $event->id);
 
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Trainings Location')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php echo e($event->venue_selection); ?></span></dd>
-
-                        <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Room')); ?></span></dt>
-                        <dd class="col-md-6 need_half"><span class=""><?php if($event->room != 0): ?><?php echo e($event->room); ?><?php else: ?> -- <?php endif; ?></span></dd> -->
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Deposits')); ?></span></dt>
-                        <dd class="col-md-6 need_half"><span class=""><?php if(@$payinfo->deposits != 0): ?><?php echo e(@$payinfo->deposits); ?><?php else: ?> -- <?php endif; ?></span></dd>
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Payments /Credit (-)')); ?></span></dt>
-                        <dd class="col-md-6 need_half"><span class=""><?php if(@$payinfo->paymentCredit != 0): ?><?php echo e(@$payinfo->paymentCredit); ?><?php else: ?> -- <?php endif; ?></span></dd>
+                        
                         <?php if(isset($package) && !empty($package)): ?>
                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Package')); ?></span></dt>
                         <dd class="col-md-6 need_half"><span class=""><?php $__currentLoopData = $package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -113,53 +118,106 @@ $files = Storage::files('app/public/Event/' . $event->id);
                         <hr>
                         <img src="<?php echo e($event->floor_plan); ?>" alt="" style="    width: 40% ;" class="need_full">
                     </dl>
+                    <?php if(isset($payments) && !empty($payments)): ?>
+                    <?php
+                    $latefee = 0;
+                    $adj = 0;
+                    $collect_amount = 0;
+                    foreach ($payinfo as $k => $val) {
+                        $latefee += $val->latefee;
+                        $adj += $val->adjustments;
+                    }
+                    foreach ($payments as  $value) {
+                        $collect_amount += $value->amount;
+                    }
+
+                    ?>
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
                             <div class="card-body table-border-style">
+                                <h3 class="mt-3 text-center">Transaction Summary</h3>
                                 <div class="table-responsive overflow_hidden">
                                     <table id="datatable" class="table datatable align-items-center">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Created On')); ?>
-
-                                                </th>
+                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Created On')); ?></th>
                                                 <th scope="col" class="sort" data-sort="status"><?php echo e(__('Name')); ?></th>
-                                                <th scope="col" class="sort" data-sort="completion">
-                                                    <?php echo e(__('Transaction Id')); ?>
+                                                <th scope="col" class="sort" data-sort="completion"><?php echo e(__('Transaction Id')); ?>
 
                                                 </th>
-
-                                                <th scope="col" class="sort" data-sort="completion">
-                                                    <?php echo e(__('Amount Recieved')); ?>
+                                                <th><?php echo e(__('Invoice')); ?></th>
+                                                <th scope="col" class="sort" data-sort="completion"><?php echo e(__('Event Amount')); ?>
 
                                                 </th>
+                                                <th scope="col" class="sort" data-sort="completion"><?php echo e(__('Amount Collected')); ?>
+
+                                                </th>
+                                                <th scope="col" class="sort" data-sort="completion"><?php echo e(__('Amount Due')); ?></th>
+
 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-
-
                                                 <td><?php echo e(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y')); ?>
 
                                                 </td>
                                                 <td><?php echo e($payment->name_of_card); ?></td>
-                                                <td><?php echo e($payment->transaction_id); ?></td>
-                                                <!-- <?php if($payinfo): ?>
-                                                <td><?php echo e($payinfo->amounttobepaid); ?></td>
-                                                <?php else: ?>
-                                                <td> -- </td>
-                                                <?php endif; ?> -->
-                                                <td><?php echo e($payment->amount); ?></td>
+                                                <td><?php echo e($payment->transaction_id ?? '--'); ?></td>
+                                                <td><a href="<?php echo e(Storage::url('app/public/Invoice/'.$payment->event_id.'/'.$payment->invoices)); ?>" download style="    color: #1551c9 !important;"><?php echo e(ucfirst($payment->invoices )); ?></a>
+                                                </td>
+                                                <td>$<?php echo e($event->total); ?></td>
+                                                <td>$<?php echo e($payment->amount); ?></td>
+                                                <td><?php echo e($event->total - $payinfo[0]->deposits - $payinfo[0]->paymentCredit - $payinfo[0]->collect_amount); ?>
+
+                                                </td>
                                             </tr>
+
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <hr>
+                                            <tr style="    background: aliceblue;">
+                                                <td></td>
+                                                <td colspan='3'><b>Deposits on File:</b></td>
+                                                <td colspan='3'>
+                                                    <?php echo e(( $beforedeposit->deposits != 0) ? '$'.$beforedeposit->deposits : '--'); ?>
+
+                                                </td>
+                                            </tr>
+                                            <tr style="    background: aliceblue;">
+                                                <td></td>
+                                                <td colspan='3'><b>Payments /Credit (-):</b></td>
+                                                <td colspan='3'>
+                                                    <?php echo e(( $beforedeposit->paymentCredit != 0 ) ? '$'.$beforedeposit->paymentCredit : '--'); ?>
+
+                                                </td>
+                                            </tr>
+                                            <tr style="background: darkgray;">
+                                                <td></td>
+                                                <td colspan='3'><b>Adjustments:</b></td>
+                                                <td colspan='3'><?php echo e(($adj != 0) ? '$'.$adj : '--'); ?></td>
+                                            </tr>
+                                            <tr style=" background: #c0e3c0;">
+                                                <td></td>
+                                                <td colspan='3'><b>Latefee:</b></td>
+                                                <td colspan='3'><?php echo e(($latefee != 0) ? '$'. $latefee :'--'); ?></td>
+                                            </tr>
+                                            <tr style="    background: floralwhite;">
+                                                <td></td>
+                                                <td colspan='3'><b>Total Amount Recieved:</b></td>
+                                                <td colspan='3'>
+                                                    <?php echo e(((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + $collect_amount<=0) ? '--' : '$'.((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + $collect_amount)); ?>
+
+                                                </td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
                             <div class="card-body table-border-style">
@@ -184,8 +242,6 @@ $files = Storage::files('app/public/Event/' . $event->id);
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
-
-
                                 </div>
                                 <?php endif; ?>
                             </div>

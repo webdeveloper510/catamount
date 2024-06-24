@@ -8,13 +8,20 @@ if (isset($event->ad_opts) && !empty($event->ad_opts)) {
 if (isset($event->bar_package) && !empty($event->bar_package)) {
     $bar = json_decode($event->bar_package, true);
 }
-$payments = App\Models\PaymentLogs::where('event_id', $event->id)->get();
-$payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->orderby('id', 'desc')->first();
+/* $payments = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+$payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->get(); */
 $files = Storage::files('app/public/Event/' . $event->id);
 
-/* $data['payments'] = $payments;
-$data['payinfo'] = $payinfo;
-pr($data); */
+
+if (App\Models\PaymentLogs::where('event_id', $event->id)->exists()) {
+    $payments = App\Models\PaymentLogs::where('event_id', $event->id)->orderBy('id', 'desc')->get();
+    $payinfo = App\Models\PaymentInfo::where('event_id', $event->id)->get();
+}
+if (App\Models\Billing::where('event_id', $event->id)->exists()) {
+    $deposit = App\Models\Billing::where('event_id', $event->id)->first();
+}
+$beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
+
 ?>
 @extends('layouts.admin')
 @section('page-title')
@@ -67,13 +74,10 @@ pr($data); */
 
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Trainings Location')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">{{$event->venue_selection}}</span></dd>
-
-                        <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Room')}}</span></dt>
-                        <dd class="col-md-6 need_half"><span class="">@if($event->room != 0){{$event->room}}@else -- @endif</span></dd> -->
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Deposits')}}</span></dt>
+                        {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Deposits')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">@if(@$payinfo->deposits != 0){{@$payinfo->deposits}}@else -- @endif</span></dd>
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Payments /Credit (-)')}}</span></dt>
-                        <dd class="col-md-6 need_half"><span class="">@if(@$payinfo->paymentCredit != 0){{@$payinfo->paymentCredit}}@else -- @endif</span></dd>
+                        <dd class="col-md-6 need_half"><span class="">@if(@$payinfo->paymentCredit != 0){{@$payinfo->paymentCredit}}@else -- @endif</span></dd>--}}
                         @if(isset($package) && !empty($package))
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">@foreach ($package as $key => $value)
@@ -112,49 +116,98 @@ pr($data); */
                         <hr>
                         <img src="{{$event->floor_plan}}" alt="" style="    width: 40% ;" class="need_full">
                     </dl>
+                    @if(isset($payments) && !empty($payments))
+                    <?php
+                    $latefee = 0;
+                    $adj = 0;
+                    $collect_amount = 0;
+                    foreach ($payinfo as $k => $val) {
+                        $latefee += $val->latefee;
+                        $adj += $val->adjustments;
+                    }
+                    foreach ($payments as  $value) {
+                        $collect_amount += $value->amount;
+                    }
+
+                    ?>
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
                             <div class="card-body table-border-style">
+                                <h3 class="mt-3 text-center">Transaction Summary</h3>
                                 <div class="table-responsive overflow_hidden">
                                     <table id="datatable" class="table datatable align-items-center">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name">{{ __('Created On') }}
-                                                </th>
+                                                <th scope="col" class="sort" data-sort="name">{{ __('Created On') }}</th>
                                                 <th scope="col" class="sort" data-sort="status">{{ __('Name') }}</th>
-                                                <th scope="col" class="sort" data-sort="completion">
-                                                    {{ __('Transaction Id') }}
+                                                <th scope="col" class="sort" data-sort="completion">{{ __('Transaction Id') }}
                                                 </th>
+                                                <th>{{__('Invoice')}}</th>
+                                                <th scope="col" class="sort" data-sort="completion">{{ __('Event Amount') }}
+                                                </th>
+                                                <th scope="col" class="sort" data-sort="completion">{{ __('Amount Collected') }}
+                                                </th>
+                                                <th scope="col" class="sort" data-sort="completion">{{ __('Amount Due') }}</th>
 
-                                                <th scope="col" class="sort" data-sort="completion">
-                                                    {{ __('Amount Recieved') }}
-                                                </th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($payments as $payment)
                                             <tr>
-
-
                                                 <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y')}}
                                                 </td>
                                                 <td>{{$payment->name_of_card}}</td>
-                                                <td>{{$payment->transaction_id}}</td>
-                                                <!-- @if($payinfo)
-                                                <td>{{$payinfo->amounttobepaid}}</td>
-                                                @else
-                                                <td> -- </td>
-                                                @endif -->
-                                                <td>{{$payment->amount}}</td>
+                                                <td>{{$payment->transaction_id ?? '--'}}</td>
+                                                <td><a href="{{ Storage::url('app/public/Invoice/'.$payment->event_id.'/'.$payment->invoices) }}" download style="    color: #1551c9 !important;">{{ucfirst($payment->invoices )}}</a>
+                                                </td>
+                                                <td>${{$event->total}}</td>
+                                                <td>${{$payment->amount}}</td>
+                                                <td>{{ $event->total - $payinfo[0]->deposits - $payinfo[0]->paymentCredit - $payinfo[0]->collect_amount }}
+                                                </td>
                                             </tr>
+
                                             @endforeach
+                                            <hr>
+                                            <tr style="    background: aliceblue;">
+                                                <td></td>
+                                                <td colspan='3'><b>Deposits on File:</b></td>
+                                                <td colspan='3'>
+                                                    {{( $beforedeposit->deposits != 0) ? '$'.$beforedeposit->deposits : '--' }}
+                                                </td>
+                                            </tr>
+                                            <tr style="    background: aliceblue;">
+                                                <td></td>
+                                                <td colspan='3'><b>Payments /Credit (-):</b></td>
+                                                <td colspan='3'>
+                                                    {{( $beforedeposit->paymentCredit != 0 ) ? '$'.$beforedeposit->paymentCredit : '--' }}
+                                                </td>
+                                            </tr>
+                                            <tr style="background: darkgray;">
+                                                <td></td>
+                                                <td colspan='3'><b>Adjustments:</b></td>
+                                                <td colspan='3'>{{($adj != 0) ? '$'.$adj : '--' }}</td>
+                                            </tr>
+                                            <tr style=" background: #c0e3c0;">
+                                                <td></td>
+                                                <td colspan='3'><b>Latefee:</b></td>
+                                                <td colspan='3'>{{ ($latefee != 0) ? '$'. $latefee :'--' }}</td>
+                                            </tr>
+                                            <tr style="    background: floralwhite;">
+                                                <td></td>
+                                                <td colspan='3'><b>Total Amount Recieved:</b></td>
+                                                <td colspan='3'>
+                                                    {{((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + $collect_amount<=0) ? '--' : '$'.((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + $collect_amount)}}
+                                                </td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
                             <div class="card-body table-border-style">
@@ -179,8 +232,6 @@ pr($data); */
                                             @endforeach
                                         </tbody>
                                     </table>
-
-
                                 </div>
                                 @endif
                             </div>

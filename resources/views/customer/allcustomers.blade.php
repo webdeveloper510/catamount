@@ -8,8 +8,7 @@
 </div>
 @endsection
 @section('action-btn')
-<a href="#" data-url="{{ route('uploadusersinfo') }}" data-size="lg" data-ajax-popup="true" data-bs-toggle="tooltip"
-    data-title="{{__('Upload User')}}" title="{{__('Upload')}}" class="btn btn-sm btn-primary btn-icon m-1">
+<a href="#" data-url="{{ route('uploadusersinfo') }}" data-size="lg" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{__('Upload User')}}" title="{{__('Upload')}}" class="btn btn-sm btn-primary btn-icon m-1">
     <i class="ti ti-plus"></i>
 </a>
 
@@ -47,17 +46,11 @@
                                                 @endphp
                                                 <td>
                                                     @if(@$customers['category'] == 'event')
-                                                    <a href="{{route('event.userinfo',urlencode(encrypt(@$customers['ref_id'])))}}"
-                                                        title="{{ __('User Details') }}"
-                                                        class="action-item text-primary"
-                                                        style="color:#1551c9 !important;">
+                                                    <a href="{{route('event.userinfo',urlencode(encrypt(@$customers['ref_id'])))}}" title="{{ __('User Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst($customers['name']) }}</b>
                                                     </a>
                                                     @else
-                                                    <a href="{{ route('lead.userinfo',urlencode(encrypt(@$customers['ref_id']))) }}"
-                                                        data-size="md" title="{{ __('Lead Details') }}"
-                                                        class="action-item text-primary"
-                                                        style="color:#1551c9 !important;">
+                                                    <a href="{{ route('lead.userinfo',urlencode(encrypt(@$customers['ref_id']))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst(@$customers['name']) }}</b>
                                                     </a>
                                                     @endif
@@ -70,10 +63,7 @@
                                             @endforeach
                                             @foreach($importedcustomers as $customers)
                                             <tr>
-                                                <td> <a href="{{ route('customer.info',urlencode(encrypt($customers->id)))}}?cat={{$customers->category}}"
-                                                        data-size="md" title="{{ __('User Details') }}"
-                                                        class="action-item text-primary"
-                                                        style="color:#1551c9 !important;">
+                                                <td> <a href="{{ route('customer.info',urlencode(encrypt($customers->id)))}}?cat={{$customers->category}}" data-size="md" title="{{ __('User Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst($customers->name) }}</b>
                                                     </a>
                                                 </td>

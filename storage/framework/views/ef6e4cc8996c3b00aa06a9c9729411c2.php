@@ -19,12 +19,12 @@ $bar_pck = json_decode($meeting['bar_package'], true);
     <div class="container mt-5">
         <div class="row card">
             <div class="col-md-12">
-                <form method="POST" action="{{route('meeting.signedagreementresp',urlencode(encrypt($meeting->id)))}}" id='formdata'>
-                    @csrf
+                <form method="POST" action="<?php echo e(route('meeting.signedagreementresp',urlencode(encrypt($meeting->id)))); ?>" id='formdata'>
+                    <?php echo csrf_field(); ?>
                     <div class="row">
                         <div class="col-md-4 mt-4">
                             <div class="img-section">
-                                <img class="logo-img" src="{{ URL::asset('storage/uploads/logo/3_logo-light.png')}}" style="width:25%;">
+                                <img class="logo-img" src="<?php echo e(URL::asset('storage/uploads/logo/3_logo-light.png')); ?>" style="width:25%;">
                             </div>
                         </div>
                         <div class="col-md-8 mt-5">
@@ -36,17 +36,17 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <dl>
-                                <span>{{__('Name')}}: {{ $meeting->name }}</span><br>
-                                <span>{{__('Phone & Email')}}: {{ $meeting->phone }} , {{ $meeting->email }}</span><br>
-                                <span>{{__('Address')}}: {{ $meeting->lead_address }}</span><br>
-                                <span>{{__('Event Start Date')}}:{{ \Carbon\Carbon::parse($meeting->start_date)->format('d M, Y') }}</span>
+                                <span><?php echo e(__('Name')); ?>: <?php echo e($meeting->name); ?></span><br>
+                                <span><?php echo e(__('Phone & Email')); ?>: <?php echo e($meeting->phone); ?> , <?php echo e($meeting->email); ?></span><br>
+                                <span><?php echo e(__('Address')); ?>: <?php echo e($meeting->lead_address); ?></span><br>
+                                <span><?php echo e(__('Event Start Date')); ?>:<?php echo e(\Carbon\Carbon::parse($meeting->start_date)->format('d M, Y')); ?></span>
                             </dl>
                         </div>
                         <div class="col-md-6" style="text-align: end;">
                             <dl>
-                                <span>{{__('Primary Contact')}}: {{ $meeting->name }}</span><br>
-                                <span>{{__('Phone')}}: {{ $meeting->phone }}</span><br>
-                                <span>{{__('Email')}}: {{ $meeting->email }}</span><br>
+                                <span><?php echo e(__('Primary Contact')); ?>: <?php echo e($meeting->name); ?></span><br>
+                                <span><?php echo e(__('Phone')); ?>: <?php echo e($meeting->phone); ?></span><br>
+                                <span><?php echo e(__('Email')); ?>: <?php echo e($meeting->email); ?></span><br>
                             </dl>
                         </div>
                     </div>
@@ -67,21 +67,26 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 <tbody>
                                     <tr style="text-align:center">
                                         <td>Start Date:
-                                            {{\Carbon\Carbon::parse($meeting->start_date)->format('d M, Y')}} <br>
-                                            End Date: {{\Carbon\Carbon::parse($meeting->start_date)->format('d M, Y')}}
+                                            <?php echo e(\Carbon\Carbon::parse($meeting->start_date)->format('d M, Y')); ?> <br>
+                                            End Date: <?php echo e(\Carbon\Carbon::parse($meeting->start_date)->format('d M, Y')); ?>
+
                                         </td>
                                         <td>Start
-                                            Time:{{date('h:i A', strtotime($meeting->start_time))}} <br>
-                                            End time:{{date('h:i A', strtotime($meeting->end_time))}}</td>
+                                            Time:<?php echo e(date('h:i A', strtotime($meeting->start_time))); ?> <br>
+                                            End time:<?php echo e(date('h:i A', strtotime($meeting->end_time))); ?></td>
                                         <td>
-                                            {{$meeting->venue_selection}}
+                                            <?php echo e($meeting->venue_selection); ?>
+
                                         </td>
-                                        <td>{{$meeting->type}}
+                                        <td><?php echo e($meeting->type); ?>
+
                                         </td>
                                         <td>
-                                            {{$meeting->function}}
+                                            <?php echo e($meeting->function); ?>
+
                                         </td>
-                                        <td>{{$meeting->rooms}}
+                                        <td><?php echo e($meeting->rooms); ?>
+
                                         </td>
                                     </tr>
 
@@ -94,10 +99,10 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <p class="text"><b>This contract defines the terms and conditions under which Lotus Estate,
                                     LLC
                                     dba The Bond 1786, (hereinafter referred to as The Bond or The
-                                    Bond 1786), and <b>{{$meeting->name}}</b>(hereafter referred to as the Customer)
+                                    Bond 1786), and <b><?php echo e($meeting->name); ?></b>(hereafter referred to as the Customer)
                                     agree
                                     to the Customer’s use of The Bond 1786 facilities on
-                                    <b>{{ \Carbon\Carbon::parse($meeting->start_date)->format('d M, Y') }}</b>
+                                    <b><?php echo e(\Carbon\Carbon::parse($meeting->start_date)->format('d M, Y')); ?></b>
                                     (reception/event date). This contract constitutes the entire agreement between the
                                     parties and becomes binding upon the signature of
                                     both parties. The contract may not be amended or changed unless executed in writing
@@ -110,10 +115,10 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                         <div class="col-md-12">
                             <h6 class="headings">Venue Selected</h6>
                             <!-- <h6>Venue Selected</h6> -->
-                            <p>{{$meeting->venue_selection}}</p><br>
+                            <p><?php echo e($meeting->venue_selection); ?></p><br>
                             <h6 class="headings"> No. of Hotel Rooms (Booked)</h6>
-                            <p>{{$meeting->room}}</p><br>
-                            <!-- <input type= "number" name ="rooms"min = "0" value = "{{$meeting->room}}" disabled> -->
+                            <p><?php echo e($meeting->room); ?></p><br>
+                            <!-- <input type= "number" name ="rooms"min = "0" value = "<?php echo e($meeting->room); ?>" disabled> -->
                             <p class="text">
                                 The venue/s described above has been reserved for you for the date and time stipulated.
                                 Please note that the hours assigned to your event include all set-up and
@@ -140,12 +145,12 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 <thead>
                                     <tr>
                                         <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">
-                                            Name : {{$meeting->name}}</th>
+                                            Name : <?php echo e($meeting->name); ?></th>
                                         <th colspan="2" style="padding:5px 0px;margin-left: 5px;font-size:13px"></th>
                                         <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">
                                             Date:<?php echo date("d/m/Y"); ?> </th>
                                         <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">
-                                            Event: {{$meeting->type}}</th>
+                                            Event: <?php echo e($meeting->type); ?></th>
                                     </tr>
                                     <tr style="background-color:#063806;">
                                         <th>Description</th>
@@ -163,15 +168,18 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['venue_rental']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['venue_rental']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['venue_rental']['quantity']}}
+                                            <?php echo e(@$billing_data['venue_rental']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] = @$billing_data['venue_rental']['cost'] * @$billing_data['venue_rental']['quantity']}}
+                                            $<?php echo e($total[] = @$billing_data['venue_rental']['cost'] * @$billing_data['venue_rental']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{$meeting['venue_selection']}}
+                                            <?php echo e($meeting['venue_selection']); ?>
+
                                         </td>
                                     </tr>
 
@@ -180,15 +188,18 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                             Dinner Package</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['food_package']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['food_package']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['food_package']['quantity']}}
+                                            <?php echo e(@$billing_data['food_package']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] =@$billing_data['food_package']['cost'] * @$billing_data['food_package']['quantity']}}
+                                            $<?php echo e($total[] =@$billing_data['food_package']['cost'] * @$billing_data['food_package']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{$meeting['function']}}
+                                            <?php echo e($meeting['function']); ?>
+
                                         </td>
 
                                     </tr>
@@ -196,27 +207,32 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Bar Package</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['bar_package']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['bar_package']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['bar_package']['quantity']}}
+                                            <?php echo e(@$billing_data['bar_package']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] = @$billing_data['bar_package']['cost']* @$billing_data['bar_package']['quantity']}}
+                                            $<?php echo e($total[] = @$billing_data['bar_package']['cost']* @$billing_data['bar_package']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{implode(',',$bar_pck)}}
+                                            <?php echo e(implode(',',$bar_pck)); ?>
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Hotel Rooms</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['hotel_rooms']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['hotel_rooms']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['hotel_rooms']['quantity']}}
+                                            <?php echo e(@$billing_data['hotel_rooms']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] = @$billing_data['hotel_rooms']['cost'] * @$billing_data['hotel_rooms']['quantity']}}
+                                            $<?php echo e($total[] = @$billing_data['hotel_rooms']['cost'] * @$billing_data['hotel_rooms']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
@@ -225,43 +241,49 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                             Chairs, AV Equipment</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['equipment']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['equipment']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['equipment']['quantity']}}
+                                            <?php echo e(@$billing_data['equipment']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] = @$billing_data['equipment']['cost'] * @$billing_data['equipment']['quantity']}}
+                                            $<?php echo e($total[] = @$billing_data['equipment']['cost'] * @$billing_data['equipment']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
 
-                                    @if(!@$billing_data['setup']['cost'] == '')
+                                    <?php if(!@$billing_data['setup']['cost'] == ''): ?>
                                     <tr>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Welcome / Rehearsal
                                             / Special Setup</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['setup']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['setup']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['setup']['quantity']}}
+                                            <?php echo e(@$billing_data['setup']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] =@$billing_data['setup']['cost'] * @$billing_data['setup']['quantity']}}
+                                            $<?php echo e($total[] =@$billing_data['setup']['cost'] * @$billing_data['setup']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
-                                    @endif
+                                    <?php endif; ?>
                                     <tr>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Special Requests /
                                             Others</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{@$billing_data['special_req']['cost']}}</td>
+                                            $<?php echo e(@$billing_data['special_req']['cost']); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['special_req']['quantity']}}
+                                            <?php echo e(@$billing_data['special_req']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] =@$billing_data['special_req']['cost'] * @$billing_data['special_req']['quantity']}}
+                                            $<?php echo e($total[] =@$billing_data['special_req']['cost'] * @$billing_data['special_req']['quantity']); ?>
+
                                         </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
@@ -276,7 +298,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{array_sum($total)}}</td>
+                                            $<?php echo e(array_sum($total)); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
                                     <tr>
@@ -285,7 +307,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{ 7* array_sum($total)/100 }}</td>
+                                            $<?php echo e(7* array_sum($total)/100); ?></td>
                                         <td></td>
                                     </tr>
                                     <tr>
@@ -294,7 +316,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{ 20 * array_sum($total)/100 }}</td>
+                                            $<?php echo e(20 * array_sum($total)/100); ?></td>
 
                                         <td></td>
                                     </tr>
@@ -312,7 +334,8 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100}}
+                                            $<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?>
+
                                         </td>
 
                                         <td></td>
@@ -322,7 +345,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                             Deposits on file</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="3" style="background-color:#d7e7d7;padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$deposit= $billing->deposits}}</td>
+                                            $<?php echo e($deposit= $billing->deposits); ?></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
                                     <tr>
@@ -330,12 +353,12 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                             balance due</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">
-                                            ${{$grandtotal - $deposit}}</td>
+                                            $<?php echo e($grandtotal - $deposit); ?></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <input type="hidden" value="{{$grandtotal}}" name="grandtotal">
+                            <input type="hidden" value="<?php echo e($grandtotal); ?>" name="grandtotal">
                             <h3 class=" mt-5" style="text-align:center ">TERMS AND CONDITIONS</h3>
                             <h6 class="headings">FOOD AND ALCOHOLIC BEVERAGES and 3RD PARTY / ON-SITE VENDORS</h6>
                             <p class="text">
@@ -787,7 +810,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 <br><br>
 
                                 Please return signed contract with deposit no later than
-                                <b>{{ \Carbon\Carbon::parse($meeting->start_date)->subDays($settings['buffer_day'])->format('d M, Y') }}</b>
+                                <b><?php echo e(\Carbon\Carbon::parse($meeting->start_date)->subDays($settings['buffer_day'])->format('d M, Y')); ?></b>
                                 or this contract is no longer valid.<br>
                             </p>
 
@@ -802,7 +825,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <strong>Authorized Signature:</strong> <br>
-                            <img src="{{$base64Image}}" style="width:30%; border-bottom:1px solid black;">
+                            <img src="<?php echo e($base64Image); ?>" style="width:30%; border-bottom:1px solid black;">
                         </div>
                         <div class="col-md-6">
                             <strong> Signature:</strong>
@@ -840,8 +863,8 @@ $bar_pck = json_decode($meeting['bar_package'], true);
         --bs-gutter-x: -11.5rem !important;
     }
 </style>
-@include('partials.admin.head')
-@include('partials.admin.footer')
+<?php echo $__env->make('partials.admin.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('partials.admin.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 
 <script>
@@ -864,4 +887,4 @@ $bar_pck = json_decode($meeting['bar_package'], true);
             }
         });
     });
-</script>
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/meeting/agreement/signedagreement.blade.php ENDPATH**/ ?>

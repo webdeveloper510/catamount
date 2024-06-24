@@ -278,17 +278,17 @@ foreach ($token as $key => $val) {
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
-                        <td style="padding: 8px;"><?php echo e(__($_REQUEST['to']['name'])); ?></td>
+                        <td style="padding: 8px;"><?php echo e(__(@$_REQUEST['to']['name'])); ?></td>
                         <!-- <td style="padding: 8px;"><?php echo e(__(@$proposalDataArg->to->name)); ?></td> -->
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Title</td>
-                        <td style="padding: 8px;"><?php echo e(__($_REQUEST['to']['designation'])); ?></td>
+                        <td style="padding: 8px;"><?php echo e(__(@$_REQUEST['to']['designation'])); ?></td>
                         <!-- <td style="padding: 8px;"><?php echo e(__(@$proposalDataArg->to->designation)); ?></td> -->
                     </tr>
                     <tr>
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;"><?php echo e(__($_REQUEST['to']['date'])); ?></td>
+                        <td style="padding: 8px;"><?php echo e(__(@$_REQUEST['to']['date'])); ?></td>
                         <!-- <td style="padding: 8px;"><?php echo e(__(@$proposalDataArg->to->date)); ?></td> -->
                     </tr>
                 </table>
