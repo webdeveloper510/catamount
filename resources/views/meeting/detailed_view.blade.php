@@ -153,7 +153,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($payments as $payment)
+                                            @foreach($payments as $payKey => $payment)
                                             <tr>
                                                 <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y')}}
                                                 </td>
@@ -163,7 +163,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 </td>
                                                 <td>${{$event->total}}</td>
                                                 <td>${{$payment->amount}}</td>
-                                                <td>{{ $event->total - $payinfo[0]->deposits - $payinfo[0]->paymentCredit - $payinfo[0]->collect_amount }}
+                                                <td>{{ $event->total - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit - $payinfo[$payKey]->collect_amount }}
                                                 </td>
                                             </tr>
 

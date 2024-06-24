@@ -158,7 +158,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payKey => $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
                                                 <td><?php echo e(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y')); ?>
 
@@ -169,7 +169,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 </td>
                                                 <td>$<?php echo e($event->total); ?></td>
                                                 <td>$<?php echo e($payment->amount); ?></td>
-                                                <td><?php echo e($event->total - $payinfo[0]->deposits - $payinfo[0]->paymentCredit - $payinfo[0]->collect_amount); ?>
+                                                <td><?php echo e($event->total - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit - $payinfo[$payKey]->collect_amount); ?>
 
                                                 </td>
                                             </tr>
