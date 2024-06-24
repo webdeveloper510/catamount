@@ -239,7 +239,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <select class="form-control" name='user'>
                 <option value="">Select Staff</option>
                 @foreach($users as $user)
-                <option class="form-control" value="{{$user->id}}">{{$user->name}} ({{$user->type}})</option>
+                <option class="form-control" value="{{$user->id}}">{{$user->name}}</option>
                 @endforeach
             </select>
         </div>

@@ -117,7 +117,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>" <?php echo e(in_array($user->id, $user_idNew) ? 'checked' : ''); ?>>
-                                                            <label class="form-check-label" for="user_<?php echo e($user->id); ?>"><?php echo e($user->name); ?> (<?php echo e($user->type); ?>)</label>
+                                                            <label class="form-check-label" for="user_<?php echo e($user->id); ?>"><?php echo e($user->name); ?></label>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <input type="number" name="user[<?php echo e($user->id); ?>][amount]" id="user_amount_<?php echo e($user->id); ?>" class="form-control" value="<?php echo e(@$user_data[$user->id]['amount']); ?>" disabled required>

@@ -131,7 +131,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                             <div class="col-sm-6">
                                                                 <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}">
                                                                 <label class="form-check-label" for="user_{{ $user->id }}">
-                                                                    {{ $user->name }} ({{ $user->type }})
+                                                                    {{ $user->name }}
                                                                 </label>
                                                             </div>
                                                             <div class="col-sm-6">

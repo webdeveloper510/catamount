@@ -294,7 +294,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                         <option value="">Select Staff</option>
                                         @foreach($users as $user)
                                         <option class="form-control" value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
-                                            {{$user->name}} - {{$user->type}}
+                                            {{$user->name}}
                                         </option>
                                         @endforeach
                                     </select>

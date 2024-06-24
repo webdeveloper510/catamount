@@ -111,7 +111,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <input class="form-check-input inputDisable" type="checkbox" name="user[{{ $user->id }}][checkbox]" value="{{ $user->id }}" id="user_{{ $user->id }}" {{ in_array($user->id, $user_idNew) ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="user_{{ $user->id }}">{{ $user->name }} ({{ $user->type }})</label>
+                                                            <label class="form-check-label" for="user_{{ $user->id }}">{{ $user->name }}</label>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <input type="number" name="user[{{ $user->id }}][amount]" id="user_amount_{{ $user->id }}" class="form-control" value="{{ @$user_data[$user->id]['amount'] }}" disabled required>
