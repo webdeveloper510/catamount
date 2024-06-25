@@ -256,34 +256,10 @@ $venue = explode(',', $settings['venue']);
                             method: 'GET',
                             dataType: 'json',
                             success: function(response) {
-
-                                /* currentUser = "<?php echo e(\Auth::user()->type); ?>";
-                        // if (currentUser == 'Trainer') {
-                            console.log(`currentUser: ${currentUser} | currentUserID: ${currentUserID}`);
-                            user_data = JSON.parse(element.user_data);
-                            current_user_data = user_data[currentUserID];
-                            
-                            // } */
-
-                                // user_data = JSON.parse(element.user_data);
-                                user_data = element.user_data;
-
-                                
-                                console.log(user_data);
-
-                                /* $(user_data).each(function(userIndex, userValue) {
-                                    $(userValue).each(function(user2Index, user2Value) {
-                                        console.log('user2Value')
-                                        console.log(user2Value)
-                                        console.log('user2Value')
-                                    })
-                                }) */
-
-
                                 var encodedId = response.encodedId;
                                 var url = '<?php echo e(route("meeting.detailview", ":encodedId")); ?>';
                                 url = url.replace(':encodedId', encodedId);
-                                html += `<a href="${url}"><li class="list-group-item card mb-3">
+                                html += `<li class="list-group-item card mb-3"><a href="${url}">
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-auto mb-3 mb-sm-0">
                                     <div class="d-flex align-items-center">
@@ -293,13 +269,12 @@ $venue = explode(',', $settings['venue']);
                                         <div class="ms-3">`;
                                 html += `<h6 class="m-0">${element.eventname} (${element.name})</h6>
                                         <small class="text-muted">${start_date}, ${start_time} - ${end_time}</small><br>
-                                            <small class="text-muted">${element.venue_selection}</small>
-                                            <small class="text-muted">${element.venue_selection}</small>
+                                        <p class="text-muted">${element.calenderData}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </li></a>`;
+                        </a></li>`;
 
                                 $('#listEvent').html(html);
                             },

@@ -53,20 +53,32 @@ class CalenderNewController extends Controller
     }
     public function monthbaseddata(Request $request)
     {
-
         $startDate = "{$request->year}-{$request->month}-01";
         $endDate = date('Y-m-t', strtotime($startDate));
         if (\Auth::user()->type == 'Trainer') {
             $crnt_user = \Auth::user()->id;
-            $data = Meeting::whereBetween('start_date', [$startDate, $endDate])->get()->filter(function ($meeting) use ($crnt_user) {
+            $crnt_userName = \Auth::user()->name;
+            $data = Meeting::whereBetween('start_date', [$startDate, $endDate])->get()->filter(function ($meeting) use ($crnt_user, $crnt_userName) {
                 $user_data = json_decode($meeting->user_data, true);
+                // $meeting->calenderData = $user_data[$crnt_user]['amount'];
                 if (isset($user_data[$crnt_user])) {
-                    return true;
+                    $meeting->calenderData = "{$crnt_userName} - &dollar;{$user_data[$crnt_user]['amount']}";
+                    return $meeting;
                 }
                 return false;
             });
         } else {
-            $data = Meeting::whereBetween('start_date', [$startDate, $endDate])->get();
+            $data = Meeting::whereBetween('start_date', [$startDate, $endDate])->get()->map(function ($mapMeeting) {
+                $user_data = json_decode($mapMeeting->user_data);
+
+                foreach ($user_data as $udKey => $udValue) {
+                    $trainerName = \App\Models\User::find($udKey)->name;
+                    $user_datas[] = "{$trainerName} - &dollar;{$udValue->amount}";
+                }
+                $user_datas = implode(", ", $user_datas);
+                $mapMeeting->calenderData = $user_datas;
+                return $mapMeeting;
+            });
         }
         $data = array_values($data->toArray());
         return $data;

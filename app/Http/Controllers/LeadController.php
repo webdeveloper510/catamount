@@ -954,6 +954,13 @@ class LeadController extends Controller
         $leads = Lead::withTrashed()->where('email', $email)->orWhere('primary_contact', $phone)->get();
         $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
         $docs = LeadDoc::where('lead_id', $id)->get();
+
+
+        /* $data['id'] = $id;
+        $data['leads'] = $leads->toArray();
+        $data['notes'] = $notes->toArray();
+        $data['docs'] = $docs->toArray();
+        pr($data); */
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
     public function lead_upload($id)
