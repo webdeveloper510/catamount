@@ -314,7 +314,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                         <option value="">Select Staff</option>
                                         <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option class="form-control" value="<?php echo e($user->id); ?>" <?php echo e($user->id == $lead->assigned_user ? 'selected' : ''); ?>>
-                                            <?php echo e($user->name); ?> - <?php echo e($user->type); ?>
+                                            <?php echo e($user->name); ?>
 
                                         </option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -282,7 +282,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <select class="form-control" name='user'>
                 <option value="">Select Staff</option>
                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <option class="form-control" value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?> (<?php echo e($user->type); ?>)</option>
+                <option class="form-control" value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?></option>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>

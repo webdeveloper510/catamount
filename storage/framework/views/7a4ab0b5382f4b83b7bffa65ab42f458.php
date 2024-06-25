@@ -157,6 +157,8 @@ $meetingData['setup_cost'] = '';
                     if (table.rows.length > 1) {
                         row.remove();
                         updateAllRowNames();
+                        attachEventListeners();
+                        calculateTotals();
                     } else {
                         alert("At least one row must be present.");
                     }
@@ -164,6 +166,7 @@ $meetingData['setup_cost'] = '';
 
                 function clearRow(row) {
                     row.querySelectorAll('textarea, input').forEach(input => input.value = '');
+                    attachEventListeners();
                 }
 
                 function updateRowNames(row) {
@@ -200,7 +203,7 @@ $meetingData['setup_cost'] = '';
             <input type="number" name="salesTax" id="salesTax" min="1" class="form-control">
         </div>
         <div class="col-md-6 divRgt" style="position: relative;right: 0;left: 50%;">
-            <label class="form-label">Total Amount: </label>
+            <label class="form-label">Total Amount</label>
             <input type="number" name="totalAmount" id="totalAmount" class="form-control" readonly value="">
             <label class="form-label">Payments /Credit (-)</label>
             <input type="number" name="paymentCredit" id="paymentCredit" min="1" class="form-control" value="">
@@ -220,10 +223,9 @@ $meetingData['setup_cost'] = '';
                 row.querySelector('.total-input').value = totalCost.toFixed(2);
                 totalAmount += totalCost;
             });
-            const salesTax = document.getElementById('salesTax').value;
+            const salesTax = parseFloat(document.getElementById('salesTax').value) || 0;
 
-            salesTaxs = totalAmount / salesTax;
-            totalAmount = totalAmount + salesTaxs;
+            totalAmount = totalAmount + (totalAmount * (salesTax / 100));
             document.getElementById('totalAmount').value = totalAmount.toFixed(2);
             updateDueAmount();
         }

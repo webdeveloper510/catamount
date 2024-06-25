@@ -143,7 +143,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                             <div class="col-sm-6">
                                                                 <input class="form-check-input inputDisable" type="checkbox" name="user[<?php echo e($user->id); ?>][checkbox]" value="<?php echo e($user->id); ?>" id="user_<?php echo e($user->id); ?>">
                                                                 <label class="form-check-label" for="user_<?php echo e($user->id); ?>">
-                                                                    <?php echo e($user->name); ?> (<?php echo e($user->type); ?>)
+                                                                    <?php echo e($user->name); ?>
+
                                                                 </label>
                                                             </div>
                                                             <div class="col-sm-6">
