@@ -41,9 +41,9 @@
                                         <tbody>
                                             @foreach($allcustomers as $customers)
                                             <tr>
-                                                @php
+                                                {{--@php
                                                 @$customers = $customers[0];
-                                                @endphp
+                                                @endphp--}}
                                                 <td>
                                                     @if(@$customers['category'] == 'event')
                                                     <a href="{{route('event.userinfo',urlencode(encrypt(@$customers['ref_id'])))}}" title="{{ __('User Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">

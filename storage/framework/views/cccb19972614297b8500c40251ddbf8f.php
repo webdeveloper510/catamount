@@ -43,9 +43,7 @@
                                         <tbody>
                                             <?php $__currentLoopData = $allcustomers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customers): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <?php
-                                                @$customers = $customers[0];
-                                                ?>
+                                                
                                                 <td>
                                                     <?php if(@$customers['category'] == 'event'): ?>
                                                     <a href="<?php echo e(route('event.userinfo',urlencode(encrypt(@$customers['ref_id'])))); ?>" title="<?php echo e(__('User Details')); ?>" class="action-item text-primary" style="color:#1551c9 !important;">
