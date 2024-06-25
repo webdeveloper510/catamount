@@ -185,7 +185,6 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
 
                                         </div>
                                     </div>
-
                                     <div class="col-12  p-0 modaltitle ">
                                         <h5 style="margin-left: 14px;"><?php echo e(__('Secondary contact')); ?></h5>
                                     </div>
@@ -401,7 +400,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                                 <option value="">Select Staff</option>
                                                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <option class="form-control" value="<?php echo e($user->id); ?>" <?php echo e($user->id == $lead->assigned_user ? 'selected' : ''); ?>>
-                                                    <?php echo e($user->name); ?> - <?php echo e($user->type); ?>
+                                                    <?php echo e($user->name); ?>
 
                                                 </option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -420,65 +419,65 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                         </div>
                                     </div>
                                     
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <?php echo e(Form::label('Description',__('How did you hear about us?'),['class'=>'form-label'])); ?>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <?php echo e(Form::label('Description',__('How did you hear about us?'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::textarea('description',null,array('class'=>'form-control','rows'=>2))); ?>
+                                    <?php echo e(Form::textarea('description',null,array('class'=>'form-control','rows'=>2))); ?>
 
-                                        </div>
-                                    </div>
-                                    <div class="col-12  p-0 modaltitle pb-3 mb-3">
-                                        <!-- <hr class="mt-2 mb-2"> -->
-                                        <h5 style="margin-left: 14px;"><?php echo e(__('Estimate Billing Summary Details')); ?></h5>
-                                    </div>
-                                    
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                <?php echo e(Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label'])); ?>
-
-                                <?php echo Form::input('time', 'start_time', $lead->start_time, ['class' =>
-                                'form-control', 'required' => 'required']); ?>
-
-                            </div>
-                        </div>
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                <?php echo e(Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label'])); ?>
-
-                                <?php echo Form::input('time', 'end_time', $lead->end_time, ['class' =>
-                                'form-control', 'required' => 'required']); ?>
-
-                            </div>
-                        </div>
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                <?php echo e(Form::label('status', __('Status'), ['class' => 'form-label'])); ?>
-
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="approveCheckbox" name="status" value="Approve" <?php echo e($lead->status == 2 ? 'checked' : ''); ?>>
-                                    <label for="approveCheckbox">Approve</label>
-
-                                    <input type="checkbox" id="resendCheckbox" name="status" value="Resend" <?php echo e($lead->status == 0 ? 'checked' : ''); ?>>
-                                    <label for="resendCheckbox">Resend</label>
-
-                                    <input type="checkbox" id="withdrawCheckbox" name="status" value="Withdraw" <?php echo e($lead->status == 3 ? 'checked' : ''); ?>>
-                                    <label for="withdrawCheckbox">Withdraw</label>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-12  p-0 modaltitle pb-3 mb-3">
+                                <!-- <hr class="mt-2 mb-2"> -->
+                                <h5 style="margin-left: 14px;"><?php echo e(__('Estimate Billing Summary Details')); ?></h5>
+                            </div>
+                            
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        <?php echo e(Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label'])); ?>
 
-                        <div class="text-end">
-                            <?php echo e(Form::submit(__('Submit'), ['class' => 'btn-submit btn btn-primary'])); ?>
+                        <?php echo Form::input('time', 'start_time', $lead->start_time, ['class' =>
+                        'form-control', 'required' => 'required']); ?>
 
+                    </div>
+                </div>
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        <?php echo e(Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label'])); ?>
+
+                        <?php echo Form::input('time', 'end_time', $lead->end_time, ['class' =>
+                        'form-control', 'required' => 'required']); ?>
+
+                    </div>
+                </div>
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        <?php echo e(Form::label('status', __('Status'), ['class' => 'form-label'])); ?>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="approveCheckbox" name="status" value="Approve" <?php echo e($lead->status == 2 ? 'checked' : ''); ?>>
+                            <label for="approveCheckbox">Approve</label>
+
+                            <input type="checkbox" id="resendCheckbox" name="status" value="Resend" <?php echo e($lead->status == 0 ? 'checked' : ''); ?>>
+                            <label for="resendCheckbox">Resend</label>
+
+                            <input type="checkbox" id="withdrawCheckbox" name="status" value="Withdraw" <?php echo e($lead->status == 3 ? 'checked' : ''); ?>>
+                            <label for="withdrawCheckbox">Withdraw</label>
                         </div>
                     </div>
                 </div>
-                <?php echo e(Form::close()); ?>
 
+                <div class="text-end">
+                    <?php echo e(Form::submit(__('Submit'), ['class' => 'btn-submit btn btn-primary'])); ?>
+
+                </div>
             </div>
         </div>
+        <?php echo e(Form::close()); ?>
+
     </div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -520,24 +519,19 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
             });
     });
 </script>
-
 <script>
     $(document).ready(function() {
         var phoneNumber = "<?php echo $lead->primary_contact; ?>";
         var num = phoneNumber.trim();
         var lastTenDigits = phoneNumber.substr(-10);
-        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3,
-                3) + '-' +
-            lastTenDigits.substr(6);
+        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
         $('#phone-input').val(formattedPhoneNumber);
 
 
         var phoneNumber2 = "<?php echo @$secondary_contact['secondary_contact']; ?>";
         var num = phoneNumber2.trim();
         var lastTenDigits2 = phoneNumber2.substr(-10);
-        var formattedphoneNumber2 = '(' + lastTenDigits2.substr(0, 3) + ') ' + lastTenDigits2.substr(3,
-                3) + '-' +
-            lastTenDigits2.substr(6);
+        var formattedphoneNumber2 = '(' + lastTenDigits2.substr(0, 3) + ') ' + lastTenDigits2.substr(3, 3) + '-' + lastTenDigits2.substr(6);
         $('#phone-input1').val(formattedphoneNumber2);
     })
     $(document).ready(function() {

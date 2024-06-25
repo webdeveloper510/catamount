@@ -42,7 +42,7 @@ $agreestatus= \App\Models\Meeting::$status;
                                     <table id="datatable" class="table datatable align-items-center">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name">{{ __('Trainings') }} <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name">{{ __('Leads') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="status">{{ __('Status') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Date Start') }} <span class="opticy"> dddd</span>

@@ -170,7 +170,6 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             {{Form::text('relationship',null,array('class'=>'form-control','placeholder'=>__('Enter Relationship')))}}
                                         </div>
                                     </div>
-
                                     <div class="col-12  p-0 modaltitle ">
                                         <h5 style="margin-left: 14px;">{{ __('Secondary contact') }}</h5>
                                     </div>
@@ -360,7 +359,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                                 <option value="">Select Staff</option>
                                                 @foreach($users as $user)
                                                 <option class="form-control" value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
-                                                    {{$user->name}} - {{$user->type}}
+                                                    {{$user->name}}
                                                 </option>
                                                 @endforeach
                                             </select>
@@ -378,92 +377,92 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                     {{--<div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
-                                            {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
-                                        </div>
-                                    </div>--}}
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
-                                            {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
-                                        </div>
-                                    </div>
-                                    <div class="col-12  p-0 modaltitle pb-3 mb-3">
-                                        <!-- <hr class="mt-2 mb-2"> -->
-                                        <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
-                                    </div>
-                                    {{--<div class="col-6 need_full">
+                                    {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
+                                </div>
+                            </div>--}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
+                                    {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
+                                </div>
+                            </div>
+                            <div class="col-12  p-0 modaltitle pb-3 mb-3">
+                                <!-- <hr class="mt-2 mb-2"> -->
+                                <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
+                            </div>
+                            {{--<div class="col-6 need_full">
                                         <div class="form-group">
                                             {!! Form::label('baropt', 'Bar') !!}
                                             @foreach($baropt as $key => $label)
                                             <div>
                                                 {{ Form::radio('baropt', $label,isset($lead->bar) && $lead->bar == $label ? true : false , ['id' => $label]) }}
-                                    {{ Form::label('baropt' . ($key + 1), $label) }}
-                                </div>
-                                @endforeach
-                            </div>
+                            {{ Form::label('baropt' . ($key + 1), $label) }}
                         </div>
-                        <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
-                            @if(isset($bar_package) && !empty($bar_package))
-                            @foreach($bar_package as $key =>$value)
-                            <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
-                                {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
-                                @foreach($value['barpackage'] as $k => $bar)
-                                <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
-                                    {!! Form::radio('bar'.'_'.str_replace(' ', '',
-                                    strtolower($value['bar'])), $bar, false, ['id' => 'bar_' . $key.$k,
-                                    'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
-                                    {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
-                                </div>
-                                @endforeach
-                            </div>
-                            @endforeach
-                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
+                    @if(isset($bar_package) && !empty($bar_package))
+                    @foreach($bar_package as $key =>$value)
+                    <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
+                        {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
+                        @foreach($value['barpackage'] as $k => $bar)
+                        <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
+                            {!! Form::radio('bar'.'_'.str_replace(' ', '',
+                            strtolower($value['bar'])), $bar, false, ['id' => 'bar_' . $key.$k,
+                            'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
+                            {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
                         </div>
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-                                <input type="number" name="rooms" value="{{$lead->rooms}}" class="form-control">
-                            </div>
-                        </div>--}}
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                {{ Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label']) }}
-                                {!! Form::input('time', 'start_time', $lead->start_time, ['class' =>
-                                'form-control', 'required' => 'required']) !!}
-                            </div>
-                        </div>
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                {{ Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label']) }}
-                                {!! Form::input('time', 'end_time', $lead->end_time, ['class' =>
-                                'form-control', 'required' => 'required']) !!}
-                            </div>
-                        </div>
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                {{ Form::label('status', __('Status'), ['class' => 'form-label']) }}
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="approveCheckbox" name="status" value="Approve" {{ $lead->status == 2 ? 'checked' : '' }}>
-                                    <label for="approveCheckbox">Approve</label>
+                        @endforeach
+                    </div>
+                    @endforeach
+                    @endif
+                </div>
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
+                        <input type="number" name="rooms" value="{{$lead->rooms}}" class="form-control">
+                    </div>
+                </div>--}}
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        {{ Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label']) }}
+                        {!! Form::input('time', 'start_time', $lead->start_time, ['class' =>
+                        'form-control', 'required' => 'required']) !!}
+                    </div>
+                </div>
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        {{ Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label']) }}
+                        {!! Form::input('time', 'end_time', $lead->end_time, ['class' =>
+                        'form-control', 'required' => 'required']) !!}
+                    </div>
+                </div>
+                <div class="col-6 need_full">
+                    <div class="form-group">
+                        {{ Form::label('status', __('Status'), ['class' => 'form-label']) }}
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="approveCheckbox" name="status" value="Approve" {{ $lead->status == 2 ? 'checked' : '' }}>
+                            <label for="approveCheckbox">Approve</label>
 
-                                    <input type="checkbox" id="resendCheckbox" name="status" value="Resend" {{ $lead->status == 0 ? 'checked' : '' }}>
-                                    <label for="resendCheckbox">Resend</label>
+                            <input type="checkbox" id="resendCheckbox" name="status" value="Resend" {{ $lead->status == 0 ? 'checked' : '' }}>
+                            <label for="resendCheckbox">Resend</label>
 
-                                    <input type="checkbox" id="withdrawCheckbox" name="status" value="Withdraw" {{ $lead->status == 3 ? 'checked' : '' }}>
-                                    <label for="withdrawCheckbox">Withdraw</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="text-end">
-                            {{ Form::submit(__('Submit'), ['class' => 'btn-submit btn btn-primary']) }}
+                            <input type="checkbox" id="withdrawCheckbox" name="status" value="Withdraw" {{ $lead->status == 3 ? 'checked' : '' }}>
+                            <label for="withdrawCheckbox">Withdraw</label>
                         </div>
                     </div>
                 </div>
-                {{ Form::close() }}
+
+                <div class="text-end">
+                    {{ Form::submit(__('Submit'), ['class' => 'btn-submit btn btn-primary']) }}
+                </div>
             </div>
         </div>
+        {{ Form::close() }}
     </div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -505,24 +504,19 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
             });
     });
 </script>
-
 <script>
     $(document).ready(function() {
         var phoneNumber = "<?php echo $lead->primary_contact; ?>";
         var num = phoneNumber.trim();
         var lastTenDigits = phoneNumber.substr(-10);
-        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3,
-                3) + '-' +
-            lastTenDigits.substr(6);
+        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
         $('#phone-input').val(formattedPhoneNumber);
 
 
         var phoneNumber2 = "<?php echo @$secondary_contact['secondary_contact']; ?>";
         var num = phoneNumber2.trim();
         var lastTenDigits2 = phoneNumber2.substr(-10);
-        var formattedphoneNumber2 = '(' + lastTenDigits2.substr(0, 3) + ') ' + lastTenDigits2.substr(3,
-                3) + '-' +
-            lastTenDigits2.substr(6);
+        var formattedphoneNumber2 = '(' + lastTenDigits2.substr(0, 3) + ') ' + lastTenDigits2.substr(3, 3) + '-' + lastTenDigits2.substr(6);
         $('#phone-input1').val(formattedphoneNumber2);
     })
     $(document).ready(function() {

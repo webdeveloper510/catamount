@@ -214,7 +214,13 @@ $meetingData['setup_cost'] = '';
             <label class="form-label">Sales Tax (%)</label>
             <input type="number" name="salesTax" id="salesTax" min="1" class="form-control">
         </div>
-        <div class="col-md-6 divRgt" style="position: relative;right: 0;left: 50%;">
+        <div class="col-md-6">
+            <label class="form-label">Purchase Order Number</label>
+            <input type="number" name="purchaseOrder" id="purchaseOrder" min="1" class="form-control">
+            <label class="form-label">Terms</label>
+            <input type="text" name="terms" id="terms" class="form-control">
+        </div>
+        <div class="col-md-6">
             <label class="form-label">Total Amount</label>
             <input type="number" name="totalAmount" id="totalAmount" class="form-control" readonly value="">
             <label class="form-label">Payments /Credit (-)</label>

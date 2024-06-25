@@ -20,6 +20,8 @@ return new class extends Migration
             $table->float('salesTax')->default(0)->nullable();
             $table->float('totalAmount')->default(0)->nullable();
             $table->float('paymentCredit')->default(0)->nullable();
+            $table->int('purchaseOrder')->default(0)->nullable();
+            $table->text('terms')->default(0)->nullable();
             $table->boolean('status')->default(0);
             $table->integer('created_by')->default(0);
             $table->timestamps();

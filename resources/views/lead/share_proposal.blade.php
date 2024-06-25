@@ -152,7 +152,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Title')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="{{ @$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->type }}">
+                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="{{ @$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->title }}">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date')}}</span></dt>
                     <dd class="col-md-4">

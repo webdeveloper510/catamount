@@ -991,10 +991,6 @@ $(document).ready(function() {
                     $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
 
 
-
-
-
-
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);
@@ -1032,6 +1028,11 @@ $(document).ready(function() {
                             div.style.display = 'none';
                         }
                     });
+
+
+
+
+
                 }
             });
         });

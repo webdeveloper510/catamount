@@ -51,7 +51,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
             max-height: 80px;
             position: relative;
             top: 12%;
-            right: 25%;
+            right: 33%;
         }
 
         .invoice-details table {
@@ -117,7 +117,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .logoTxt {
             position: relative;
-            left: 18%;
+            left: 20%;
         }
 
         .invoice-details {
@@ -196,7 +196,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
     <div class="invoice">
         <div class="header">
             <div class="logo">
-                <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" alt="Catamount Consulting">
+                <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="min-width: 150px; min-height:100px" alt="Catamount Consulting">
                 <p class="logoTxt">
                 <h2>Catamount Consulting</h2><br>PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
             </div>
@@ -231,8 +231,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                     </tr>
                     <tr>
                         <td colspan="2" class="borderN"></td>
-                        <td></td>
-                        <td>Due on receipt</td>
+                        <td>{{ $billing->purchaseOrder ?? '' }}</td>
+                        <td>{{ $billing->terms ?? 'Due on receipt' }}</td>
                     </tr>
                     <tr>
                         <th style="width: 60%;">Description</th>

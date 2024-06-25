@@ -50,11 +50,9 @@ $proposalstatus = \App\Models\Lead::$status;
                                     <table class="table datatable" id="datatable">
                                         <thead>
                                             <tr>
-                                                <!-- <th scope="col" class="sort" data-sort="name">{{__('Lead')}}</th> -->
                                                 <th scope="col" class="sort" data-sort="name">{{__('Name')}} <span class="opticy"></span></th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Email')}} <span class="opticy"></span></th>
                                                 <th scope="col" class="sort">{{__('Status')}} <span class="opticy"></span></th>
-                                                <!-- <th scope="col" class="sort">{{__('Proposal Status')}}</th> -->
                                                 <th scope="col" class="sort">{{__('Lead Status')}}<span class="opticy"></span></th>
                                                 <th scope="col" class="sort">{{__('Created On')}}<span class="opticy"></span></th>
                                                 @if(Gate::check('Show Lead') || Gate::check('Edit Lead') ||
@@ -68,7 +66,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('lead.info',urlencode(encrypt($lead->id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
-                                                        <b> {{ ucfirst($lead->name) }}</b>
+                                                        <b> {{ ucfirst($lead->leadname) }}</b>
                                                     </a>
                                                 </td>
                                                 <td>

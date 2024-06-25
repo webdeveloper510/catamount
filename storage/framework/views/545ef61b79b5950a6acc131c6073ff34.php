@@ -52,11 +52,9 @@ $proposalstatus = \App\Models\Lead::$status;
                                     <table class="table datatable" id="datatable">
                                         <thead>
                                             <tr>
-                                                <!-- <th scope="col" class="sort" data-sort="name"><?php echo e(__('Lead')); ?></th> -->
                                                 <th scope="col" class="sort" data-sort="name"><?php echo e(__('Name')); ?> <span class="opticy"></span></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Email')); ?> <span class="opticy"></span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Status')); ?> <span class="opticy"></span></th>
-                                                <!-- <th scope="col" class="sort"><?php echo e(__('Proposal Status')); ?></th> -->
                                                 <th scope="col" class="sort"><?php echo e(__('Lead Status')); ?><span class="opticy"></span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Created On')); ?><span class="opticy"></span></th>
                                                 <?php if(Gate::check('Show Lead') || Gate::check('Edit Lead') ||
@@ -70,7 +68,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                             <tr>
                                                 <td>
                                                     <a href="<?php echo e(route('lead.info',urlencode(encrypt($lead->id)))); ?>" data-size="md" title="<?php echo e(__('Lead Details')); ?>" class="action-item text-primary" style="color:#1551c9 !important;">
-                                                        <b> <?php echo e(ucfirst($lead->name)); ?></b>
+                                                        <b> <?php echo e(ucfirst($lead->leadname)); ?></b>
                                                     </a>
                                                 </td>
                                                 <td>

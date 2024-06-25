@@ -153,7 +153,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Title')); ?></span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->type); ?>">
+                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->title); ?>">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Date')); ?></span></dt>
                     <dd class="col-md-4">

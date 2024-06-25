@@ -65,6 +65,8 @@ class BillingController extends Controller
         $billing['salesTax'] = $request->salesTax ?? 0;
         $billing['totalAmount'] = $request->totalAmount ?? 0;
         $billing['paymentCredit'] = $request->paymentCredit ?? 0;
+        $billing['purchaseOrder'] = $request->purchaseOrder ?? 0;
+        $billing['terms'] = $request->terms ?? 0;
         $billing['deposits'] = $request->deposits ?? 0;
         $billing->save();
         Meeting::where('id', $id)->update(['total' => $request->totalAmount]);
@@ -75,7 +77,6 @@ class BillingController extends Controller
      */
     public function show(string $id)
     {
-
         $billing = Billing::where('event_id', $id)->first();
         $event = Meeting::where('id', $id)->first();
         return view('billing.view', compact('billing', 'event'));

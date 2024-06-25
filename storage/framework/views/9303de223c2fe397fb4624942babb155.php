@@ -44,7 +44,7 @@ $agreestatus= \App\Models\Meeting::$status;
                                     <table id="datatable" class="table datatable align-items-center">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Trainings')); ?> <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Leads')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="status"><?php echo e(__('Status')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     <?php echo e(__('Date Start')); ?> <span class="opticy"> dddd</span>

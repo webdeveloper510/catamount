@@ -998,7 +998,12 @@ $(document).ready(function() {
                     $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
 
 
-
+                    const inputElement = data.primary_contact;
+                    inputElement.addEventListener('keydown', enforceFormat);
+                    inputElement.addEventListener('keyup', formatToPhone);
+                    const inputElement1 = data.secondary_contact.secondary_contact;
+                    inputElement1.addEventListener('keydown', enforceFormat);
+                    inputElement1.addEventListener('keyup', formatToPhone);
 
 
 
@@ -1039,6 +1044,11 @@ $(document).ready(function() {
                             div.style.display = 'none';
                         }
                     });
+
+
+
+
+
                 }
             });
         });

@@ -46,10 +46,10 @@
                 <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Type')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e($meeting->type); ?></span></dd>
 
-                <dt class="col-md-6"><span class="h6 text-sm mb-0"><?php echo e(__('Assigned Trainer')); ?></span></dt>
+                <dt class="col-md-6"><span class="h6 mb-0"><?php echo e(__('Assigned Trainer')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e($name); ?></span></dd>
 
-                <dt class="col-md-6"><span class="h6 text-sm mb-0"><?php echo e(__('Created')); ?></span></dt>
+                <dt class="col-md-6"><span class="h6 mb-0"><?php echo e(__('Created')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($meeting->created_at)); ?></span>
                 </dd>
             </dl>
