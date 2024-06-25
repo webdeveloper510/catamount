@@ -241,6 +241,7 @@ $venue = explode(',', $settings['venue']);
                 var html = '';
                 if (data.length != 0) {
                     $(data).each(function(index, element) {
+                        console.log('element', element);
                         var start = element.start_time;
                         var start_time = moment(start, 'HH:mm:ss')
                             .format('h:mm A');

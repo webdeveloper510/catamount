@@ -227,6 +227,7 @@ $venue = explode(',', $settings['venue']);
                 var html = '';
                 if (data.length != 0) {
                     $(data).each(function(index, element) {
+                        console.log(element);
                         var start = element.start_time;
                         var start_time = moment(start, 'HH:mm:ss')
                             .format('h:mm A');
@@ -253,7 +254,7 @@ $venue = explode(',', $settings['venue']);
                                             <i class="ti ti-calendar-event"></i>
                                         </div>
                                         <div class="ms-3">`;
-                                html += `<h6 class="m-0">${element.eventname} (${element.name})</h6>
+                                html += `<h6 class="m-0">${element.eventname} (${element.company_name})</h6>
                                         <small class="text-muted">${start_date}, ${start_time} - ${end_time}</small><br>
                                         <p class="text-muted">${element.calenderData}</p>
                                         </div>
