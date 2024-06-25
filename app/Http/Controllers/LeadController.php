@@ -956,7 +956,7 @@ class LeadController extends Controller
             $ids[] = $lValue->id;
         }
         $notes = NotesLeads::whereIn('lead_id', $ids)->orderby('id', 'desc')->get();
-        $docs = LeadDoc::where('lead_id', $ids)->get();
+        $docs = LeadDoc::whereIn('lead_id', $ids)->get();
 
 
         /* $data['id'] = $id;
