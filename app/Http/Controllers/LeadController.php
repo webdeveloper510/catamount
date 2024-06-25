@@ -952,15 +952,18 @@ class LeadController extends Controller
         $email = $leaddata->email;
         $phone = $leaddata->primary_contact;
         $leads = Lead::withTrashed()->where('email', $email)->orWhere('primary_contact', $phone)->get();
-        $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
-        $docs = LeadDoc::where('lead_id', $id)->get();
-        
-        
-        // $data['id'] = $id;
-        // $data['leads'] = $leads->toArray();
-        // $data['notes'] = $notes->toArray();
-        // $data['docs'] = $docs->toArray();
-        // pr($data);
+        foreach ($leads as $lKey => $lValue) {
+            $ids[] = $lValue->id;
+        }
+        $notes = NotesLeads::whereIn('lead_id', $ids)->orderby('id', 'desc')->get();
+        $docs = LeadDoc::where('lead_id', $ids)->get();
+
+
+        /* $data['id'] = $id;
+        $data['leads'] = $leads->toArray();
+        $data['notes'] = $notes->toArray();
+        $data['docs'] = $docs->toArray();
+        prx($data); */
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
 
