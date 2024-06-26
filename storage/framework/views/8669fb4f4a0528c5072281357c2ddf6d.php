@@ -207,7 +207,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><input type="date" name="to[date]" id="date" value="<?php echo e(@$proposal_info->to->date); ?>"></td>
+                                    <td style="padding: 8px;"><input type="date" name="to[date]" id="date" value="<?php echo e(@$proposal_info->to->date ?? date('Y-m-d')); ?>"></td>
                                 </tr>
                             </table>
                         </div>

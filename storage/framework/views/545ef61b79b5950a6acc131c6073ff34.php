@@ -181,17 +181,12 @@ $proposalstatus = \App\Models\Lead::$status;
 <script>
     $(document).ready(function() {
         $('#convertLink').on('click', function(event) {
-            event.preventDefault(); // Prevent the default link behavior
-
+            event.preventDefault();
             var leadId = $(this).data('id');
-
-            // Set the lead ID in localStorage after a delay
             setTimeout(function() {
                 localStorage.setItem('leadId', leadId);
-
-                // Redirect to the specified URL after setting the item
                 window.location.href = "<?php echo e(route('meeting.create',['meeting',0])); ?>";
-            }, 1000); // Adjust the delay time as needed (1000 milliseconds = 1 second)
+            }, 1000);
         });
     });
 </script>

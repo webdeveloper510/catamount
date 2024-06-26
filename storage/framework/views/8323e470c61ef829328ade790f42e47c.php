@@ -40,9 +40,6 @@
                 <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Location')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e($meeting->venue_selection); ?></span></dd>
 
-                <!-- <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Function')); ?></span></dt>
-                <dd class="col-md-6"><span class=""><?php echo e($meeting->function); ?></span></dd> -->
-
                 <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Type')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e($meeting->type); ?></span></dd>
 

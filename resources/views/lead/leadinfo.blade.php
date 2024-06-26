@@ -260,7 +260,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->description ??' --' }}</span></dd>
                                         <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Bar')}}</span></dt> -->
                                         <!-- <dd class="col-md-6 need_half"><span class="">{{ $lead->bar ?? '--' }}</span></dd> -->
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
+                                        {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">
                                                 <?php $package = json_decode($lead->func_package, true);
                                                 if (isset($package) && !empty($package)) {
@@ -297,7 +297,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                                 @endif</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Estimate Amount')}}</span>
                                         </dt>
-                                        <dd class="col-md-6 need_half"><span class="">{{ $grandtotal != 0 ? '$'. $grandtotal : '--' }}</span></dd>
+                                        <dd class="col-md-6 need_half"><span class="">{{ $grandtotal != 0 ? '$'. $grandtotal : '--' }}</span></dd>--}}
                                         @php
                                         @$imgPath = App\Models\Proposal::where('lead_id', $lead->id)->orderBy('created_at','desc')->first();
                                         @$imgPathss = explode('/', @$imgPath->image);
@@ -308,20 +308,18 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="{{ asset('upload/' . @$imgPathss[1]) }}" alt="" srcset=""></span></dd>
                                         @endif
                                     </dl>
-
-                                    @if(count($filteredMeetings[$lKey]) >= 1)
-                                    <h4> Training Detail</h4>
+                                    @php
+                                    @$trainerName = \App\Models\User::where('id',$filteredMeetingsNew[$lKey]['user_id'])->first();
+                                    @endphp
+                                    @if($trainerName)
+                                    <h4>Training Detail</h4>
                                     <hr>
                                     <dl class="row">
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Trainer name')}}</span>
                                         </dt>
                                         <dd class="col-md-6 need_half"><span class="">
-                                                @foreach($filteredMeetings[$lKey] as $fmKey =>$fmValue)
-                                                @php
-                                                $trainerName = \App\Models\User::where('id',$fmValue->user_id)->first();
-                                                @endphp
-                                                <h6>{{$trainerName->name}}</h6>
-                                                @endforeach
+
+                                                <h6>{{@$trainerName->name ?? ''}}</h6>
                                             </span>
                                         </dd>
                                     </dl>
@@ -380,7 +378,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                             } else {
                                                 echo "<tr>";
                                                 echo "<td></td>";
-                                                echo "<td style='text-align: center;'><b><h6 class='text-secondary'>Lead Not Converted to Trainings Yet.</h6><b></td>";
+                                                echo "<td style='text-align: center;'><b><h6 class='text-secondary'>{$lead->name}: Lead Not Converted to Trainings Yet.</h6><b></td>";
                                                 echo "<td></td>";
                                                 echo "</tr>";
                                             }

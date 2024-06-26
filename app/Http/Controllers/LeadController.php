@@ -936,14 +936,20 @@ class LeadController extends Controller
 
         foreach ($leads as $lKey => $lValue) {
             $assigned_user = $lValue->assigned_user;
-            $filteredMeetings[] = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($assigned_user) {
+            $filteredMeetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($assigned_user) {
                 $user_data = json_decode($meeting->user_data, true);
                 return isset($user_data[$assigned_user]);
             });
         }
+
+        $filteredMeetingsNew = [];
+        foreach ($filteredMeetings as $fmKey => $fmValue) {
+            $filteredMeetingsNew[] = $fmValue->toArray();
+        }
+
         $notes = NotesLeads::where('lead_id', $id)->orderby('id', 'desc')->get();
         $docs = LeadDoc::where('lead_id', $id)->get();
-        return view('lead.leadinfo', compact('leads', 'lead', 'docs', 'notes', 'filteredMeetings'));
+        return view('lead.leadinfo', compact('leads', 'lead', 'docs', 'notes', 'filteredMeetingsNew'));
     }
     public function lead_user_info($id)
     {

@@ -276,45 +276,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->description ??' --'); ?></span></dd>
                                         <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Bar')); ?></span></dt> -->
                                         <!-- <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->bar ?? '--'); ?></span></dd> -->
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Package')); ?></span></dt>
-                                        <dd class="col-md-6 need_half"><span class="">
-                                                <?php $package = json_decode($lead->func_package, true);
-                                                if (isset($package) && !empty($package)) {
-                                                    foreach ($package as $key => $value) {
-                                                        echo implode(',', $value);
-                                                    }
-                                                } else {
-                                                    echo '--';
-                                                }
-                                                ?>
-                                            </span></dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Additional Items')); ?></span>
-                                        </dt>
-                                        <dd class="col-md-6 need_half"><span class="">
-                                                <?php $additional = json_decode($lead->ad_opts, true);
-                                                if (isset($additional) && !empty($additional)) {
-                                                    foreach ($additional as $key => $value) {
-                                                        echo implode(',', $value);
-                                                    }
-                                                } else {
-                                                    echo "--";
-                                                }
-
-                                                ?>
-                                            </span></dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Any Special Requests')); ?></span></dt>
-                                        <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->spcl_req ?? '--'); ?></span></dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Proposal Response')); ?></span>
-                                        </dt>
-                                        <dd class="col-md-6 need_half"><span class=""><?php if(App\Models\Proposal::where('lead_id',$lead->id)->exists()): ?>
-                                                <?php $proposal = App\Models\Proposal::where('lead_id', $lead->id)->first()->notes; ?>
-                                                <?php echo e($proposal); ?>
-
-                                                <?php else: ?> --
-                                                <?php endif; ?></span></dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Estimate Amount')); ?></span>
-                                        </dt>
-                                        <dd class="col-md-6 need_half"><span class=""><?php echo e($grandtotal != 0 ? '$'. $grandtotal : '--'); ?></span></dd>
+                                        
                                         <?php
                                         @$imgPath = App\Models\Proposal::where('lead_id', $lead->id)->orderBy('created_at','desc')->first();
                                         @$imgPathss = explode('/', @$imgPath->image);
@@ -325,20 +287,18 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="<?php echo e(asset('upload/' . @$imgPathss[1])); ?>" alt="" srcset=""></span></dd>
                                         <?php endif; ?>
                                     </dl>
-
-                                    <?php if(count($filteredMeetings[$lKey]) >= 1): ?>
-                                    <h4> Training Detail</h4>
+                                    <?php
+                                    @$trainerName = \App\Models\User::where('id',$filteredMeetingsNew[$lKey]['user_id'])->first();
+                                    ?>
+                                    <?php if($trainerName): ?>
+                                    <h4>Training Detail</h4>
                                     <hr>
                                     <dl class="row">
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Trainer name')); ?></span>
                                         </dt>
                                         <dd class="col-md-6 need_half"><span class="">
-                                                <?php $__currentLoopData = $filteredMeetings[$lKey]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fmKey =>$fmValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php
-                                                $trainerName = \App\Models\User::where('id',$fmValue->user_id)->first();
-                                                ?>
-                                                <h6><?php echo e($trainerName->name); ?></h6>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                                <h6><?php echo e(@$trainerName->name ?? ''); ?></h6>
                                             </span>
                                         </dd>
                                     </dl>
@@ -397,7 +357,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                             } else {
                                                 echo "<tr>";
                                                 echo "<td></td>";
-                                                echo "<td style='text-align: center;'><b><h6 class='text-secondary'>Lead Not Converted to Trainings Yet.</h6><b></td>";
+                                                echo "<td style='text-align: center;'><b><h6 class='text-secondary'>{$lead->name}: Lead Not Converted to Trainings Yet.</h6><b></td>";
                                                 echo "<td></td>";
                                                 echo "</tr>";
                                             }

@@ -232,6 +232,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                         <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
 
 
+
+
                                                         <input type="hidden" name="countrycode" id="country-code">
                                                     </div>
                                                 </div>
@@ -720,6 +722,34 @@ unset($__errorArgs, $__bag); ?>
 </script>
 
 <script>
+    function initializePhoneInput(inputSelector, countryCodeSelector) {
+        var input = document.querySelector(inputSelector);
+        var iti = window.intlTelInput(input, {
+            separateDialCode: true,
+        });
+        var updateCountryCode = function() {
+            var countryCode = iti.getSelectedCountryData().dialCode;
+            $(countryCodeSelector).val(countryCode);
+        };
+        updateCountryCode();
+
+        input.addEventListener('countrychange', updateCountryCode);
+        input.addEventListener('input', updateCountryCode);
+
+        var countryIso2 = iti.getSelectedCountryData().iso2;
+        if (countryIso2 !== 'us') {
+            iti.setCountry('us');
+        }
+
+        return iti;
+    }
+
+    function onAjaxSuccess() {
+        var iti1 = initializePhoneInput("#phone-input", "#country-code");
+        var iti2 = initializePhoneInput("#phone-input1", "#country-code1");
+    }
+
+
     $(document).ready(function() {
 
         var leadId = localStorage.getItem('leadId');
@@ -736,7 +766,7 @@ unset($__errorArgs, $__bag); ?>
                     "_token": "<?php echo e(csrf_token()); ?>",
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
 
                     // func_pack = json_decode(data.func_package);
@@ -751,9 +781,9 @@ unset($__errorArgs, $__bag); ?>
                     // Phone number formatting
                     // var phoneInput = $('input[name ="phone"]');
                     // phoneInput.val(data.phone);
-                    // // phoneInput.trigger('input');
-                    // // phoneInput.addEventListener('input', enforceFormat);
-                    // // phoneInput.addEventListener('input', formatToPhone); 
+                    // phoneInput.trigger('input');
+                    // phoneInput.addEventListener('input', enforceFormat);
+                    // phoneInput.addEventListener('input', formatToPhone); 
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="relationship"]').val(data.relationship);
                     $('input[name ="start_date"]').val(data.start_date);
@@ -804,8 +834,25 @@ unset($__errorArgs, $__bag); ?>
                             targetInput.disabled = true;
                         }
                     });
+
+
+
+                    var phoneNumber = data.primary_contact;
+                    var num = phoneNumber.trim();
+                    var lastTenDigits = phoneNumber.substr(-10);
+                    var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
+                    $('#phone-input').val(formattedPhoneNumber);
+
+                    var phoneNumber1 = data.secondary_contact.secondary_contact;
+                    var num = phoneNumber1.trim();
+                    var lastTenDigits1 = phoneNumber1.substr(-10);
+                    var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' + lastTenDigits1.substr(6);
+                    $('#phone-input1').val(formattedPhoneNumber1);
+
                 }
             });
+
+
             // localStorage.removeItem('leadId');
         }
 
@@ -843,14 +890,14 @@ $(document).ready(function() {
 
 
         var input1 = document.querySelector("#phone-input1");
-        var iti1 = window.intlTelInput(input1, {
+        var iti = window.intlTelInput(input1, {
             separateDialCode: true,
         });
-        var indiaCountryCode = iti1.getSelectedCountryData().iso2;
-        var countryCode = iti1.getSelectedCountryData().dialCode;
-        $('#country-code1').val(countryCode);
-        if (indiaCountryCode !== 'us') {
-            iti1.setCountry('us');
+        var indiaCountryCode1 = iti.getSelectedCountryData().iso2;
+        var countryCode1 = iti.getSelectedCountryData().dialCode;
+        $('#country-code1').val(countryCode1);
+        if (indiaCountryCode1 !== 'us') {
+            iti.setCountry('us');
         }
 
         // $('#start_date, #end_date').change(function() {
@@ -998,15 +1045,6 @@ $(document).ready(function() {
                     $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
 
 
-                    const inputElement = data.primary_contact;
-                    inputElement.addEventListener('keydown', enforceFormat);
-                    inputElement.addEventListener('keyup', formatToPhone);
-                    const inputElement1 = data.secondary_contact.secondary_contact;
-                    inputElement1.addEventListener('keydown', enforceFormat);
-                    inputElement1.addEventListener('keyup', formatToPhone);
-
-
-
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);
@@ -1044,10 +1082,6 @@ $(document).ready(function() {
                             div.style.display = 'none';
                         }
                     });
-
-
-
-
 
                 }
             });
@@ -1106,6 +1140,5 @@ $(document).ready(function() {
         event.preventDefault();
     });
 </script>
-
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/meeting/create.blade.php ENDPATH**/ ?>

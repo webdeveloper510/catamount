@@ -213,6 +213,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                         <input type="tel" id="phone-input" name="primary_contact" class="phone-input form-control" placeholder="Enter Phone" maxlength="16" required>
 
 
+
+
                                                         <input type="hidden" name="countrycode" id="country-code">
                                                     </div>
                                                 </div>
@@ -713,6 +715,34 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 </script>
 
 <script>
+    function initializePhoneInput(inputSelector, countryCodeSelector) {
+        var input = document.querySelector(inputSelector);
+        var iti = window.intlTelInput(input, {
+            separateDialCode: true,
+        });
+        var updateCountryCode = function() {
+            var countryCode = iti.getSelectedCountryData().dialCode;
+            $(countryCodeSelector).val(countryCode);
+        };
+        updateCountryCode();
+
+        input.addEventListener('countrychange', updateCountryCode);
+        input.addEventListener('input', updateCountryCode);
+
+        var countryIso2 = iti.getSelectedCountryData().iso2;
+        if (countryIso2 !== 'us') {
+            iti.setCountry('us');
+        }
+
+        return iti;
+    }
+
+    function onAjaxSuccess() {
+        var iti1 = initializePhoneInput("#phone-input", "#country-code");
+        var iti2 = initializePhoneInput("#phone-input1", "#country-code1");
+    }
+
+
     $(document).ready(function() {
 
         var leadId = localStorage.getItem('leadId');
@@ -729,7 +759,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
 
                     // func_pack = json_decode(data.func_package);
@@ -744,9 +774,9 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     // Phone number formatting
                     // var phoneInput = $('input[name ="phone"]');
                     // phoneInput.val(data.phone);
-                    // // phoneInput.trigger('input');
-                    // // phoneInput.addEventListener('input', enforceFormat);
-                    // // phoneInput.addEventListener('input', formatToPhone); 
+                    // phoneInput.trigger('input');
+                    // phoneInput.addEventListener('input', enforceFormat);
+                    // phoneInput.addEventListener('input', formatToPhone); 
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="relationship"]').val(data.relationship);
                     $('input[name ="start_date"]').val(data.start_date);
@@ -797,8 +827,25 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                             targetInput.disabled = true;
                         }
                     });
+
+
+
+                    var phoneNumber = data.primary_contact;
+                    var num = phoneNumber.trim();
+                    var lastTenDigits = phoneNumber.substr(-10);
+                    var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
+                    $('#phone-input').val(formattedPhoneNumber);
+
+                    var phoneNumber1 = data.secondary_contact.secondary_contact;
+                    var num = phoneNumber1.trim();
+                    var lastTenDigits1 = phoneNumber1.substr(-10);
+                    var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' + lastTenDigits1.substr(6);
+                    $('#phone-input1').val(formattedPhoneNumber1);
+
                 }
             });
+
+
             // localStorage.removeItem('leadId');
         }
 
@@ -836,14 +883,14 @@ $(document).ready(function() {
 
 
         var input1 = document.querySelector("#phone-input1");
-        var iti1 = window.intlTelInput(input1, {
+        var iti = window.intlTelInput(input1, {
             separateDialCode: true,
         });
-        var indiaCountryCode = iti1.getSelectedCountryData().iso2;
-        var countryCode = iti1.getSelectedCountryData().dialCode;
-        $('#country-code1').val(countryCode);
-        if (indiaCountryCode !== 'us') {
-            iti1.setCountry('us');
+        var indiaCountryCode1 = iti.getSelectedCountryData().iso2;
+        var countryCode1 = iti.getSelectedCountryData().dialCode;
+        $('#country-code1').val(countryCode1);
+        if (indiaCountryCode1 !== 'us') {
+            iti.setCountry('us');
         }
 
         // $('#start_date, #end_date').change(function() {
@@ -1029,10 +1076,6 @@ $(document).ready(function() {
                         }
                     });
 
-
-
-
-
                 }
             });
         });
@@ -1090,5 +1133,4 @@ $(document).ready(function() {
         event.preventDefault();
     });
 </script>
-
 @endpush

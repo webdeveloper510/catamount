@@ -678,6 +678,9 @@ $user_data = json_decode($meeting->user_data,true);
     const inputElement = document.getElementById('phone-input');
     inputElement.addEventListener('keydown', enforceFormat);
     inputElement.addEventListener('keyup', formatToPhone);
+    const inputElement1 = document.getElementById('phone-input1');
+    inputElement1.addEventListener('keydown', enforceFormat);
+    inputElement1.addEventListener('keyup', formatToPhone);
 </script>
 <script>
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {

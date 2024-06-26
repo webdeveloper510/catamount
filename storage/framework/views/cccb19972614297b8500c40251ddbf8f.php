@@ -34,6 +34,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="sort" data-sort="name"><?php echo e(__('Name')); ?> <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Organization')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Email')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Phone')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Address')); ?> <span class="opticy"> dddd</span></th>
@@ -55,6 +56,7 @@
                                                     </a>
                                                     <?php endif; ?>
                                                 </td>
+                                                <td><?php echo e(ucfirst(@$customers->company->company_name)); ?></td>
                                                 <td><?php echo e(ucfirst(@$customers['email'])); ?></td>
                                                 <td><?php echo e(ucfirst(@$customers['phone'])); ?></td>
                                                 <td><?php echo e(ucfirst(@$customers['address'])); ?></td>

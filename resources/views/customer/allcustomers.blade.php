@@ -32,6 +32,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="sort" data-sort="name">{{__('Name')}} <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name">{{__('Organization')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Email')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort">{{__('Phone')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort">{{__('Address')}} <span class="opticy"> dddd</span></th>
@@ -55,6 +56,7 @@
                                                     </a>
                                                     @endif
                                                 </td>
+                                                <td>{{ucfirst(@$customers->company->company_name)}}</td>
                                                 <td>{{ucfirst(@$customers['email'])}}</td>
                                                 <td>{{ucfirst(@$customers['phone'])}}</td>
                                                 <td>{{ucfirst(@$customers['address'])}}</td>

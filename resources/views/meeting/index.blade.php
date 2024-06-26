@@ -105,7 +105,7 @@ $agreestatus= \App\Models\Meeting::$status;
                                                 </td>
 
                                                 <td>
-                                                    <span class="budget">{{ App\Models\User::where('id',$meeting->user_id)->pluck('name')->first() }}</span>
+                                                    <span class="budget">{{-- App\Models\User::where('id',$meeting->user_id)->pluck('name')->first() --}} {{$meeting->trainer_data}}</span>
                                                 </td>
                                                 @if (Gate::check('Show Training') || Gate::check('Edit Training') ||
                                                 Gate::check('Delete Training'))

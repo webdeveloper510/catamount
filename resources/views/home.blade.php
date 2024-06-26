@@ -179,11 +179,14 @@
                                     <div class="card-body">
                                         @foreach($events as $event)
                                         <?php
+
                                         $pay = App\Models\PaymentLogs::where('event_id', $event['id'])->get();
+                                        $billing = App\Models\Billing::where('event_id', $event['id'])->first();
                                         $total = 0;
                                         foreach ($pay as $p) {
                                             $total += $p->amount;
                                         }
+                                        $total = $total + $billing->deposits + $billing->paymentCredit;
                                         ?>
                                         <div class="card">
                                             <div class="card-body">
@@ -193,7 +196,7 @@
 
                                                 <div style="color: #a99595;">
                                                     Billing Amount: ${{ number_format($event['total'])}}<br>
-                                                    Pending Amount: ${{number_format($event['total']- $total)}}
+                                                    Pending Amount: ${{ number_format($event['total'] - $total)}}
                                                 </div>
 
                                                 <div class="date-y">

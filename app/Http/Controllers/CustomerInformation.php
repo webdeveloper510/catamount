@@ -68,7 +68,7 @@ class CustomerInformation extends Controller
                 $lead = Lead::where('email', $user)->exists();
                 $existinguser = UserImport::where('email', $user)->exists();
                 if ($lead) {
-                    $user =  Lead::where('email', $user)->pluck('phone');
+                    $user =  Lead::where('email', $user)->pluck('primary_contact');
                 }
                 if ($existinguser) {
                     $user =   UserImport::where('email', $user)->pluck('phone');
@@ -326,7 +326,10 @@ class CustomerInformation extends Controller
     {
         // $leadcust = Lead::distinct()->withTrashed()->get();
         // $eventcust = Meeting::distinct()->withTrashed()->get();
-        $allcustomers = MasterCustomer::orderBy('id', 'desc')->get();
+        $allcustomers = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customrer) {
+            $customrer->company = Lead::find($customrer->ref_id);
+            return $customrer;
+        });
         $importedcustomers = UserImport::distinct()->get();
 
         return view('customer.allcustomers', compact('allcustomers', 'importedcustomers'));

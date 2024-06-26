@@ -48,15 +48,15 @@ $settings = App\Models\Utility::settings();
                 </a>
                 @endif
                 @can('Manage User')
-                <a href="#user-settings" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse17')">
-                    <span class="fa-stack fa-lg pull-left"><i class="fa fa-user"></i></span>
-                    <span class="dash-mtext">{{ __('Staff') }}</span>
-                </a>
-                @endcan
-                @can('Manage User')
                 <a href="#proposal-settings" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse188')">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-user"></i></span>
                     <span class="dash-mtext">{{ __('Proposal') }}</span>
+                </a>
+                @endcan
+                @can('Manage User')
+                <a href="#user-settings" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse17')">
+                    <span class="fa-stack fa-lg pull-left"><i class="fa fa-user"></i></span>
+                    <span class="dash-mtext">{{ __('Staff') }}</span>
                 </a>
                 @endcan
                 @can('Manage Role')
@@ -66,7 +66,7 @@ $settings = App\Models\Utility::settings();
                 </a>
                 @endif
                 @if(Gate::check('Manage Lead') || Gate::check('Manage Training'))
-                <a href="#eventtype-settings" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse19')">
+                <a href="#eventsettings" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse19')">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-tasks"></i></span>
                     <span class="dash-mtext">{{ __('Trainings') }}</span>
                 </a>

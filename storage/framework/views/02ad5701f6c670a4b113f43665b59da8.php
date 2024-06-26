@@ -6,10 +6,10 @@ $bar_pck = json_decode($event['bar_package'], true);
 <table>
     <thead>
         <tr>
-            <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">Name : {{$event['name']}}</th>
+            <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">Name : <?php echo e($event['name']); ?></th>
             <th colspan="2" style="padding:5px 0px;margin-left :5px;font-size:13px"></th>
             <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">Date:<?php echo date("d/m/Y"); ?> </th>
-            <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">Event: {{$event['type']}}</th>
+            <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">Event: <?php echo e($event['type']); ?></th>
         </tr>
         <tr style="background-color:#063806;">
             <th style="color:#ffffff; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">Description</th>
@@ -24,9 +24,9 @@ $bar_pck = json_decode($event['bar_package'], true);
         <tr>
             <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Special Requests / Others</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{@$billing_data['additional_items']['cost']}}</td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{@$billing_data['additional_items']['quantity']}}</td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$total[] =@$billing_data['additional_items']['cost'] * @$billing_data['additional_items']['quantity']}}</td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(@$billing_data['additional_items']['cost']); ?></td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;"><?php echo e(@$billing_data['additional_items']['quantity']); ?></td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($total[] =@$billing_data['additional_items']['cost'] * @$billing_data['additional_items']['quantity']); ?></td>
             <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
 
         </tr>
@@ -41,21 +41,21 @@ $bar_pck = json_decode($event['bar_package'], true);
             <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Total</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{array_sum($total)}}</td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(array_sum($total)); ?></td>
             <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
         </tr>
         <tr>
             <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Sales, Occupancy Tax</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{ 7* array_sum($total)/100 }}</td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(7* array_sum($total)/100); ?></td>
             <td></td>
         </tr>
         <tr>
             <td style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">Service Charges & Gratuity</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{ 20 * array_sum($total)/100 }}</td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e(20 * array_sum($total)/100); ?></td>
 
             <td></td>
         </tr>
@@ -71,21 +71,21 @@ $bar_pck = json_decode($event['bar_package'], true);
             <td style="background-color:#ffff00; padding:5px 5px; margin-left:5px;font-size:13px;">Grand Total / Estimated Total</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">${{$grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100}}</td>
+            <td style="padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($grandtotal= array_sum($total) + 20* array_sum($total)/100 + 7* array_sum($total)/100); ?></td>
 
             <td></td>
         </tr>
         <tr>
             <td style="background-color:#d7e7d7; padding:5px 5px; margin-left:5px;font-size:13px;">Deposits on file</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-            <td colspan="2" style="background-color:#d7e7d7;padding:5px 5px; margin-left:5px;font-size:13px;">${{$deposit= $billing->deposits}}</td>
+            <td colspan="2" style="background-color:#d7e7d7;padding:5px 5px; margin-left:5px;font-size:13px;">$<?php echo e($deposit= $billing->deposits); ?></td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
         </tr>
         <tr>
             <td style="background-color:#ffff00;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">balance due</td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-            <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">${{$grandtotal - $deposit}}</td>
+            <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">$<?php echo e($grandtotal - $deposit); ?></td>
             <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
         </tr>
     </tbody>
-</table>
+</table><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/billing/estimateview.blade.php ENDPATH**/ ?>

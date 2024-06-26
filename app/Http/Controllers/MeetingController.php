@@ -47,7 +47,18 @@ class MeetingController extends Controller
     {
         if (\Auth::user()->can('Manage Training')) {
             if (\Auth::user()->type == 'owner') {
-                $meetings = Meeting::orderby('id', 'desc')->get();
+                $meetings = Meeting::orderby('id', 'desc')->get()->map(function ($meeting) {
+                    $user_data = json_decode($meeting->user_data);
+
+                    foreach ($user_data as $udKey => $udValue) {
+                        $trainerName = \App\Models\User::find($udKey)->name;
+                        // $user_datas[] = "{$trainerName} - &dollar;{$udValue->amount}";
+                        $user_datas[] = $trainerName;
+                    }
+                    $user_datas = implode(", ", $user_datas);
+                    $meeting->trainer_data = $user_datas;
+                    return $meeting;
+                });
                 $defualtView         = new UserDefualtView();
                 $defualtView->route  = \Request::route()->getName();
                 $defualtView->module = 'meeting';
@@ -69,8 +80,19 @@ class MeetingController extends Controller
                 $defualtView->view = 'list';
                 User::userDefualtView($defualtView);
             } else {
-                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
-                $defualtView         = new UserDefualtView();
+                $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get()->map(function ($meeting) {
+                    $user_data = json_decode($meeting->user_data);
+
+                    foreach ($user_data as $udKey => $udValue) {
+                        $trainerName = \App\Models\User::find($udKey)->name;
+                        // $user_datas[] = "{$trainerName} - &dollar;{$udValue->amount}";
+                        $user_datas[] = $trainerName;
+                    }
+                    $user_datas = implode(", ", $user_datas);
+                    $meeting->trainer_data = $user_datas;
+                    return $meeting;
+                });
+                $defualtView = new UserDefualtView();
                 $defualtView->route  = \Request::route()->getName();
                 $defualtView->module = 'meeting';
                 $defualtView->view   = 'list';
@@ -215,7 +237,7 @@ class MeetingController extends Controller
                 $filteredUsersKeys[] = $filteredUsersKey;
             }
 
-            $phone = preg_replace('/\D/', '', $request->input('phone'));
+            $phone = preg_replace('/\D/', '', $request->input('primary_contact'));
             $meeting = new Meeting();
             $meeting['user_id'] = isset($filteredUsersKeys) ? implode(',', $filteredUsersKeys) : [];
             $meeting['user_data'] = isset($filteredUsers) ? json_encode($filteredUsers) : [];
@@ -394,11 +416,11 @@ class MeetingController extends Controller
     {
         if (\Auth::user()->can('Show Training')) {
             $status = Meeting::$status;
-            $ids = explode(',', $meeting->user_id);
-            foreach ($ids as $id) {
-                $name[] = User::where('id', $id)->pluck('name')->first();
+            $idsData = json_decode($meeting->user_data);
+            foreach ($idsData as $idsKey => $idsValue) {
+                $name[] = User::where('id', $idsKey)->pluck('name')->first();
             }
-            $name = implode(',', $name);
+            $name = implode(', ', $name);
             return view('meeting.view', compact('meeting', 'status', 'name'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
@@ -555,7 +577,7 @@ class MeetingController extends Controller
             $package = json_encode($package);
             $additional = json_encode($additional);
             $bar_pack = json_encode($bar_pack);
-            $phone = preg_replace('/\D/', '', $request->input('phone'));
+            $phone = preg_replace('/\D/', '', $request->input('primary_contact'));
 
 
             $secondary_contact = json_encode($request->secondary_contact);
@@ -1139,7 +1161,7 @@ class MeetingController extends Controller
             $wedding_package = implode(',', $_REQUEST['wedding_package']);
         }
 
-        $phone = preg_replace('/\D/', '', $request->input('phone'));
+        $phone = preg_replace('/\D/', '', $request->input('primary_contact'));
         $data = $request->all();
         $package = [];
         $additional = [];

@@ -171,6 +171,7 @@
                         "_token": "{{ csrf_token() }}",
                     },
                     success: function(data) {
+                        show_toastr('Primary', 'Note added.', 'success');
                         location.reload();
                     }
                 });
