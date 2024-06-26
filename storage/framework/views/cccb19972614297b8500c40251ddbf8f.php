@@ -33,12 +33,12 @@
                                     <table class="table datatable" id="datatable">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Name')); ?> <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name"><?php echo e(__('Primary Contact')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="name"><?php echo e(__('Organization')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Email')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Phone')); ?> <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Address')); ?> <span class="opticy"> dddd</span></th>
-                                                <th scope="col" class="sort"><?php echo e(__('Category')); ?> <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort"><?php echo e(__('Training')); ?> <span class="opticy"> dddd</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>

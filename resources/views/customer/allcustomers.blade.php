@@ -31,12 +31,12 @@
                                     <table class="table datatable" id="datatable">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name">{{__('Name')}} <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="name">{{__('Primary Contact')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="name">{{__('Organization')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Email')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort">{{__('Phone')}} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort">{{__('Address')}} <span class="opticy"> dddd</span></th>
-                                                <th scope="col" class="sort">{{__('Category')}} <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort">{{__('Training')}} <span class="opticy"> dddd</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>

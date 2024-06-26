@@ -64,7 +64,9 @@
                                                 </td>
                                                 <td>
                                                     <?php if(\App\Models\Billing::where('event_id',$event->id)->exists()): ?>
-                                                    <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first() ?>
+                                                    <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
+                                                    echo "bill: {$bill}";
+                                                    ?>
                                                     <?php if($bill == 1): ?>
                                                     <span class=" text-info"><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
                                                     <?php elseif($bill == 2): ?>

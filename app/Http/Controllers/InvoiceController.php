@@ -39,9 +39,9 @@ class InvoiceController extends Controller
     {
         if (\Auth::user()->can('Manage Invoice')) {
             if (\Auth::user()->type == 'owner') {
-                $invoices = Invoice::with('accounts','assign_user')->where('created_by', \Auth::user()->creatorId())->get();
+                $invoices = Invoice::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->get();
             } else {
-                $invoices = Invoice::with('accounts','assign_user')->where('user_id', \Auth::user()->id)->get();
+                $invoices = Invoice::with('accounts', 'assign_user')->where('user_id', \Auth::user()->id)->get();
             }
             return view('invoice.index', compact('invoices'));
         } else {
@@ -108,33 +108,33 @@ class InvoiceController extends Controller
             // {
             //     return redirect()->back()->with('error', 'Please select valid tax');
             // }
-            $invoice                        = new Invoice();
-            $invoice['user_id']             = $request->user;
-            $invoice['invoice_id']          = $this->invoiceNumber();
-            $invoice['name']                = $request->name;
-            $invoice['salesorder']          = $request->salesorder;
-            $invoice['quote']               = $request->quote;
-            $invoice['opportunity']         = $request->opportunity;
-            $invoice['status']              = 0;
-            $invoice['account']             = $request->account;
-            $invoice['date_quoted']         = $request->date_quoted;
-            $invoice['quote_number']        = $request->quote_number;
-            $invoice['billing_address']     = $request->billing_address;
-            $invoice['billing_city']        = $request->billing_city;
-            $invoice['billing_state']       = $request->billing_state;
-            $invoice['billing_country']     = $request->billing_country;
-            $invoice['billing_postalcode']  = $request->billing_postalcode;
-            $invoice['shipping_address']    = $request->shipping_address;
-            $invoice['shipping_city']       = $request->shipping_city;
-            $invoice['shipping_state']      = $request->shipping_state;
-            $invoice['shipping_country']    = $request->shipping_country;
+            $invoice = new Invoice();
+            $invoice['user_id'] = $request->user;
+            $invoice['invoice_id'] = $this->invoiceNumber();
+            $invoice['name'] = $request->name;
+            $invoice['salesorder'] = $request->salesorder;
+            $invoice['quote'] = $request->quote;
+            $invoice['opportunity'] = $request->opportunity;
+            $invoice['status'] = 0;
+            $invoice['account'] = $request->account;
+            $invoice['date_quoted'] = $request->date_quoted;
+            $invoice['quote_number'] = $request->quote_number;
+            $invoice['billing_address'] = $request->billing_address;
+            $invoice['billing_city'] = $request->billing_city;
+            $invoice['billing_state'] = $request->billing_state;
+            $invoice['billing_country'] = $request->billing_country;
+            $invoice['billing_postalcode'] = $request->billing_postalcode;
+            $invoice['shipping_address'] = $request->shipping_address;
+            $invoice['shipping_city'] = $request->shipping_city;
+            $invoice['shipping_state'] = $request->shipping_state;
+            $invoice['shipping_country'] = $request->shipping_country;
             $invoice['shipping_postalcode'] = $request->shipping_postalcode;
-            $invoice['billing_contact']     = $request->billing_contact;
-            $invoice['shipping_contact']    = $request->shipping_contact;
-            // $invoice['tax']                 = implode(',', $request->tax);
-            $invoice['shipping_provider']   = $request->shipping_provider;
-            $invoice['description']         = $request->description;
-            $invoice['created_by']          = \Auth::user()->creatorId();
+            $invoice['billing_contact'] = $request->billing_contact;
+            $invoice['shipping_contact'] = $request->shipping_contact;
+            // $invoice['tax'] = implode(',', $request->tax);
+            $invoice['shipping_provider'] = $request->shipping_provider;
+            $invoice['description'] = $request->description;
+            $invoice['created_by'] = \Auth::user()->creatorId();
             $invoice->save();
 
             Stream::create(
@@ -209,11 +209,10 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        if(\Auth::check()){
+        if (\Auth::check()) {
             $user = \Auth::user();
-        }
-        else{
-            $user =Invoice::where('id',$invoice->created_by)->first();
+        } else {
+            $user = Invoice::where('id', $invoice->created_by)->first();
         }
         if (\Auth::user()->can('Show Invoice')) {
             $settings = Utility::settings();
@@ -274,7 +273,7 @@ class InvoiceController extends Controller
             $company_setting = Utility::settings();
             $invoicepayments = BankTransfer::where('created_by', $user->id)->get();
             $plan = Plan::find($user->plan);
-            return view('invoice.view', compact('invoice', 'company_setting','invoicepayments','plan','user'));
+            return view('invoice.view', compact('invoice', 'company_setting', 'invoicepayments', 'plan', 'user'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
         }
@@ -478,7 +477,6 @@ class InvoiceController extends Controller
         if ($invoice_getdue <= 0.0) {
             Invoice::change_status($invoice->id, 3);
         }
-
         return redirect()->back()->with('success', __('Item Successfully delete.'));
     }
 
@@ -497,15 +495,15 @@ class InvoiceController extends Controller
         if ($invoice->getTotal() == 0.0) {
             Invoice::change_status($invoice->id, 1);
         }
-        $invoiceitem                = new InvoiceItem();
-        $invoiceitem['invoice_id']  = $request->id;
-        $invoiceitem['item']        = $request->item;
-        $invoiceitem['quantity']    = $request->quantity;
-        $invoiceitem['price']       = $request->price;
-        $invoiceitem['discount']    = $request->discount;
-        $invoiceitem['tax']         = $request->tax;
+        $invoiceitem = new InvoiceItem();
+        $invoiceitem['invoice_id'] = $request->id;
+        $invoiceitem['item'] = $request->item;
+        $invoiceitem['quantity'] = $request->quantity;
+        $invoiceitem['price'] = $request->price;
+        $invoiceitem['discount'] = $request->discount;
+        $invoiceitem['tax'] = $request->tax;
         $invoiceitem['description'] = $request->description;
-        $invoiceitem['created_by']  = \Auth::user()->creatorId();
+        $invoiceitem['created_by'] = \Auth::user()->creatorId();
         $invoiceitem->save();
         $invoice = Invoice::find($id);
         $invoice_getdue = number_format((float)$invoice->getDue(), 2, '.', '');
@@ -514,7 +512,7 @@ class InvoiceController extends Controller
         }
         //webhook
         $module = 'New Invoice';
-        $webhook =  Utility::webhookSetting($module);
+        $webhook = Utility::webhookSetting($module);
         if ($webhook) {
             $parameter = json_encode($invoice);
             // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
@@ -539,15 +537,14 @@ class InvoiceController extends Controller
         );
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
-
             return redirect()->back()->with('error', $messages->first());
         }
-        $invoiceitem                = InvoiceItem::find($id);
-        $invoiceitem['item']        = $request->item;
-        $invoiceitem['quantity']    = $request->quantity;
-        $invoiceitem['price']       = $request->price;
-        $invoiceitem['discount']    = $request->discount;
-        $invoiceitem['tax']         = $request->tax;
+        $invoiceitem = InvoiceItem::find($id);
+        $invoiceitem['item'] = $request->item;
+        $invoiceitem['quantity'] = $request->quantity;
+        $invoiceitem['price'] = $request->price;
+        $invoiceitem['discount'] = $request->discount;
+        $invoiceitem['tax'] = $request->tax;
         $invoiceitem['description'] = $request->description;
         $invoiceitem->save();
 
@@ -560,28 +557,28 @@ class InvoiceController extends Controller
         $settings = Utility::settings();
         $invoice  = new Invoice();
 
-        $user               = new \stdClass();
+        $user = new \stdClass();
         $user->company_name = '<Company Name>';
-        $user->name         = '<Name>';
-        $user->email        = '<Email>';
-        $user->mobile       = '<Phone>';
-        $user->address      = '<Address>';
-        $user->country      = '<Country>';
-        $user->state        = '<State>';
-        $user->city         = '<City>';
+        $user->name = '<Name>';
+        $user->email = '<Email>';
+        $user->mobile = '<Phone>';
+        $user->address = '<Address>';
+        $user->country = '<Country>';
+        $user->state = '<State>';
+        $user->city = '<City>';
 
 
         $totalTaxPrice = 0;
-        $taxesData     = [];
+        $taxesData = [];
 
         $items = [];
         for ($i = 1; $i <= 3; $i++) {
-            $item           = new \stdClass();
-            $item->name     = 'Item ' . $i;
+            $item = new \stdClass();
+            $item->name = 'Item ' . $i;
             $item->quantity = 1;
-            $item->tax      = 5;
+            $item->tax = 5;
             $item->discount = 50;
-            $item->price    = 100;
+            $item->price = 100;
 
             $taxes = [
                 'Tax 1',
@@ -590,12 +587,12 @@ class InvoiceController extends Controller
 
             $itemTaxes = [];
             foreach ($taxes as $k => $tax) {
-                $taxPrice         = 10;
-                $totalTaxPrice    += $taxPrice;
-                $itemTax['name']  = 'Tax ' . $k;
-                $itemTax['rate']  = '10 %';
+                $taxPrice = 10;
+                $totalTaxPrice += $taxPrice;
+                $itemTax['name'] = 'Tax ' . $k;
+                $itemTax['rate'] = '10 %';
                 $itemTax['price'] = '$10';
-                $itemTaxes[]      = $itemTax;
+                $itemTaxes[] = $itemTax;
                 if (array_key_exists('Tax ' . $k, $taxesData)) {
                     $taxesData['Tax ' . $k] = $taxesData['Tax 1'] + $taxPrice;
                 } else {
@@ -603,19 +600,18 @@ class InvoiceController extends Controller
                 }
             }
             $item->itemTax = $itemTaxes;
-            $items[]       = $item;
+            $items[] = $item;
         }
 
         $invoice->invoice_id = 1;
         $invoice->issue_date = date('Y-m-d H:i:s');
-        $invoice->due_date   = date('Y-m-d H:i:s');
-        $invoice->items      = $items;
-
+        $invoice->due_date = date('Y-m-d H:i:s');
+        $invoice->items = $items;
         $invoice->totalTaxPrice = 60;
         $invoice->totalQuantity = 3;
-        $invoice->totalRate     = 300;
+        $invoice->totalRate = 300;
         $invoice->totalDiscount = 10;
-        $invoice->taxesData     = $taxesData;
+        $invoice->taxesData = $taxesData;
 
 
         $preview    = 1;
@@ -924,13 +920,11 @@ class InvoiceController extends Controller
             }
 
             $invoice = Invoice::where('id', $id)->first();
-            if(\Auth::check())
-            {
-                $usr=\Auth::user();
-            }
-            else{
+            if (\Auth::check()) {
+                $usr = \Auth::user();
+            } else {
 
-               $usr=User::where('id',$invoice->created_by)->get();
+                $usr = User::where('id', $invoice->created_by)->get();
             }
 
             if (!is_null($invoice)) {
@@ -1033,11 +1027,10 @@ class InvoiceController extends Controller
 
                         Utility::send_twilio_msg_withoutauth($users->phone, $uArr, $users);
                     }
-
                 }
-            $bankPayments  = BankTransfer::where('invoice_id', $invoice->id)->get();
+                $bankPayments  = BankTransfer::where('invoice_id', $invoice->id)->get();
 
-                return view('invoice.invoicepay', compact('invoice', 'company_setting', 'users', 'payment_setting', 'site_setting','bankPayments','plan'));
+                return view('invoice.invoicepay', compact('invoice', 'company_setting', 'users', 'payment_setting', 'site_setting', 'bankPayments', 'plan'));
             } else {
                 return abort('404', 'The Link You Followed Has Expired');
             }

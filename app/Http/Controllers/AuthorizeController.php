@@ -18,13 +18,15 @@ use App\Models\User;
 
 class AuthorizeController extends Controller
 {
-    public function pay($id) {
+    public function pay($id)
+    {
         $id = decrypt(urldecode($id));
-        $event = Meeting::where('id',$id)->first();
-        return view('payments.pay',compact('event'));
+        $event = Meeting::where('id', $id)->first();
+        return view('payments.pay', compact('event'));
     }
-    public function handleonlinepay(Request $request ,$id) {
-   
+    public function handleonlinepay(Request $request, $id)
+    {
+
         $id = decrypt(urldecode($id));
         $event = Meeting::find($id);
         $input = $request->all();
@@ -34,14 +36,14 @@ class AuthorizeController extends Controller
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName(env('MERCHANT_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(env('MERCHANT_TRANSACTION_KEY'));
-        
+
         // Set the transaction's refId
         $refId = 'ref' . time();
 
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($input['cardNumber']);
-        $creditCard->setExpirationDate($input['expiration-year'] .'-'. $input['expiration-month']);
+        $creditCard->setExpirationDate($input['expiration-year'] . '-' . $input['expiration-month']);
         $creditCard->setCardCode($input['cvv']);
 
         // Add the payment data to a paymentType object
@@ -106,14 +108,14 @@ class AuthorizeController extends Controller
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        
+
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
             if ($response->getMessages()->getResultCode() == "Ok") {
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
-            
+
 
                 if ($tresponse != null && $tresponse->getMessages() != null) {
                     // echo " Successfully created transaction with Transaction ID: " . $tresponse->getTransId() . "\n";
@@ -122,98 +124,90 @@ class AuthorizeController extends Controller
                     // echo " Auth Code: " . $tresponse->getAuthCode() . "\n";
                     // echo " Description: " . $tresponse->getMessages()[0]->getDescription() . "\n";
 
-                        $msg_type = 'success_msg';
-                        $message_text = $tresponse->getMessages()[0]->getDescription().' Transaction ID:'.$tresponse->getTransId();
-                         $newpayment = new PaymentLogs();
-                         $newpayment->event_id = $id;
-                         $newpayment->amount = $input['amount'];
-                         $newpayment->response_code = $tresponse->getResponseCode();
-                         $newpayment->transaction_id = $tresponse->getTransId();
-                         $newpayment->auth_id = $tresponse->getAuthCode();
-                         $newpayment->message_code =  $tresponse->getMessages()[0]->getCode();
-                         $newpayment->name_of_card =  $input['owner'];
-                         $newpayment->save();
+                    $msg_type = 'success_msg';
+                    $message_text = $tresponse->getMessages()[0]->getDescription() . ' Transaction ID:' . $tresponse->getTransId();
+                    $newpayment = new PaymentLogs();
+                    $newpayment->event_id = $id;
+                    $newpayment->amount = $input['amount'];
+                    $newpayment->response_code = $tresponse->getResponseCode();
+                    $newpayment->transaction_id = $tresponse->getTransId();
+                    $newpayment->auth_id = $tresponse->getAuthCode();
+                    $newpayment->message_code =  $tresponse->getMessages()[0]->getCode();
+                    $newpayment->name_of_card =  $input['owner'];
+                    $newpayment->save();
 
-                        // PaymentLogs::create([
-                        //     'amount' => $input['amount'],
-                        //     'response_code' =>  $tresponse->getResponseCode(),
-                        //     'transaction_id' =>  $tresponse->getTransId(),
-                        //     'auth_id' =>  $tresponse->getAuthCode(),
-                        //     'message_code' =>  $tresponse->getMessages()[0]->getCode(),
-                        //     'name_of_card' =>  $input['owner'],
-                        //     'event_id' =>$id
-                        // ]);
-                        // $paymentlog= PaymentLogs::where('event_id',$id)->get();
-                        
-                        // $payinformaton = PaymentLogs::latest()->first();
-                        $paymentinfo = PaymentInfo::where('event_id',$id)->orderby('id','desc')->first();
-                        // $paymentlog = PaymentLogs::where('event_id',$id)->orderby('id','desc')->first();
-                        $data=[
-                            'paymentinfo' =>$paymentinfo,
-                            'paymentlog'=>$newpayment
-                        ];
-                        $pdf = PDF::loadView('billing.mail.inv', $data);
-                        // return $pdf->stream('invoice.pdf');          
-                        try {
-                            $filename = 'invoice_' . time() . '.pdf'; // You can adjust the filename as needed
-                            $folder = 'Invoice/' . $id; 
-                            $path = Storage::disk('public')->put($folder . '/' . $filename, $pdf->output());
-                            $newpayment->update(['attachment' => $filename]);
-                         
-                        } catch (\Exception $e) {
-                            // Log the error for future reference
-                            \Log::error('File upload failed: ' . $e->getMessage());
-                            // Return an error response
-                            return response()->json([
-                                'is_success' => false,
-                                'message' => 'Failed to save PDF: ' . $e->getMessage(),
-                            ]);
+                    // PaymentLogs::create([
+                    //     'amount' => $input['amount'],
+                    //     'response_code' =>  $tresponse->getResponseCode(),
+                    //     'transaction_id' =>  $tresponse->getTransId(),
+                    //     'auth_id' =>  $tresponse->getAuthCode(),
+                    //     'message_code' =>  $tresponse->getMessages()[0]->getCode(),
+                    //     'name_of_card' =>  $input['owner'],
+                    //     'event_id' =>$id
+                    // ]);
+                    // $paymentlog= PaymentLogs::where('event_id',$id)->get();
+
+                    // $payinformaton = PaymentLogs::latest()->first();
+                    $paymentinfo = PaymentInfo::where('event_id', $id)->orderby('id', 'desc')->first();
+                    // $paymentlog = PaymentLogs::where('event_id',$id)->orderby('id','desc')->first();
+                    $data = [
+                        'paymentinfo' => $paymentinfo,
+                        'paymentlog' => $newpayment
+                    ];
+                    $pdf = PDF::loadView('billing.mail.inv', $data);
+                    // return $pdf->stream('invoice.pdf');          
+                    try {
+                        $filename = 'invoice_' . time() . '.pdf'; // You can adjust the filename as needed
+                        $folder = 'Invoice/' . $id;
+                        $path = Storage::disk('public')->put($folder . '/' . $filename, $pdf->output());
+                        $newpayment->update(['attachment' => $filename]);
+                    } catch (\Exception $e) {
+                        \Log::error('File upload failed: ' . $e->getMessage());
+                        return response()->json([
+                            'is_success' => false,
+                            'message' => 'Failed to save PDF: ' . $e->getMessage(),
+                        ]);
+                    }
+                    try {
+                        config(
+                            [
+                                'mail.driver' => $settings['mail_driver'],
+                                'mail.host' => $settings['mail_host'],
+                                'mail.port' => $settings['mail_port'],
+                                'mail.username' => $settings['mail_username'],
+                                'mail.password' => $settings['mail_password'],
+                                'mail.from.address' => $settings['mail_from_address'],
+                                'mail.from.name' => $settings['mail_from_name'],
+                            ]
+                        );
+                        $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
+                        foreach ($users as  $user) {
+                            Mail::to($event->email)->cc($user->email)->send(new InvoicePaymentMail($newpayment));
                         }
-                        try {
-                            config(
-                                [
-                                    'mail.driver'       => $settings['mail_driver'],
-                                    'mail.host'         => $settings['mail_host'],
-                                    'mail.port'         => $settings['mail_port'],
-                                    'mail.username'     => $settings['mail_username'],
-                                    'mail.password'     => $settings['mail_password'],
-                                    'mail.from.address' => $settings['mail_from_address'],
-                                    'mail.from.name'    => $settings['mail_from_name'],
-                                ]
-                            );
-                            $users = User::where('type','owner')->orwhere('type','Admin')->get();
-                            foreach ($users as  $user) {
-                                Mail::to($event->email)->cc($user->email)->send(new InvoicePaymentMail($newpayment));
-                            }
-                            
-                            $payinfo = PaymentInfo::where('event_id',$id)->first();
-                            $halfpay = $payinfo->amount/2;
-                            $amountpaid = 0 ;
-                            $payment = PaymentLogs::where('event_id',$id)->get();
-                            foreach($payment as $pay){
-                                $amountpaid += $pay->amount;
-                            }
-                            $amountlefttobepaid = $payinfo->amount - $amountpaid;
-                            if($amountlefttobepaid == 0 || $amountlefttobepaid <= 0){
-                                Billing::where('event_id',$id)->update(['status' => 4]);
-                            }elseif($amountlefttobepaid ==  $halfpay || $amountlefttobepaid >=  $halfpay){
-                                Billing::where('event_id',$id)->update(['status' => 3]);
-                            }elseif($amountlefttobepaid <= $halfpay  ){
-                                Billing::where('event_id',$id)->update(['status' => 2]);
-                            }
-                            $data =  Billing::where('event_id',$id)->get();
-                            // Billing::where('event_id',$id)->update(['status' => 4]);
-                        
-                            return view('calendar.welcome')->with('success',$message_text);
-                        } catch (\Exception $e) {
-                            //   return response()->json(
-                            //             [
-                            //                 'is_success' => false,
-                            //                 'message' => $e->getMessage(),
-                            //             ]
-                            //         );
-                            return redirect()->back()->with('success', 'Email Not Sent');
+
+                        $payinfo = PaymentInfo::where('event_id', $id)->first();
+                        $halfpay = $payinfo->amount / 2;
+                        $amountpaid = 0;
+                        $payment = PaymentLogs::where('event_id', $id)->get();
+                        foreach ($payment as $pay) {
+                            $amountpaid += $pay->amount;
                         }
+                        $amountlefttobepaid = $payinfo->amount - $amountpaid;
+                        if ($amountlefttobepaid == 0 || $amountlefttobepaid <= 0) {
+                            Billing::where('event_id', $id)->update(['status' => 4]);
+                        } elseif ($amountlefttobepaid ==  $halfpay || $amountlefttobepaid >=  $halfpay) {
+                            Billing::where('event_id', $id)->update(['status' => 3]);
+                        } elseif ($amountlefttobepaid <= $halfpay) {
+                            Billing::where('event_id', $id)->update(['status' => 2]);
+                        }
+                        $data =  Billing::where('event_id', $id)->get();
+                        // Billing::where('event_id',$id)->update(['status' => 4]);
+
+                        return view('calendar.welcome')->with('success', $message_text);
+                    } catch (\Exception $e) {
+                        //   return response()->json(['is_success' => false,'message' => $e->getMessage(),]);
+                        return redirect()->back()->with('success', 'Email Not Sent');
+                    }
                 } else {
                     echo "Transaction Failed \n";
                     if ($tresponse->getErrors() != null) {

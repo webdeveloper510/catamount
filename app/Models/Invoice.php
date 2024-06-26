@@ -113,8 +113,7 @@ class Invoice extends Model
     public function getSubTotal()
     {
         $subTotal = 0;
-        foreach($this->itemsdata as $product)
-        {
+        foreach ($this->itemsdata as $product) {
             $subTotal += ($product->price * $product->quantity);
         }
 
@@ -124,8 +123,7 @@ class Invoice extends Model
     public function getTotalTax()
     {
         $totalTax = 0;
-        foreach($this->itemsdata as $product)
-        {
+        foreach ($this->itemsdata as $product) {
             $taxes = Utility::totalTaxRate($product->tax);
 
             $totalTax += ($taxes / 100) * ($product->price * $product->quantity);
@@ -137,8 +135,7 @@ class Invoice extends Model
     public function getTotalDiscount()
     {
         $totalDiscount = 0;
-        foreach($this->itemsdata as $product)
-        {
+        foreach ($this->itemsdata as $product) {
             $totalDiscount += $product->discount;
         }
 
@@ -195,8 +192,7 @@ class Invoice extends Model
     public function getDue()
     {
         $due = 0;
-        foreach($this->payments as $payment)
-        {
+        foreach ($this->payments as $payment) {
             $due += $payment->amount;
         }
 
@@ -211,43 +207,39 @@ class Invoice extends Model
     public static function change_status($invoice_id, $status)
     {
 
-        $invoice         = Invoice::find($invoice_id);
+        $invoice = Invoice::find($invoice_id);
         $invoice->status = $status;
         $invoice->update();
     }
 
-   public static function Users($user_id)
+    public static function Users($user_id)
     {
 
 
-            $users = User::find($user_id);
+        $users = User::find($user_id);
 
-            $username=$users->name;
+        $username = $users->name;
 
-            return $username;
-
-
+        return $username;
     }
 
-     public static function quote($quote)
+    public static function quote($quote)
     {
 
 
         $quoteArr = explode(',', $quote);
 
         $quote = 0;
-        foreach($quoteArr as $quote)
-        {
+        foreach ($quoteArr as $quote) {
 
             $quotes = Quote::find($quote);
 
 
-            $quotename=$quotes->name;
+            $quotename = $quotes->name;
         }
 
 
         return $quotename;
-
     }
 
     public static function salesorder($salesorder)
@@ -257,112 +249,95 @@ class Invoice extends Model
         $salesorderArr = explode(',', $salesorder);
 
         $SalesOrder = 0;
-        foreach($salesorderArr as $salesorder)
-        {
+        foreach ($salesorderArr as $salesorder) {
 
             $salesorders = SalesOrder::find($salesorder);
 
 
-            $salesordername=$salesorders->name;
+            $salesordername = $salesorders->name;
         }
 
 
         return $salesordername;
-
     }
 
-     public static function account($account)
+    public static function account($account)
     {
-       $accountArr = explode(',', $account);
+        $accountArr = explode(',', $account);
 
         $account = 0;
-        foreach($accountArr as $account)
-        {
+        foreach ($accountArr as $account) {
             $accounts = Opportunities::find($account);
 
-            $accountname=$accounts->name;
+            $accountname = $accounts->name;
         }
 
 
         return $accountname;
-
-
     }
 
     public static function contact($contact)
     {
-       $contactArr = explode(',', $contact);
+        $contactArr = explode(',', $contact);
 
         $contact = 0;
-        foreach($contactArr as $contact)
-        {
+        foreach ($contactArr as $contact) {
             $contacts = Contact::find($contact);
 
 
-            $contactname=$contacts->name;
+            $contactname = $contacts->name;
         }
 
 
         return $contactname;
-
-
     }
 
-     public static function opportunity($opportunity)
+    public static function opportunity($opportunity)
     {
 
         $opportunityArr = explode(',', $opportunity);
 
         $opportunity = 0;
-        foreach($opportunityArr as $opportunity)
-        {
+        foreach ($opportunityArr as $opportunity) {
             $opportunitys = Opportunities::find($opportunity);
 
-            $opportunityname=$opportunitys->name;
+            $opportunityname = $opportunitys->name;
         }
 
 
         return $opportunityname;
-
     }
 
     public static function Tax($tax)
     {
 
-       $taxArr = explode(',', $tax);
+        $taxArr = explode(',', $tax);
 
         $tax = 0;
-        foreach($taxArr as $tax)
-        {
+        foreach ($taxArr as $tax) {
             $taxs = ProductTax::find($tax);
-            $taxname=$taxs->tax_name ?? 0;
-         }
+            $taxname = $taxs->tax_name ?? 0;
+        }
 
 
         return $taxname;
-
-
     }
 
     public static function shippingprovider($shippingprovider)
     {
 
-       $shippingproviderArr = explode(',', $shippingprovider);
+        $shippingproviderArr = explode(',', $shippingprovider);
 
         $shippingprovider = 0;
-        foreach($shippingproviderArr as $shippingprovider)
-        {
+        foreach ($shippingproviderArr as $shippingprovider) {
             $shippingproviders = ShippingProvider::find($shippingprovider);
 
 
 
-            $shippingprovidername=$shippingproviders->name;
+            $shippingprovidername = $shippingproviders->name;
         }
 
 
         return $shippingprovidername;
-
-
     }
-
 }
