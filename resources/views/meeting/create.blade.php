@@ -836,7 +836,6 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
                     $('#phone-input').val(formattedPhoneNumber);
 
-                    console.log('test');
                     var phoneNumber1 = secondary_contact.secondary_contact;
                     var num = phoneNumber1.trim();
                     var lastTenDigits1 = phoneNumber1.substr(-10);
