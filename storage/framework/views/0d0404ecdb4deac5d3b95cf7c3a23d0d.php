@@ -65,11 +65,26 @@
                                                 <td>
                                                     <?php if(\App\Models\Billing::where('event_id',$event->id)->exists()): ?>
                                                     <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
-                                                    echo "bill: {$bill}";
+
+                                                    $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+                                                    $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
+                                                    $total = 0;
+                                                    foreach ($pay as $p) {
+                                                        $total += $p->amount;
+                                                    }
+                                                    $totalALL = '$' . $total + @$deposit->deposits + @$deposit->paymentCredit;
+
+                                                    if ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
+                                                        $bill = 4;
+                                                    } else {
+                                                        $bill = 3;
+                                                    }
                                                     ?>
                                                     <?php if($bill == 1): ?>
                                                     <span class=" text-info"><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
                                                     <?php elseif($bill == 2): ?>
+                                                    <span class=" text-warning "><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
+                                                    <?php elseif($bill == 3): ?>
                                                     <span class=" text-warning "><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
                                                     <?php else: ?>
                                                     <span class=" text-success"><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
@@ -81,21 +96,7 @@
                                                 <td><?php echo e(($event->total != 0)? '$'. number_format($event->total):'--'); ?>
 
                                                 </td>
-                                                <td>
-                                                    <?php
-
-                                                    $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
-                                                    $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
-                                                    $total = 0;
-                                                    foreach ($pay as $p) {
-                                                        $total += $p->amount;
-                                                    }
-                                                    $totalALL = '$' . $total + @$deposit->deposits + @$deposit->paymentCredit;
-                                                    ?>
-                                                    <?php echo e($totalALL); ?>
-
-
-                                                </td>
+                                                <td><?php echo e($totalALL); ?></td>
                                                 <td class="text-end">
                                                     <!-- <div class="action-btn bg-primary ms-2">
                                                         <a href="<?php echo e(route('billing.invoicepdf',$event->id)); ?>" data-size="md"

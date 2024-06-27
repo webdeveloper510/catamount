@@ -63,22 +63,6 @@
                                                 <td>
                                                     @if(\App\Models\Billing::where('event_id',$event->id)->exists())
                                                     <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
-                                                    ?>
-                                                    @if($bill == 1)
-                                                    <span class=" text-info">{{__(\App\Models\Billing::$status[$bill]) }}</span>
-                                                    @elseif($bill == 2)
-                                                    <span class=" text-warning ">{{__(\App\Models\Billing::$status[$bill]) }}</span>
-                                                    @else($bill == 3)
-                                                    <span class=" text-success">{{__(\App\Models\Billing::$status[$bill]) }}</span>
-                                                    @endif
-                                                    @else
-                                                    <span class=" text-danger ">{{__(\App\Models\Billing::$status[0]) }}</span>
-                                                    @endif
-                                                </td>
-                                                <td>{{($event->total != 0)? '$'. number_format($event->total):'--'}}
-                                                </td>
-                                                <td>
-                                                    <?php
 
                                                     $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
                                                     $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
@@ -87,10 +71,29 @@
                                                         $total += $p->amount;
                                                     }
                                                     $totalALL = '$' . $total + @$deposit->deposits + @$deposit->paymentCredit;
-                                                    ?>
-                                                    {{ $totalALL}}
 
+                                                    if ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
+                                                        $bill = 4;
+                                                    } else {
+                                                        $bill = 3;
+                                                    }
+                                                    ?>
+                                                    @if($bill == 1)
+                                                    <span class=" text-info">{{__(\App\Models\Billing::$status[$bill]) }}</span>
+                                                    @elseif($bill == 2)
+                                                    <span class=" text-warning ">{{__(\App\Models\Billing::$status[$bill]) }}</span>
+                                                    @elseif($bill == 3)
+                                                    <span class=" text-warning ">{{__(\App\Models\Billing::$status[$bill]) }}</span>
+                                                    @else($bill == 4)
+                                                    <span class=" text-success">{{__(\App\Models\Billing::$status[$bill]) }}</span>
+                                                    @endif
+                                                    @else
+                                                    <span class=" text-danger ">{{__(\App\Models\Billing::$status[0]) }}</span>
+                                                    @endif
                                                 </td>
+                                                <td>{{($event->total != 0)? '$'. number_format($event->total):'--'}}
+                                                </td>
+                                                <td>{{ $totalALL}}</td>
                                                 <td class="text-end">
                                                     <!-- <div class="action-btn bg-primary ms-2">
                                                         <a href="{{route('billing.invoicepdf',$event->id)}}" data-size="md"
