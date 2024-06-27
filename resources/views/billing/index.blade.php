@@ -63,7 +63,6 @@
                                                 <td>
                                                     @if(\App\Models\Billing::where('event_id',$event->id)->exists())
                                                     <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
-                                                    echo "bill: {$bill}";
                                                     ?>
                                                     @if($bill == 1)
                                                     <span class=" text-info">{{__(\App\Models\Billing::$status[$bill]) }}</span>
