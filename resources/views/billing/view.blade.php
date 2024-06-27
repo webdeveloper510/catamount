@@ -67,9 +67,16 @@ foreach ($pay as $p) {
             <dd class="col-md-6 need_half"><span class="">
                     @if($billing->status == 0)
                     <span class="badge bg-info p-2 px-3 rounded">{{__(\App\Models\Billing::$status[$billing->status]) }}</span>
-                    @elseif($billing->status == 1)
+                    @elseif($billing->status == 1 || $billing->status == 3)
                     <span class="badge bg-warning p-2 px-3 rounded">{{__(\App\Models\Billing::$status[$billing->status]) }}</span>
-                    @else($billing->status == 2)
+                    @else
+                    <?php
+                    if ($event->total - $total != 0) {
+                        $billing->status = 3;
+                    } else {
+                        $billing->status = 4;
+                    }
+                    ?>
                     <span class="badge bg-success p-2 px-3 rounded">{{__(\App\Models\Billing::$status[$billing->status]) }}</span>
                     @endif
             </dd>
