@@ -116,7 +116,7 @@ $proposalUrl = route('lead.signedproposal',urlencode(encrypt($lead->id)));
         <p>{{ $content }}</p>
 
         <p>Click the link below to see the Lead details/proposal with estimated billing:</p>
-        <p><a href="{{ $proposalUrl }}?prop={{$propid}}">{{ Review Proposal }}</a></p>
+        <p><a href="{{ $proposalUrl }}?prop={{ $propid }}">Review Proposal</a></p>
 
         <p>Thank you for your time and collaboration.</p>
         <p><strong>With regards,</strong></p>

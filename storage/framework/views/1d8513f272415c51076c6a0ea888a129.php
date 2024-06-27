@@ -255,6 +255,23 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                 <hr>
                                 <div class=" mt-4">
                                     <?php $__currentLoopData = $leads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lKey => $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php
+                                    $trainers = \App\Models\Meeting::where('attendees_lead', $lead->id)->first();
+
+                                    if ($trainers) {
+                                    $trainer_user_data = json_decode($trainers->user_data, true);
+                                    if (isset($trainer_user_data) && !empty($trainer_user_data)) {
+                                    $tName = [];
+                                    foreach ($trainer_user_data as $key => $value) {
+                                    $tName[] = \App\Models\User::find($key)->name;
+                                    }
+                                    $trainerName = implode(', ', $tName);
+                                    } else {
+                                    $trainerName = \App\Models\User::find($lead->attendees_lead)->name;
+                                    }
+
+                                    }
+                                    ?>
 
                                     <h4> <?php echo e(ucfirst($lead->name)); ?></h4>
                                     <hr>
@@ -265,17 +282,12 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->venue_selection ??'--'); ?></span></dd>
                                         
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Assigned User')); ?></span></dt>
-                                        <dd class="col-md-6 need_half"><span class=""><?php if($lead->assigned_user != 0): ?>
-                                                <?php echo e(App\Models\User::where('id', $lead->assigned_user)->first()->name); ?>
-
-                                                <?php else: ?>
-                                                --
-                                                <?php endif; ?></span>
+                                        <dd class="col-md-6 need_half"><span class=""><?php echo e($trainerName); ?></span>
                                         </dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Description')); ?></span></dt>
                                         <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->description ??' --'); ?></span></dd>
-                                        <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Bar')); ?></span></dt> -->
-                                        <!-- <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->bar ?? '--'); ?></span></dd> -->
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Training')); ?></span></dt>
+                                        <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->type ??' --'); ?></span></dd>
                                         
                                         <?php
                                         @$imgPath = App\Models\Proposal::where('lead_id', $lead->id)->orderBy('created_at','desc')->first();
@@ -287,22 +299,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="<?php echo e(asset('upload/' . @$imgPathss[1])); ?>" alt="" srcset=""></span></dd>
                                         <?php endif; ?>
                                     </dl>
-                                    <?php
-                                    @$trainerName = \App\Models\User::where('id',$filteredMeetingsNew[$lKey]['user_id'])->first();
-                                    ?>
-                                    <?php if($trainerName): ?>
-                                    <h4>Training Detail</h4>
-                                    <hr>
-                                    <dl class="row">
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Trainer name')); ?></span>
-                                        </dt>
-                                        <dd class="col-md-6 need_half"><span class="">
-
-                                                <h6><?php echo e(@$trainerName->name ?? ''); ?></h6>
-                                            </span>
-                                        </dd>
-                                    </dl>
-                                    <?php endif; ?>
+                                    
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>

@@ -288,7 +288,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                 <tr>
                     <td class="borderN" colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Payments/Credits</td>
-                    <td style="border-left: none;">-$1,650.00</td>
+                    <td style="border-left: none;">$1,650.00</td>
                 </tr>
                 <tr>
                     <td class="borderN" colspan="2"></td>

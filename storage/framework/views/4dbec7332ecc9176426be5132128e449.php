@@ -177,7 +177,7 @@
                         "_token": "<?php echo e(csrf_token()); ?>",
                     },
                     success: function(data) {
-                        show_toastr('Primary', 'Select Food Package for selected Function', 'success');
+                        show_toastr('Primary', 'Note added.', 'success');
                         location.reload();
                     }
                 });

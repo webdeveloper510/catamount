@@ -68,8 +68,12 @@ class DashboardController extends Controller
                 foreach ($revenue as $key => $value) {
                     $events_revenue += $value->total;
                 }
-                $paymentlogs = PaymentLogs::all();
                 $events_revenue_generated = 0;
+                $paymentlogs = PaymentLogs::all();
+                $billing = Billing::all();
+                foreach ($billing as $key => $value) {
+                    $events_revenue_generated += $value->deposits + $value->paymentCredit;
+                }
                 foreach ($paymentlogs as $key => $value) {
                     $events_revenue_generated += $value->amount;
                 }
@@ -376,7 +380,7 @@ class DashboardController extends Controller
     }
     public function completedevents()
     {
-        $date = today()->format('Y-m-d'); 
+        $date = today()->format('Y-m-d');
         $meetings = Meeting::where('start_date', '<', $date)->get();
         return view('meeting.index', compact('meetings'));
     }

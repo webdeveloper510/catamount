@@ -351,22 +351,17 @@ class LeadController extends Controller
                     $package[$newKey] = $values;
                 }
                 if (strpos($key, 'additional_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = strtolower(str_replace('additional_', '', $key));
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($additional[$newKey])) {
                         $additional[$newKey] = [];
                     }
                     $additional[$newKey] = $values;
                 }
                 if (strpos($key, 'bar_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = ucfirst(strtolower(str_replace('bar_', '', $key)));
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($bar_pack[$newKey])) {
                         $bar_pack[$newKey] = [];
                     }
-                    // Assign the values to the new key in the output array
                     $bar_pack[$newKey] = $values;
                 }
             }

@@ -149,15 +149,15 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Name')); ?></span></dt>
                     <dd class="col-md-10">
-                        <input type="text" name="pdf[from][name]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->name ? $proposalDataArg->from->name : $users->name); ?>">
+                        <input type="text" name="pdf[from][name]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->name ?? $users->name); ?>">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Title')); ?></span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->title); ?>">
+                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->designation ?? $users->title); ?>">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Date')); ?></span></dt>
                     <dd class="col-md-4">
-                        <input type="date" name="pdf[from][date]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->date ? $proposalDataArg->from->date : date('Y-m-d')); ?>">
+                        <input type="date" name="pdf[from][date]" class="form-control" id="client" value="<?php echo e(@$proposalDataArg->from->date ?? date('Y-m-d')); ?>">
                     </dd>
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0"><?php echo e(__('Name')); ?></span></dt>

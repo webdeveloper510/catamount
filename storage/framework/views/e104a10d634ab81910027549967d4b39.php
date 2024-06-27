@@ -117,7 +117,7 @@ $proposalUrl = route('lead.signedproposal',urlencode(encrypt($lead->id)));
         <p><?php echo e($content); ?></p>
 
         <p>Click the link below to see the Lead details/proposal with estimated billing:</p>
-        <p><a href="<?php echo e($proposalUrl); ?>?prop=<?php echo e($propid); ?>"><?php echo e($proposalUrl); ?></a></p>
+        <p><a href="<?php echo e($proposalUrl); ?>?prop=<?php echo e($propid); ?>">Review Proposal</a></p>
 
         <p>Thank you for your time and collaboration.</p>
         <p><strong>With regards,</strong></p>

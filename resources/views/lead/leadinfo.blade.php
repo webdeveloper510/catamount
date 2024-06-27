@@ -239,6 +239,23 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                 <hr>
                                 <div class=" mt-4">
                                     @foreach($leads as $lKey => $lead)
+                                    @php
+                                    $trainers = \App\Models\Meeting::where('attendees_lead', $lead->id)->first();
+
+                                    if ($trainers) {
+                                    $trainer_user_data = json_decode($trainers->user_data, true);
+                                    if (isset($trainer_user_data) && !empty($trainer_user_data)) {
+                                    $tName = [];
+                                    foreach ($trainer_user_data as $key => $value) {
+                                    $tName[] = \App\Models\User::find($key)->name;
+                                    }
+                                    $trainerName = implode(', ', $tName);
+                                    } else {
+                                    $trainerName = \App\Models\User::find($lead->attendees_lead)->name;
+                                    }
+
+                                    }
+                                    @endphp
 
                                     <h4> {{ucfirst($lead->name)}}</h4>
                                     <hr>
@@ -250,16 +267,12 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Function')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{$lead->function ?? '--'}}</span></dd>--}}
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Assigned User')}}</span></dt>
-                                        <dd class="col-md-6 need_half"><span class="">@if($lead->assigned_user != 0)
-                                                {{ App\Models\User::where('id', $lead->assigned_user)->first()->name }}
-                                                @else
-                                                --
-                                                @endif</span>
+                                        <dd class="col-md-6 need_half"><span class="">{{ $trainerName }}</span>
                                         </dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Description')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->description ??' --' }}</span></dd>
-                                        <!-- <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Bar')}}</span></dt> -->
-                                        <!-- <dd class="col-md-6 need_half"><span class="">{{ $lead->bar ?? '--' }}</span></dd> -->
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training')}}</span></dt>
+                                        <dd class="col-md-6 need_half"><span class="">{{ $lead->type ??' --' }}</span></dd>
                                         {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">
                                                 <?php $package = json_decode($lead->func_package, true);
@@ -308,7 +321,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="{{ asset('upload/' . @$imgPathss[1]) }}" alt="" srcset=""></span></dd>
                                         @endif
                                     </dl>
-                                    @php
+                                    {{--@php
                                     @$trainerName = \App\Models\User::where('id',$filteredMeetingsNew[$lKey]['user_id'])->first();
                                     @endphp
                                     @if($trainerName)
@@ -316,14 +329,14 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                     <hr>
                                     <dl class="row">
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Trainer name')}}</span>
-                                        </dt>
-                                        <dd class="col-md-6 need_half"><span class="">
+                                    </dt>
+                                    <dd class="col-md-6 need_half"><span class="">
 
-                                                <h6>{{@$trainerName->name ?? ''}}</h6>
-                                            </span>
-                                        </dd>
+                                            <h6>{{@$trainerName->name ?? ''}}</h6>
+                                        </span>
+                                    </dd>
                                     </dl>
-                                    @endif
+                                    @endif--}}
                                     @endforeach
                                 </div>
                             </div>

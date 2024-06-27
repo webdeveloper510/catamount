@@ -256,7 +256,7 @@ $venue = explode(',', $settings['venue']);
                                         <div class="ms-3">`;
                                 html += `<h6 class="m-0">${element.eventname} (${element.company_name})</h6>
                                         <small class="text-muted">${start_date}, ${start_time} - ${end_time}</small><br>
-                                        <p class="text-muted">${element.calenderData}</p>
+                                        <small class="text-muted">${element.calenderData}</small>
                                         </div>
                                     </div>
                                 </div>

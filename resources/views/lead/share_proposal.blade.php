@@ -148,15 +148,15 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Name')}}</span></dt>
                     <dd class="col-md-10">
-                        <input type="text" name="pdf[from][name]" class="form-control" id="client" value="{{ @$proposalDataArg->from->name ? $proposalDataArg->from->name : $users->name }}">
+                        <input type="text" name="pdf[from][name]" class="form-control" id="client" value="{{ @$proposalDataArg->from->name ?? $users->name }}">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Title')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="{{ @$proposalDataArg->from->designation ? $proposalDataArg->from->designation : $users->title }}">
+                        <input type="text" name="pdf[from][designation]" class="form-control" id="client" value="{{ @$proposalDataArg->from->designation ?? $users->title }}">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="date" name="pdf[from][date]" class="form-control" id="client" value="{{ @$proposalDataArg->from->date ? $proposalDataArg->from->date : date('Y-m-d') }}">
+                        <input type="date" name="pdf[from][date]" class="form-control" id="client" value="{{ @$proposalDataArg->from->date ?? date('Y-m-d') }}">
                     </dd>
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Name')}}</span></dt>

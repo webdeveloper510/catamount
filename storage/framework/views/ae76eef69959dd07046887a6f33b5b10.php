@@ -79,7 +79,7 @@ foreach ($pay as $p) {
     <div class="w-100 text-end pr-2">
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Payment')): ?>
         <div class="action-btn bg-warning ms-2">
-            <a href="<?php echo e(route('billing.estimateview',urlencode(encrypt($event->id)))); ?>">
+            <a href="<?php echo e(route('meeting.agreement',urlencode(encrypt($event->id)))); ?>">
                 <button data-bs-toggle="tooltip" title="<?php echo e(__('View Invoice')); ?>" class="btn btn-sm btn-secondary btn-icon m-1">
                     <i class="fa fa-print"></i></button>
             </a>

@@ -575,12 +575,12 @@ $user_data = json_decode($meeting->user_data,true);
         $('#phone-input').val(formattedPhoneNumber);
 
 
-        var phoneNumber1 = "<?php echo $meeting->phone; ?>";
+        var phoneNumber1 = "<?php echo @$secondary_contact['secondary_contact'] ?>";
         var num = phoneNumber1.trim();
         var lastTenDigits1 = phoneNumber1.substr(-10);
         var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' +
             lastTenDigits1.substr(6);
-        $('#phone-input2').val(formattedPhoneNumber1);
+        $('#phone-input1').val(formattedPhoneNumber1);
     })
 </script>
 <script>
@@ -598,15 +598,15 @@ $user_data = json_decode($meeting->user_data,true);
         }
 
         var input1 = document.querySelector("#phone-input1");
-        var iti1 = window.intlTelInput(input1, {
+        var iti = window.intlTelInput(input1, {
             separateDialCode: true,
         });
 
-        var indiaCountryCode1 = iti1.getSelectedCountryData().iso2;
-        var countryCode1 = iti1.getSelectedCountryData().dialCode;
+        var indiaCountryCode1 = iti.getSelectedCountryData().iso2;
+        var countryCode1 = iti.getSelectedCountryData().dialCode;
         $('#country-code1').val(countryCode1);
         if (indiaCountryCode1 !== 'us') {
-            iti1.setCountry('us');
+            iti.setCountry('us');
         }
     });
     // $(document).ready(function() {
