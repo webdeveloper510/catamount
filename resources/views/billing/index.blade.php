@@ -61,8 +61,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if(\App\Models\Billing::where('event_id',$event->id)->exists())
-                                                    <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
+                                                    <?php
 
                                                     $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
                                                     $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
@@ -71,6 +70,10 @@
                                                         $total += $p->amount;
                                                     }
                                                     $totalALL = '$' . $total + @$deposit->deposits + @$deposit->paymentCredit;
+                                                    ?>
+
+                                                    @if(\App\Models\Billing::where('event_id',$event->id)->exists())
+                                                    <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
 
                                                     if ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
                                                         $bill = 4;
