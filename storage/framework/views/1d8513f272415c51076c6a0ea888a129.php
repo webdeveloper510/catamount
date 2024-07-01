@@ -282,7 +282,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->venue_selection ??'--'); ?></span></dd>
                                         
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Assigned User')); ?></span></dt>
-                                        <dd class="col-md-6 need_half"><span class=""><?php echo e($trainerName); ?></span>
+                                        <dd class="col-md-6 need_half"><span class=""><?php echo e(@$trainerName); ?></span>
                                         </dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Description')); ?></span></dt>
                                         <dd class="col-md-6 need_half"><span class=""><?php echo e($lead->description ??' --'); ?></span></dd>

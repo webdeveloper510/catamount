@@ -101,7 +101,10 @@
                                     <div class="card-body new_bottomcard">
                                         <h5 class="card-text"><?php echo e($lead['leadname']); ?>
 
-                                            <span>(<?php echo e($lead['type']); ?>)</span>
+                                            <span>(<?php echo e($lead['type']); ?>)</span></br>
+                                            <div style="color: #a99595;font-size: 12px;padding-top: 1em;">
+                                                <span><?php echo e($lead['company_name']); ?></span>
+                                            </div>
                                         </h5>
 
                                         <?php if($lead['start_date'] == $lead['end_date']): ?>
@@ -140,12 +143,15 @@
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
                                 <?php $__currentLoopData = $activeEvent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
-                                        <h5 class="card-text"><a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($event['id'])))); ?>" style="color:#8490a7;"><?php echo e($event['name']); ?></a>
-                                            <span>(<?php echo e($event['type']); ?>)</span>
-                                        </h5>
+                                        <h5 class="card-text"><a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($event['id'])))); ?>" style="color:#8490a7;"><?php echo e($event['name']); ?></a><span>(<?php echo e($event['type']); ?>)
+                                                <div style="color: #a99595;font-size: 12px;">
+                                                    <span><?php echo e($event->company_name); ?></span></br>
+                                                    <span><?php echo e($event->start_date); ?> - <?php echo e($event->end_date); ?>, <?php echo e($event->start_time); ?> - <?php echo e($event->end_time); ?></span></br>
+                                                    <span><?php echo e($event->type); ?></span>
+                                                </div>
+                                            </span></h5>
                                         <?php if($event['start_date'] == $event['end_date']): ?>
                                         <p><?php echo e(Carbon\Carbon::parse($event['start_date'])->format('M d')); ?></p>
                                         <?php else: ?>

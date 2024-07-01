@@ -370,7 +370,7 @@ class LeadController extends Controller
             $additional = json_encode($additional);
             $bar_pack = json_encode($bar_pack);
             $primary_contact = preg_replace('/\D/', '', $request->input('primary_contact'));
-            $secondary_contact = preg_replace('/\D/', '', $request->input('secondary_contact'));
+            $secondary_contact = preg_replace('/\D/', '', $request->input('secondary')['secondary_contact']);
 
             $_REQUEST['secondary']['secondary_contact'] = $secondary_contact;
             $scondData = json_encode($_REQUEST['secondary']);
@@ -793,7 +793,8 @@ class LeadController extends Controller
         $primary_contact = preg_replace('/\D/', '', $request->input('primary_contact'));
         $secondary_contact = preg_replace('/\D/', '', $request->input('secondary_contact')['secondary_contact']);
 
-        $secondary_contact = json_encode($request->input('secondary_contact'));
+        $_REQUEST['secondary_contact']['secondary_contact'] = $secondary_contact;
+        $scondData = json_encode($_REQUEST['secondary_contact']);
 
         if ($request->status == 'Approve') {
             $status = 4;
@@ -814,7 +815,7 @@ class LeadController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'primary_contact' => $primary_contact,
-            'secondary_contact' => $secondary_contact,
+            'secondary_contact' => $scondData,
             'lead_address' => $request->lead_address,
             'company_name' => $request->company_name,
             'relationship' => $request->relationship,

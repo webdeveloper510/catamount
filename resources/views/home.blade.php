@@ -97,7 +97,10 @@
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
                                         <h5 class="card-text">{{ $lead['leadname'] }}
-                                            <span>({{ $lead['type'] }})</span>
+                                            <span>({{ $lead['type'] }})</span></br>
+                                            <div style="color: #a99595;font-size: 12px;padding-top: 1em;">
+                                                <span>{{ $lead['company_name'] }}</span>
+                                            </div>
                                         </h5>
 
                                         @if($lead['start_date'] == $lead['end_date'])
@@ -135,12 +138,15 @@
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
                                 @foreach($activeEvent as $event)
-
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
-                                        <h5 class="card-text"><a href="{{ route('meeting.detailview',urlencode(encrypt($event['id'])))}}" style="color:#8490a7;">{{ $event['name'] }}</a>
-                                            <span>({{ $event['type'] }})</span>
-                                        </h5>
+                                        <h5 class="card-text"><a href="{{ route('meeting.detailview',urlencode(encrypt($event['id'])))}}" style="color:#8490a7;">{{ $event['name'] }}</a><span>({{ $event['type'] }})
+                                                <div style="color: #a99595;font-size: 12px;">
+                                                    <span>{{ $event->company_name }}</span></br>
+                                                    <span>{{ $event->start_date }} - {{ $event->end_date }}, {{ $event->start_time }} - {{ $event->end_time }}</span></br>
+                                                    <span>{{ $event->type }}</span>
+                                                </div>
+                                            </span></h5>
                                         @if($event['start_date'] == $event['end_date'])
                                         <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d')}}</p>
                                         @else

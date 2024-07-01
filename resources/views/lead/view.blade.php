@@ -169,10 +169,12 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
     <div class="col-md-12 half-col">
         <div class="card ">
             <div class="card-body">
-
                 <dl class="row">
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->leadname }}</span></dd>
+
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Organization')}}</span></dt>
+                    <dd class="col-md-6"><span class="">{{ $lead->company_name }}</span></dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Email')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->email }}</span></dd>
@@ -183,19 +185,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Address')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->lead_address ?? '--'}}</span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Trainings Date')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ \Auth::user()->dateFormat($lead->start_date) }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead Created')}}</span></dt>
+                    <dd class="col-md-6"><span class="">{{\Auth::user()->dateFormat($lead->created_at)}}</span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Time')}}</span></dt>
-                    <dd class="col-md-6"><span class="">
-                            @if($lead->start_time == $lead->end_time)
-                            --
-                            @else
-                            {{date('h:i A', strtotime($lead->start_time))}} -
-                            {{date('h:i A', strtotime($lead->end_time))}}
-                            @endif
-                        </span>
-                    </dd>
                     @php
                     @$secondary_contact = json_decode($lead->secondary_contact);
                     @endphp
@@ -236,8 +228,19 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dd class="col-md-6"><span class="">{{ !empty($lead->assign_user)?$lead->assign_user->name:'Not Assigned Yet'}}
                             {{ !empty($lead->assign_user)? '('.$lead->assign_user->type.')' :''}}</span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead Created')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{\Auth::user()->dateFormat($lead->created_at)}}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Trainings Date')}}</span></dt>
+                    <dd class="col-md-6"><span class="">{{ \Auth::user()->dateFormat($lead->start_date) }}</span></dd>
+
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Time')}}</span></dt>
+                    <dd class="col-md-6"><span class="">
+                            @if($lead->start_time == $lead->end_time)
+                            --
+                            @else
+                            {{date('h:i A', strtotime($lead->start_time))}} -
+                            {{date('h:i A', strtotime($lead->end_time))}}
+                            @endif
+                        </span>
+                    </dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Any Special Requirements')}}</span></dt>
                     @if($lead->spcl_req)

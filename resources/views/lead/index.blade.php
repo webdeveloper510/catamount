@@ -51,6 +51,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="sort" data-sort="name">{{__('Name')}} <span class="opticy"></span></th>
+                                                <th scope="col" class="sort" data-sort="organization">{{__('Organization')}} <span class="opticy"></span></th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Email')}} <span class="opticy"></span></th>
                                                 <th scope="col" class="sort">{{__('Status')}} <span class="opticy"></span></th>
                                                 <th scope="col" class="sort">{{__('Lead Status')}}<span class="opticy"></span></th>
@@ -68,6 +69,9 @@ $proposalstatus = \App\Models\Lead::$status;
                                                     <a href="{{ route('lead.info',urlencode(encrypt($lead->id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst($lead->leadname) }}</b>
                                                     </a>
+                                                </td>
+                                                <td>
+                                                    <span class="organization">{{ $lead->company_name }}</span>
                                                 </td>
                                                 <td>
                                                     <span class="budget">{{ $lead->email }}</span>

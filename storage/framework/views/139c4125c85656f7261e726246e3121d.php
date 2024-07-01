@@ -549,15 +549,15 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
 
 
         var input1 = document.querySelector("#phone-input1");
-        var iti1 = window.intlTelInput(input1, {
+        var iti = window.intlTelInput(input1, {
             separateDialCode: true,
         });
 
-        var indiaCountryCode1 = iti1.getSelectedCountryData().iso2;
-        var countryCode1 = iti1.getSelectedCountryData().dialCode;
+        var indiaCountryCode1 = iti.getSelectedCountryData().iso2;
+        var countryCode1 = iti.getSelectedCountryData().dialCode;
         $('#secondary-country-code').val(countryCode1);
         if (indiaCountryCode1 !== 'us') {
-            iti1.setCountry('us');
+            iti.setCountry('us');
         }
     });
 </script>
@@ -615,6 +615,9 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
     const inputElement = document.getElementById('phone-input');
     inputElement.addEventListener('keydown', enforceFormat);
     inputElement.addEventListener('keyup', formatToPhone);
+    const inputElement1 = document.getElementById('phone-input1');
+    inputElement1.addEventListener('keydown', enforceFormat);
+    inputElement1.addEventListener('keyup', formatToPhone);
 </script>
 <script>
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {

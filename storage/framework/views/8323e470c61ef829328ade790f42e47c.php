@@ -10,7 +10,21 @@
                 <dd class="col-md-6"><span class=""><?php echo e($meeting->eventname); ?></span></dd>
                 <?php endif; ?>
 
-                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Date')); ?></span></dt>
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Organization')); ?></span></dt>
+                <dd class="col-md-6"><span class=""><?php echo e($meeting->company_name); ?></span></dd>
+
+                <dt class="col-md-6"><span class="h6 mb-0"><?php echo e(__('Lead Created On')); ?></span></dt>
+                <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($meeting->created_at)); ?></span></dd>
+
+                
+
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training')); ?></span></dt>
+                <dd class="col-md-6"><span class=""><?php echo e($meeting->type); ?></span></dd>
+
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Location')); ?></span></dt>
+                <dd class="col-md-6"><span class=""><?php echo e($meeting->venue_selection); ?></span></dd>
+
+                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Date, Time')); ?></span></dt>
                 <dd class="col-md-6"><span class="">
                         <?php if($meeting->start_date == $meeting->end_date): ?>
                         <?php echo e(\Auth::user()->dateFormat($meeting->start_date)); ?>
@@ -20,10 +34,8 @@
                         <?php echo e(\Auth::user()->dateFormat($meeting->end_date)); ?>
 
                         <?php endif; ?>
-                    </span></dd>
+                        <?php echo e(__(', ')); ?>
 
-                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Time')); ?></span></dt>
-                <dd class="col-md-6"><span class="">
                         <?php if($meeting->start_time == $meeting->end_time): ?>
                         --
                         <?php else: ?>
@@ -31,24 +43,15 @@
                         <?php echo e(date('h:i A', strtotime($meeting->end_time))); ?>
 
                         <?php endif; ?>
-                    </span>
-                </dd>
+                    </span></dd>
 
                 <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Guest Count')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e($meeting->guest_count); ?></span></dd>
 
-                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Location')); ?></span></dt>
-                <dd class="col-md-6"><span class=""><?php echo e($meeting->venue_selection); ?></span></dd>
-
-                <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Training Type')); ?></span></dt>
-                <dd class="col-md-6"><span class=""><?php echo e($meeting->type); ?></span></dd>
+                
 
                 <dt class="col-md-6"><span class="h6 mb-0"><?php echo e(__('Assigned Trainer')); ?></span></dt>
                 <dd class="col-md-6"><span class=""><?php echo e($name); ?></span></dd>
-
-                <dt class="col-md-6"><span class="h6 mb-0"><?php echo e(__('Created')); ?></span></dt>
-                <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($meeting->created_at)); ?></span>
-                </dd>
             </dl>
         </div>
 

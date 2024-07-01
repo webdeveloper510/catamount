@@ -184,10 +184,12 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
     <div class="col-md-12 half-col">
         <div class="card ">
             <div class="card-body">
-
                 <dl class="row">
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Lead')); ?></span></dt>
                     <dd class="col-md-6"><span class=""><?php echo e($lead->leadname); ?></span></dd>
+
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Organization')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e($lead->company_name); ?></span></dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Email')); ?></span></dt>
                     <dd class="col-md-6"><span class=""><?php echo e($lead->email); ?></span></dd>
@@ -198,20 +200,9 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
                     <dd class="col-md-6"><span class=""><?php echo e($lead->lead_address ?? '--'); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Trainings Date')); ?></span></dt>
-                    <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($lead->start_date)); ?></span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Lead Created')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($lead->created_at)); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Time')); ?></span></dt>
-                    <dd class="col-md-6"><span class="">
-                            <?php if($lead->start_time == $lead->end_time): ?>
-                            --
-                            <?php else: ?>
-                            <?php echo e(date('h:i A', strtotime($lead->start_time))); ?> -
-                            <?php echo e(date('h:i A', strtotime($lead->end_time))); ?>
-
-                            <?php endif; ?>
-                        </span>
-                    </dd>
                     <?php
                     @$secondary_contact = json_decode($lead->secondary_contact);
                     ?>
@@ -253,8 +244,20 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
 
                             <?php echo e(!empty($lead->assign_user)? '('.$lead->assign_user->type.')' :''); ?></span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Lead Created')); ?></span></dt>
-                    <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($lead->created_at)); ?></span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Trainings Date')); ?></span></dt>
+                    <dd class="col-md-6"><span class=""><?php echo e(\Auth::user()->dateFormat($lead->start_date)); ?></span></dd>
+
+                    <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Time')); ?></span></dt>
+                    <dd class="col-md-6"><span class="">
+                            <?php if($lead->start_time == $lead->end_time): ?>
+                            --
+                            <?php else: ?>
+                            <?php echo e(date('h:i A', strtotime($lead->start_time))); ?> -
+                            <?php echo e(date('h:i A', strtotime($lead->end_time))); ?>
+
+                            <?php endif; ?>
+                        </span>
+                    </dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Any Special Requirements')); ?></span></dt>
                     <?php if($lead->spcl_req): ?>

@@ -53,6 +53,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="sort" data-sort="name"><?php echo e(__('Name')); ?> <span class="opticy"></span></th>
+                                                <th scope="col" class="sort" data-sort="organization"><?php echo e(__('Organization')); ?> <span class="opticy"></span></th>
                                                 <th scope="col" class="sort" data-sort="budget"><?php echo e(__('Email')); ?> <span class="opticy"></span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Status')); ?> <span class="opticy"></span></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Lead Status')); ?><span class="opticy"></span></th>
@@ -70,6 +71,9 @@ $proposalstatus = \App\Models\Lead::$status;
                                                     <a href="<?php echo e(route('lead.info',urlencode(encrypt($lead->id)))); ?>" data-size="md" title="<?php echo e(__('Lead Details')); ?>" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> <?php echo e(ucfirst($lead->leadname)); ?></b>
                                                     </a>
+                                                </td>
+                                                <td>
+                                                    <span class="organization"><?php echo e($lead->company_name); ?></span>
                                                 </td>
                                                 <td>
                                                     <span class="budget"><?php echo e($lead->email); ?></span>
