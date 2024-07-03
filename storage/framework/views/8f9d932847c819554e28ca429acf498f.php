@@ -195,7 +195,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dd class="col-md-6"><span class=""><?php echo e($lead->email); ?></span></dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Phone')); ?></span></dt>
-                    <dd class="col-md-6"><span class=""><?php echo e($lead->primary_contact); ?></span></dd>
+                    <dd class="col-md-6"><span class="" id="phone-input"><?php echo e($lead->primary_contact); ?></span></dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Address')); ?></span></dt>
                     <dd class="col-md-6"><span class=""><?php echo e($lead->lead_address ?? '--'); ?></span></dd>
@@ -215,7 +215,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     </dd>
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Phone')); ?></span></dt>
                     <dd class="col-md-6">
-                        <span class=""><?php echo e(@$secondary_contact->secondary_contact ?? '--'); ?></span>
+                        <span class="" id="phone-input1"><?php echo e(@$secondary_contact->secondary_contact ?? '--'); ?></span>
                     </dd>
                     <dt class="col-md-6"><span class="h6  mb-0"><?php echo e(__('Email')); ?></span></dt>
                     <dd class="col-md-6">
@@ -300,4 +300,22 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
             <?php endif; ?>
         </div>
     </div>
-</div><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/lead/view.blade.php ENDPATH**/ ?>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var phoneNumber = "<?php echo @$lead->primary_contact ?>";
+        var num = phoneNumber.trim();
+        var lastTenDigits = phoneNumber.substr(-10);
+        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' +
+            lastTenDigits.substr(6);
+        $('#phone-input').text(formattedPhoneNumber);
+
+        var phoneNumber1 = "<?php echo @$secondary_contact->secondary_contact ?>";
+        var num = phoneNumber1.trim();
+        var lastTenDigits1 = phoneNumber1.substr(-10);
+        var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' +
+            lastTenDigits1.substr(6);
+        $('#phone-input1').text(formattedPhoneNumber1);
+    });
+</script><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/lead/view.blade.php ENDPATH**/ ?>
