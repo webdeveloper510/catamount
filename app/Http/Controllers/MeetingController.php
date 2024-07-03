@@ -226,7 +226,10 @@ class MeetingController extends Controller
             }
 
 
-            $secondary_contact = json_encode($request->secondary_contact);
+            $secondary_phone = preg_replace('/\D/', '', $request->input('secondary_contact')['secondary_contact']);
+            $_REQUEST['secondary_contact']['secondary_contact'] = $secondary_phone;
+            $secondary_contact = json_encode($_REQUEST['secondary_contact']);
+            // prx($secondary_contact);
             $users = isset($request->user) ? $request->user : [];
 
             $filteredUsers = array_filter($users, function ($user) {
@@ -237,7 +240,9 @@ class MeetingController extends Controller
                 $filteredUsersKeys[] = $filteredUsersKey;
             }
 
-            $phone = preg_replace('/\D/', '', $request->input('primary_contact'));
+            $_REQUEST['primary_contact'] = preg_replace('/\D/', '', $request->input('primary_contact'));
+
+            // prx($_REQUEST);
             $meeting = new Meeting();
             $meeting['user_id'] = isset($filteredUsersKeys) ? implode(',', $filteredUsersKeys) : [];
             $meeting['user_data'] = isset($filteredUsers) ? json_encode($filteredUsers) : [];
@@ -264,7 +269,7 @@ class MeetingController extends Controller
             $meeting['alter_lead_address'] = $request->alter_lead_address;
             $meeting['attendees_lead'] = $request->lead;
             $meeting['eventname'] = $request->eventname ?? $request->name;
-            $meeting['phone'] = $phone;
+            $meeting['phone'] = $_REQUEST['primary_contact'];
             $meeting['start_time'] = $request->start_time;
             $meeting['end_time'] = $request->end_time;
             $meeting['ad_opts'] = $additional;
@@ -294,7 +299,7 @@ class MeetingController extends Controller
                         'bar' => $request->baropt,
                         'bar_package' => $bar_pack,
                         'spcl_req' => $request->spcl_request,
-                        'phone' => $phone,
+                        'phone' => $_REQUEST['primary_contact'],
                         'allergies' => $request->allergies
                     ]);
             }
@@ -322,7 +327,7 @@ class MeetingController extends Controller
                 $customer->ref_id = $meeting->id;
                 $customer->name = $request->name;
                 $customer->email = $request->email;
-                $customer->phone = $phone;
+                $customer->phone = $_REQUEST['primary_contact'];
                 $customer->address = $request->lead_address ?? '';
                 $customer->category = 'event';
                 $customer->type = $request->type;
@@ -465,6 +470,7 @@ class MeetingController extends Controller
 
     public function update(Request $request, Meeting $meeting)
     {
+        $dfghkfjg = $_REQUEST['phone'];
         if (\Auth::user()->can('Edit Training')) {
             $validator = \Validator::make(
                 $request->all(),
@@ -551,25 +557,17 @@ class MeetingController extends Controller
                     $package[$newKey] = $values;
                 }
                 if (strpos($key, 'additional_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = strtolower(str_replace('additional_', '', $key));
-
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($additional[$newKey])) {
                         $additional[$newKey] = [];
                     }
                     $additional[$newKey] = $values;
                 }
                 if (strpos($key, 'bar_') === 0) {
-                    // Extract the suffix from the key
                     $newKey = ucfirst(strtolower(str_replace('bar_', '', $key)));
-
-                    // Check if the key exists in the output array, if not, initialize it
                     if (!isset($bar_pack[$newKey])) {
                         $bar_pack[$newKey] = [];
                     }
-
-                    // Assign the values to the new key in the output array
                     $bar_pack[$newKey] = $values;
                 }
             }
@@ -577,10 +575,13 @@ class MeetingController extends Controller
             $package = json_encode($package);
             $additional = json_encode($additional);
             $bar_pack = json_encode($bar_pack);
-            $phone = preg_replace('/\D/', '', $request->input('primary_contact'));
 
 
-            $secondary_contact = json_encode($request->secondary_contact);
+            $secondary_phone = preg_replace('/\D/', '', $request->input('secondary_contact')['secondary_contact']);
+            $_REQUEST['secondary_contact']['secondary_contact'] = $secondary_phone;
+            $secondary_contact = json_encode($_REQUEST['secondary_contact']);
+
+            $phone = preg_replace('/\D/', '', $dfghkfjg);
 
             $users = isset($request->user) ? $request->user : [];
             $filteredUsers = array_filter($users, function ($user) {
