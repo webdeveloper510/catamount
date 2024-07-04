@@ -74,7 +74,7 @@ $user_data = json_decode($meeting->user_data,true);
             <div class="container-fluid xyz p0">
                 <div class="row1">
                     <div class="col-lg-12 p0">
-                        <?php echo e(Form::model($meeting, ['route' => ['meeting.update', $meeting->id], 'method' => 'PUT' ,'id'=> 'formdata'])); ?>
+                        <?php echo e(Form::model($meeting, ['route' => ['meeting.update', $meeting->id], 'method' => 'PUT' ,'id'=> 'formdata','enctype' => 'multipart/form-data'])); ?>
 
                         <div id="useradd-1" class="card">
                             <div class="col-md-12">
@@ -543,21 +543,34 @@ $user_data = json_decode($meeting->user_data,true);
                                     <?php echo e(Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label'])); ?>
 
                                     <input type="file" name="atttachment" id="atttachment" class="form-control">
-
                                 </div>
                             </div>
+                            <?php if($atttachments): ?>
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $__currentLoopData = $atttachments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $atchKey => $atchValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <img src="<?php echo e(asset('storage/' . $atchValue->filepath)); ?>" alt="<?php echo e($atchValue->filename); ?>" srcset="" style="width: 100%;">
+                                        </div>
+                                    </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <div class="card-footer text-end">
-                        <?php echo e(Form::submit(__('Save Changes'), ['class' => 'btn  btn-primary '])); ?>
+                </div>
+                <div class="card-footer text-end">
+                    <?php echo e(Form::submit(__('Save Changes'), ['class' => 'btn  btn-primary '])); ?>
 
-                    </div>
                 </div>
             </div>
-            <?php echo e(Form::close()); ?>
-
         </div>
+        <?php echo e(Form::close()); ?>
+
     </div>
+</div>
 </div>
 </div>
 </div>

@@ -315,7 +315,7 @@ class MeetingController extends Controller
                     $document->event_id =  $meeting->id; // Assuming you have a lead_id field
                     $document->filename = $filename; // Store original file name
                     $document->filepath = $path; // Store file path
-                    // $document->save();
+                    $document->save();
                 } catch (\Exception $e) {
                     Log::error('File upload failed: ' . $e->getMessage());
                     return redirect()->back()->with('error', 'File upload failed');
@@ -426,7 +426,8 @@ class MeetingController extends Controller
                 $name[] = User::where('id', $idsKey)->pluck('name')->first();
             }
             $name = implode(', ', $name);
-            return view('meeting.view', compact('meeting', 'status', 'name'));
+            $atttachments = EventDoc::where('event_id ', $meeting->id)->get();
+            return view('meeting.view', compact('meeting', 'status', 'name', 'atttachments'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
         }
@@ -453,7 +454,9 @@ class MeetingController extends Controller
                 $user_idNew[] = $user_idKey;
             }
             $setup = Setup::all();
-            return view('meeting.edit', compact('user_idNew', 'users', 'setup', 'food_package', 'function_p', 'venue_function', 'meeting', 'status', 'attendees_lead'))->with('start_date', $meeting->start_date)->with('end_date', $meeting->start_date);
+
+            $atttachments = EventDoc::where('event_id', $meeting->id)->get();
+            return view('meeting.edit', compact('user_idNew', 'users', 'setup', 'food_package', 'function_p', 'venue_function', 'meeting', 'status', 'attendees_lead', 'atttachments'))->with('start_date', $meeting->start_date)->with('end_date', $meeting->start_date);
         } else {
             return redirect()->back()->with('error', 'permission Denied');
         }

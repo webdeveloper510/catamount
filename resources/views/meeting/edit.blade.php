@@ -73,7 +73,7 @@ $user_data = json_decode($meeting->user_data,true);
             <div class="container-fluid xyz p0">
                 <div class="row1">
                     <div class="col-lg-12 p0">
-                        {{ Form::model($meeting, ['route' => ['meeting.update', $meeting->id], 'method' => 'PUT' ,'id'=> 'formdata']) }}
+                        {{ Form::model($meeting, ['route' => ['meeting.update', $meeting->id], 'method' => 'PUT' ,'id'=> 'formdata','enctype' => 'multipart/form-data']) }}
                         <div id="useradd-1" class="card">
                             <div class="col-md-12">
                                 <div class="card-header">
@@ -535,19 +535,32 @@ $user_data = json_decode($meeting->user_data,true);
                                 <div class="form-group">
                                     {{Form::label('atttachment',__('Attachments (If Any)'),['class'=>'form-label']) }}
                                     <input type="file" name="atttachment" id="atttachment" class="form-control">
-
                                 </div>
                             </div>
+                            @if($atttachments)
+                            <div class="col-12">
+                                <div class="row">
+                                    @foreach($atttachments as $atchKey => $atchValue)
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <img src="{{ asset('storage/' . $atchValue->filepath) }}" alt="{{ $atchValue->filename }}" srcset="" style="width: 100%;">
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="card-footer text-end">
-                        {{ Form::submit(__('Save Changes'), ['class' => 'btn  btn-primary ']) }}
-                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    {{ Form::submit(__('Save Changes'), ['class' => 'btn  btn-primary ']) }}
                 </div>
             </div>
-            {{ Form::close() }}
         </div>
+        {{ Form::close() }}
     </div>
+</div>
 </div>
 </div>
 </div>
