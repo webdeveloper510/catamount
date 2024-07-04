@@ -158,7 +158,7 @@
                                 ?>
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
-                                        <h5 class="card-text"><a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($event['id'])))); ?>" style="color:#8490a7;"><?php echo e($event['name']); ?></a><span>(<?php echo e($event['type']); ?>)
+                                        <h5 class="card-text"><a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($event['id'])))); ?>" style="color:#8490a7;"><?php echo e($event['name']); ?></a> <span>(<?php echo e($event['type']); ?>)
                                                 <div style="color: #a99595;font-size: 12px;">
                                                     <span><?php echo e($event->company_name); ?></span></br>
                                                     <span><?php echo e($event->start_date); ?> - <?php echo e($event->end_date); ?>, <?php echo e($event->start_time); ?> - <?php echo e($event->end_time); ?></span></br>

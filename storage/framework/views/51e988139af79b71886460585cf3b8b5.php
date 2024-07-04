@@ -30,16 +30,13 @@
                                                 <th scope="col" class="sort"><?php echo e(__('Phone')); ?></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Address')); ?></th>
                                                 <th scope="col" class="sort"><?php echo e(__('Category')); ?></th>
-                                             
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $__currentLoopData = $eventcustomers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <td> <a href="<?php echo e(route('event.userinfo',urlencode(encrypt($user->ref_id)))); ?>"
-                                                        title="<?php echo e(__('User Details')); ?>"
-                                                        class="action-item text-primary"
-                                                        style="color:#1551c9 !important;">
+                                                <td> <a href="<?php echo e(route('event.userinfo',urlencode(encrypt($user->ref_id)))); ?>" title="<?php echo e(__('User Details')); ?>" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> <?php echo e(ucfirst($user->name)); ?></b>
                                                     </a></td>
                                                 <!-- <td><span><?php echo e(ucfirst($user->name)); ?></span></td> -->
@@ -67,10 +64,10 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startPush('script-page'); ?>
 <script>
-function storeIdInLocalStorage(link) {
-    var id = link.id;
-    localStorage.setItem('clickedLinkId', id);
-}
+    function storeIdInLocalStorage(link) {
+        var id = link.id;
+        localStorage.setItem('clickedLinkId', id);
+    }
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/customer/event_customer.blade.php ENDPATH**/ ?>

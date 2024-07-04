@@ -153,7 +153,7 @@
                                 @endphp
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
-                                        <h5 class="card-text"><a href="{{ route('meeting.detailview',urlencode(encrypt($event['id'])))}}" style="color:#8490a7;">{{ $event['name'] }}</a><span>({{ $event['type'] }})
+                                        <h5 class="card-text"><a href="{{ route('meeting.detailview',urlencode(encrypt($event['id'])))}}" style="color:#8490a7;">{{ $event['name'] }}</a> <span>({{ $event['type'] }})
                                                 <div style="color: #a99595;font-size: 12px;">
                                                     <span>{{ $event->company_name }}</span></br>
                                                     <span>{{ $event->start_date }} - {{ $event->end_date }}, {{ $event->start_time }} - {{ $event->end_time }}</span></br>
