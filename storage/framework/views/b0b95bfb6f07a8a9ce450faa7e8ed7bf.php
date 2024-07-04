@@ -209,7 +209,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                     </tr>
                     <tr>
                         <td style="width: 80px;"><?php echo e(date_format($billing->created_at,'d-m-Y')); ?></td>
-                        <td style="width: 80px;">8231</td>
+                        <td style="width: 80px;"><?php echo e($billing->invoiceID); ?></td>
                     </tr>
                 </table>
             </div>
@@ -217,6 +217,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <div class="bill-to">
             <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
             <hr style="border: 1px solid #000">
+            <h5><?php echo e($meeting->name); ?></h5>
             <p><?php echo e($meeting->lead_address); ?></p>
 
         </div>

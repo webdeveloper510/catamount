@@ -68,6 +68,7 @@ class BillingController extends Controller
         $billing['purchaseOrder'] = $request->purchaseOrder ?? 0;
         $billing['terms'] = $request->terms ?? 0;
         $billing['deposits'] = $request->deposits ?? 0;
+        $billing['invoiceID'] = rand(1000, 9999);
         $billing->save();
         Meeting::where('id', $id)->update(['total' => $request->totalAmount]);
         return redirect()->back()->with('success', __('Estimated Invoice Created Successfully'));

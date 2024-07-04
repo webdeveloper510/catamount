@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id')->unique();
             $table->foreign('event_id')->references('id')->on('meetings');
+            $table->int('invoiceID')->default(0)->nullable();
             $table->text('data');
             $table->float('deposits')->default(0)->nullable();
             $table->float('salesTax')->default(0)->nullable();
