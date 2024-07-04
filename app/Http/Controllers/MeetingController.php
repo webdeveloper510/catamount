@@ -70,7 +70,16 @@ class MeetingController extends Controller
                 $meetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
                     $user_data = json_decode($meeting->user_data, true);
                     if (isset($user_data[$crnt_user])) {
-                        return true;
+                        // return true;
+                        /*  foreach ($user_data as $udKey => $udValue) {
+                            $trainerName = \App\Models\User::find($udKey)->name;
+                            // $user_datas[] = "{$trainerName} - &dollar;{$udValue->amount}";
+                            $user_datas[] = $trainerName;
+                            }
+                            $user_datas = implode(", ", $user_datas); */
+                        $trainerName = \App\Models\User::find($user_data[$crnt_user]['checkbox'])->name;
+                        $meeting->trainer_data = $trainerName;
+                        return $meeting;
                     }
                     return false;
                 });
