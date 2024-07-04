@@ -30,8 +30,13 @@ class SettingController extends Controller
         $permissions = Permission::all()->pluck('name', 'id')->toArray();
         $payment = Utility::set_payment_settings();
         $webhooks = Webhook::where('created_by', \Auth::user()->id)->get();
-        $roles = Role::where('created_by', \Auth::user()->creatorId())->with('permissions')->get();
-        $users = User::where('created_by', '=', \Auth::user()->creatorId())->get();
+        if (\Auth::user()->type == 'owner') {
+            $roles = Role::where('created_by', 3)->with('permissions')->get();
+            $users = User::where('created_by', '=', 3)->get();
+        } else {
+            $roles = Role::where('created_by', \Auth::user()->creatorId())->with('permissions')->get();
+            $users = User::where('created_by', '=', \Auth::user()->creatorId())->get();
+        }
         $setup = Setup::all();
         return view('settings.index', compact('settings', 'setup', 'payment', 'webhooks', 'permissions', 'roles', 'users'));
         // } else {

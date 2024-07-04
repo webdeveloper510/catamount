@@ -426,7 +426,7 @@ class MeetingController extends Controller
                 $name[] = User::where('id', $idsKey)->pluck('name')->first();
             }
             $name = implode(', ', $name);
-            $atttachments = EventDoc::where('event_id ', $meeting->id)->get();
+            $atttachments = EventDoc::where('event_id', $meeting->id)->get();
             return view('meeting.view', compact('meeting', 'status', 'name', 'atttachments'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');

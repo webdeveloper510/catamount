@@ -549,6 +549,9 @@ $user_data = json_decode($meeting->user_data,true);
                             <div class="col-12">
                                 <div class="row">
                                     <?php $__currentLoopData = $atttachments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $atchKey => $atchValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php
+                                    pr($atchValue);
+                                    ?>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <img src="<?php echo e(asset('storage/' . $atchValue->filepath)); ?>" alt="<?php echo e($atchValue->filename); ?>" srcset="" style="width: 100%;">

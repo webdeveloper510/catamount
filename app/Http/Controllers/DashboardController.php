@@ -46,22 +46,30 @@ class DashboardController extends Controller
 
                 return view('super_admin', compact('user', 'chartData'));
             } else {
-                $data['totalUser'] = User::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalAccount'] = Account::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalContact'] = Contact::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalLead'] = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->count();
-                $data['totalSalesorder'] = $totalSalesOrder = SalesOrder::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalInvoice'] = $totalInvoice = Invoice::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalQuote'] = $totalQuote = Quote::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalOpportunities'] =  Opportunities::where('created_by', \Auth::user()->creatorId())->count();
-                $data['totalProduct'] = Product::where('created_by', \Auth::user()->creatorId())->count();
+                $useType = \Auth::user()->type;
+                if ($useType == 'owner') {
+                    $userID = 3;
+                } elseif ($useType == 'Trainer') {
+                    $userID = \Auth::user()->creatorId();
+                } else {
+                    $userID = \Auth::user()->creatorId();
+                }
+                $data['totalUser'] = User::where('created_by', $userID)->count();
+                $data['totalAccount'] = Account::where('created_by', $userID)->count();
+                $data['totalContact'] = Contact::where('created_by', $userID)->count();
+                $data['totalLead'] = Lead::where('created_by', $userID)->where('lead_status', 1)->where('converted_to', 0)->count();
+                $data['totalSalesorder'] = $totalSalesOrder = SalesOrder::where('created_by', $userID)->count();
+                $data['totalInvoice'] = $totalInvoice = Invoice::where('created_by', $userID)->count();
+                $data['totalQuote'] = $totalQuote = Quote::where('created_by', $userID)->count();
+                $data['totalOpportunities'] =  Opportunities::where('created_by', $userID)->count();
+                $data['totalProduct'] = Product::where('created_by', $userID)->count();
                 $data['invoiceColor'] = Invoice::$statuesColor;
 
                 $date = today()->format('Y-m-d');
                 if (\Auth::user()->type == 'Trainer') {
                     $activeLeads = Lead::where('assigned_user', \Auth::user()->id)->where('lead_status', 1)->where('converted_to', 0)->get();
                 } else {
-                    $activeLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('lead_status', 1)->where('converted_to', 0)->get();
+                    $activeLeads = Lead::where('created_by', $userID)->where('lead_status', 1)->where('converted_to', 0)->get();
                 }
                 $revenue = Meeting::all();
                 $events_revenue = 0;
@@ -78,7 +86,7 @@ class DashboardController extends Controller
                     $events_revenue_generated += $value->amount;
                 }
 
-                $lostLeads = Lead::where('created_by', \Auth::user()->creatorId())->where('proposal_status', '==', 3)->take(4)->get();
+                $lostLeads = Lead::where('created_by', $userID)->where('proposal_status', '==', 3)->take(4)->get();
                 if (\Auth::user()->type == 'Trainer') {
                     $crnt_user = \Auth::user()->id;
                     $activeEvent =  Meeting::where('start_date', '>=', $date)->get()->filter(function ($meeting) use ($crnt_user) {
@@ -89,13 +97,13 @@ class DashboardController extends Controller
                         return false;
                     });
                 } else {
-                    $activeEvent = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>=', $date)->get();
+                    $activeEvent = Meeting::where('created_by', $userID)->where('start_date', '>=', $date)->get();
                 }
-                $pastEvents = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '<', $date)->take(4)->get();
+                $pastEvents = Meeting::where('created_by', $userID)->where('start_date', '<', $date)->take(4)->get();
 
-                $upcoming = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>=', $date)->get()->count();
-                $completed = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '<', $date)->get()->count();
-                $totalevent = Meeting::where('created_by', \Auth::user()->creatorId())->count();
+                $upcoming = Meeting::where('created_by', $userID)->where('start_date', '>=', $date)->get()->count();
+                $completed = Meeting::where('created_by', $userID)->where('start_date', '<', $date)->get()->count();
+                $totalevent = Meeting::where('created_by', $userID)->count();
                 $blockeddate = Blockdate::all();
                 $settings = Utility::settings();
                 $venue = $settings['venue'];
@@ -110,7 +118,7 @@ class DashboardController extends Controller
                 $events = isset($events) ? $events : [];
                 $invoices = [];
                 foreach ($statuss as $id => $status) {
-                    $invoice = $total = Invoice::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
+                    $invoice = $total = Invoice::where('status', $id)->where('created_by', $userID)->count();
                     $percentage = ($totalInvoice != 0) ? ($total * 100) / $totalInvoice : '0';
                     $invoicedata['percentage'] = number_format($percentage, 2);
                     $invoicedata['data'] = $invoice;
@@ -123,7 +131,7 @@ class DashboardController extends Controller
                 $statuss = Quote::$status;
                 $quotes  = [];
                 foreach ($statuss as $id => $status) {
-                    $quote = $total = Quote::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
+                    $quote = $total = Quote::where('status', $id)->where('created_by', $userID)->count();
 
                     $percentage = ($totalQuote != 0) ? ($total * 100) / $totalQuote : '0';
                     $quotedata['percentage'] = number_format($percentage, 2);
@@ -137,7 +145,7 @@ class DashboardController extends Controller
                 $statuss = SalesOrder::$status;
                 $salesOrders = [];
                 foreach ($statuss as $id => $status) {
-                    $salesorder = SalesOrder::where('status', $id)->where('created_by', \Auth::user()->creatorId())->count();
+                    $salesorder = SalesOrder::where('status', $id)->where('created_by', $userID)->count();
                     $percentage = ($totalSalesOrder != 0) ? ($total * 100) / $totalSalesOrder : '0';
                     $salesorderdata['percentage'] = number_format($percentage, 2);
                     $salesorderdata['data'] = $salesorder;
@@ -150,17 +158,17 @@ class DashboardController extends Controller
 
                 $data['calendar'] = $this->calendarData();
 
-                $data['topDueTask'] = Task::select('*')->where('created_by', \Auth::user()->creatorId())->where('due_date', '<', date('Y-m-d'))->limit(5)->get();
-                $data['topMeeting'] = Meeting::where('created_by', \Auth::user()->creatorId())->where('start_date', '>', date('Y-m-d'))->limit(5)->get();
+                $data['topDueTask'] = Task::select('*')->where('created_by', $userID)->where('due_date', '<', date('Y-m-d'))->limit(5)->get();
+                $data['topMeeting'] = Meeting::where('created_by', $userID)->where('start_date', '>', date('Y-m-d'))->limit(5)->get();
                 $data['thisMonthCall'] = Call::whereBetween(
                     'start_date',
                     [
                         Carbon::now()->startOfMonth(),
                         Carbon::now()->endOfMonth(),
                     ]
-                )->where('created_by', \Auth::user()->creatorId())->limit(5)->get();
+                )->where('created_by', $userID)->limit(5)->get();
 
-                $users = User::find(\Auth::user()->creatorId());
+                $users = User::find($userID);
                 $plan = Plan::find($users->plan);
                 // if ($plan->storage_limit > 0) {
                 //     $storage_limit = ($users->storage_limit / $plan->storage_limit) * 100;
