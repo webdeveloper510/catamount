@@ -64,7 +64,7 @@ class MeetingController extends Controller
                 $defualtView->module = 'meeting';
                 $defualtView->view   = 'list';
                 User::userDefualtView($defualtView);
-            } elseif (\Auth::user()->type == 'Trainer') {
+            } elseif (\Auth::user()->type == 'Trainer' && str_contains(\Auth::user()->type, 'Trainer')) {
                 // $meetings = Meeting::orderby('id', 'desc')->get();
                 $crnt_user = \Auth::user()->id;
                 $meetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
@@ -957,7 +957,26 @@ class MeetingController extends Controller
     {
         $decryptedId = decrypt(urldecode($id));
         $meeting = Meeting::find($decryptedId);
-        $fixed_cost = Billing::where('event_id', $decryptedId)->first();
+        /*  $fixed_cost = Billing::where('event_id', $decryptedId)->first()->map(function ($billing) {
+            $billing_data = unserialize($billing->data);
+            foreach ($billing_data as $bdKey => $bdValue) {
+                $item[] = $bdValue['cost'] * $bdValue['quantity'];
+            }
+            $billing->subTotal = $item;
+            $billing->total = array_sum($item);
+            return $billing;
+        }); */
+        $billing = Billing::where('event_id', $decryptedId)->first();
+        if ($billing) {
+            $billing_data = unserialize($billing->data);
+            $item = [];
+            foreach ($billing_data as $bdKey => $bdValue) {
+                $item[] = $bdValue['cost'] * $bdValue['quantity'];
+            }
+            $billing->subTotal = $item;
+            $billing->total = array_sum($item);
+        }
+        $fixed_cost = $billing;
         $agreement = Agreement::where('event_id', $decryptedId)->first();
         $data = [
             'agreement' => $agreement,
@@ -965,6 +984,7 @@ class MeetingController extends Controller
             'billing' => $fixed_cost,
             'billing_data' => unserialize($fixed_cost->data),
         ];
+        // pr($data);
         // return view('meeting.agreement.view', $data);
         $pdf = PDF::loadView('meeting.agreement.view', $data);
         return $pdf->stream('agreement.pdf');

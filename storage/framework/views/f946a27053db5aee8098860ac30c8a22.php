@@ -143,13 +143,26 @@
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
                                 <?php $__currentLoopData = $activeEvent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                @$training = \App\Models\Meeting::where('attendees_lead', $event->attendees_lead)->first();
+                                @$idsData = json_decode($training->user_data);
+                                $name = []
+                                ?>
+                                <?php $__currentLoopData = $idsData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idsKey => $idsValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                $name[] = \App\Models\User::where('id', $idsKey)->pluck('name')->first();
+                                ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                @$name = implode(', ', $name);
+                                ?>
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
                                         <h5 class="card-text"><a href="<?php echo e(route('meeting.detailview',urlencode(encrypt($event['id'])))); ?>" style="color:#8490a7;"><?php echo e($event['name']); ?></a><span>(<?php echo e($event['type']); ?>)
                                                 <div style="color: #a99595;font-size: 12px;">
                                                     <span><?php echo e($event->company_name); ?></span></br>
                                                     <span><?php echo e($event->start_date); ?> - <?php echo e($event->end_date); ?>, <?php echo e($event->start_time); ?> - <?php echo e($event->end_time); ?></span></br>
-                                                    <span><?php echo e($event->type); ?></span>
+                                                    <span><?php echo e($name); ?></span>
                                                 </div>
                                             </span></h5>
                                         <?php if($event['start_date'] == $event['end_date']): ?>

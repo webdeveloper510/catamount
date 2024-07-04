@@ -138,13 +138,26 @@
                             <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                             <div class="scrol-card">
                                 @foreach($activeEvent as $event)
+                                @php
+                                @$training = \App\Models\Meeting::where('attendees_lead', $event->attendees_lead)->first();
+                                @$idsData = json_decode($training->user_data);
+                                $name = []
+                                @endphp
+                                @foreach($idsData as $idsKey => $idsValue)
+                                @php
+                                $name[] = \App\Models\User::where('id', $idsKey)->pluck('name')->first();
+                                @endphp
+                                @endforeach
+                                @php
+                                @$name = implode(', ', $name);
+                                @endphp
                                 <div class="card">
                                     <div class="card-body new_bottomcard">
                                         <h5 class="card-text"><a href="{{ route('meeting.detailview',urlencode(encrypt($event['id'])))}}" style="color:#8490a7;">{{ $event['name'] }}</a><span>({{ $event['type'] }})
                                                 <div style="color: #a99595;font-size: 12px;">
                                                     <span>{{ $event->company_name }}</span></br>
                                                     <span>{{ $event->start_date }} - {{ $event->end_date }}, {{ $event->start_time }} - {{ $event->end_time }}</span></br>
-                                                    <span>{{ $event->type }}</span>
+                                                    <span>{{ $name }}</span>
                                                 </div>
                                             </span></h5>
                                         @if($event['start_date'] == $event['end_date'])

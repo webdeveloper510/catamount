@@ -208,8 +208,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                         <td class="strong">Invoice #</td>
                     </tr>
                     <tr>
-                        <td>1/5/2023</td>
-                        <td>8231</td>
+                        <td style="width: 80px;">{{ date_format($billing->created_at,'d-m-Y') }}</td>
+                        <td style="width: 80px;">8231</td>
                     </tr>
                 </table>
             </div>
@@ -217,9 +217,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <div class="bill-to">
             <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
             <hr style="border: 1px solid #000">
-            <p>Ryder Truck Rental</p>
-            <p>160 West Commercial Ave</p>
-            <p>Moonachie, NJ 07074</p>
+            <p>{{ $meeting->lead_address }}</p>
+
         </div>
         <div class="items">
             <table>
@@ -242,14 +241,22 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- <tr>
                         <td>BALANCE DUE For Onsite Audiometric Testing conducted on 1/4/22 45 people tested<br>
                             **Due to Scheduling and timing of the group testing took 12 hours which required a second overnight<br>
                             ***Deposit of $850.00 was paid on 10/21/21**</td>
                         <td>1</td>
                         <td>$850.00</td>
                         <td>$850.00</td>
+                    </tr> -->
+                    @foreach($billing_data as $bdKey => $bdValue)
+                    <tr>
+                        <td>{{ $bdValue['description'] }} ({{ $bdValue['note'] }})</td>
+                        <td>{{ $bdValue['quantity'] }}</td>
+                        <td>{{ $bdValue['cost'] }}</td>
+                        <td>{{ $bdValue['cost'] * $bdValue['quantity'] }}</td>
                     </tr>
+                    @endforeach
                     <tr class="spacer">
                         <td>
                             <p></p>
@@ -273,27 +280,27 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                 <tr>
                     <td colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Subtotal</td>
-                    <td style="border-left: none;">$1.6232</td>
+                    <td style="border-left: none;">${{$billing->total}}</td>
                 </tr>
                 <tr>
                     <td class="borderN" colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Sales Tax (0.0%)</td>
-                    <td style="border-left: none;">$0.00</td>
+                    <td style="border-left: none;">{{$billing->salesTax}}%</td>
                 </tr>
                 <tr>
                     <td class="borderN" colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Total</td>
-                    <td style="border-left: none;">$1,650.00</td>
+                    <td style="border-left: none;">${{ $billing->totalAmount}}</td>
                 </tr>
                 <tr>
                     <td class="borderN" colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Payments/Credits</td>
-                    <td style="border-left: none;">$1,650.00</td>
+                    <td style="border-left: none;">${{$billing->paymentCredit + $billing->deposits }}</td>
                 </tr>
                 <tr>
                     <td class="borderN" colspan="2"></td>
                     <td class="tdTotal" style="border-right: none;">Balance Due </td>
-                    <td style="border-left: none;">$0.00</td>
+                    <td style="border-left: none;">${{ $billing->totalAmount - $billing->paymentCredit - $billing->deposits}}</td>
                 </tr>
             </table>
         </div>

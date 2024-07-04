@@ -66,20 +66,40 @@ foreach ($pay as $p) {
             <?php endif; ?>
             <dt class="col-md-6 need_half"><span class="h6  mb-0"><?php echo e(__('Status')); ?></span></dt>
             <dd class="col-md-6 need_half"><span class="">
-                    <?php if($billing->status == 0): ?>
-                    <span class="badge bg-info p-2 px-3 rounded"><?php echo e(__(\App\Models\Billing::$status[$billing->status])); ?></span>
-                    <?php elseif($billing->status == 1 || $billing->status == 3): ?>
-                    <span class="badge bg-warning p-2 px-3 rounded"><?php echo e(__(\App\Models\Billing::$status[$billing->status])); ?></span>
-                    <?php else: ?>
-                    <?php
-                    if ($event->total - $total != 0) {
-                        $billing->status = 3;
-                    } else {
-                        $billing->status = 4;
-                    }
-                    ?>
-                    <span class="badge bg-success p-2 px-3 rounded"><?php echo e(__(\App\Models\Billing::$status[$billing->status])); ?></span>
-                    <?php endif; ?>
+
+                    
+                <?php
+
+                $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
+                $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
+                $total = 0;
+                foreach ($pay as $p) {
+                    $total += $p->amount;
+                }
+                $totalALL = '$' . $total + @$deposit->deposits + @$deposit->paymentCredit;
+                ?>
+
+                <?php if(\App\Models\Billing::where('event_id',$event->id)->exists()): ?>
+                <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
+
+                if ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
+                    $bill = 4;
+                } else {
+                    $bill = 3;
+                }
+                ?>
+                <?php if($bill == 1): ?>
+                <span class=" text-info"><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
+                <?php elseif($bill == 2): ?>
+                <span class=" text-warning "><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
+                <?php elseif($bill == 3): ?>
+                <span class=" text-warning "><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
+                <?php else: ?>
+                <span class=" text-success"><?php echo e(__(\App\Models\Billing::$status[$bill])); ?></span>
+                <?php endif; ?>
+                <?php else: ?>
+                <span class=" text-danger "><?php echo e(__(\App\Models\Billing::$status[0])); ?></span>
+                <?php endif; ?>
             </dd>
         </dl>
     </div>

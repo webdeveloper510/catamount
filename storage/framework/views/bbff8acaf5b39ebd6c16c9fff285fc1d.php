@@ -766,9 +766,8 @@ unset($__errorArgs, $__bag); ?>
                     "_token": "<?php echo e(csrf_token()); ?>",
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
-                    console.log('secondary_contact', secondary_contact);
 
                     // func_pack = json_decode(data.func_package);
                     venue_str = data.venue_selection;
