@@ -326,24 +326,55 @@ class CustomerInformation extends Controller
     {
         // $leadcust = Lead::distinct()->withTrashed()->get();
         // $eventcust = Meeting::distinct()->withTrashed()->get();
-        $allcustomers = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customrer) {
-            $customrer->company = Lead::find($customrer->ref_id);
-            return $customrer;
-        });
-        $importedcustomers = UserImport::distinct()->get();
+        if (\Auth::user()->type == 'owner') {
+            $allcustomers = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customrer) {
+                $customrer->company = Lead::find($customrer->ref_id);
+                return $customrer;
+            });
+            $importedcustomers = UserImport::distinct()->get();
+        } else {
+            $allcustomerOLD = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customer) {
+                $customer->company = Lead::find($customer->ref_id);
+                return $customer;
+            });
+
+            $allcustomers = $allcustomerOLD->filter(function ($customer) {
+                $masterID = $customer->ref_id;
+                $leads = Lead::where('created_by', \Auth::user()->id)->exists();
+                return $leads;
+            });
+            $importedcustomers = UserImport::distinct()->get();
+        }
 
         return view('customer.allcustomers', compact('allcustomers', 'importedcustomers'));
     }
 
     public function event_customers()
     {
-        $eventcustomers = Meeting::withTrashed()->get();
+        if (\Auth::user()->type == 'owner') {
+            $eventcustomers = Meeting::withTrashed()->get();
+        } else {
+            $crnt_user = \Auth::user()->id;
+            $eventcustomers = Meeting::withTrashed()->get()->filter(function ($meeting) use ($crnt_user) {
+                $user_data = json_decode($meeting->user_data, true);
+                if (isset($user_data[$crnt_user])) {
+                    $trainerName = \App\Models\User::find($user_data[$crnt_user]['checkbox'])->name;
+                    $meeting->trainer_data = $trainerName;
+                    return $meeting;
+                }
+                return false;
+            });
+        }
         // $eventcustomers = MasterCustomer::withTrashed()->where('category', 'lead')->get();
         return view('customer.event_customer', compact('eventcustomers'));
     }
     public function lead_customers()
     {
-        $leadcustomers = Lead::withTrashed()->get();
+        if (\Auth::user()->type == 'owner') {
+            $leadcustomers = Lead::withTrashed()->get();
+        } else {
+            $leadcustomers = Lead::withTrashed()->where('assigned_user', \Auth::user()->id)->get();
+        }
         // $distinctCustomers = Lead::withTrashed()->distinct()->get();
         // $uniqueLeads = Lead::withTrashed()->select('*')->distinct('email')->get();
         // $leadcustomers = MasterCustomer::where('category', 'lead')->get();

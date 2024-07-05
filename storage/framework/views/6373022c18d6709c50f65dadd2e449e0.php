@@ -113,6 +113,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                 </div>
                                                 
                                                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if(\Auth::user()->type == 'owner' || (\Auth::user()->id == $user->id && str_contains(\Auth::user()->type, 'Trainer'))): ?>
                                                 <div class="form-check">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -124,6 +125,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <?php endif; ?>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 <script>
                                                     document.querySelectorAll('input.inputDisable').forEach(function(element) {
@@ -549,9 +551,6 @@ $user_data = json_decode($meeting->user_data,true);
                             <div class="col-12">
                                 <div class="row">
                                     <?php $__currentLoopData = $atttachments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $atchKey => $atchValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php
-                                    pr($atchValue);
-                                    ?>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <img src="<?php echo e(asset('storage/' . $atchValue->filepath)); ?>" alt="<?php echo e($atchValue->filename); ?>" srcset="" style="width: 100%;">

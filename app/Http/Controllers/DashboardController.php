@@ -46,11 +46,13 @@ class DashboardController extends Controller
 
                 return view('super_admin', compact('user', 'chartData'));
             } else {
+                // echo \Auth::user()->creatorId();
+                // prx(\Auth::user());
                 $useType = \Auth::user()->type;
                 if ($useType == 'owner') {
                     $userID = 3;
                 } elseif ($useType == 'Trainer') {
-                    $userID = \Auth::user()->creatorId();
+                    $userID = \Auth::user()->id;
                 } else {
                     $userID = \Auth::user()->creatorId();
                 }
@@ -66,7 +68,7 @@ class DashboardController extends Controller
                 $data['invoiceColor'] = Invoice::$statuesColor;
 
                 $date = today()->format('Y-m-d');
-                if (\Auth::user()->type == 'Trainer') {
+                if (\Auth::user()->type != 'owner') {
                     $activeLeads = Lead::where('assigned_user', \Auth::user()->id)->where('lead_status', 1)->where('converted_to', 0)->get();
                 } else {
                     $activeLeads = Lead::where('created_by', $userID)->where('lead_status', 1)->where('converted_to', 0)->get();
@@ -87,7 +89,7 @@ class DashboardController extends Controller
                 }
 
                 $lostLeads = Lead::where('created_by', $userID)->where('proposal_status', '==', 3)->take(4)->get();
-                if (\Auth::user()->type == 'Trainer') {
+                if (\Auth::user()->type != 'owner') {
                     $crnt_user = \Auth::user()->id;
                     $activeEvent =  Meeting::where('start_date', '>=', $date)->get()->filter(function ($meeting) use ($crnt_user) {
                         $user_data = json_decode($meeting->user_data, true);

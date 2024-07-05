@@ -30,7 +30,7 @@ class CalenderNewController extends Controller
     }
     public function eventinfo()
     {
-        if (\Auth::user()->type == 'Trainer' && str_contains(\Auth::user()->type, 'Trainer')) {
+        if (\Auth::user()->type != 'owner') {
             $crnt_user = \Auth::user()->id;
             $event = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
                 $user_data = json_decode($meeting->user_data, true);
@@ -50,7 +50,7 @@ class CalenderNewController extends Controller
     {
         $startDate = "{$request->year}-{$request->month}-01";
         $endDate = date('Y-m-t', strtotime($startDate));
-        if (\Auth::user()->type == 'Trainer' && str_contains(\Auth::user()->type, 'Trainer')) {
+        if (\Auth::user()->type != 'owner') {
             $crnt_user = \Auth::user()->id;
             $crnt_userName = \Auth::user()->name;
             $data = Meeting::whereBetween('start_date', [$startDate, $endDate])->get()->filter(function ($meeting) use ($crnt_user, $crnt_userName) {

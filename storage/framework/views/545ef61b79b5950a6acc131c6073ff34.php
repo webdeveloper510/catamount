@@ -65,7 +65,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $__currentLoopData = $leads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = $leads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                                            
                                             <tr>
                                                 <td>
                                                     <a href="<?php echo e(route('lead.info',urlencode(encrypt($lead->id)))); ?>" data-size="md" title="<?php echo e(__('Lead Details')); ?>" class="action-item text-primary" style="color:#1551c9 !important;">

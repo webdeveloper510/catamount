@@ -63,7 +63,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($leads as $lead)
+                                            @foreach($leads as $lead)                                            
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('lead.info',urlencode(encrypt($lead->id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">

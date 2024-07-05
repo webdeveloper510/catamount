@@ -107,6 +107,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                 </div>
                                                 {{-- Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) --}}
                                                 @foreach($users as $user)
+                                                @if(\Auth::user()->type == 'owner' || (\Auth::user()->id == $user->id && str_contains(\Auth::user()->type, 'Trainer')))
                                                 <div class="form-check">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -118,6 +119,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endif
                                                 @endforeach
                                                 <script>
                                                     document.querySelectorAll('input.inputDisable').forEach(function(element) {
@@ -541,9 +543,6 @@ $user_data = json_decode($meeting->user_data,true);
                             <div class="col-12">
                                 <div class="row">
                                     @foreach($atttachments as $atchKey => $atchValue)
-                                    <?php
-                                    pr($atchValue);
-                                    ?>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <img src="{{ asset('storage/' . $atchValue->filepath) }}" alt="{{ $atchValue->filename }}" srcset="" style="width: 100%;">

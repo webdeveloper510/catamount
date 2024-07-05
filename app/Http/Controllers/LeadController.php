@@ -56,7 +56,7 @@ class LeadController extends Controller
                 User::userDefualtView($defualtView);
             } elseif (\Auth::user()->type == 'Trainer' && str_contains(\Auth::user()->type, 'Trainer')) {
                 // $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->where('converted_to', 0)->orderby('id', 'desc')->get();
-                $leads = Lead::where('assigned_user', \Auth::user()->id)->orderby('id', 'desc')->get();
+                $leads = Lead::where('assigned_user', \Auth::user()->id)->where('converted_to', 0)->orderby('id', 'desc')->get();
                 $defualtView = new UserDefualtView();
                 $defualtView->route = \Request::route()->getName();
                 $defualtView->module = 'lead';
@@ -301,8 +301,8 @@ class LeadController extends Controller
         if (\Auth::user()->can('Edit Lead')) {
             $venue_function = explode(',', $lead->venue_selection);
             $function_package =  explode(',', $lead->function);
-            $status   = Lead::$status;
-            $users     = User::where('created_by', \Auth::user()->creatorId())->get();
+            $status = Lead::$status;
+            $users = User::where('created_by', \Auth::user()->creatorId())->get();
             return view('lead.edit', compact('venue_function', 'function_package', 'lead', 'users', 'status'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
