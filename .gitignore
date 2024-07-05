@@ -5,6 +5,7 @@
 /vendor
 /storage/app/public
 /public/agreement
+/public/storage
 /public/floor_images
 /public/upload
 /*.zip
