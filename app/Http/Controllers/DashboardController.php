@@ -18,6 +18,7 @@ use App\Models\User;
 use App\Models\Billing;
 use App\Models\Order;
 use App\Models\Plan;
+use Spatie\Permission\Models\Role;
 use App\Models\Utility;
 use App\Models\Blockdate;
 use App\Models\PaymentLogs;
@@ -47,9 +48,12 @@ class DashboardController extends Controller
                 return view('super_admin', compact('user', 'chartData'));
             } else {
                 // echo \Auth::user()->creatorId();
-                // prx(\Auth::user());
+                @$user_roles = \Auth::user()->user_roles;
+                @$useRole = Role::find($user_roles)->roleType;
                 $useType = \Auth::user()->type;
-                if ($useType == 'owner') {
+
+                $useType = $useRole == 'company' ? 'owner' : $useType;
+                if ($useType == 'owner' || $useRole == 'company') {
                     $userID = 3;
                 } elseif ($useType == 'Trainer') {
                     $userID = \Auth::user()->id;
@@ -68,8 +72,8 @@ class DashboardController extends Controller
                 $data['invoiceColor'] = Invoice::$statuesColor;
 
                 $date = today()->format('Y-m-d');
-                if (\Auth::user()->type != 'owner') {
-                    $activeLeads = Lead::where('assigned_user', \Auth::user()->id)->where('lead_status', 1)->where('converted_to', 0)->get();
+                if ($useType != 'owner') {
+                    $activeLeads = Lead::where('assigned_user', $userID)->where('lead_status', 1)->where('converted_to', 0)->get();
                 } else {
                     $activeLeads = Lead::where('created_by', $userID)->where('lead_status', 1)->where('converted_to', 0)->get();
                 }
@@ -89,8 +93,8 @@ class DashboardController extends Controller
                 }
 
                 $lostLeads = Lead::where('created_by', $userID)->where('proposal_status', '==', 3)->take(4)->get();
-                if (\Auth::user()->type != 'owner') {
-                    $crnt_user = \Auth::user()->id;
+                if ($useType != 'owner') {
+                    $crnt_user = $userID;
                     $activeEvent =  Meeting::where('start_date', '>=', $date)->get()->filter(function ($meeting) use ($crnt_user) {
                         $user_data = json_decode($meeting->user_data, true);
                         if (isset($user_data[$crnt_user])) {

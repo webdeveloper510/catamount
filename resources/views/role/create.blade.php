@@ -1,5 +1,11 @@
 {{Form::open(array('url'=>'role','method'=>'post'))}}
 {{-- $module=['Role','User','Account','Contact','Lead','Opportunities','CommonCase','Meeting','Call','Task','Document','Campaign','Quote','SalesOrder','Invoice','Payment','Invoice Payment','Product','AccountType','AccountIndustry','LeadSource','OpportunitiesStage','CaseType','DocumentFolder','DocumentType','TargetList','CampaignType','ProductCategory','ProductBrand','ProductTax','ShippingProvider','TaskStage','Form Builder','Contract','ContractType']; $module=['Role','User','Account','Contact','Lead','Opportunities','CommonCase','Meeting','Call','Task','Document','Campaign','Quote','SalesOrder','Invoice','Payment','Invoice Payment','Product','AccountType','AccountIndustry','LeadSource','OpportunitiesStage','CaseType','DocumentFolder','DocumentType','TargetList','CampaignType','ProductCategory','ProductBrand','ProductTax','ShippingProvider','TaskStage','Form Builder','Contract','ContractType']; --}}
+<style>
+    label.active {
+        box-shadow: 0 0 15px #2980b9;
+        border: 3px solid #fff;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
@@ -10,6 +16,17 @@
                 <strong class="text-danger">{{ $message }}</strong>
             </span>
             @enderror
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="badges">
+                {{ Form::label('individual', __('Individual'), ['class' => 'col-form-label badge rounded p-2 m-1 px-3 bg-primary ']) }}
+                <input type="radio" name="roleType" id="individual" class="individual" value="individual">
+
+                {{ Form::label('company', __('Company Level'), ['class' => 'col-form-label badge rounded p-2 m-1 px-3 bg-primary ']) }}
+                <input type="radio" name="roleType" id="company" class="company" value="company">
+            </div>
         </div>
     </div>
 </div>
@@ -103,6 +120,20 @@
             var ischeck = $(this).data('id');
             $('.isscheck_' + ischeck).prop('checked', this.checked);
 
+        });
+    });
+
+    var radios = document.querySelectorAll('input[name="roleType"]');
+
+    radios.forEach(function(radio) {
+        console.log(radio);
+        radio.addEventListener('click', function() {
+            radios.forEach(function(r) {
+                var label = document.querySelector('label[for="' + r.id + '"]');
+                label.classList.remove('active');
+            });
+            var activeLabel = document.querySelector('label[for="' + this.id + '"]');
+            activeLabel.classList.add('active');
         });
     });
 </script>

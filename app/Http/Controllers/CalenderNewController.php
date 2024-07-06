@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Meeting;
 use App\Models\Blockdate;
+use Spatie\Permission\Models\Role;
 
 class CalenderNewController extends Controller
 {
@@ -30,7 +31,11 @@ class CalenderNewController extends Controller
     }
     public function eventinfo()
     {
-        if (\Auth::user()->type != 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType != 'owner') {
             $crnt_user = \Auth::user()->id;
             $event = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
                 $user_data = json_decode($meeting->user_data, true);
@@ -50,7 +55,11 @@ class CalenderNewController extends Controller
     {
         $startDate = "{$request->year}-{$request->month}-01";
         $endDate = date('Y-m-t', strtotime($startDate));
-        if (\Auth::user()->type != 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType != 'owner') {
             $crnt_user = \Auth::user()->id;
             $crnt_userName = \Auth::user()->name;
             $data = Meeting::whereBetween('start_date', [$startDate, $endDate])->get()->filter(function ($meeting) use ($crnt_user, $crnt_userName) {

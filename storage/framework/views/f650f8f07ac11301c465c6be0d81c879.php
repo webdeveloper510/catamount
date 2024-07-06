@@ -1,6 +1,12 @@
 <?php echo e(Form::open(array('url'=>'role','method'=>'post'))); ?>
 
 
+<style>
+    label.active {
+        box-shadow: 0 0 15px #2980b9;
+        border: 3px solid #fff;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
@@ -20,6 +26,19 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="badges">
+                <?php echo e(Form::label('individual', __('Individual'), ['class' => 'col-form-label badge rounded p-2 m-1 px-3 bg-primary '])); ?>
+
+                <input type="radio" name="roleType" id="individual" class="individual" value="individual">
+
+                <?php echo e(Form::label('company', __('Company Level'), ['class' => 'col-form-label badge rounded p-2 m-1 px-3 bg-primary '])); ?>
+
+                <input type="radio" name="roleType" id="company" class="company" value="company">
+            </div>
         </div>
     </div>
 </div>
@@ -119,6 +138,20 @@ unset($__errorArgs, $__bag); ?>
             var ischeck = $(this).data('id');
             $('.isscheck_' + ischeck).prop('checked', this.checked);
 
+        });
+    });
+
+    var radios = document.querySelectorAll('input[name="roleType"]');
+
+    radios.forEach(function(radio) {
+        console.log(radio);
+        radio.addEventListener('click', function() {
+            radios.forEach(function(r) {
+                var label = document.querySelector('label[for="' + r.id + '"]');
+                label.classList.remove('active');
+            });
+            var activeLabel = document.querySelector('label[for="' + this.id + '"]');
+            activeLabel.classList.add('active');
         });
     });
 </script><?php /**PATH D:\0Work\xampp\htdocs\laravel\ash\catamount\resources\views/role/create.blade.php ENDPATH**/ ?>

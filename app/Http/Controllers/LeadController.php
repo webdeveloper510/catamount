@@ -34,6 +34,7 @@ use Str;
 use App\Models\LeadDoc;
 use App\Models\Meeting;
 use Storage;
+use Spatie\Permission\Models\Role;
 
 class LeadController extends Controller
 {
@@ -46,7 +47,11 @@ class LeadController extends Controller
     {
         if (\Auth::user()->can('Manage Lead')) {
             $statuss = Lead::$stat;
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 // $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->where('converted_to', 0)->orderby('id', 'desc')->get();
                 $leads = Lead::with('accounts', 'assign_user')->where('converted_to', 0)->orderby('id', 'desc')->get();
                 $defualtView         = new UserDefualtView();
@@ -54,7 +59,7 @@ class LeadController extends Controller
                 $defualtView->module = 'lead';
                 $defualtView->view   = 'list';
                 User::userDefualtView($defualtView);
-            } elseif (\Auth::user()->type == 'Trainer' && str_contains(\Auth::user()->type, 'Trainer')) {
+            } elseif ($useType == 'Trainer' && str_contains($useType, 'Trainer')) {
                 // $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->where('converted_to', 0)->orderby('id', 'desc')->get();
                 $leads = Lead::where('assigned_user', \Auth::user()->id)->where('converted_to', 0)->orderby('id', 'desc')->get();
                 $defualtView = new UserDefualtView();
@@ -82,7 +87,11 @@ class LeadController extends Controller
     public function create($type, $id)
     {
         if (\Auth::user()->can('Create Lead')) {
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $users = User::all();
             } else {
                 $users = User::where('created_by', \Auth::user()->creatorId())->get();
@@ -406,7 +415,11 @@ class LeadController extends Controller
             $lead->update();
             $statuss = Lead::$stat;
 
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->orderby('id', 'desc')->get();
             } else {
                 $leads = Lead::with('accounts', 'assign_user')->where('user_id', \Auth::user()->id)->get();
@@ -484,7 +497,11 @@ class LeadController extends Controller
 
     public function showConvertToAccount($id)
     {
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $lead        = Lead::findOrFail($id);
             $accountype  = accountType::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             $industry    = accountIndustry::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
@@ -498,7 +515,11 @@ class LeadController extends Controller
     }
     public function convertToAccount($id, Request $request)
     {
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $lead = Lead::findOrFail($id);
             $usr  = \Auth::user();
 
@@ -839,7 +860,11 @@ class LeadController extends Controller
 
 
         $statuss = Lead::$stat;
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $leads = Lead::with('accounts', 'assign_user')->where('created_by', \Auth::user()->creatorId())->orderby('id', 'desc')->get();
         } else {
             $leads = Lead::with('accounts', 'assign_user')->where('user_id', \Auth::user()->id)->get();

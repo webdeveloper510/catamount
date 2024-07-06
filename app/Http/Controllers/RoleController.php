@@ -80,9 +80,10 @@ class RoleController extends Controller
                     'name' => 'required|max:100|unique:roles,name,NULL,id,created_by,' . \Auth::user()->creatorId(),
                 ]
             );
-            $name             = $request['name'];
-            $role             = new Role();
-            $role->name       = $name;
+            $name = $request['name'];
+            $role = new Role();
+            $role->name = $name;
+            $role->roleType = $request['roleType'];
             $role->created_by = \Auth::user()->creatorId();
             $role->save();
 
@@ -157,10 +158,11 @@ class RoleController extends Controller
                 [
                     'name' => 'required|max:100|unique:roles,name,' . $role['id'] . ',id,created_by,' . \Auth::user()->creatorId(),
                     'permissions' => 'required',
+                    'roleType' => 'required',
                 ]
             );
 
-            $input       = $request->except(['permissions']);
+            $input = $request->except(['permissions']);
             $permissions = $request['permissions'];
             $role->fill($input)->save();
 

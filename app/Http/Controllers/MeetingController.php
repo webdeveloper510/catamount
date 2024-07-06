@@ -35,6 +35,7 @@ use DB;
 use App\Mail\SendEventMail;
 use App\Mail\TestingMail;
 use Str;
+use Spatie\Permission\Models\Role;
 
 class MeetingController extends Controller
 {
@@ -46,7 +47,11 @@ class MeetingController extends Controller
     public function index()
     {
         if (\Auth::user()->can('Manage Training')) {
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $meetings = Meeting::orderby('id', 'desc')->get()->map(function ($meeting) {
                     $user_data = json_decode($meeting->user_data);
 
@@ -64,7 +69,7 @@ class MeetingController extends Controller
                 $defualtView->module = 'meeting';
                 $defualtView->view   = 'list';
                 User::userDefualtView($defualtView);
-            } elseif (\Auth::user()->type == 'Trainer' && str_contains(\Auth::user()->type, 'Trainer')) {
+            } elseif ($useType == 'Trainer' && str_contains($useType, 'Trainer')) {
                 // $meetings = Meeting::orderby('id', 'desc')->get();
                 $crnt_user = \Auth::user()->id;
                 $meetings = Meeting::orderBy('id', 'desc')->get()->filter(function ($meeting) use ($crnt_user) {
@@ -117,7 +122,11 @@ class MeetingController extends Controller
         if (\Auth::user()->can('Create Training')) {
             $status            = Meeting::$status;
             $parent            = Meeting::$parent;
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $users = User::all();
                 $attendees_lead = Lead::where('status', 4)->where('lead_status', 1)->get()->pluck('leadname', 'id');
             } else {
@@ -411,7 +420,11 @@ class MeetingController extends Controller
             // } else {
             //     return redirect()->back()->with('error', __('Webhook call failed.') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
             // }
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
@@ -665,7 +678,11 @@ class MeetingController extends Controller
             //         return redirect()->back()->with('error', 'File upload failed');
             //     }
             // }
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
@@ -1274,7 +1291,11 @@ class MeetingController extends Controller
             }
         }
         if ($status == 3) {
-            if (\Auth::user()->type == 'owner') {
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
                 $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
@@ -1306,21 +1327,21 @@ class MeetingController extends Controller
                 // );
                 return redirect()->back()->with('success', 'Email Not Sent');
             }
-            if (\Auth::user()->type == 'owner') {
+            if ($useType == 'owner') {
                 $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Resent!'));
         } elseif ($status == 5) {
-            if (\Auth::user()->type == 'owner') {
+            if ($useType == 'owner') {
                 $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings Withdrawn!'));
         }
-        if (\Auth::user()->type == 'owner') {
+        if ($useType == 'owner') {
             $meetings = Meeting::with('assign_user')->orderby('id', 'desc')->get();
         } else {
             $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();

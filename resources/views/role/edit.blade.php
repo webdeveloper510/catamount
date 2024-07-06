@@ -1,5 +1,11 @@
 {{Form::model($role,array('route' => array('role.update', $role->id), 'method' => 'PUT')) }}
 <!-- $modules=['Role','User','Account','Contact','Lead','Opportunities','CommonCase','Meeting','Call','Task','Document','Campaign','Quote','SalesOrder','Invoice','Payment','Invoice Payment','Product','AccountType','AccountIndustry','LeadSource','OpportunitiesStage','CaseType','DocumentFolder','DocumentType','TargetList','CampaignType','ProductCategory','ProductBrand','ProductTax','ShippingProvider','TaskStage','Form Builder','Contract','ContractType']; -->
+<style>
+    label.active {
+        box-shadow: 0 0 15px #2980b9;
+        border: 3px solid #fff;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
@@ -12,10 +18,24 @@
     </div>
     <div class="col-md-12">
         <div class="form-group">
-            {{Form::label('Individual',__('Individual'),['class'=>'col-form-label'])}}
-            <input type="radio" name="type" class="rounded p-2 m-1 px-3 bg-primary" value="Individual">
-            {{Form::label('Company Level',__('Company Level'),['class'=>'col-form-label'])}}
-            <input type="radio" name="type" class="rounded p-2 m-1 px-3 bg-primary" value="Company Level">
+            <div class="badges">
+                @php
+                $individual_active = $individual_checked = $company_active = $company_checked = '';
+                if($role->roleType == 'individual') {
+                $individual_active = 'active';
+                $individual_checked = 'checked';
+                } else {
+                $company_active = 'active';
+                $company_checked = 'checked';
+                }
+                @endphp
+
+                {{ Form::label('individual', __('Individual'), ['class' => 'col-form-label badge rounded p-2 m-1 px-3 bg-primary ' . $individual_active]) }}
+                <input type="radio" name="roleType" id="individual" class="individual" value="individual" {{ $individual_checked }}>
+
+                {{ Form::label('company', __('Company Level'), ['class' => 'col-form-label badge rounded p-2 m-1 px-3 bg-primary ' . $company_active]) }}
+                <input type="radio" name="roleType" id="company" class="company" value="company" {{ $company_checked }}>
+            </div>
         </div>
     </div>
 </div>
@@ -109,6 +129,20 @@
             var ischeck = $(this).data('id');
             $('.isscheck_' + ischeck).prop('checked', this.checked);
 
+        });
+    });
+
+    var radios = document.querySelectorAll('input[name="roleType"]');
+
+    radios.forEach(function(radio) {
+        console.log(radio);
+        radio.addEventListener('click', function() {
+            radios.forEach(function(r) {
+                var label = document.querySelector('label[for="' + r.id + '"]');
+                label.classList.remove('active');
+            });
+            var activeLabel = document.querySelector('label[for="' + this.id + '"]');
+            activeLabel.classList.add('active');
         });
     });
 </script>

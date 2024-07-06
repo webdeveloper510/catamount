@@ -18,6 +18,7 @@ use App\Models\PaymentLogs;
 use App\Models\Utility;
 use App\Mail\PaymentLink;
 use Mail;
+use Spatie\Permission\Models\Role;
 
 class BillingController extends Controller
 {
@@ -28,7 +29,11 @@ class BillingController extends Controller
     public function index()
     {
         $status = Billing::$status;
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $billing = Billing::all();
             $events = Meeting::where('status', '!=', 5)->orderby('id', 'desc')->get();
             return view('billing.index', compact('billing', 'events'));

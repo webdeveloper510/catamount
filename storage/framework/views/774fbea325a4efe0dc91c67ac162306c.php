@@ -95,7 +95,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         </a>
                                     </li>
                                     <?php endif; ?>
-                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Report')): ?>
+                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Invoice')): ?>
                                     <li class="dash-item <?php echo e(\Request::route()->getName() == 'billing' || \Request::route()->getName() == 'billing.index' ? ' active' : ''); ?>">
                                         <a href="<?php echo e(route('billing.index')); ?>" class="dash-link">
                                             <span class="dash-mtext"><?php echo e(__('Invoice')); ?></span>

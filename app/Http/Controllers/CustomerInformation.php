@@ -20,6 +20,7 @@ use Twilio\Rest\Client;
 use App\Models\MasterCustomer;
 use App\Models\NotesCustomer;
 use Str;
+use Spatie\Permission\Models\Role;
 
 class CustomerInformation extends Controller
 {
@@ -326,7 +327,11 @@ class CustomerInformation extends Controller
     {
         // $leadcust = Lead::distinct()->withTrashed()->get();
         // $eventcust = Meeting::distinct()->withTrashed()->get();
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $allcustomers = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customrer) {
                 $customrer->company = Lead::find($customrer->ref_id);
                 return $customrer;
@@ -351,7 +356,11 @@ class CustomerInformation extends Controller
 
     public function event_customers()
     {
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $eventcustomers = Meeting::withTrashed()->get();
         } else {
             $crnt_user = \Auth::user()->id;
@@ -370,7 +379,11 @@ class CustomerInformation extends Controller
     }
     public function lead_customers()
     {
-        if (\Auth::user()->type == 'owner') {
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
             $leadcustomers = Lead::withTrashed()->get();
         } else {
             $leadcustomers = Lead::withTrashed()->where('assigned_user', \Auth::user()->id)->get();

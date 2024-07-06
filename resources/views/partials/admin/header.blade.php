@@ -95,7 +95,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         </a>
                                     </li>
                                     @endcan
-                                    @can('Manage Report')
+                                    @can('Manage Invoice')
                                     <li class="dash-item {{ \Request::route()->getName() == 'billing' || \Request::route()->getName() == 'billing.index' ? ' active' : '' }}">
                                         <a href="{{ route('billing.index') }}" class="dash-link">
                                             <span class="dash-mtext">{{ __('Invoice') }}</span>
