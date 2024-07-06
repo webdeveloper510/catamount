@@ -20,6 +20,16 @@ endif;
 unset($__errorArgs, $__bag); ?>
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <?php echo e(Form::label('Individual',__('Individual'),['class'=>'col-form-label'])); ?>
+
+            <input type="radio" name="type" class="rounded p-2 m-1 px-3 bg-primary" value="Individual">
+            <?php echo e(Form::label('Company Level',__('Company Level'),['class'=>'col-form-label'])); ?>
+
+            <input type="radio" name="type" class="rounded p-2 m-1 px-3 bg-primary" value="Company Level">
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
