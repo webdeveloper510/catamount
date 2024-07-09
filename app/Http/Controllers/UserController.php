@@ -64,7 +64,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if (\Auth::user()->can('Create User')){
+        if (\Auth::user()->can('Create User')) {
             $default_language = DB::table('settings')->select('value')->where('name', 'default_language')->first();
             if (\Auth::user()->type == 'super admin') {
 
@@ -135,73 +135,71 @@ class UserController extends Controller
                         ],
                         'password' => 'required|min:6',
                         'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-                        'phone'=>'required',
-                        'user_roles'=>'required',
-                        'details'=>'nullable|mimes:doc,docx,pdf'
+                        'phone' => 'required',
+                        'user_roles' => 'required',
+                        'details' => 'nullable|mimes:doc,docx,pdf'
                     ]
                 );
                 if ($validator->fails()) {
                     $messages = $validator->getMessageBag();
                     return redirect()->back()->with('error', $messages->first());
                 }
-                $phone= $request->countrycode.preg_replace('/\D/', '', $request->input('phone'));
+                $phone = $request->countrycode . preg_replace('/\D/', '', $request->input('phone'));
                 $setting  = Utility::settingsById(\Auth::user()->id);
                 $objUser    = User::find(\Auth::user()->creatorId());
                 $total_user = $objUser->countUsers();
                 $plan       = Plan::find($objUser->plan);
                 // if ($total_user < $plan->max_user || $plan->max_user == -1) {
-                    $role_r             = Role::findById($request->user_roles);                    
-                    $user               = new User();
-                    $user['username']   = $request->email;
-                    $user['name']       = $request->name;
-                    $user['title']      = $request->title;
-                    $user['email']      = $request->email;
-                    $user['email_verified_at'] = $request->email_verified_at;
-                    $user['email_verified_at'] = date('H:i:s');
-                    $user['phone']      = $phone;
-                    $user['gender']     = $request->gender;
-                    $user['is_active']  = ($request->is_active == 'on') ? 1 : 0;
-                    $user['lang']       = !empty($setting['default_owner_language']) ? $setting['default_owner_language'] : 'en';
-                    if($role_r->name == 'Admin'){
-                        $user['type']       = 'owner';
-                        $user['user_roles'] = '';
-                        $roleperm = Role::findByName('owner');
-                        $user->assignRole($roleperm);
-                        $user['plan'] = Plan::first()->id;
-                    }else
-                    {
-                        $user['type']       = $role_r->name;
-                        $user['user_roles'] = $role_r->id;
-                        $user->assignRole($role_r);
-                    }
-                    $user['password']   = Hash::make($request->password);
-                    // if($user['is_active'] == 0){$user['email_sent'] = false;}
-                    if (!empty($request->avatar))
-                    {
-                        $image_size = $request->file('avatar')->getSize();
-                        $result = Utility::updateStorageLimit(\Auth::user()->creatorId(), $image_size);
-                        if ($result == 1) {
-                            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
-                            $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                            $extension       = $request->file('avatar')->getClientOriginalExtension();
-                            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+                $role_r             = Role::findById($request->user_roles);
+                $user               = new User();
+                $user['username']   = $request->email;
+                $user['name']       = $request->name;
+                $user['title']      = $request->title;
+                $user['email']      = $request->email;
+                $user['email_verified_at'] = $request->email_verified_at;
+                $user['email_verified_at'] = date('H:i:s');
+                $user['phone']      = $phone;
+                $user['gender']     = $request->gender;
+                $user['is_active']  = ($request->is_active == 'on') ? 1 : 0;
+                $user['lang']       = !empty($setting['default_owner_language']) ? $setting['default_owner_language'] : 'en';
+                if ($role_r->name == 'Admin') {
+                    $user['type']       = 'owner';
+                    $user['user_roles'] = '';
+                    $roleperm = Role::findByName('owner');
+                    $user->assignRole($roleperm);
+                    $user['plan'] = Plan::first()->id;
+                } else {
+                    $user['type']       = $role_r->name;
+                    $user['user_roles'] = $role_r->id;
+                    $user->assignRole($role_r);
+                }
+                $user['password']   = Hash::make($request->password);
+                // if($user['is_active'] == 0){$user['email_sent'] = false;}
+                if (!empty($request->avatar)) {
+                    $image_size = $request->file('avatar')->getSize();
+                    $result = Utility::updateStorageLimit(\Auth::user()->creatorId(), $image_size);
+                    if ($result == 1) {
+                        $filenameWithExt = $request->file('avatar')->getClientOriginalName();
+                        $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                        $extension       = $request->file('avatar')->getClientOriginalExtension();
+                        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
 
-                            $dir        = 'upload/profile/';
-                            $path = Utility::upload_file($request, 'avatar', $fileNameToStore, $dir, []);
-                            $url = '';
+                        $dir        = 'upload/profile/';
+                        $path = Utility::upload_file($request, 'avatar', $fileNameToStore, $dir, []);
+                        $url = '';
 
-                            $user['avatar']     = !empty($request->avatar) ? $fileNameToStore : '';
-                            if ($path['flag'] == 1) {
-                                $url = $path['url'];
-                            } else {
-                                return redirect()->back()->with('error', __($path['msg']));
-                            }
+                        $user['avatar']     = !empty($request->avatar) ? $fileNameToStore : '';
+                        if ($path['flag'] == 1) {
+                            $url = $path['url'];
+                        } else {
+                            return redirect()->back()->with('error', __($path['msg']));
                         }
                     }
-                   
-                    $user['created_by'] = \Auth::user()->creatorId();
-                    $user->save();
-                    if (!empty($request->file('details'))){
+                }
+
+                $user['created_by'] = \Auth::user()->creatorId();
+                $user->save();
+                if (!empty($request->file('details'))) {
                     $file =  $request->file('details');
                     $filename = Str::random(7) . '.' . $file->getClientOriginalExtension();
                     $folder = 'UserInfo/' . $user->id; // Example: uploads/1
@@ -211,67 +209,67 @@ class UserController extends Controller
                         Log::error('File upload failed: ' . $e->getMessage());
                         return redirect()->back()->with('error', 'File upload failed');
                     }
-                    }
-                    // $userstatus = User::where('email',$request->email)->get();
-                   
+                }
+                // $userstatus = User::where('email',$request->email)->get();
 
-                    // Stream::create(
-                    //     [
-                    //         'user_id' => \Auth::user()->id,
-                    //         'created_by' => \Auth::user()->creatorId(),
-                    //         'log_type' => 'created',
-                    //         'remark' => json_encode(
-                    //             [
-                    //                 'owner_name' => \Auth::user()->username,
-                    //                 'title' => 'user',
-                    //                 'stream_comment' => '',
-                    //                 'user_name' => $request->name,
-                    //             ]
-                    //         ),
-                    //     ]
-                    // );
+
+                // Stream::create(
+                //     [
+                //         'user_id' => \Auth::user()->id,
+                //         'created_by' => \Auth::user()->creatorId(),
+                //         'log_type' => 'created',
+                //         'remark' => json_encode(
+                //             [
+                //                 'owner_name' => \Auth::user()->username,
+                //                 'title' => 'user',
+                //                 'stream_comment' => '',
+                //                 'user_name' => $request->name,
+                //             ]
+                //         ),
+                //     ]
+                // );
+                $uArr = [
+                    'email' => $user->email,
+                    'password' => $request->password,
+                ];
+
+                // if($userstatus[0]['is_active'] == 1){
+                $resp = Utility::sendEmailTemplate('new_user', [$user->id => $user->email], $uArr);
+                $setting  = Utility::settings(\Auth::user()->creatorId());
+                if (isset($setting['twilio_user_create']) && $setting['twilio_user_create'] == 1) {
                     $uArr = [
                         'email' => $user->email,
-                        'password' => $request->password,
+                        'password' => $user->password,
+                        'user_name'  => \Auth::user()->name,
+                        'app_name' => env('APP_NAME'),
+                        // 'app_url' => url('/'),
                     ];
-                    
-                    // if($userstatus[0]['is_active'] == 1){
-                        $resp = Utility::sendEmailTemplate('new_user', [$user->id => $user->email], $uArr);
-                        $setting  = Utility::settings(\Auth::user()->creatorId());
-                        if (isset($setting['twilio_user_create']) && $setting['twilio_user_create'] == 1) {
-                            $uArr = [
-                                'email' => $user->email,
-                                'password' => $user->password,
-                                'user_name'  => \Auth::user()->name,
-                                'app_name' => env('APP_NAME'),
-                                // 'app_url' => url('/'),
-                            ];
-                            Utility::send_twilio_msg('+'.$phone, 'new_user', $uArr);
-                        }
-                    // }
-                    //webhook
-                    // $module = 'New User';
-                    // $webhook =  Utility::webhookSetting($module, $user->created_by);
-                    // if ($webhook) {
-                    //     $parameter = json_encode($user);
-                    //     // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-                    //     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
-                    //     if ($status != true) {
-                    //         $msg = "Webhook call failed.";
-                    //     }
-                    // }
-                    if (\Auth::user()) {
-                        return redirect()->back()->with('success', __('Staff created!') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')).((isset($result) && $result!=1) ? '<br> <span class="text-danger">' . $result . '</span>' : ''));
-                    } else {
-                        return redirect()->back()->with('error', __('Webhook call failed.') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
-                    }
-                    $uArr = [
-                        'email' => $user->email,
-                        'password' => $request->password,
-                    ];
+                    Utility::send_twilio_msg('+' . $phone, 'new_user', $uArr);
+                }
+                // }
+                //webhook
+                // $module = 'New User';
+                // $webhook =  Utility::webhookSetting($module, $user->created_by);
+                // if ($webhook) {
+                //     $parameter = json_encode($user);
+                //     // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
+                //     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
+                //     if ($status != true) {
+                //         $msg = "Webhook call failed.";
+                //     }
+                // }
+                if (\Auth::user()) {
+                    return redirect()->back()->with('success', __('Staff created!') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')) . ((isset($result) && $result != 1) ? '<br> <span class="text-danger">' . $result . '</span>' : ''));
+                } else {
+                    return redirect()->back()->with('error', __('Webhook call failed.') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
+                }
+                $uArr = [
+                    'email' => $user->email,
+                    'password' => $request->password,
+                ];
 
 
-                    return redirect()->back()->with('success', __('Staff  Inserted.'. ((isset($result) && $result!=1) ? '<br> <span class="text-danger">' . $result . '</span>' : '')));
+                return redirect()->back()->with('success', __('Staff  Inserted.' . ((isset($result) && $result != 1) ? '<br> <span class="text-danger">' . $result . '</span>' : '')));
                 // } else {
                 //     return redirect()->back()->with('error', __('Your staff limit is over, Please upgrade plan.'));
                 // }
@@ -321,17 +319,16 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-
         if (\Auth::user()->can('Edit User')) {
             $user      = User::find($id);
-            $phone= $request->countrycode.preg_replace('/\D/', '', $request->input('phone'));
+            $phone = $request->countrycode . preg_replace('/\D/', '', $request->input('phone'));
 
             $validator = \Validator::make(
                 $request->all(),
                 [
                     // 'username' => 'required|max:120',
                     'name' => 'required|max:120',
-                    'phone'=>'required',
+                    'phone' => 'required',
                 ]
             );
             if ($validator->fails()) {
@@ -353,17 +350,18 @@ class UserController extends Controller
             //     $user['email_sent'] == true; 
             // }
             $user->update();
-            if (!empty($request->file('details'))){
-            $file =  $request->file('details');
-            $filename = Str::random(7) . '.' . $file->getClientOriginalExtension();
-            $folder = 'UserInfo/' . $id; // Example: uploads/1
-            try {
-                $path = $file->storeAs($folder, $filename, 'public');
-            } catch (\Exception $e) {
-                Log::error('File upload failed: ' . $e->getMessage());
-                return redirect()->back()->with('error', 'File upload failed');
+            if (!empty($request->file('details'))) {
+                $file =  $request->file('details');
+                $filename = Str::random(7) . '.' . $file->getClientOriginalExtension();
+                $folder = 'UserInfo/' . $id; // Example: uploads/1
+                try {
+                    $path = $file->storeAs($folder, $filename, 'public');
+                } catch (\Exception $e) {
+                    Log::error('File upload failed: ' . $e->getMessage());
+                    return redirect()->back()->with('error', 'File upload failed');
+                }
             }
-        }
+            $user->syncRoles([]);
             $user->assignRole($role_r);
             Stream::create(
                 [
@@ -455,13 +453,13 @@ class UserController extends Controller
             $extension       = $request->file('profile')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
 
-                $dir = 'upload/profile/';
-                $image_path = $dir . $userDetail['avatar'];
-                if (\File::exists($image_path)) {
-                    \File::delete($image_path);
-                }
-                $url = '';
-                $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
+            $dir = 'upload/profile/';
+            $image_path = $dir . $userDetail['avatar'];
+            if (\File::exists($image_path)) {
+                \File::delete($image_path);
+            }
+            $url = '';
+            $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
             if ($path['flag'] == 1) {
                 $url = $path['url'];
             } else {
@@ -598,14 +596,15 @@ class UserController extends Controller
             'Staff Password  updated.'
         );
     }
-    public function view_docs($id){
+    public function view_docs($id)
+    {
         $user = User::find($id);
-        return view('user.view_doc',compact('user'));
+        return view('user.view_doc', compact('user'));
     }
-    public function user_docs_delete($id,$filename){
+    public function user_docs_delete($id, $filename)
+    {
         // print_r($id);
-        Storage::delete('app/public/UserInfo/'.$id.'/'.$filename);
+        Storage::delete('app/public/UserInfo/' . $id . '/' . $filename);
         return back()->with('success', 'File deleted successfully.');
-
     }
 }

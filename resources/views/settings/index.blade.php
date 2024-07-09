@@ -896,18 +896,18 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                         </div>
                                     </div>
                                     @endcan
-                                    @can('Manage Role')
+                                    @if(\Auth::user()->can('Manage Role'))
                                     <div id="role-settings" class="accordion-item card">
                                         <h2 class="accordion-header" id="heading-2-15">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
-                                                <h5>{{ __('Role Settings') }}</h5>
-                                                @can('Create Role')
+                                                <h5>{{ __('Role & Permission Settings') }}</h5>
+                                                @if(\Auth::user()->can('Create Role'))
                                                 <div class="action-btn bg-warning ms-2" style="float: inline-end;">
                                                     <a href="javascript:void(0);" data-url="{{ route('role.create') }}" data-size="lg" data-ajax-popup="true" data-bs-toggle="tooltip" title="{{__(' Create Role')}}" data-title="{{__('Create New Role')}}" class="btn btn-sm btn-primary btn-icon m-1">
                                                         <i class="ti ti-plus"></i>
                                                     </a>
                                                 </div>
-                                                @endcan
+                                                @endif
                                             </button>
                                         </h2>
                                         <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
@@ -973,7 +973,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                             </div>
                                         </div>
                                     </div>
-                                    @endcan
+                                    @endif
                                     <div id="eventsettings" class="accordion-item card mt-2">
                                         <h2 class="accordion-header" id="heading-2-15">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">

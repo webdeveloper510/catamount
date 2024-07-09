@@ -61,8 +61,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                     <li class="dash-item {{ \Request::route()->getName() == 'dashboard' ? ' active' : '' }}">
                                         <a href="{{ route('dashboard') }}" class="dash-link"><span class="dash-mtext">{{ __('Dashboard') }}</span></a>
                                     </li>
-                                    @if(Gate::check('Manage Lead') || Gate::check('Manage Training') ||
-                                    Gate::check('Manage User'))
+                                    @if(Gate::check('Manage Lead') || Gate::check('Manage Training') || Gate::check('Manage User'))
                                     <li class="dash-item {{ \Request::route()->getName() == 'siteusers'||\Request::route()->getName() == 'customer.info' ||
                 \Request::route()->getName() == 'event_customers'||
                 \Request::route()->getName() == 'lead_customers' || \Request::route()->getName() ==
@@ -102,7 +101,7 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                         </a>
                                     </li>
                                     @endcan
-                                    @can('Manage Payment')
+                                    @can('Manage Report')
                                     <li class="dash-item {{ \Request::route()->getName() =='report.leadsanalytic' ||  \Request::route()->getName() =='report.eventanalytic'|| \Request::route()->getName() =='report.customersanalytic' || \Request::route()->getName() =='report.billinganalytic'? 'active' :'' }}">
                                         <a href="{{ route('report.leadsanalytic') }}" class="dash-link">
                                             <span class="dash-mtext">{{ __('Reports') }}</span></a>
