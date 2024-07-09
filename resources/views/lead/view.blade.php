@@ -176,17 +176,29 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Organization')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->company_name }}</span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Email')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{ $lead->email }}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead Created')}}</span></dt>
+                    <dd class="col-md-6"><span class="">{{\Auth::user()->dateFormat($lead->created_at)}}</span></dd>
+
+                    <dt class="col-md-12"><span class="h4  mb-0" style="display: block;padding: 20px 0;text-align: -webkit-center;">{{__('Primary Contact')}}</span></dt>
+
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Name')}}</span></dt>
+                    <dd class="col-md-6">
+                        <span class="">{{ @$lead->name ?? '--'}}</span>
+                    </dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Phone')}}</span></dt>
                     <dd class="col-md-6"><span class="" id="phone-input">{{ $lead->primary_contact }}</span></dd>
 
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Email')}}</span></dt>
+                    <dd class="col-md-6"><span class="">{{ $lead->email }}</span></dd>
+
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Address')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->lead_address ?? '--'}}</span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Lead Created')}}</span></dt>
-                    <dd class="col-md-6"><span class="">{{\Auth::user()->dateFormat($lead->created_at)}}</span></dd>
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Title')}}</span></dt>
+                    <dd class="col-md-6">
+                        <span class="">{{ @$lead->relationship ?? '--'}}</span>
+                    </dd>
 
                     @php
                     @$secondary_contact = json_decode($lead->secondary_contact);

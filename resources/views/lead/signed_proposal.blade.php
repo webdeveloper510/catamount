@@ -53,13 +53,13 @@ foreach ($token as $key => $val) {
 
     .border-new {
         border: 1px solid #000 !important;
-        padding: 15px 0;
+        /* padding: 15px 0; */
     }
 
-    .border-new1 {
+    /* .border-new1 {
         padding: 10px 0 40px 0;
     }
-
+ */
     .input-new:nth-child(2) {
         justify-content: center;
     }

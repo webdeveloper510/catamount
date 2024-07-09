@@ -721,6 +721,7 @@ class LeadController extends Controller
         $lead = Lead::find($id);
         Lead::where('id', $id)->update(['status' => 2]);
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
+        $emails = array_column($users->toArray(), 'email');
 
         $usersDetail = User::find($lead->user_id);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
@@ -761,9 +762,10 @@ class LeadController extends Controller
                     'mail.from.name'    => $settings['mail_from_name'],
                 ]
             );
-            foreach ($users as  $user) {
+            Mail::to($lead->email)->cc($emails)->send(new ProposalResponseMail($proposals, $lead));
+            /* foreach ($users as  $user) {
                 Mail::to($lead->email)->cc($user->email)->send(new ProposalResponseMail($proposals, $lead));
-            }
+            } */
             $upd = Lead::where('id', $id)->update(['status' => 2]);
         } catch (\Exception $e) {
             // return response()->json(['is_success' => false,'message' => $e->getMessage(),]);

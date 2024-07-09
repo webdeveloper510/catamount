@@ -71,7 +71,7 @@ class DashboardController extends Controller
                 $data['totalProduct'] = Product::where('created_by', $userID)->count();
                 $data['invoiceColor'] = Invoice::$statuesColor;
 
-                $date = today()->format('Y-m-d');
+                $date = today()->format('Y-m');
                 if ($useType != 'owner') {
                     $activeLeads = Lead::where('assigned_user', $userID)->where('lead_status', 1)->where('converted_to', 0)->get();
                 } else {
@@ -95,7 +95,7 @@ class DashboardController extends Controller
                 $lostLeads = Lead::where('created_by', $userID)->where('proposal_status', '==', 3)->take(4)->get();
                 if ($useType != 'owner') {
                     $crnt_user = $userID;
-                    $activeEvent =  Meeting::where('start_date', '>=', $date)->get()->filter(function ($meeting) use ($crnt_user) {
+                    $activeEvent =  Meeting::where('start_date', '>=', $date)->take(10)->get()->filter(function ($meeting) use ($crnt_user) {
                         $user_data = json_decode($meeting->user_data, true);
                         if (isset($user_data[$crnt_user])) {
                             return true;
@@ -103,7 +103,7 @@ class DashboardController extends Controller
                         return false;
                     });
                 } else {
-                    $activeEvent = Meeting::where('created_by', $userID)->where('start_date', '>=', $date)->get();
+                    $activeEvent = Meeting::where('created_by', $userID)->where('start_date', '>=', $date)->take(10)->get();
                 }
                 $pastEvents = Meeting::where('created_by', $userID)->where('start_date', '<', $date)->take(4)->get();
 

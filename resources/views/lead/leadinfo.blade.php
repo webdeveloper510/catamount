@@ -195,6 +195,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                             <tr>
                                                 <!-- <th scope="col" class="sort" data-sort="name">{{__('Lead')}}</th> -->
                                                 <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
+                                                <th scope="col" class="sort" data-sort="name">{{__('Organization')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Phone')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Email')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Address')}}</th>
@@ -207,6 +208,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                             @foreach($leads as $lead)
                                             <tr>
                                                 <td>{{ucfirst($lead->name)}}</td>
+                                                <td>{{ucfirst($lead->company_name)}}</td>
                                                 <td>{{$lead->primary_contact}}</td>
                                                 <td>{{$lead->email ?? '--'}}</td>
                                                 <td>{{$lead->lead_address ?? '--'}}</td>

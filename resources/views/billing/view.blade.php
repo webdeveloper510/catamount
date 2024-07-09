@@ -120,9 +120,8 @@ foreach ($pay as $p) {
     <div class="w-100 text-end pr-2">
         @can('Manage Payment')
         <div class="action-btn bg-warning ms-2">
-            <a href="{{ route('meeting.agreement',urlencode(encrypt($event->id)))}}">
-                <button data-bs-toggle="tooltip" title="{{ __('View Invoice') }}" class="btn btn-sm btn-secondary btn-icon m-1">
-                    <i class="fa fa-print"></i></button>
+            <a href="{{ route('meeting.agreement',urlencode(encrypt($event->id)))}}" target="_blank">
+                <button data-bs-toggle="tooltip" title="{{ __('View Invoice') }}" class="btn btn-sm btn-secondary btn-icon m-1"><i class="fa fa-print"></i></button>
             </a>
         </div>
         @endcan
