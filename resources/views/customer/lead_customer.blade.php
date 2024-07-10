@@ -36,7 +36,7 @@
                                             @foreach($leadcustomers as $user)
                                             <tr>
 
-                                                <td><a href="{{ route('lead.userinfo',urlencode(encrypt($user->ref_id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
+                                                <td><a href="{{ route('lead.userinfo',urlencode(encrypt($user->id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst($user->name) }}</b>
                                                     </a></td>
 
