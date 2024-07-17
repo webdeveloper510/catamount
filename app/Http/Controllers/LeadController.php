@@ -687,7 +687,7 @@ class LeadController extends Controller
     {
         $settings = Utility::settings();
         $id = decrypt(urldecode($id));
-        $proposal_info = ProposalInfo::where('lead_id', $id)->first();
+        // $proposal_info = ProposalInfo::where('lead_id', $id)->first();
 
         $agreement = html_entity_decode($request->agreement);
         $remarks = html_entity_decode($request->remarks);
@@ -723,6 +723,7 @@ class LeadController extends Controller
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
         $emails = array_column($users->toArray(), 'email');
 
+        $proposal_info = ProposalInfo::where('lead_id', $lead->id)->orderBy('created_at', 'desc')->first();
         $usersDetail = User::find($lead->user_id);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);

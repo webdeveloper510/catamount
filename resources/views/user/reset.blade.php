@@ -17,10 +17,10 @@
 <div class="modal-footer">
     <button type="button" class="btn  btn-light"
         data-bs-dismiss="modal">Close</button>
-        {{Form::submit(__('Upadte'),array('class'=>'btn btn-primary'))}}
+        {{Form::submit(__('Update'),array('class'=>'btn btn-primary'))}}
 </div>
 {{-- <div class="modal-footer">
-    {{Form::submit(__('Upadte'),array('class'=>'btn btn-sm btn-primary rounded-pill'))}}
+    {{Form::submit(__('Update'),array('class'=>'btn btn-sm btn-primary rounded-pill'))}}
 </div> --}}
 
 {{ Form::close() }} 

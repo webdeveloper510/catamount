@@ -9,7 +9,7 @@ $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
 $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 
-$proposal_settings = unserialize($settings['proposal']);
+$proposal_settings = json_decode($settings['proposal']);
 $token = array(
     'USER_EMAIL'  => $users->email,
 );
@@ -17,11 +17,21 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-@$proposal_settings['address'] = strtr($proposal_settings['address'], $varMap);
+@$proposal_settings->address = strtr($proposal_settings->address, $varMap);
 
-$proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_info->proposal_data) : [];
+// $proposal_info = isset($proposal_info->proposal_data) ? json_decode($proposal_info->proposal_data) : $proposal_settings;
+$proposal_info = json_decode($proposal_info->proposal_data);
 
-// pr($proposal_settings);
+
+foreach ($proposal_info->settings as $ps_key => $ps_value) {
+    $finalProposal[$ps_key] = isset($ps_value) ? $ps_value : $proposal_settings->$ps_key;
+}
+
+/* $data['proposal_settings'] = $proposal_settings;
+$data['proposal_info'] = $proposal_info->settings;
+$data['finalProposal'] = $finalProposal;
+prx($data); */
+
 // pr($lead->secondary_contact);
 $secondary_contact = json_decode($lead->secondary_contact);
 
@@ -84,10 +94,10 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             </div>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <h4 class="center-new">{!!__(@$proposal_settings['title'])!!}</h4>
+                            <h4 class="center-new">{!!__(@$proposal_settings->title)!!}</h4>
                         </div>
                         <div class="col-sm-12 border-new">
-                            <h5 class="center-new">{!!__(@$proposal_settings['address'])!!}</h5>
+                            <h5 class="center-new">{!!__(@$proposal_settings->address)!!}</h5>
                             <!-- <h5 class="center-new">PLEASE RETURN TO: Catamount Consulting, PO Box 442, Warrensburg NY 12885</br>Or</h5>
                             <h5 class="center-new input-new">
                                 <label for="email">{{__('Email')}}: </label>{{__($users->email)}}
@@ -123,7 +133,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             <h5 class="input-new">
                                 <label for="agreement">{{__('Agreement')}}:</label>
                             </h5>
-                            {!!@$proposal_info->settings->agreement!!}
+                            {!!@$finalProposal['agreement']!!}
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
                         <div class="col-sm-12 border-new">
@@ -140,7 +150,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             <h5 class="input-new">
                                 <label for="remarks">{{__('Remarks')}}:</label>
                             </h5>
-                            {!!@$proposal_info->settings->remarks!!}
+                            {!!@$finalProposal['remarks']!!}
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
                         </div>
                         <div class="col-sm-12 mt-5">
@@ -149,25 +159,36 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             </h5>
                         </div>
                         <div class="col-sm-12  mt-5">
+                            <strong>
+                                Sark-Wise Corporation<br>
+                                Akif Uskuplu</br>
+                                120 Industrial Park</br>
+                                Albany, NY 12206</br></br>
+                                Dear Akif,</br></br>
+                                Catamount Consulting is pleased to provide you with this proposal for safety services for Sark-Wire Corporation.</br>
+                                The following proposal provide the scope of service, schedule, cost and business terms.
+                            </strong>
+                        </div>
+                        <div class="col-sm-12  mt-5">
                             <h5 class="input-new"><label for="scopeServices">{{__('Scope of Services')}}:</label></h5>
-                            <p>{!!@$proposal_info->settings->scopeOfService!!}</p>
+                            <p>{!!@$finalProposal['scopeOfService']!!}</p>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="schedule">{{__('Schedule')}}:</label></h5>
-                            <p>{!!@$proposal_settings['schedule']!!}</p>
+                            <p>{!!@$proposal_settings->schedule!!}</p>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label></h5>
-                            <p>{!!@$proposal_info->settings->costBusiness!!}</p>
+                            <p>{!!@$finalProposal['costBusiness']!!}</p>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="cencellation">{{__('CANCELLATION')}}:</label></h5>
                             <div class="textarea">
-                                <p>{!!@@$proposal_info->settings->cancenllation!!}</p>
+                                <p>{!!@$finalProposal['cancenllation']!!}</p>
                             </div>
                         </div>
                         <!-- <div class="col-sm-12 mt-5">
-                            <h5 class="input-new">{!!@$proposal_settings['cancenllation']!!}</h5>
+                            <h5 class="input-new">{!!@$proposal_settings->cancenllation!!}</h5>
                         </div> -->
 
                         <div class="table">

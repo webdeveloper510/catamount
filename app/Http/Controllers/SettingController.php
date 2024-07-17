@@ -2163,7 +2163,7 @@ class SettingController extends Controller
             'costBusiness' => $costBusiness,
             'cancenllation' => $cancenllation,
         ];
-        $serialize = serialize($data);
+        $serialize = json_encode($data);
 
         \DB::insert(
             'insert into settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',

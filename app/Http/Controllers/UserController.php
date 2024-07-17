@@ -591,7 +591,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ])->save();
 
-        return redirect()->route('user.index')->with(
+        return redirect()->route('settings')->with(
             'success',
             'Staff Password  updated.'
         );

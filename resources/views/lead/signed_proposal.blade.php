@@ -4,8 +4,8 @@ if (isset($billing) && !empty($billing)) {
     $billing = json_decode($billing->proposal_info, true);
 }
 $settings = App\Models\Utility::settings();
-@$proposalSettings = unserialize($proposal_info['proposal_data']);
-@$proposal_settings = unserialize($settings['proposal']);
+// @$proposalSettings = json_decode($proposal_info['proposal_data']);
+@$proposal_settings = json_decode($settings['proposal']);
 
 $selectedvenue = explode(',', $lead->venue_selection);
 $imagePath = public_path('upload/signature/autorised_signature.png');
@@ -18,15 +18,6 @@ if (isset($proposal) && ($proposal['image'] != null)) {
 
 $proposalDataArg = json_decode($proposal_info->proposal_data);
 
-// prx($proposalDataArg);
-/* $proposalSettingsArg = [];
-foreach ($proposal_settings as $proCustKey => $proCustValue) {
-    if (array_key_exists($proCustKey, $proposalSettings)) {
-        $proposalSettingsArg[$proCustKey] = $proposalSettings[$proCustKey];
-    } else {
-        $proposalSettingsArg[$proCustKey] = $proCustValue;
-    }
-} */
 $token = array(
     'USER_EMAIL'  => $usersDetail->email,
 );
@@ -34,7 +25,16 @@ $pattern = '[%s]';
 foreach ($token as $key => $val) {
     $varMap[sprintf($pattern, $key)] = $val;
 }
-@$proposal_settings['address'] = strtr($proposal_settings['address'], $varMap);
+@$proposal_settings->address = strtr($proposal_settings->address, $varMap);
+
+
+foreach ($proposalDataArg->settings as $ps_key => $ps_value) {
+    $finalProposal[$ps_key] = isset($ps_value) ? $ps_value : $proposal_settings->$ps_key;
+}
+/*$data['proposal_settings'] = $proposal_settings;
+ $data['proposalSettings'] = $proposalDataArg->settings;
+$data['finalProposal'] = $finalProposal;
+prx($data); */
 
 ?>
 <!DOCTYPE html>
@@ -137,10 +137,10 @@ foreach ($token as $key => $val) {
                 </div>
             </div>
             <div class="col-sm-12 border-new">
-                <h4 class="center-new">{!!__(@$proposal_settings['title'])!!}</h4>
+                <h4 class="center-new">{!!__(@$proposal_settings->title)!!}</h4>
             </div>
             <div class="col-sm-12 border-new">
-                <h4 class="center-new">{!!__(@$proposal_settings['address'])!!}</h4>
+                <h4 class="center-new">{!!__(@$proposal_settings->address)!!}</h4>
             </div>
             <div class="col-sm-12 border-new">
                 <h5 class="input-new">
@@ -178,7 +178,7 @@ foreach ($token as $key => $val) {
                     <label for="agreement">{{__('Agreement')}}: </label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->agreement!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['agreement']!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 border-new">
@@ -192,7 +192,7 @@ foreach ($token as $key => $val) {
                     <label for="remarks">{{__('Remarks')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->remarks!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['remarks']!!}</p>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -201,11 +201,22 @@ foreach ($token as $key => $val) {
                 </h5>
             </div>
             <div class="col-sm-12  mt-5">
+                <strong>
+                    Sark-Wise Corporation<br>
+                    Akif Uskuplu</br>
+                    120 Industrial Park</br>
+                    Albany, NY 12206</br></br>
+                    Dear Akif,</br></br>
+                    Catamount Consulting is pleased to provide you with this proposal for safety services for Sark-Wire Corporation.</br>
+                    The following proposal provide the scope of service, schedule, cost and business terms.
+                </strong>
+            </div>
+            <div class="col-sm-12  mt-5">
                 <h5 class="input-new">
                     <label for="scopeServices">{{__('Scope of Services')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->scopeOfService!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['scopeOfService']!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -213,7 +224,7 @@ foreach ($token as $key => $val) {
                     <label for="schedule">{{__('Schedule')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposal_settings['schedule']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposal_settings->schedule!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -221,7 +232,7 @@ foreach ($token as $key => $val) {
                     <label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->costBusiness!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['costBusiness']!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -229,7 +240,7 @@ foreach ($token as $key => $val) {
                     <label for="cencellation">{{__('CANCELLATION')}}:</label>
                 </h5>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposalDataArg->settings->cancenllation!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['cancenllation']!!}</p>
                 </div>
             </div>
             <!-- <div class="col-sm-12 border-new1">

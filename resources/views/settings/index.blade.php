@@ -721,41 +721,41 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                             <div class="accordion-body1">
                                                 {!! Form::open(['method' => 'POST', 'route' => 'buffer.proposal']) !!}
                                                 @php
-                                                @$proposal = unserialize($settings['proposal']);
+                                                @$proposal = json_decode($settings['proposal']);
                                                 @endphp
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Title')}}</h6>
-                                                            <input type="text" class="form-control" name="title" id="title" value="{{__(@$proposal['title'])}}" required>
+                                                            <input type="text" class="form-control" name="title" id="title" value="{{__(@$proposal->title)}}" required>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Address')}}</h6>
-                                                            <textarea rows="5" name="address" class="form-control" id="address" required>{{__(@$proposal['address'])}}</textarea>
+                                                            <textarea rows="5" name="address" class="form-control" id="address" required>{{__(@$proposal->address)}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Agreement')}}</h6>
-                                                            <textarea rows="5" name="agreement" class="form-control" id="agreement" required>{{__(@$proposal['agreement'])}}</textarea>
+                                                            <textarea rows="5" name="agreement" class="form-control" id="agreement" required>{{__(@$proposal->agreement)}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-6">
                                                             <h6>{{__('Remarks')}}</h6>
-                                                            <textarea rows="5" name="remarks" class="form-control" id="remarks" required>{{__(@$proposal['remarks'])}}</textarea>
+                                                            <textarea rows="5" name="remarks" class="form-control" id="remarks" required>{{__(@$proposal->remarks)}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('Scope of Services')}}</h6>
-                                                            <textarea rows="5" name="scopeOfService" class="form-control" id="scopeOfService" required>{{__(@$proposal['scopeOfService'])}}</textarea>
+                                                            <textarea rows="5" name="scopeOfService" class="form-control" id="scopeOfService" required>{{__(@$proposal->scopeOfService)}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('Schedule')}}</h6>
-                                                            <textarea rows="5" name="schedule" class="form-control" id="schedule" required>{{__(@$proposal['schedule'])}}</textarea>
+                                                            <textarea rows="5" name="schedule" class="form-control" id="schedule" required>{{__(@$proposal->schedule)}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('Cost and Business Terms')}}</h6>
-                                                            <textarea rows="5" name="costBusiness" class="form-control" id="costBusiness" required>{{__(@$proposal['costBusiness'])}}</textarea>
+                                                            <textarea rows="5" name="costBusiness" class="form-control" id="costBusiness" required>{{__(@$proposal->costBusiness)}}</textarea>
                                                         </div>
                                                         <div class="form-group col-sm-12">
                                                             <h6>{{__('CANCELLATION')}}</h6>
-                                                            <textarea rows="5" name="cancenllation" class="form-control" id="cancenllation" required>{{__(@$proposal['cancenllation'])}}</textarea>
+                                                            <textarea rows="5" name="cancenllation" class="form-control" id="cancenllation" required>{{__(@$proposal->cancenllation)}}</textarea>
                                                         </div>
                                                         <div class="col-sm-12">
                                                             {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
@@ -919,6 +919,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                 <tr>
                                                                     <th width="150">{{__('Role')}} </th>
                                                                     <th>{{__('Permissions')}} </th>
+                                                                    <th>{{__('Level')}} </th>
                                                                     @if(Gate::check('Edit Role') ||
                                                                     Gate::check('Delete Role'))
                                                                     <th width="150" class="text-end">
@@ -944,6 +945,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                             @endforeach
                                                                         </div>
                                                                     </td>
+                                                                    <td>{{ $role->roleType }}</td>
                                                                     @if(Gate::check('Edit Role') ||
                                                                     Gate::check('Delete Role'))
                                                                     <td class="text-end">

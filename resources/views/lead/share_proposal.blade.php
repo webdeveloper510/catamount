@@ -67,13 +67,13 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
 $leaddata['bar_package_cost'] = $totalBarPackageCost;
 
 $proposalDataArg = isset($proposal->proposal_data) ? json_decode($proposal->proposal_data) : [];
-$proposalSettingArg = unserialize($settings['proposal']);
+$proposalSettingArg = json_decode($settings['proposal']);
 
-$agreement = isset($proposalDataArg->settings->agreement) ? $proposalDataArg->settings->agreement : $proposalSettingArg['agreement'];
-$remarks = isset($proposalDataArg->settings->remarks) ? $proposalDataArg->settings->remarks : $proposalSettingArg['remarks'];
-$scopeOfService = isset($proposalDataArg->settings->scopeOfService) ? $proposalDataArg->settings->scopeOfService : $proposalSettingArg['scopeOfService'];
-$costBusiness = isset($proposalDataArg->settings->costBusiness) ? $proposalDataArg->settings->costBusiness : $proposalSettingArg['costBusiness'];
-$cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDataArg->settings->cancenllation : $proposalSettingArg['cancenllation'];
+$agreement = isset($proposalDataArg->settings->agreement) ? $proposalDataArg->settings->agreement : $proposalSettingArg->agreement;
+$remarks = isset($proposalDataArg->settings->remarks) ? $proposalDataArg->settings->remarks : $proposalSettingArg->remarks;
+$scopeOfService = isset($proposalDataArg->settings->scopeOfService) ? $proposalDataArg->settings->scopeOfService : $proposalSettingArg->scopeOfService;
+$costBusiness = isset($proposalDataArg->settings->costBusiness) ? $proposalDataArg->settings->costBusiness : $proposalSettingArg->costBusiness;
+$cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDataArg->settings->cancenllation : $proposalSettingArg->cancenllation;
 
 
 ?>

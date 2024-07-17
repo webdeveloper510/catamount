@@ -50,7 +50,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
             max-width: 100px;
             max-height: 80px;
             position: relative;
-            top: 12%;
+            top: 5%;
             right: 33%;
         }
 
@@ -117,13 +117,13 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .logoTxt {
             position: relative;
-            left: 20%;
+            top: -6%;
         }
 
         .invoice-details {
             position: relative;
             right: -70%;
-            top: -10%;
+            top: -16%;
             width: 20%;
         }
 
@@ -179,8 +179,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .paidStemp {
             position: fixed;
-            top: 20%;
-            left: 40%;
+            top: 25%;
+            left: 35%;
             transform: rotate(-22deg);
             font-weight: 700;
             font-size: 22px;
@@ -194,11 +194,16 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <h2>{{ date('d/m/Y')}}</h2>
     </div>
     <div class="invoice">
+        <div class="bill-to">
+            <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
+            <hr style="border: 1px solid #000">
+            <h5>{{ $meeting->name }}</h5>
+            <p>{{ $meeting->lead_address }}</p>
+        </div>
         <div class="header">
             <div class="logo">
                 <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="min-width: 150px; min-height:100px" alt="Catamount Consulting">
-                <p class="logoTxt">
-                <h2>Catamount Consulting</h2><br>PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
+                <h2 class="logoTxt">Catamount Consulting</h2><p class="logoTxt">PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
             </div>
             <div class="invoice-details">
                 <h2>Invoice</h2>
@@ -214,13 +219,13 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                 </table>
             </div>
         </div>
-        <div class="bill-to">
+        <!--  <div class="bill-to">
             <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
             <hr style="border: 1px solid #000">
             <h5>{{ $meeting->name }}</h5>
             <p>{{ $meeting->lead_address }}</p>
 
-        </div>
+        </div> -->
         <div class="items">
             <table>
                 <thead>
