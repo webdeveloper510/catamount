@@ -28,7 +28,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             </div>
                         </div>
                         <div class="col-md-8 mt-5">
-                            <h4>The Bond 1786 - Agreement</h4>
+                            <h4>Catamount Consulting - Agreement</h4>
                             <!-- <h4>Proposal</h4> -->
                             <h5>Venue Rental & Banquet Event - Estimate</h5>
                         </div>
@@ -93,16 +93,16 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                         <div class="col-md-12">
                             <p class="text"><b>This contract defines the terms and conditions under which Lotus Estate,
                                     LLC
-                                    dba The Bond 1786, (hereinafter referred to as The Bond or The
+                                    dba Catamount Consulting, (hereinafter referred to as The Bond or The
                                     Bond 1786), and <b>{{$meeting->name}}</b>(hereafter referred to as the Customer)
                                     agree
-                                    to the Customer’s use of The Bond 1786 facilities on
+                                    to the Customer’s use of Catamount Consulting facilities on
                                     <b>{{ \Carbon\Carbon::parse($meeting->start_date)->format('d M, Y') }}</b>
                                     (reception/event date). This contract constitutes the entire agreement between the
                                     parties and becomes binding upon the signature of
                                     both parties. The contract may not be amended or changed unless executed in writing
                                     and
-                                    signed by The Bond 1786 and the Customer.</b>
+                                    signed by Catamount Consulting and the Customer.</b>
                             </p>
                         </div>
                     </div>
@@ -125,13 +125,13 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             </p>
                             <h6 class="headings">Rental Deposit and Payment Agreement</h6>
                             <p class="text">
-                                The total cost for use of The Bond 1786 and its facilities described in this contract is
+                                The total cost for use of Catamount Consulting and its facilities described in this contract is
                                 listed above. To reserve services on the
-                                date/s requested, The Bond 1786 requires this contract be signed by Customer and an <b>
+                                date/s requested, Catamount Consulting requires this contract be signed by Customer and an <b>
                                     initial payment of $3,000</b> be deposited.
                                 The balance is due prior to the event date. Deposits and payments will be made at the
                                 time of signing of the Contract. Payments
-                                can be made by cash, Bank checks (made payable to <b>The Bond 1786</b>), on the schedule
+                                can be made by cash, Bank checks (made payable to <b>Catamount Consulting</b>), on the schedule
                                 noted below. A receipt from The Bond
                                 1786 will be provided for each.
                             </p>
@@ -340,7 +340,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <h6 class="headings">FOOD AND ALCOHOLIC BEVERAGES and 3RD PARTY / ON-SITE VENDORS</h6>
                             <p class="text">
                                 The Client and their guests agree to not bring in any unauthorized food or beverage into
-                                The Bond 1786. The Establishment does not allow outside alcoholic beverages, unless
+                                Catamount Consulting. The Establishment does not allow outside alcoholic beverages, unless
                                 agreed with the Terms. Catering service is available at a cost; please see your
                                 Coordinator for menu selections. The Coordinator / Owner reserves the right to approve
                                 all vendors providing services to the event to include food,
@@ -363,21 +363,21 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 </li>
                                 <li>Customer hereby agrees to use their best efforts to ensure that Alcohol will not be
                                     served to anyone who is intoxicated or appears to be intoxicated.</li>
-                                <li>Customer hereby expressly grants to The Bond 1786, at The Bond’s sole discretion and
+                                <li>Customer hereby expressly grants to Catamount Consulting, at The Bond’s sole discretion and
                                     option, to instruct the security officer(s) to remove any person(s) from the Venue,
-                                    if in the opinion of The Bond 1786 representative in charge, the licensed
+                                    if in the opinion of Catamount Consulting representative in charge, the licensed
                                     and bonded Bartender and/or the security officer(s) the person(s) is intoxicated,
                                     unruly or could present a danger to themselves or others, and/or the Venue.</li>
                                 <li>Customer hereby agrees to be liable and responsible for all act(s) and actions of
                                     every kind and nature for each person in attendance at Customer’s function or event.
                                 </li>
-                                <li>Caterers: No caterer can be used without prior approval of The Bond 1786. Each
-                                    caterer approved should be familiar with The Bond 1786 venues, rules, and
+                                <li>Caterers: No caterer can be used without prior approval of Catamount Consulting. Each
+                                    caterer approved should be familiar with Catamount Consulting venues, rules, and
                                     regulations.</li>
                                 <li>Each one of these caterers will have to carry required liability insurance for The
                                     Bond.</li>
                                 <li>If Customer requests a different food service company, they must be pre-approved by
-                                    The Bond 1786 and meet their rules and regulations.</li>
+                                    Catamount Consulting and meet their rules and regulations.</li>
                                 <li>Your catering company is responsible for the set-up, break-down and clean-up of the
                                     catered site. Please allow appropriate time for break-down and clean-up to meet the
                                     contracted timelines.</li>
@@ -411,7 +411,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <b>Large Events & Weddings -</b>
                             <p>
                                 1. Changes: In the unlikely event the Customer is required to change the date of the
-                                event or Wedding, every effort will be made by The Bond 1786 to transfer reservations to
+                                event or Wedding, every effort will be made by Catamount Consulting to transfer reservations to
                                 support the new date. The Customer agrees that in the event of a date change, any
                                 expenses including, but not limited to, deposits, and fees that are non-refundable, and
                                 non-transferable are the sole responsibility of Customer. The Customer further
@@ -425,16 +425,16 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             </p>
                             <ul>
                                 <li> In the event Customer cancels the event more than one year prior to the event,
-                                    Customer shall forfeit to The Bond 1786 as liquidated damages one-half (1/2) of
+                                    Customer shall forfeit to Catamount Consulting as liquidated damages one-half (1/2) of
                                     deposit.</li>
                                 <li>In the event customer cancels the event less than one year but not more than six
-                                    months prior to the event, Customer shall forfeit to The Bond 1786 as liquidated
+                                    months prior to the event, Customer shall forfeit to Catamount Consulting as liquidated
                                     damages the entire deposit. </li>
                                 <li> In the event Customer cancels the event less than six (6) months but more than
-                                    three (3) months prior to the event, Customer shall forfeit to The Bond 1786 as
+                                    three (3) months prior to the event, Customer shall forfeit to Catamount Consulting as
                                     liquidated damages fifty percent (50 %) of the rental fee. </li>
                                 <li> In the event customer cancels the event less than three (3) months prior to the
-                                    event, Customer shall forfeit to The Bond 1786 as liquidated damages the entire
+                                    event, Customer shall forfeit to Catamount Consulting as liquidated damages the entire
                                     rental fee. </li>
                             </ul>
                             <h6 class="headings"> GUARANTEE NUMBER OF GUESTS: </h6>
@@ -469,7 +469,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 <li>Alcohol service must stop no later than 11:00 PM (or maximum of 5-hours if occurring
                                     sooner).</li>
                                 <li>Music (DJ or live music) must stop no later than 11:00 PM</li>
-                                <li>All guests must be off The Bond 1786 premises no later than midnight the day of the
+                                <li>All guests must be off Catamount Consulting premises no later than midnight the day of the
                                     event (except clean-up crew, with all clean-ups to be done by 1:00 am).</li>
                             </ul>
                             <h6 class="headings">FINAL PAYMENT & PAYMENT POLICY:</h6>
@@ -478,7 +478,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 if payment is not received by contracted due date. If deposit or full payment is not
                                 received as required by contracted date, the contract will be canceled. For check
                                 payment
-                                please send payment to: The Bond 1786, (3, Hudson Street, Warrensburg, NY 12885). Rooms
+                                please send payment to: Catamount Consulting, (3, Hudson Street, Warrensburg, NY 12885). Rooms
                                 must be paid for before entry is granted unless alternative payment arrangements have
                                 been
                                 pre-established for event payment. </p>
@@ -492,7 +492,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 applied towards the total bills of the organized event, however in case of settlement of
                                 damages, the deposit may be applied towards the total damages, including the use of the
                                 Credit
-                                Card on file, should there be a remaining balance due to The Bond 1786. </p>
+                                Card on file, should there be a remaining balance due to Catamount Consulting. </p>
 
                             <h6 class="headings">COMPLIANCE WITH LAWS:</h6>
                             <p>You will comply with all applicable local and national laws, codes, regulations,
@@ -505,7 +505,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
 
                             <h6 class="headings">INDEMNIFICATION:</h6>
                             <p> To the extent permitted by law, you agree to protect, indemnify, defend and hold
-                                harmless the Establishment, Lotus Estate, LLC dba The Bond 1786
+                                harmless the Establishment, Lotus Estate, LLC dba Catamount Consulting
                                 and the owner of the Establishment, and each of their respective employees and agents
                                 against all claims, losses or damages to persons or property, governmental charges or
                                 fines,
@@ -526,12 +526,12 @@ $bar_pck = json_decode($meeting['bar_package'], true);
 
                             <h6 class="headings">RESPONSIBILITY AND SECURITY</h6>
                             <p class="text">
-                                The Bond 1786 does not accept any responsibility for damage to or loss of any articles
-                                or property left at The Bond 1786 prior to, during, or after the event.
-                                The Customer(s) agrees to be responsible for any damage done to The Bond 1786 Complex by
+                                Catamount Consulting does not accept any responsibility for damage to or loss of any articles
+                                or property left at Catamount Consulting prior to, during, or after the event.
+                                The Customer(s) agrees to be responsible for any damage done to Catamount Consulting Complex by
                                 the Customer(s), his or her guests, invitees, employees, or other agents under the
                                 Customer(s)
-                                control. Further, The Bond 1786 shall not be liable for any loss, damage or injury of
+                                control. Further, Catamount Consulting shall not be liable for any loss, damage or injury of
                                 any kind or character to any person or property caused by or arising from an act or
                                 omission of the
                                 Customer(s), or any of his or her guests, invitees, employees or other agents from any
@@ -540,23 +540,23 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 safe condition or arising from any other cause, The Customer(s), as a material part of
                                 the consideration of this agreement, hereby waives on its behalf all claims and demands
                                 against
-                                The Bond 1786 for any such loss, damage, or injury of claims and demands against The
+                                Catamount Consulting for any such loss, damage, or injury of claims and demands against The
                                 Bond 1786 for any such loss, damage, or injury of the Customer(s), and hereby agrees to
                                 indemnify
-                                and hold The Bond 1786 free and harmless from all liability of any such loss, damage or
+                                and hold Catamount Consulting free and harmless from all liability of any such loss, damage or
                                 injury to his or her persons, and from all costs and expenses arising there from,
                                 including but
                                 not limited to attorney fees. </p>
 
                             <h6 class="headings">EXCUSE OF PERFORMANCE (Force Majeure) </h6>
-                            <p class="text">The performance of this agreement by The Bond 1786 is subject to acts of
+                            <p class="text">The performance of this agreement by Catamount Consulting is subject to acts of
                                 God, war, government regulations or advisory, disaster, fire, accident, or other
                                 casualty,
                                 strikes or threats of strikes, labor disputes, civil disorder, acts and/or threats of
                                 terrorism, or curtailment of transportation services or facilities, or similar cause
                                 beyond the control of The Bond. Should the event be cancelled through a Force Majeure
-                                event, all fees paid by Customer to The Bond 1786 will be returned to Customer within
-                                thirty (30) days or The Bond 1786 will allow for the event to be rescheduled, pending
+                                event, all fees paid by Customer to Catamount Consulting will be returned to Customer within
+                                thirty (30) days or Catamount Consulting will allow for the event to be rescheduled, pending
                                 availability, with no penalty, and there shall be no further liability between the
                                 parties. </p>
 
@@ -570,15 +570,15 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 shall be deemed to be written, construed, and enforced as so limited. </p>
 
                             <h6 class="headings">INSURANCE</h6>
-                            <p class="text">The Bond 1786 shall carry liability and other insurance in such dollar
-                                amount as deemed necessary by The Bond 1786 to protect itself against any claims arising
+                            <p class="text">Catamount Consulting shall carry liability and other insurance in such dollar
+                                amount as deemed necessary by Catamount Consulting to protect itself against any claims arising
                                 from any
                                 officially scheduled activities during the event/program period(s). Any third-party
                                 suppliers/vendors used or contracted by Customer shall carry liability and other
                                 necessary
                                 insurance in the amount of no less than One Million Dollars ($1,000,000) to protect
                                 itself against any claims arising from any officially scheduled activities during the
-                                event/program period(s); and to indemnify The Bond 1786 which shall be named as an
+                                event/program period(s); and to indemnify Catamount Consulting which shall be named as an
                                 additional insured for the duration of this Contract. </p>
 
 
@@ -594,10 +594,10 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 provided on site. </p>
 
                             <h6 class="headings">RESERVATION OF RIGHTS</h6>
-                            <p class="text">The Bond 1786 reserves the right to cancel agreements for non-payment or for
+                            <p class="text">Catamount Consulting reserves the right to cancel agreements for non-payment or for
                                 non-compliance with any of the Rules and Conditions of Usage set forth in the Agreement.
-                                The rights of The Bond 1786 as set-forth in this Agreement are in addition to any rights
-                                or remedies which may be available to The Bond 1786 at law or equity.
+                                The rights of Catamount Consulting as set-forth in this Agreement are in addition to any rights
+                                or remedies which may be available to Catamount Consulting at law or equity.
                             </p>
                             <h6 class="headings">JURISDICTION & ATTORNEY’S FEES</h6>
                             <p class="text">The Parties agree that this Agreement will be governed by the laws of the
@@ -643,8 +643,8 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 fixtures. All decorations must be removed without leaving damages directly
                                 following the departure of the last guest unless special arrangements have been made
                                 between the Customer(s) and the venue.
-                                ALL DECORATIONS MUST BE APPROVED BY The Bond 1786. The Customer is responsible for all
-                                damages to The Bond 1786 Venues and surround site. It is the Customer’s responsibility
+                                ALL DECORATIONS MUST BE APPROVED BY Catamount Consulting. The Customer is responsible for all
+                                damages to Catamount Consulting Venues and surround site. It is the Customer’s responsibility
                                 to
                                 remove all decorations and return Venue to the condition in which it was received. </p>
 
@@ -658,17 +658,17 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                 please have your Clean-up Committee take a few minutes to walk all the areas of the
                                 building and property that have been utilized for the event and pick-up any refuse that
                                 may
-                                have been dropped or blown around. This trash may be placed into The Bond 1786
+                                have been dropped or blown around. This trash may be placed into Catamount Consulting
                                 dumpsters. Customer shall be responsible for returning the Venue (and site if
                                 applicable) to the
                                 condition in which it was provided to them. All property belonging to Customer,
                                 Customer’s invitees, guests, agents, and sub-contractors, shall be removed by the end of
                                 the
                                 rental period. All property remaining on the premises beyond the end of the rental
-                                agreement will be removed by The Bond 1786 at The Customers cost. Should the Customer
+                                agreement will be removed by Catamount Consulting at The Customers cost. Should the Customer
                                 need special consideration for the removal of property beyond the rental period, this
                                 can be arranged prior to the beginning of the event for an additional fee.
-                                The Bond 1786 is not responsible for any property left behind by Customer, Customer’s
+                                Catamount Consulting is not responsible for any property left behind by Customer, Customer’s
                                 guests, invitees, agents, and sub-contractors. </p>
 
                             <h6 class="headings">GUESTS:</h6>
@@ -691,10 +691,10 @@ $bar_pck = json_decode($meeting['bar_package'], true);
 
                             <h6 class="headings">MUSIC AND ENTERTAINMENT:</h6> Although music (both live and recorded)
                             is permitted, the music must be contained at an acceptable sound level so as not to disturb
-                            the local surrounding area. The Bond 1786 event coordinator will help to establish
+                            the local surrounding area. Catamount Consulting event coordinator will help to establish
                             acceptable sound levels. Any complaints from neighbors or other parties may require the
-                            levels to be reduced further. The Bond 1786 reserves the right to require Customer(s) to
-                            cease the music it deems inappropriate, in its sole discretion. The Bond 1786 also reserves
+                            levels to be reduced further. Catamount Consulting reserves the right to require Customer(s) to
+                            cease the music it deems inappropriate, in its sole discretion. Catamount Consulting also reserves
                             the right to require the Customer(s) to lower the sound level or cease playing music, in its
                             sole discretion.
 
@@ -711,10 +711,10 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <h6 class="headings">PETS:</h6> Sorry, absolutely no pets allowed. However, a family pet
                             involved in an event will be considered.
 
-                            <h6 class="headings">PHOTOGRAPHY:</h6> The many natural settings around The Bond 1786 were
+                            <h6 class="headings">PHOTOGRAPHY:</h6> The many natural settings around Catamount Consulting were
                             maintained and developed for the enjoyment of all events. We reserve the right for each
                             Customer the opportunity to use any area of the complex for wedding/reception photograph
-                            sessions. All times for utilization of different areas at The Bond 1786 will be coordinated
+                            sessions. All times for utilization of different areas at Catamount Consulting will be coordinated
                             with the schedule for each venue’s Customer. We also reserve the right to use any
                             photographs or other media reproductions of an event in our publicity and advertising
                             materials.
@@ -722,13 +722,13 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <h6 class="headings">RENTAL SPACE CHANGES:</h6> Any contents or furniture movement must be
                             pre-approved by The Bond. It is the Customer’s responsibility to restore all areas to their
                             original appearance. Placements of tables, tents, live music, catering equipment, etc., must
-                            also be approved by The Bond 1786planning staff.
+                            also be approved by Catamount Consultingplanning staff.
 
                             <h6 class="headings">SIGNAGE:</h6> You may post your group’s sign or hang balloons at the
                             front entrance on Hudson Street, but please do NOT attach anything to or cover up our
                             entrance sign, or nail or screw anything to the trees.
 
-                            <h6 class="headings">SMOKING: </h6> The Bond 1786is a non-smoking facility. Ash-buckets will
+                            <h6 class="headings">SMOKING: </h6> Catamount Consultingis a non-smoking facility. Ash-buckets will
                             be provided, and smoking permitted in the designated areas only.
 
                             <h6 class="headings">CATERING:</h6> The catering service areas in each of the venues are not
@@ -744,7 +744,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
 
                             <h6 class="headings">WEDDING TENT / ARBOR:</h6> The Gazebo and Arbors may be used as wedding
                             sites and for pictures (Chairs required for a wedding ceremony are to be provided and set-up
-                            by The Bond 1786 based on the standard rental policy). If the Venue has already been rented
+                            by Catamount Consulting based on the standard rental policy). If the Venue has already been rented
                             as a venue for a different group, then special permission must be granted to utilize the
                             Tent for another party’s ceremony. Pictures are permitted to be taken at the Gazebos and
                             Arbor sites by all parties but shall be coordinated for use between all site venues.
@@ -759,14 +759,14 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             The complex must be vacated after completing the rehearsal program. The main event halls
                             will not be available to decorate after the rehearsal. Alternative dates for Rehearsals may
                             be held on-site. These date and times are to be coordinated with and approved by The Event
-                            Coordinator at The Bond 1786.
+                            Coordinator at Catamount Consulting.
 
-                            <h6 class="headings">LOGISTICAL PLANS:</h6> The Bond 1786 planning team must review and
+                            <h6 class="headings">LOGISTICAL PLANS:</h6> Catamount Consulting planning team must review and
                             approve all proposed logistical plans for the use of the premises a minimum of thirty (30)
                             days prior to an event.
                             <h6 class="headings">EVENTS & WEDDING POLICY AND GUIDELINES AGREEMENT </h6>
 
-                            I have read and understand the policies concerning events held at The Bond 1786. I agree to
+                            I have read and understand the policies concerning events held at Catamount Consulting. I agree to
                             uphold them and ensure that contractors and members of the event party,
                             will abide by the policies. I understand it is my responsibility to inform the coordinator,
                             florist, photographers, etc., that they must also conform to this set of guidelines. <br>
@@ -776,7 +776,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <h6 class="headings">RESERVATION PROCESS</h6>
                             <p class="text">
                                 A rental contract must be signed, all pages initialed, as well as appropriate deposits
-                                submitted to confirm utilization of a The Bond 1786 Venue. <br><br>
+                                submitted to confirm utilization of a Catamount Consulting Venue. <br><br>
 
                                 A valid Credit Card is required to be on file for all events to guarantee payment of
                                 expenses in connection with this Agreement. Customer agrees

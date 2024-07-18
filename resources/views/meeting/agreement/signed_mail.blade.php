@@ -74,7 +74,7 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
 
         <p>Dear {{ $meeting->name }},</p>
 
-        <p>Thank you for choosing The Bond 1786 for your event. We are pleased to confirm that your event has been booked for {{ $meeting->start_date }}.</p>
+        <p>Thank you for choosing Catamount Consulting for your event. We are pleased to confirm that your event has been booked for {{ $meeting->start_date }}.</p>
 
         <p>Below are the details of your event:</p>
 
@@ -120,10 +120,10 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
         <p>Thank you for your time and collaboration.</p>
 
         <p><strong>With regards,</strong><br>
-        <strong>The Bond 1786</strong></p>
+        <strong>Catamount Consulting</strong></p>
 
         <div class="logo">
-            <img src="{{ $logo.'3_logo-light.png' }}" alt="{{ config('app.name', 'The Bond 1786') }}"
+            <img src="{{ $logo.'3_logo-light.png' }}" alt="{{ config('app.name', 'Catamount Consulting') }}"
                 height="50">
         </div>
     </div>

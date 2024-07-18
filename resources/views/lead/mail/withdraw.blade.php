@@ -77,10 +77,10 @@ $logo = \App\Models\Utility::get_file('uploads/logo/');
 
         <p>Thank you for your time and collaboration.</p>
         <p><strong>With regards</strong></p>
-        <p><b>The Bond 1786</b></p>
+        <p><b>Catamount Consulting</b></p>
         <div class="logo">
-            <img src="{{$logo.'3_logo-light.png'}}" alt="{{ config('app.name', 'The Bond 1786') }}" class="logo logo-lg nav-sidebar-logo" height="50" />
-            <img src="{{ $logo.'3_logo-light.png' }}" alt="{{ config('app.name', 'The Bond 1786') }}" height="50">
+            <img src="{{$logo.'3_logo-light.png'}}" alt="{{ config('app.name', 'Catamount Consulting') }}" class="logo logo-lg nav-sidebar-logo" height="50" />
+            <img src="{{ $logo.'3_logo-light.png' }}" alt="{{ config('app.name', 'Catamount Consulting') }}" height="50">
         </div>
     </div>
 
