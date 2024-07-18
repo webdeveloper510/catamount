@@ -201,7 +201,7 @@ prx($data); */
                 </h3>
             </div>
             <div class="col-sm-12  mt-5">
-                <strong>
+                <h3 class="input-new">
                     Sark-Wise Corporation<br>
                     Akif Uskuplu</br>
                     120 Industrial Park</br>
@@ -209,7 +209,7 @@ prx($data); */
                     Dear Akif,</br></br>
                     Catamount Consulting is pleased to provide you with this proposal for safety services for Sark-Wire Corporation.</br>
                     The following proposal provide the scope of service, schedule, cost and business terms.
-                </strong>
+                </h3>
             </div>
             <div class="col-sm-12  mt-5">
                 <h3 class="input-new">

@@ -54,7 +54,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
         padding: 25px 0;
     }
 
-   /*  .border-new1 {
+    /*  .border-new1 {
         padding: 40px 0 60px 0;
     } */
 
@@ -159,7 +159,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             </h5>
                         </div>
                         <div class="col-sm-12  mt-5">
-                            <strong>
+                            <h5 class="input-new">
                                 Sark-Wise Corporation<br>
                                 Akif Uskuplu</br>
                                 120 Industrial Park</br>
@@ -167,7 +167,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 Dear Akif,</br></br>
                                 Catamount Consulting is pleased to provide you with this proposal for safety services for Sark-Wire Corporation.</br>
                                 The following proposal provide the scope of service, schedule, cost and business terms.
-                            </strong>
+                            </h5>
                         </div>
                         <div class="col-sm-12  mt-5">
                             <h5 class="input-new"><label for="scopeServices">{{__('Scope of Services')}}:</label></h5>
