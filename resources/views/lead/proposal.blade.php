@@ -54,9 +54,9 @@ $secondary_contact = json_decode($lead->secondary_contact);
         padding: 25px 0;
     }
 
-    .border-new1 {
+   /*  .border-new1 {
         padding: 40px 0 60px 0;
-    }
+    } */
 
     .input-new:nth-child(2) {
         justify-content: center;
@@ -129,7 +129,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 <label for="services">{{__('Services')}}:</label>{{__($proposal_info->client->services)}}
                             </h5>
                         </div>
-                        <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
+                        <div class="col-sm-12 border-new border-new1">
                             <h5 class="input-new">
                                 <label for="agreement">{{__('Agreement')}}:</label>
                             </h5>
@@ -146,7 +146,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             </div>
                             <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear Signature</button>
                         </div>
-                        <div class="col-sm-12 border-new border-new1" style="min-height: 250px;">
+                        <div class="col-sm-12 border-new border-new1">
                             <h5 class="input-new">
                                 <label for="remarks">{{__('Remarks')}}:</label>
                             </h5>

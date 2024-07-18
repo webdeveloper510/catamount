@@ -392,13 +392,17 @@ class UserController extends Controller
 
         if (\Auth::user()->can('Delete User')) {
             $user = User::find($id);
-            $file_path = 'upload/profile/' . $user->avatar;
-            $result = Utility::changeStorageLimit(\Auth::user()->creatorId(), $file_path);
+            if ($user->avatar) {
+                $file_path = 'upload/profile/' . $user->avatar;
+                $result = Utility::changeStorageLimit(\Auth::user()->creatorId(), $file_path);
+            }
             $user->delete();
 
-            return redirect()->back()->with('success', __('Staff Member Deleted.'));
+            // return redirect()->back()->with('success', __('Staff Member Deleted.'));
+            return response()->json(['success' => true, 'msg' => 'Staff Member Deleted.']);
         } else {
-            return redirect()->back()->with('error', 'permission Denied');
+            return response()->json(['error' => false, 'msg' => 'permission Denied']);
+            // return redirect()->back()->with('error', 'permission Denied');
         }
     }
 

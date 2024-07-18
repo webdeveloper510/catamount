@@ -737,6 +737,7 @@ class LeadController extends Controller
             'additional_items' => $additional_items,
             'request' => $request->all(),
         ];
+        // return view('lead.signed_proposal', $data);
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
 
         try {

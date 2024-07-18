@@ -1,6 +1,6 @@
-<?php 
- $event= App\Models\Meeting::where('id',$paymentinfo->event_id)->first();
- $logo=\App\Models\Utility::get_file('uploads/logo/');
+<?php
+$event = App\Models\Meeting::where('id', $paymentinfo->event_id)->first();
+$logo = \App\Models\Utility::get_file('uploads/logo/');
 
 ?>
 <!DOCTYPE html>
@@ -9,137 +9,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Bond 1786</title>
+    <title>Catamount Consulting</title>
     <style>
-    body {
-        background-color: #F6F6F6;
-        margin: 0;
-        padding: 0;
-    }
+        body {
+            background-color: #F6F6F6;
+            margin: 0;
+            padding: 0;
+        }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin: 0;
-        padding: 0;
-    }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 0;
+        }
 
-    p {
-        margin: 0;
-        padding: 0;
-    }
+        p {
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-        width: 100%;
-        margin-right: auto;
-        margin-left: auto;
-    }
+        .container {
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+        }
 
-    .brand-section {
-        background-color: #0d1033;
-        padding: 10px 40px;
-    }
+        .brand-section {
+            background-color: #0d1033;
+            padding: 10px 40px;
+        }
 
-    .logo {
-        width: 50%;
-    }
+        .logo {
+            width: 50%;
+        }
 
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-    }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-    .col-6 {
-        width: 50%;
-        flex: 0 0 auto;
-    }
+        .col-6 {
+            width: 50%;
+            flex: 0 0 auto;
+        }
 
-    .text-white {
-        color: #fff;
-    }
+        .text-white {
+            color: #fff;
+        }
 
-    .company-details {
-        float: right;
-        text-align: right;
-    }
+        .company-details {
+            float: right;
+            text-align: right;
+        }
 
-    .body-section {
-        padding: 16px;
-        border: 1px solid gray;
-    }
+        .body-section {
+            padding: 16px;
+            border: 1px solid gray;
+        }
 
-    .heading {
-        font-size: 20px;
-        margin-bottom: 08px;
-    }
+        .heading {
+            font-size: 20px;
+            margin-bottom: 08px;
+        }
 
-    .sub-heading {
-        color: #262626;
-        margin-bottom: 05px;
-    }
+        .sub-heading {
+            color: #262626;
+            margin-bottom: 05px;
+        }
 
-    table {
-        background-color: #fff;
-        width: 100%;
-        border-collapse: collapse;
-    }
+        table {
+            background-color: #fff;
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    table thead tr {
-        border: 1px solid #111;
-        background-color: #f2f2f2;
-    }
+        table thead tr {
+            border: 1px solid #111;
+            background-color: #f2f2f2;
+        }
 
-    table td {
-        vertical-align: middle !important;
-        text-align: center;
-    }
+        table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
 
-    table th,
-    table td {
-        padding-top: 08px;
-        padding-bottom: 08px;
-    }
+        table th,
+        table td {
+            padding-top: 08px;
+            padding-bottom: 08px;
+        }
 
-    .table-bordered {
-        box-shadow: 0px 0px 5px 0.5px gray;
-    }
+        .table-bordered {
+            box-shadow: 0px 0px 5px 0.5px gray;
+        }
 
-    .table-bordered td,
-    .table-bordered th {
-        border: 1px solid #dee2e6;
-    }
+        .table-bordered td,
+        .table-bordered th {
+            border: 1px solid #dee2e6;
+        }
 
-    .text-right {
-        text-align: end;
-    }
+        .text-right {
+            text-align: end;
+        }
 
-    .w-20 {
-        width: 20%;
-    }
+        .w-20 {
+            width: 20%;
+        }
 
-    .float-right {
-        float: right;
-    }
+        .float-right {
+            float: right;
+        }
 
-    .image {
-        text-align: center;
-    }
+        .image {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <div class="image">
-        <img src="{{$logo.'3_logo-light.png'}}" alt="{{ config('app.name', 'The Bond 1786') }}"
-            class="logo logo-lg nav-sidebar-logo" height="auto" style="width:10%;" />
+        <img src="{{$logo.'3_logo-light.png'}}" alt="{{ config('app.name', 'Catamount Consulting') }}" class="logo logo-lg nav-sidebar-logo" height="auto" style="width:auto;" />
     </div>
     <div class="container">
         <div class="brand-section">
             <div class="row">
-                <div class="col-6">
-                    <h1 class="text-white">The Bond 1786</h1>
+                <div class="col-12">
+                    <h1 class="text-white">Catamount Consulting</h1>
                 </div>
 
             </div>
@@ -162,7 +161,7 @@
         </div>
 
         <div class="body-section">
-            <h3 class="heading">Event Details</h3>
+            <h3 class="heading">Training Details</h3>
             <br>
             <table class="table-bordered">
                 <thead>
@@ -174,25 +173,25 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2">Event Type</td>
+                        <td colspan="2">Training Description</td>
                         <td>{{$event->type}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Date of Event</td>
+                        <td colspan="2">Date of Training</td>
                         <td>{{ \Carbon\Carbon::parse($event->start_date)->format('M d, Y') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">No. of guests</td>
+                        <td colspan="2">No. of Attendees</td>
                         <td>{{$event->guest_count}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Venue</td>
+                        <td colspan="2">Training Location</td>
                         <td>{{$event->venue_selection}}</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td colspan="2">Function</td>
                         <td>{{$event->function}}</td>
-                    </tr>
+                    </tr> -->
 
 
 
@@ -234,7 +233,7 @@
             <h3 class="heading">Payment Mode: {{ucfirst($paymentinfo->modeofpayment)}}</h3>
         </div>
         <div class="body-section">
-            <p>&copy; The Bond 1786. All rights reserved.
+            <p>&copy; Catamount Consulting. All rights reserved.
 
             </p>
         </div>

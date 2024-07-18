@@ -221,6 +221,7 @@ class BillingController extends Controller
             'paymentinfo' => $paymentinfo,
             'paymentlog' => $paymentlog
         ];
+        // return view('billing.mail.inv', $data);
         $pdf = PDF::loadView('billing.mail.inv', $data);
         return $pdf->stream('invoice.pdf');
     }

@@ -876,13 +876,18 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                     </div>
                                                                     @endcan
                                                                     @can('Delete User')
-                                                                    <div class="action-btn bg-danger ms-2">
+                                                                    {{--<div class="action-btn bg-danger ms-2">
                                                                         {!! Form::open(['method' => 'DELETE', 'route' =>
                                                                         ['user.destroy', $user->id]]) !!}
                                                                         <a href="javascript:void(0)" class="mx-3 btn btn-sm align-items-center text-white show_confirm" data-bs-toggle="tooltip" title='Delete'>
                                                                             <i class="ti ti-trash"></i>
                                                                         </a>
                                                                         {!! Form::close() !!}
+                                                                    </div>--}}
+                                                                    <div class="action-btn bg-danger ms-2">
+                                                                        <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center text-white show_confirm" data-url="{{route('user.destroy', $user->id)}}" data-token="{{ csrf_token() }}" data-bs-toggle="tooltip" title='Delete'>
+                                                                            <i class="ti ti-trash"></i>
+                                                                        </a>
                                                                     </div>
                                                                     @endcan
                                                                 </td>
@@ -918,8 +923,8 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <thead>
                                                                 <tr>
                                                                     <th width="150">{{__('Role')}} </th>
-                                                                    <th>{{__('Permissions')}} </th>
                                                                     <th>{{__('Level')}} </th>
+                                                                    <th>{{__('Permissions')}} </th>
                                                                     @if(Gate::check('Edit Role') ||
                                                                     Gate::check('Delete Role'))
                                                                     <th width="150" class="text-end">
@@ -933,6 +938,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                 @foreach ($roles as $role)
                                                                 <tr>
                                                                     <td width="150">{{ $role->name }}</td>
+                                                                    <td>{{ ucfirst($role->roleType) }}</td>
                                                                     <td class="Permission mt-10">
                                                                         <div class="badges">
                                                                             {{-- @for($j=0;$j<count($role->permissions()->pluck('name'));$j++)
@@ -945,7 +951,6 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                                             @endforeach
                                                                         </div>
                                                                     </td>
-                                                                    <td>{{ $role->roleType }}</td>
                                                                     @if(Gate::check('Edit Role') ||
                                                                     Gate::check('Delete Role'))
                                                                     <td class="text-end">

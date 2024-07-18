@@ -71,7 +71,7 @@ class DashboardController extends Controller
                 $data['totalProduct'] = Product::where('created_by', $userID)->count();
                 $data['invoiceColor'] = Invoice::$statuesColor;
 
-                $date = today()->format('Y-m');
+                $date = today()->format('Y-m-d');
                 if ($useType != 'owner') {
                     $activeLeads = Lead::where('assigned_user', $userID)->where('lead_status', 1)->where('converted_to', 0)->get();
                 } else {
