@@ -374,6 +374,7 @@ class CustomerInformation extends Controller
                 return false;
             });
         }
+        // prx($eventcustomers->toArray());
         // $eventcustomers = MasterCustomer::withTrashed()->where('category', 'lead')->get();
         return view('customer.event_customer', compact('eventcustomers'));
     }
@@ -388,6 +389,7 @@ class CustomerInformation extends Controller
         } else {
             $leadcustomers = Lead::withTrashed()->where('assigned_user', \Auth::user()->id)->get();
         }
+        //  prx($leadcustomers->toArray());
         // $distinctCustomers = Lead::withTrashed()->distinct()->get();
         // $uniqueLeads = Lead::withTrashed()->select('*')->distinct('email')->get();
         // $leadcustomers = MasterCustomer::where('category', 'lead')->get();

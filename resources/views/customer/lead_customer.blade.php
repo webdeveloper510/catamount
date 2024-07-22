@@ -24,25 +24,26 @@
                                     <table class="table datatable" id="datatable">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
+                                                <th scope="col" class="sort" data-sort="name">{{__('Primary Contact')}}</th>
+                                                <th scope="col" class="sort" data-sort="organization">{{__('Organization')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Email')}}</th>
                                                 <th scope="col" class="sort">{{__('Phone')}}</th>
                                                 <th scope="col" class="sort">{{__('Address')}}</th>
-                                                <th scope="col" class="sort">{{__('Category')}}</th>
+                                                <th scope="col" class="sort">{{__('Training')}}</th>
                                                 <!-- <th scope="col" class="sort">{{__('Actions')}}</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($leadcustomers as $user)
                                             <tr>
-
                                                 <td><a href="{{ route('lead.userinfo',urlencode(encrypt($user->id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
                                                         <b> {{ ucfirst($user->name) }}</b>
                                                     </a></td>
 
+                                                <td><span>{{$user->company_name}}</span></td>
                                                 <td><span>{{$user->email}}</span></td>
-                                                <td><span>{{$user->phone}}</span></td>
-                                                <td><span>{{$user->address}}</span></td>
+                                                <td><span>{{$user->primary_contact}}</span></td>
+                                                <td><span>{{$user->lead_address}}</span></td>
                                                 <td><span>{{$user->type}}</span></td>
 
                                             </tr>

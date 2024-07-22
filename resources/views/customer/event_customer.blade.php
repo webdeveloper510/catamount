@@ -24,29 +24,24 @@
                                     <table class="table datatable" id="datatable">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
-                                                <th scope="col" class="sort" data-sort="budget">{{__('Email')}}</th>
+                                                <th scope="col" class="sort" data-sort="name">{{__('Primary Contact')}}</th>
+                                                <th scope="col" class="sort" data-sort="organization">{{__('Organization')}}</th>
+                                                <th scope="col" class="sort" data-sort="email">{{__('Email')}}</th>
                                                 <th scope="col" class="sort">{{__('Phone')}}</th>
                                                 <th scope="col" class="sort">{{__('Address')}}</th>
-                                                <th scope="col" class="sort">{{__('Category')}}</th>
+                                                <th scope="col" class="sort">{{__('Training')}}</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($eventcustomers as $user)
                                             <tr>
-                                                <td> <a href="{{route('event.userinfo',urlencode(encrypt($user->id)))}}" title="{{ __('User Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
-                                                        <b> {{ ucfirst($user->name) }}</b>
-                                                    </a></td>
-                                                <!-- <td><span>{{ucfirst($user->name)}}</span></td> -->
+                                                <td><a href="{{route('event.userinfo',urlencode(encrypt($user->id)))}}" title="{{ __('User Details') }}" class="action-item text-primary" style="color:#1551c9 !important;"><b> {{ ucfirst($user->name) }}</b></a></td>
+                                                <td><span>{{$user->company_name}}</span></td>
                                                 <td><span>{{$user->email}}</span></td>
                                                 <td><span>{{$user->phone}}</span></td>
-                                                <td><span>{{$user->address}}</span></td>
+                                                <td><span>{{$user->lead_address}}</span></td>
                                                 <td><span>{{$user->type}}</span></td>
-                                                <td>
-
-                                                </td>
-
                                             </tr>
                                             @endforeach
                                         </tbody>
