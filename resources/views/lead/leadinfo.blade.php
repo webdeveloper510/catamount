@@ -269,8 +269,8 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Assigned User')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $trainerName ?? '--' }}</span>
                                         </dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('How did about us?')}}</span></dt>
-                                        <dd class="col-md-6 need_half"><span class="h6  mb-0">{{ $lead->description ??' --' }}</span></dd>
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('How did here about us?')}}</span></dt>
+                                        <dd class="col-md-6 need_half"><span class="">{{ $lead->description ??' --' }}</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->type ??' --' }}</span></dd>
                                         {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>
