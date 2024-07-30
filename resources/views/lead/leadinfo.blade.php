@@ -243,7 +243,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                     @foreach($leads as $lKey => $lead)
                                     @php
                                     $trainers = \App\Models\Meeting::where('attendees_lead', $lead->id)->first();
-
+                                    $trainerName = \App\Models\User::find($lead->assigned_user)->name;
                                     if ($trainers) {
                                     $trainer_user_data = json_decode($trainers->user_data, true);
                                     if (isset($trainer_user_data) && !empty($trainer_user_data)) {
@@ -252,8 +252,6 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                     $tName[] = \App\Models\User::find($key)->name;
                                     }
                                     $trainerName = implode(', ', $tName);
-                                    } else {
-                                    $trainerName = \App\Models\User::find($lead->attendees_lead)->name;
                                     }
 
                                     }
@@ -269,10 +267,10 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Function')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{$lead->function ?? '--'}}</span></dd>--}}
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Assigned User')}}</span></dt>
-                                        <dd class="col-md-6 need_half"><span class="">{{ @$trainerName }}</span>
+                                        <dd class="col-md-6 need_half"><span class="">{{ $trainerName ?? '--' }}</span>
                                         </dd>
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Description')}}</span></dt>
-                                        <dd class="col-md-6 need_half"><span class="">{{ $lead->description ??' --' }}</span></dd>
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('How did about us?')}}</span></dt>
+                                        <dd class="col-md-6 need_half"><span class="h6  mb-0">{{ $lead->description ??' --' }}</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->type ??' --' }}</span></dd>
                                         {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Package')}}</span></dt>

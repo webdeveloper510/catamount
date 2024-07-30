@@ -104,7 +104,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                 <dd class="col-md-12"><input type="file" name="attachment" id="attachment" class="form-control"></dd>
                 <hr class="mt-4 mb-4">
                 <dl class="row">
-                    <dt class="col-md-2"><span class="h6 mb-0">{{__('Client')}}</span></dt>
+                    {{--<dt class="col-md-2"><span class="h6 mb-0">{{__('Client')}}</span></dt>
                     <dd class="col-md-4">
                         <input type="text" name="pdf[client][name]" class="form-control" id="client" value="{{ @$proposalDataArg->client->name ? $proposalDataArg->client->name : $lead->name }}">
                     </dd>
@@ -123,6 +123,26 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Services')}}</span></dt>
                     <dd class="col-md-10">
                         <input type="text" name="pdf[client][services]" class="form-control" id="services" value="{{ @$proposalDataArg->client->services ? $proposalDataArg->client->services : $lead->type }}">
+                    </dd>--}}
+                    <dt class="col-md-2"><span class="h6 mb-0">{{__('Organization')}}</span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][name]" class="form-control" id="client" value="{{ $lead->company_name }}">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0">{{__('Phone')}}</span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][phone]" class="form-control" id="phone" value="{{ $lead->primary_contact}}">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0">{{__('Email')}}</span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][email]" class="form-control" id="email" value="{{ $lead->email}}">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0">{{__('Date of service')}}</span></dt>
+                    <dd class="col-md-4">
+                        <input type="text" name="pdf[client][dateOfService]" class="form-control" id="dateOfService" value="{{ $lead->start_date }}">
+                    </dd>
+                    <dt class="col-md-2"><span class="h6 mb-0">{{__('Services')}}</span></dt>
+                    <dd class="col-md-10">
+                        <input type="text" name="pdf[client][services]" class="form-control" id="services" value="{{  $lead->type }}">
                     </dd>
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-12"><span class="h6 mb-0">{{__('Agreement')}}</span></dt>
