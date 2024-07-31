@@ -681,6 +681,7 @@ class LeadController extends Controller
         $venue = explode(',', $settings['venue']);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
+        
         return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users', 'proposal_info'));
     }
     public function proposal_resp(Request $request, $id)

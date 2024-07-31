@@ -160,6 +160,14 @@ $secondary_contact = json_decode($lead->secondary_contact);
                         </div>
                         <div class="col-sm-12  mt-5">
                             <h5 class="input-new">
+                                {{$lead->company_name}}<br>
+                                {{$lead->name}}</br>
+                                {{$lead->lead_address}}</br>
+                                Dear {{$lead->name}},</br></br>
+                                Catamount Consulting is pleased to provide you with this proposal for {{$lead->type}} for {{$lead->company_name}}.</br>
+                                The following proposal provide the scope of service, schedule, cost and business terms.
+                            </h5>
+                            <!-- <h5 class="input-new">
                                 Sark-Wise Corporation<br>
                                 Akif Uskuplu</br>
                                 120 Industrial Park</br>
@@ -167,7 +175,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 Dear Akif,</br></br>
                                 Catamount Consulting is pleased to provide you with this proposal for safety services for Sark-Wire Corporation.</br>
                                 The following proposal provide the scope of service, schedule, cost and business terms.
-                            </h5>
+                            </h5> -->
                         </div>
                         <div class="col-sm-12  mt-5">
                             <h5 class="input-new"><label for="scopeServices">{{__('Scope of Services')}}:</label></h5>
