@@ -201,15 +201,14 @@ prx($data); */
                 </h3>
             </div>
             <div class="col-sm-12  mt-5">
-                <h3 class="input-new">
-                    Sark-Wise Corporation<br>
-                    Akif Uskuplu</br>
-                    120 Industrial Park</br>
-                    Albany, NY 12206</br></br>
-                    Dear Akif,</br></br>
-                    Catamount Consulting is pleased to provide you with this proposal for safety services for Sark-Wire Corporation.</br>
+                <p class="input-new">
+                    {{$lead->company_name}}<br><br>
+                    {{$lead->name}}</br>
+                    {{$lead->lead_address}}</br><br>
+                    Dear {{$lead->name}},</br></br>
+                    Catamount Consulting is pleased to provide you with this proposal for {{$lead->type}} for {{$lead->company_name}}.</br>
                     The following proposal provide the scope of service, schedule, cost and business terms.
-                </h3>
+                </p>
             </div>
             <div class="col-sm-12  mt-5">
                 <h3 class="input-new">
