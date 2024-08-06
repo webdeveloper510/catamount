@@ -203,7 +203,8 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <div class="header">
             <div class="logo">
                 <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="min-width: 150px; min-height:100px" alt="Catamount Consulting">
-                <h2 class="logoTxt">Catamount Consulting</h2><p class="logoTxt">PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
+                <h2 class="logoTxt">Catamount Consulting</h2>
+                <p class="logoTxt">PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
             </div>
             <div class="invoice-details">
                 <h2>Invoice</h2>

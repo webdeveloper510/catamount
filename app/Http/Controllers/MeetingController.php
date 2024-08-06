@@ -1030,6 +1030,17 @@ class MeetingController extends Controller
         $billing = Billing::where('event_id', $id)->first();
         $billing_data = unserialize($billing->data);
         $venue = explode(',', $settings['venue']);
+
+
+        if ($billing) {
+            $item = [];
+            foreach ($billing_data as $bdKey => $bdValue) {
+                $item[] = $bdValue['cost'] * $bdValue['quantity'];
+            }
+            $billing->subTotal = $item;
+            $billing->total = array_sum($item);
+        }
+
         return view('meeting.agreement.signedagreement', compact('meeting', 'venue', 'billing', 'settings', 'billing_data'));
         // }
     }

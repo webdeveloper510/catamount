@@ -4,6 +4,9 @@ $imagePath = public_path('upload/signature/autorised_signature.png');
 $imageData = base64_encode(file_get_contents($imagePath));
 $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 $bar_pck = json_decode($meeting['bar_package'], true);
+
+$billing_invoice_data = $billing_data;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,13 +27,13 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                     <div class="row">
                         <div class="col-md-4 mt-4">
                             <div class="img-section">
-                                <img class="logo-img" src="{{ URL::asset('storage/uploads/logo/3_logo-light.png')}}" style="width:25%;">
+                                <img class="logo-img" src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="width:50%;">
                             </div>
                         </div>
                         <div class="col-md-8 mt-5">
                             <h4>Catamount Consulting - Agreement</h4>
                             <!-- <h4>Proposal</h4> -->
-                            <h5>Venue Rental & Banquet Event - Estimate</h5>
+                            <!-- <h5>Venue Rental & Banquet Event - Estimate</h5> -->
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -56,12 +59,12 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                             <table class="table table-bordered" style="width:100%">
                                 <thead>
                                     <tr style="background-color:#d3ead3; text-align:center">
-                                        <th>Event Date</th>
+                                        <th>Training Date</th>
                                         <th>Time</th>
-                                        <th>Venue</th>
-                                        <th>Event</th>
-                                        <th>Function</th>
-                                        <th>Room</th>
+                                        <th>Traingin location</th>
+                                        <th>Training</th>
+                                        {{--<th>Function</th>
+                                            <th>Room</th>--}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,11 +81,11 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         </td>
                                         <td>{{$meeting->type}}
                                         </td>
-                                        <td>
+                                        {{--<td>
                                             {{$meeting->function}}
                                         </td>
                                         <td>{{$meeting->rooms}}
-                                        </td>
+                                        </td>--}}
                                     </tr>
 
                                 </tbody>
@@ -108,7 +111,7 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h6 class="headings">Venue Selected</h6>
+                            <h6 class="headings">Training location</h6>
                             <!-- <h6>Venue Selected</h6> -->
                             <p>{{$meeting->venue_selection}}</p><br>
                             <h6 class="headings"> No. of Hotel Rooms (Booked)</h6>
@@ -141,38 +144,94 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                     <tr>
                                         <th style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">
                                             Name : {{$meeting->name}}</th>
-                                        <th colspan="2" style="padding:5px 0px;margin-left: 5px;font-size:13px"></th>
                                         <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">
                                             Date:<?php echo date("d/m/Y"); ?> </th>
                                         <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">
-                                            Event: {{$meeting->type}}</th>
+                                            Training: {{$meeting->type}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" style="text-align:left; font-size:13px;text-align:left; padding:5px 5px; margin-left:5px;">P.O. No. : {{$billing->purchaseOrder}}</th>
+                                        <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">Terms: {{ $billing->terms }} </th>
                                     </tr>
                                     <tr style="background-color:#063806;">
                                         <th>Description</th>
-                                        <th colspan="2">Additional</th>
+                                        <!-- <th colspan="2">Additional</th> -->
                                         <th>Cost</th>
-                                        <th style="color:#ffffff; font-size:13px;padding:5px 5px;margin-left: 5px;font-size:13px">
-                                            Quantity</th>
+                                        <th>Quantity</th>
                                         <th>Total Price</th>
                                         <th>Notes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($billing_invoice_data as $billing_invoice_key => $billing_invoice_value)
                                     <tr>
-                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Venue Rental</td>
-                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{ $billing_invoice_value['description'] }}</td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{ $billing_invoice_value['cost'] }}</td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{ $billing_invoice_value['quantity'] }}</td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{ $billing_invoice_value['total'] }}</td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">{{ $billing_invoice_value['note'] }}</td>
+                                    </tr>
+                                    @endforeach
 
+                                    <tr>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Subtotal</td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                            ${{ $billing->total }}</td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Sales, Occupancy
+                                            Tax</td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                            %{{ $billing->salesTax }}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;font-size:13px;">Total</td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                            ${{ $billing->totalAmount}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color:#ffff00; padding:5px 5px; margin-left:5px;font-size:13px;">Payments/Credits</td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                            ${{$billing->paymentCredit + $billing->deposits }}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color:#ffff00; padding:5px 5px; margin-left:5px;font-size:13px;">Balance Due </td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                            ${{ $billing->totalAmount - $billing->paymentCredit - $billing->deposits}}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+
+                                    {{--<tr>
+                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Training location</td>
+                                        <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
                                             ${{@$billing_data['venue_rental']['cost']}}</td>
-                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{@$billing_data['venue_rental']['quantity']}}
-                                        </td>
-                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            ${{$total[] = @$billing_data['venue_rental']['cost'] * @$billing_data['venue_rental']['quantity']}}
-                                        </td>
-                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            {{$meeting['venue_selection']}}
-                                        </td>
+                                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                        {{@$billing_data['venue_rental']['quantity']}}
+                                    </td>
+                                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                        ${{$total[] = @$billing_data['venue_rental']['cost'] * @$billing_data['venue_rental']['quantity']}}
+                                    </td>
+                                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
+                                        {{$meeting['venue_selection']}}
+                                    </td>
                                     </tr>
 
                                     <tr>
@@ -270,14 +329,18 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                                    </tr>
-                                    <tr>
+                                    </tr>--}}
+
+
+
+
+                                    {{--<tr>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Total</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
                                             ${{array_sum($total)}}</td>
-                                        <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
+                                    <td style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                     </tr>
                                     <tr>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">Sales, Occupancy
@@ -332,10 +395,10 @@ $bar_pck = json_decode($meeting['bar_package'], true);
                                         <td colspan="3" style="padding:5px 5px; margin-left:5px;font-size:13px;background-color:#9fdb9f;">
                                             ${{$grandtotal - $deposit}}</td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
-                                    </tr>
+                                    </tr>--}}
                                 </tbody>
                             </table>
-                            <input type="hidden" value="{{$grandtotal}}" name="grandtotal">
+                            <input type="hidden" value="{{@$grandtotal}}" name="grandtotal">
                             <h3 class=" mt-5" style="text-align:center ">TERMS AND CONDITIONS</h3>
                             <h6 class="headings">FOOD AND ALCOHOLIC BEVERAGES and 3RD PARTY / ON-SITE VENDORS</h6>
                             <p class="text">

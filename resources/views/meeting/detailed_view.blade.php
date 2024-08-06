@@ -149,11 +149,15 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 </th>
                                                 <th scope="col" class="sort" data-sort="completion">{{ __('Amount Due') }}</th>
 
-
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($payments as $payKey => $payment)
+                                            @php
+                                            $totall[$payKey] = $event->total - $payment->amount - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit
+                                            @endphp
+
+
                                             <tr>
                                                 <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y')}}
                                                 </td>
@@ -163,8 +167,13 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 </td>
                                                 <td>${{$event->total}}</td>
                                                 <td>${{$payment->amount}}</td>
-                                                <td>{{ $event->total - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit - $payinfo[$payKey]->collect_amount }}
-                                                </td>
+                                                {{--<td>{{ $event->total - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit - $payinfo[$payKey]->collect_amount }}
+                                                </td>--}}
+                                                @if($payKey != 0)
+                                                <td>{{ $totall[$payKey - 1] - $payment->amount}}</td>
+                                                @else
+                                                <td>{{ $totall[$payKey]}}</td>
+                                                @endif
                                             </tr>
 
                                             @endforeach
