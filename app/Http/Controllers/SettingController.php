@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\Billing;
 use App\Models\Setup;
 use App\Models\FixedBill;
+use App\Models\PowerBiReport;
 // use Google\Service\ServiceControl\Auth;
 use DB;
 
@@ -30,6 +31,8 @@ class SettingController extends Controller
         $permissions = Permission::all()->pluck('name', 'id')->toArray();
         $payment = Utility::set_payment_settings();
         $webhooks = Webhook::where('created_by', \Auth::user()->id)->get();
+        $powerBiReports = PowerBiReport::orderBy('created_at', 'desc')->get();
+
         if (\Auth::user()->type == 'owner') {
             $roles = Role::where('created_by', 3)->with('permissions')->get();
             $users = User::where('created_by', '=', 3)->get();
@@ -38,7 +41,7 @@ class SettingController extends Controller
             $users = User::where('created_by', '=', \Auth::user()->creatorId())->get();
         }
         $setup = Setup::all();
-        return view('settings.index', compact('settings', 'setup', 'payment', 'webhooks', 'permissions', 'roles', 'users'));
+        return view('settings.index', compact('settings', 'setup', 'payment', 'webhooks', 'permissions', 'roles', 'users', 'powerBiReports'));
         // } else {
         // return redirect()->back()->with('error', __('Permission denied.'));
         // }

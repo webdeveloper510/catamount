@@ -94,6 +94,7 @@ use App\Http\Controllers\XenditPaymentController;
 use App\Http\Controllers\YooKassaController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\DashboardTestingController;
+use App\Http\Controllers\PowerBiReportController;
 use App\Models\Billing;
 use Google\Service\ServiceConsumerManagement\BillingConfig;
 use Illuminate\Support\Facades\DB;
@@ -1472,3 +1473,17 @@ Route::group(
         Route::post('day-calender-data', [CalenderNewController::class, 'daybaseddata'])->name('daybaseddata');
     }
 );
+
+
+// Routes for Power BI
+Route::group([
+    'middleware' => [
+        'auth',
+        'XSS',
+    ],
+], function () {
+    Route::post('/powerbi/create', [PowerBiReportController::class, 'createPowerBIReport'])->name('powerbi.create');
+    Route::post('/powerbi/edit/', [PowerBiReportController::class, 'editPowerBIReport'])->name('powerbi.update');
+    Route::post('/powerbi/delete/', [PowerBiReportController::class, 'deletePowerBIReport'])->name('powerbi.delete');
+    Route::get('/powerbi/report/{id}', [PowerBiReportController::class, 'showPowerBIReport'])->name('powerbi.report.show');
+});

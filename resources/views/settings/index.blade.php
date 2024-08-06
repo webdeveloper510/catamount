@@ -1655,8 +1655,103 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
             </form>
         </div>
     </div>
-
 </div>
+<div id="power-bi" class="accordion-item  card">
+    <h2 class="accordion-header" id="heading-2-15">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse222" aria-expanded="false" aria-controls="collapse222">
+            <h5>{{ __('Power BI') }}</h5>
+            <div class="powerbi-action-btn bg-warning ms-2" style="float: inline-end;">
+                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#powerBiModal" data-bs-toggle="tooltip" title="{{ __('Create Power BI Report') }}" class="btn btn-sm btn-primary btn-icon">
+                    <i class="ti ti-plus"></i>
+                </a>
+            </div>
+        </button>
+    </h2>
+    <div id="collapse222" class="accordion-collapse collapse" aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+        <div class="accordion-body1">
+            <div class="table-responsive overflow_hidden">
+                <table id="powerBidatatable" class="table align-items-center datatable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort" data-sort="report_name">
+                                {{ __('Sr no.') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="report_name">
+                                {{ __('Report Name') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="PBI_group_id">
+                                {{ __('PBI Group Id') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="PBI_report_id">
+                                {{ __('PBI Report Id') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="PBI_dataset_id">
+                                {{ __('PBI Dataset Id') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="PBI_embed_url">
+                                {{ __('PBI Embed Url') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="permissions">
+                                {{ __('Permissions') }}
+                            </th>
+                            <th scope="col" class="sort" data-sort="is_rls_enabled">
+                                {{ __('Is Rls Enabled') }}
+                            </th>
+                            <th class="text-end" scope="col">{{ __('Action') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $srl_number = 1;
+                        @endphp
+                        @foreach($powerBiReports as $powerBi)
+                        <tr>
+                            <td>
+                                <span class="budget">{{ $srl_number++ }}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->report_name}}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->PBI_group_id}}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->PBI_report_id}}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->PBI_dataset_id}}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->PBI_embed_url}}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->permissions}}</span>
+                            </td>
+                            <td>
+                                <span class="budget">{{$powerBi->is_rls_enabled == 0 ? 'No' : 'Yes'}}</span>
+                            </td>
+
+                            <td class="text-end">
+                                <div class="action-btn powerbi-edit-action-btn bg-info ms-2">
+                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#powerBiEditModal" data-powerBi_id="{{ $powerBi->id }}" data-report_name="{{ $powerBi->report_name }}" data-workspace_id="{{ $powerBi->workspace_id }}" data-group_id="{{ $powerBi->PBI_group_id }}" data-report_id="{{ $powerBi->PBI_report_id }}" data-dataset_id="{{ $powerBi->PBI_dataset_id }}" data-embed_url="{{ $powerBi->PBI_embed_url }}" data-permissions="{{ $powerBi->permissions }}" data-isRlsEnabled="{{ $powerBi->is_rls_enabled }}" data-bs-toggle="tooltip" title="{{ __('Edit Power BI Report') }}" class="btn btn-sm btn-info btn-icon">
+                                        <i class="ti ti-edit"></i>
+                                    </a>
+                                </div>
+                                <div class="action-btn powerbi-action-btn bg-danger ms-2">
+                                    <a href="javascript:void(0)" class="mx-3 btn btn-sm align-items-center text-white delete-powerBiReport-btn" data-bs-toggle="tooltip" title='Delete' data-powerBi_id="{{ $powerBi->id }}">
+                                        <i class="ti ti-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endif
 </div>
 </div>
@@ -4345,8 +4440,212 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
         </form>
     </div>
 </div>
+
+<!-- Power BI Modal -->
+<div class="modal fade" id="powerBiModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ __('Create Power BI Report') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ Form::open(['route' => 'powerbi.create', 'method' => 'post']) }}
+                <div class="card-body">
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="report_name" class="col-form-label text-dark">{{ __('Report Name') }}</label>
+                                <input type="text" name="report_name" id="report_name" class="form-control" placeholder="Enter Report Name" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="workspace_id" class="col-form-label text-dark">{{ __('Workspace Id') }}</label>
+                                <input type="text" name="workspace_id" id="workspace_id" class="form-control" placeholder="Enter Workspace Id" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="group_id" class="col-form-label text-dark">{{ __('Group Id') }}</label>
+                                <input type="text" name="group_id" id="group_id" class="form-control" placeholder="Enter Group Id" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="report_id" class="col-form-label text-dark">{{ __('Report Id') }}</label>
+                                <input type="text" name="report_id" id="report_id" class="form-control" placeholder="Enter Report Id" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dataset_id" class="col-form-label text-dark">{{ __('Dataset Id') }}</label>
+                                <input type="text" name="dataset_id" id="dataset_id" class="form-control" placeholder="Enter Dataset Id" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="embed_url" class="col-form-label text-dark">{{ __('Embed Url') }}</label>
+                                <textarea name="embed_url" id="embed_url" class="form-control" placeholder="Enter Embed Url" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="permissions" class="col-form-label text-dark">{{ __('Permissions') }}</label>
+                                <input type="text" name="permissions" id="permissions" class="form-control" placeholder="Enter Permissions" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="form-group">
+                                <input type="hidden" name="isRlsEnabled" value="0">
+                                <input type="checkbox" id="isRlsEnabled" name="isRlsEnabled" value="1"> Enable RLS
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="footer-row justify-content-end felx-wrap d-flex">
+                            <input type="submit" value="{{ __('Submit') }}" class="btn btn-print-invoice  btn-primary m-r-10 mb-2">
+                        </div>
+                    </div>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Power BI Edit Report Modal -->
+<div class="modal fade" id="powerBiEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ __('Edit Power BI Report') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ Form::open(['route' => 'powerbi.update', 'method' => 'post']) }}
+                <input type="hidden" name="powerbi_id" id="edit_powerbi_id">
+                <div class="card-body">
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="report_name" class="col-form-label text-dark">{{ __('Report Name') }}</label>
+                                <input type="text" name="report_name" id="edit_report_name" class="form-control" placeholder="Enter Report Name" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="workspace_id" class="col-form-label text-dark">{{ __('Workspace Id') }}</label>
+                                <input type="text" name="workspace_id" id="edit_workspace_id" class="form-control" placeholder="Enter Workspace Id" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="group_id" class="col-form-label text-dark">{{ __('Group Id') }}</label>
+                                <input type="text" name="group_id" id="edit_group_id" class="form-control" placeholder="Enter Group Id" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="report_id" class="col-form-label text-dark">{{ __('Report Id') }}</label>
+                                <input type="text" name="report_id" id="edit_report_id" class="form-control" placeholder="Enter Report Id" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dataset_id" class="col-form-label text-dark">{{ __('Dataset Id') }}</label>
+                                <input type="text" name="dataset_id" id="edit_dataset_id" class="form-control" placeholder="Enter Dataset Id" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="embed_url" class="col-form-label text-dark">{{ __('Embed Url') }}</label>
+                                <textarea name="embed_url" id="edit_embed_url" class="form-control" placeholder="Enter Embed Url" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="permissions" class="col-form-label text-dark">{{ __('Permissions') }}</label>
+                                <input type="text" name="permissions" id="edit_permissions" class="form-control" placeholder="Enter Permissions" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="form-group">
+                                <input type="hidden" name="isRlsEnabled" value="0">
+                                <input type="checkbox" id="edit_isRlsEnabled" name="isRlsEnabled" value="1"> Enable RLS
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="footer-row justify-content-end flex-wrap d-flex">
+                            <input type="submit" value="{{ __('Update') }}" class="btn btn-print-invoice btn-primary m-r-10 mb-2">
+                        </div>
+                    </div>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('script-page')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = new bootstrap.Modal(document.getElementById('powerBiModal'));
+
+        document.querySelector('.powerbi-action-btn a').addEventListener('click', function(event) {
+            modal.show();
+        });
+
+        document.getElementById('powerBiModal').addEventListener('hidden.bs.modal', function() {
+            document.body.classList.remove('modal-open');
+            document.body.style = '';
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var editButtons = document.querySelectorAll('.powerbi-edit-action-btn a');
+
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+
+                var powerBiId = this.getAttribute('data-powerBi_id');
+                var reportName = this.getAttribute('data-report_name');
+                var workspaceId = this.getAttribute('data-workspace_id');
+                var groupId = this.getAttribute('data-group_id');
+                var reportId = this.getAttribute('data-report_id');
+                var datasetId = this.getAttribute('data-dataset_id');
+                var embedUrl = this.getAttribute('data-embed_url');
+                var permissions = this.getAttribute('data-permissions');
+                var isRlsEnabled = this.getAttribute('data-isRlsEnabled') === '1';
+
+                document.getElementById('edit_powerbi_id').value = powerBiId;
+                document.getElementById('edit_report_name').value = reportName;
+                document.getElementById('edit_workspace_id').value = workspaceId;
+                document.getElementById('edit_group_id').value = groupId;
+                document.getElementById('edit_report_id').value = reportId;
+                document.getElementById('edit_dataset_id').value = datasetId;
+                document.getElementById('edit_embed_url').value = embedUrl;
+                document.getElementById('edit_permissions').value = permissions;
+                document.getElementById('edit_isRlsEnabled').checked = isRlsEnabled;
+            });
+        });
+    });
+</script>
 <script>
     /* txtEditor('address');
     txtEditor('agreement');
@@ -4653,6 +4952,76 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
         });
         // Get the modal
 
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        $('.delete-powerBiReport-btn').on('click', function() {
+            var powerBiId = this.getAttribute('data-powerBi_id');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete this Power BI report",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#ff3a6e',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('powerbi.delete') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: powerBiId,
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    response.success,
+                                    'success'
+                                );
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 2000);
+                            } else {
+                                toastr.error(response.error);
+                            }
+                        },
+                        error: function() {
+                            toastr.error('Error deleting Power BI report.');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#powerBidatatable').DataTable();
     });
 </script>
 @endpush

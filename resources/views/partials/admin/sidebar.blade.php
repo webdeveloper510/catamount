@@ -1,7 +1,23 @@
 <?php
+
+use Spatie\Permission\Models\Role;
+use App\Models\PowerBiReport;
+
 $settings = App\Models\Utility::settings();
 //$category= explode(',',$settings['campaign_type']);
+$powerBiReports = PowerBiReport::all();
 ?>
+
+<style>
+    #powerbi-report-dropdown {
+        display: none;
+        width: 100%;
+    }
+
+    #powerbi-report-dropdown.show {
+        display: block;
+    }
+</style>
 
 <div id="sidebar-wrapper">
     <div class="card">
@@ -106,6 +122,10 @@ $settings = App\Models\Utility::settings();
                     <span class="fa-stack fa-lg pull-left"><img src="{{asset('icons/signature.png')}}" alt="" style="    width: 22px;"></span>
                     <span class="dash-mtext">{{ __('Authorised Signature') }}</span>
                 </a>
+                <a href="#power-bi" class="list-group-item list-group-item-action border-0" onclick="showAccordion('collapse222')">
+                    <span class="fa-stack fa-lg pull-left"><img src="{{asset('icons/power-bi.png')}}" alt="" style="    width: 22px;"></span>
+                    <span class="dash-mtext">{{ __('Power BI') }}</span>
+                </a>
 
                 @endif
                 @endif
@@ -188,6 +208,22 @@ $settings = App\Models\Utility::settings();
                     <span class="dash-mtext">{{ __('Financial') }} </span></a>
 
                 </a>
+
+                <!-- Power BI Reports -->
+                <a href="#" id="powerbi-report-toggle" class="list-group-item list-group-item-action">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-chart-bar"></i>
+                    </span>
+                    <span class="dash-mtext">{{ __('BI Reports') }}</span>
+                </a>
+
+                <!-- Dropdown Menu -->
+                <select id="powerbi-report-dropdown" class="form-select" style="display: none;">
+                    <option value="" disabled selected>Select a report</option>
+                    @foreach($powerBiReports as $report)
+                    <option value="{{ $report->id }}">{{ $report->report_name }}</option>
+                    @endforeach
+                </select>
                 @endif
                 @if(\Request::route()->getName() == 'meeting.create' ||\Request::route()->getName() == 'meeting.edit' )
                 <a href="#useradd-1" class="list-group-item list-group-item-action">
@@ -255,4 +291,24 @@ $settings = App\Models\Utility::settings();
             $('#' + dataId).addClass('show');
         }
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#powerbi-report-toggle').click(function(event) {
+            event.preventDefault();
+            $('#powerbi-report-dropdown').toggle();
+        });
+
+        $('#powerbi-report-dropdown').change(function() {
+            var reportId = $(this).val();
+            if (reportId) {
+                var baseUrl = "{{ url('/') }}";
+                var encodedId = btoa(reportId);
+                var url = baseUrl + '/powerbi/report/' + encodedId;
+                console.log('Redirecting to URL:', url);
+                window.location.href = url;
+            }
+        });
+    });
 </script>
