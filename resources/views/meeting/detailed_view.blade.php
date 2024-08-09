@@ -154,29 +154,42 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                         <tbody>
                                             @foreach($payments as $payKey => $payment)
                                             @php
-                                            $totall[$payKey] = $event->total - $payment->amount - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit
+                                            $total = $event->total;
+                                            $paid = $payment->amount;
+                                            $deposits = $payinfo[$payKey]->deposits ?? 0;
+                                            $paymentCredit = $payinfo[$payKey]->paymentCredit ?? 0;
+
+                                            if ($payKey == 0) {
+                                            $remainingDue = $total - $deposits - $paymentCredit - $paid;
+                                            } else {
+                                            $remainingDue = $totall[$payKey - 1] - $paid;
+                                            }
+
+                                            $totall[$payKey] = $remainingDue;
+
+                                            // Debugging info
+                                            $debugInfo = [
+                                            'remainingDue' => $remainingDue,
+                                            'payKey' => $payKey,
+                                            'previousPayKey' => $payKey - 1,
+                                            ];
                                             @endphp
 
-
                                             <tr>
-                                                <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y')}}
-                                                </td>
-                                                <td>{{$payment->name_of_card}}</td>
-                                                <td>{{$payment->transaction_id ?? '--'}}</td>
-                                                <td><a href="{{ Storage::url('app/public/Invoice/'.$payment->event_id.'/'.$payment->invoices) }}" download style="    color: #1551c9 !important;">{{ucfirst($payment->invoices )}}</a>
-                                                </td>
-                                                <td>${{$event->total}}</td>
-                                                <td>${{$payment->amount}}</td>
-                                                {{--<td>{{ $event->total - $payinfo[$payKey]->deposits - $payinfo[$payKey]->paymentCredit - $payinfo[$payKey]->collect_amount }}
-                                                </td>--}}
+                                                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y') }}</td>
+                                                <td>{{ $payment->name_of_card }}</td>
+                                                <td>{{ $payment->transaction_id ?? '--' }}</td>
+                                                <td><a href="{{ Storage::url('app/public/Invoice/'.$payment->event_id.'/'.$payment->invoices) }}" download style="color: #1551c9 !important;">{{ ucfirst($payment->invoices) }}</a></td>
+                                                <td>${{ $total }}</td>
+                                                <td>${{ $paid }}</td>
                                                 @if($payKey != 0)
-                                                <td>{{ $totall[$payKey - 1] - $payment->amount}}</td>
+                                                <td>{{ $totall[$payKey] }}</td>
                                                 @else
-                                                <td>{{ $totall[$payKey]}}</td>
+                                                <td>{{ $remainingDue }}</td>
                                                 @endif
                                             </tr>
-
                                             @endforeach
+
                                             <hr>
                                             <tr style="    background: aliceblue;">
                                                 <td></td>

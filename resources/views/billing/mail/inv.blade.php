@@ -210,14 +210,14 @@ $logo = \App\Models\Utility::get_file('uploads/logo/');
                         <td colspan="2" class="text-right"><b>Total Amount</b></td>
                         <td> <b>${{$paymentinfo->bill_amount}}</b></td>
                     </tr>
-                    <tr>
+                    {{--<tr>
                         <td colspan="2" class="text-right"><b>Deposit</b></td>
                         <td> <b>${{$paymentinfo->deposits}}</b></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-right"><b>Payment credit</b></td>
                         <td> <b>${{$paymentinfo->paymentCredit}}</b></td>
-                    </tr>
+                    </tr>--}}
                     <tr>
                         <td colspan="2" class="text-right"><b>Adjustments</b></td>
                         <td> <b>${{$paymentinfo->adjustments}} </b></td>
@@ -226,13 +226,13 @@ $logo = \App\Models\Utility::get_file('uploads/logo/');
                         <td colspan="2" class="text-right">Late Fee(If any)</td>
                         <td>{{ ($paymentinfo->latefee == 0)? '--' : $paymentinfo->latefee}}</td>
                     </tr>
-                    <tr>
+                    {{--<tr>
                         <td colspan="2" class="text-right"><b>Total Paid Amount</b></td>
-                        <td> <b>${{$total_paid}} </b></td>
-                    </tr>
+                        <td> <b>${{$total_paid + $paymentinfo->deposits + $paymentinfo->paymentCredit}} </b></td>
+                    </tr>--}}
                     <tr>
                         <td colspan="2" class="text-right"><b>Paid Amount</b></td>
-                        <td> <b>${{$paymentlog->collect_amount}} </b></td>
+                        <td> <b>${{$paymentinfo->collect_amount}} </b></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-right"><b>Balance Due</b></td>

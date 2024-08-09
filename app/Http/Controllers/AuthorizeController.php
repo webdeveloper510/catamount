@@ -157,7 +157,7 @@ class AuthorizeController extends Controller
                         'paymentlog' => $newpayment,
                         'total_paid' => $billinginfo,
                     ];
-                    return view('billing.mail.inv', $data);
+                    // return view('billing.mail.inv', $data);
                     $pdf = PDF::loadView('billing.mail.inv', $data);
                     // return $pdf->stream('invoice.pdf');          
                     try {
