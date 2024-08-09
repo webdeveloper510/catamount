@@ -15,6 +15,7 @@ use Mail;
 use PDF;
 use Storage;
 use App\Models\User;
+use Google\Service\AdExchangeBuyer\Resource\BillingInfo;
 
 class AuthorizeController extends Controller
 {
@@ -149,11 +150,14 @@ class AuthorizeController extends Controller
 
                     // $payinformaton = PaymentLogs::latest()->first();
                     $paymentinfo = PaymentInfo::where('event_id', $id)->orderby('id', 'desc')->first();
-                    // $paymentlog = PaymentLogs::where('event_id',$id)->orderby('id','desc')->first();
+                    $billinginfo = PaymentInfo::where('event_id', $id)->orderby('id', 'desc')->sum('collect_amount');
+
                     $data = [
                         'paymentinfo' => $paymentinfo,
-                        'paymentlog' => $newpayment
+                        'paymentlog' => $newpayment,
+                        'total_paid' => $billinginfo,
                     ];
+                    return view('billing.mail.inv', $data);
                     $pdf = PDF::loadView('billing.mail.inv', $data);
                     // return $pdf->stream('invoice.pdf');          
                     try {
