@@ -2180,4 +2180,48 @@ class SettingController extends Controller
         );
         return redirect()->back()->with('success', __('Proposal Save.'));
     }
+
+    public function updateOrganizationId(Request $request)
+    {
+
+        $user = \Auth::user();
+        $settings = Utility::settings();
+        $created_at = $updated_at = date('Y-m-d H:i:s');
+        $organization_id = $request->organization_id;
+        // print_r(isset($settings['template_editor']));
+
+        if (isset($settings['organization_id'])) {
+
+            DB::table('settings')
+                ->where('name', 'organization_id')
+                ->update([
+                    'value' =>  $organization_id,
+                    'created_by' => $user->id,
+                    'created_at' => $created_at,
+                    'updated_at' => $updated_at
+                ]);
+        } else {
+            \DB::insert(
+                'INSERT INTO settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`), `updated_at` = VALUES(`updated_at`) ',
+                [
+                    $organization_id,
+                    'organization_id',
+                    $user->id,
+                    $created_at,
+                    $updated_at,
+                ]
+            );
+        }
+
+        $response = (object)[
+            "code"  => 200,
+            "data"  =>  'Organization Id updated successfully'
+        ];
+
+        if ($request->ajax()) {
+            echo  json_encode($response);
+        } else {
+            return true;
+        }
+    }
 }

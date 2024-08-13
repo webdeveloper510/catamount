@@ -482,6 +482,256 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                             <div class="col-sm-12 col-md-12 col-xxl-12">
                                 <div class="accordion accordion-flush setting setting-accordion1" id="accordionExample">
                                     @if (\Auth::user()->type == 'owner')
+
+                                    <div id="company-email-setting" class="accordion-item card">
+                                        <h2 class="accordion-header" id="heading-2-15">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapse_01" aria-expanded="false"
+                                                aria-controls="collapse_01">
+                                                <h5>{{ __('Contract Settings') }}</h5>
+                                                <small class="text-muted">{{ __('See contract variables names') }}</small>
+                                            </button>
+                                        </h2>
+                                        <div id="collapse_01" class="accordion-collapse collapse"
+                                            aria-labelledby="heading-2-15" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body1">
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <label>Organization Id</label>
+                                                        <input class="form-control mt-2" value="<?= $settings['organization_id'] ?>" id="organization_id" placeholder="Enter your organization id" />
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button class="btn btn-info mt-2" onclick="updateOrganization()">Save</button>
+                                                    </div>
+                                                </div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Normal Name</th>
+                                                            <th scope="col">Actual Name (should be in Airslate as Name)</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Contractor name or Event name</td>
+                                                            <td>name</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Email</td>
+                                                            <td>email</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Alter Email</td>
+                                                            <td>alter_email</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">4</th>
+                                                            <td>Lead Address</td>
+                                                            <td>lead_address</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">5</th>
+                                                            <td>Alter Lead Address</td>
+                                                            <td>alter_lead_address</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">6</th>
+                                                            <td>Event Name</td>
+                                                            <td>eventname</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">7</th>
+                                                            <td>Relationship</td>
+                                                            <td>relationship</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">8</th>
+                                                            <td>Alter Relationship</td>
+                                                            <td>alter_relationship</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">9</th>
+                                                            <td>Phone Number</td>
+                                                            <td>phone</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">10</th>
+                                                            <td>Alter Name</td>
+                                                            <td>alter_name</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">11</th>
+                                                            <td>Alter Phone Number</td>
+                                                            <td>alter_phone</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">12</th>
+                                                            <td>Company Name</td>
+                                                            <td>company_name</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">13</th>
+                                                            <td>Start Date</td>
+                                                            <td>start_date</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">14</th>
+                                                            <td>End Date</td>
+                                                            <td>end_date</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">15</th>
+                                                            <td>Start Time</td>
+                                                            <td>start_time</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">16</th>
+                                                            <td>End Time</td>
+                                                            <td>end_time</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">17</th>
+                                                            <td>Description</td>
+                                                            <td>description</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">18</th>
+                                                            <td>Guest Count</td>
+                                                            <td>guest_count</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">19</th>
+                                                            <td>Functions Name</td>
+                                                            <td>function</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">20</th>
+                                                            <td>Functions Package</td>
+                                                            <td>func_package</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">21</th>
+                                                            <td>Bar Package</td>
+                                                            <td>bar_package</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">22</th>
+                                                            <td>Venue Selection</td>
+                                                            <td>venue_selection</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">23</th>
+                                                            <td>Special Request</td>
+                                                            <td>spcl_request</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">24</th>
+                                                            <td>Room</td>
+                                                            <td>room</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">25</th>
+                                                            <td>Meal</td>
+                                                            <td>meal</td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <th scope="row">26</th>
+                                                            <td>Bar</td>
+                                                            <td>bar</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">27</th>
+                                                            <td>Type</td>
+                                                            <td>type</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">28</th>
+                                                            <td>Add Options </td>
+                                                            <td>ad_opts</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">29</th>
+                                                            <td>Total</td>
+                                                            <td>total</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">30</th>
+                                                            <td>Any allergy</td>
+                                                            <td>allergies</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">31</th>
+                                                            <td>Food Description</td>
+                                                            <td>food_description</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">32</th>
+                                                            <td>Bar Description</td>
+                                                            <td>bar_description</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">33</th>
+                                                            <td>Setup Plans</td>
+                                                            <td>setup_plans</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">34</th>
+                                                            <td>Setup Description</td>
+                                                            <td>setup_description</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div id="company-email-setting" class="accordion-item card">
                                         <h2 class="accordion-header" id="heading-2-15">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
@@ -4841,6 +5091,28 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
+    function updateOrganization() {
+        let organization_id = $("#organization_id").val();
+        if (organization_id == "") {
+            swal.fire("Invalid", "Please enter your Organization Id", "error");
+            return
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "<?= url('setting/update-organization-id') ?>",
+            data: {
+                _token: '{{ csrf_token() }}',
+                organization_id: organization_id,
+            },
+            success: function(response) {
+                console.log('response--', response)
+                let result = JSON.parse(response);
+                swal.fire("success", result.data, "success");
+            }
+        });
+    }
+
     function deleteImage(icon) {
         var parentDiv = icon.closest('div.col-6');
         var imageName = icon.getAttribute('data-image');
