@@ -342,7 +342,6 @@ $token_value = $token_data['access_token'];
 
     allTemplates();
 
-
     function setContractorDetails(con_name, event_id) {
 
         $("#contractor_name").text(con_name);
@@ -689,7 +688,7 @@ $token_value = $token_data['access_token'];
 
     }
 
-    pdateContractStatus();
+    updateContractStatus();
     setInterval(() => {
         updateContractStatus();
     }, 5000);
@@ -748,19 +747,19 @@ $token_value = $token_data['access_token'];
     function updateContractStatus() {
 
         console.log('updateContractStatus------')
-        $.ajax({
-            url: "<?= url('cron-get-contract') ?>",
-            type: 'POST',
-            data: {
-                "_token": "{{ csrf_token() }}"
-            },
-            success: function(data) {
-                // console.log('data----'  , data)
+        // $.ajax({
+        //     url: "<?= url('cron-get-contract') ?>",
+        //     type: 'POST',
+        //     data: {
+        //         "_token": "{{ csrf_token() }}"
+        //     },
+        //     success: function(data) {
+        //         // console.log('data----'  , data)
 
-                // console.log(val)
+        //         // console.log(val)
 
-            }
-        });
+        //     }
+        // });
     }
 
 
