@@ -1562,6 +1562,7 @@ class ContractsController extends Controller
 
         $response =  [];
         // Send the email
+        $email = 'harjot@codenomad.net';
         try {
             Mail::html($htmlContent, function ($message) use ($email, $adminEmails) {
                 $message->to($email)
