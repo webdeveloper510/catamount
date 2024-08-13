@@ -747,19 +747,19 @@ $token_value = $token_data['access_token'];
     function updateContractStatus() {
 
         console.log('updateContractStatus------')
-        // $.ajax({
-        //     url: "<?= url('cron-get-contract') ?>",
-        //     type: 'POST',
-        //     data: {
-        //         "_token": "{{ csrf_token() }}"
-        //     },
-        //     success: function(data) {
-        //         // console.log('data----'  , data)
+        $.ajax({
+            url: "<?= url('cron-get-contract') ?>",
+            type: 'POST',
+            data: {
+                "_token": "{{ csrf_token() }}"
+            },
+            success: function(data) {
+                // console.log('data----'  , data)
 
-        //         // console.log(val)
+                // console.log(val)
 
-        //     }
-        // });
+            }
+        });
     }
 
 
