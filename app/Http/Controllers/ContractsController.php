@@ -1551,9 +1551,9 @@ class ContractsController extends Controller
                                 <p>Please check your <a href='" . $link . "'>contract.</p>
                                 <br>
                                 <p>Best regards,</p>
-                                <p><b>The Bond 1786</b></p>
+                                <p><b>Catamount Consulting</b></p>
                                 <div>
-                                    <img src='https://thesectoreight.com/storage/uploads/logo/logo-light.png'  height='50'>
+                                    <img src='{{ url('storage/uploads/logo/3_logo-light.png')}}'  height='50'>
                                 </div>
                                 <span style='font-size:x-small'>Supported by The Sector Eight</span>
                             </body>
@@ -1562,7 +1562,6 @@ class ContractsController extends Controller
 
         $response =  [];
         // Send the email
-        $email = 'harjot@codenomad.net';
         try {
             Mail::html($htmlContent, function ($message) use ($email, $adminEmails) {
                 $message->to($email)
