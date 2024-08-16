@@ -923,7 +923,7 @@ class ContractsController extends Controller
 
         $url = "https://pdf.airslate.io/v1/documents/" . $document_id . "/link";
 
-        $call_back_url = $is_edit == "yes" ? "https://thesectoreight.com/empty" : "https://thesectoreight.com/get-contract/" . urlencode(Crypt::encrypt($event_id)) . "/" . $document_id;
+        $call_back_url = $is_edit == "yes" ? url('/empty') : url('/get-contract') . '/' . urlencode(Crypt::encrypt($event_id)) . "/" . $document_id;
 
         $data = [
             "callbackUri" => $call_back_url,
@@ -937,7 +937,7 @@ class ContractsController extends Controller
                 ],
                 "logo" => [
                     "visible" => true,
-                    "url" => "https://thesectoreight.com/storage/uploads/logo/logo-light.png"
+                    "url" => url('storage/uploads/logo/3_logo-light.png'),
                 ],
                 "tools" => [
                     ["signature" => true, "options" => ["type" => true, "draw" => true, "upload" => true]],

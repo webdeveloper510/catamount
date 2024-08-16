@@ -343,7 +343,6 @@ $token_value = $token_data['access_token'];
     allTemplates();
 
     function setContractorDetails(con_name, event_id) {
-
         $("#contractor_name").text(con_name);
         event_id_number = event_id;
         console.log('check---------------------', con_name, event_id)
@@ -353,15 +352,11 @@ $token_value = $token_data['access_token'];
     function sendContract() {
 
         var template_id = $("#selected_template").val();
-
         if (template_id == "") {
-
             alert("Please select a template first")
             return
         }
-
         $body.addClass("loading");
-
         $.ajax({
             url: "<?= url('send-event-contract') ?>",
             type: 'POST',
@@ -387,7 +382,6 @@ $token_value = $token_data['access_token'];
                 } else {
                     alert("Somethingh happen wrong on server side. Please try again")
                 }
-
             },
             error: function() {
                 alert(' server error---' + error);
@@ -413,38 +407,26 @@ $token_value = $token_data['access_token'];
         };
 
         $.ajax(template_list_settings).done(function(response) {
-
             // $body.removeClass("loading");
             console.log('template_list_settings----', response);
-
-
             let template_option_html = `<option value="">Select a template</option>`;
             if (response.data.length > 0) {
-
                 for (let template of response.data) {
 
                     template_option_html += ` <option value="${template.id}">${template.name}</option>`;
                 }
-
-
             }
 
             $("#selected_template").html(template_option_html);
         });
     }
 
-
     function sendEventContract() {
-
         var doc_seleceted = $("#selected_doc").val();
-
         if (doc_seleceted == "") {
-
             alert("Please select a Doc first")
             return
         }
-
-
 
         $.ajax({
             url: "<?= url('send-event-contract') ?>",
@@ -455,15 +437,12 @@ $token_value = $token_data['access_token'];
             },
             success: function(data) {
                 console.log('send-event-contract------', data);
-
                 let result = JSON.parse(data);
-
                 if (result.code == 200) {
                     alert(result.data);
                 } else {
                     alert("Somethingh happen wrong on server side. Please try again")
                 }
-
             }
         });
     }
@@ -480,15 +459,11 @@ $token_value = $token_data['access_token'];
         template_name = "template-" + Date.now() + Math.floor(Math.random() * 1000);
         template_description = "template-description -" + Date.now() + Math.floor(Math.random() * 1000);
         if (template_name == '') {
-
-
             alert("Template name is required");
             return;
         }
 
         if (template_description == '') {
-
-
             alert("Template description is required");
             return;
         }
@@ -500,7 +475,6 @@ $token_value = $token_data['access_token'];
         }
 
         console.log('start-----', data)
-
 
         //   Create template
         // $body.addClass("loading");
@@ -549,32 +523,22 @@ $token_value = $token_data['access_token'];
 
     // Upload Doc To Template
 
-
     function uploadDocToTemplate() {
 
         const organization_id = '82391828-2300-0000-0000D981';
         const base64Content = $("#base64Output").val(); // Replace with your actual base64 content
 
         if (template_id == '') {
-
             alert("Please select a template");
             return
         }
 
         if (base64Content == '') {
-
             alert("Please upload a Doc");
             return
         }
 
         const url = `https://api.airslate.io/v1/organizations/${organization_id}/templates/${template_id}/documents`;
-
-        // const data = {
-        //     "name": "W-9.pdf",
-        //     "type": "PDF",
-        //     "content": base64Content
-        // };
-
         const data = {
             "name": "NDA.pdf",
             "type": "DOC_GENERATION",
@@ -737,30 +701,6 @@ $token_value = $token_data['access_token'];
             }
         });
     })
-
-
-    updateContractStatus();
-    setInterval(() => {
-        updateContractStatus();
-    }, 5000);
-
-    function updateContractStatus() {
-
-        console.log('updateContractStatus------')
-        $.ajax({
-            url: "<?= url('cron-get-contract') ?>",
-            type: 'POST',
-            data: {
-                "_token": "{{ csrf_token() }}"
-            },
-            success: function(data) {
-                // console.log('data----'  , data)
-
-                // console.log(val)
-
-            }
-        });
-    }
 
 
     /*  $(document).on('change', 'select[name=parent]', function() {

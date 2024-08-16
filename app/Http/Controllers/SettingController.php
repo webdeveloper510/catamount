@@ -2183,7 +2183,6 @@ class SettingController extends Controller
 
     public function updateOrganizationId(Request $request)
     {
-
         $user = \Auth::user();
         $settings = Utility::settings();
         $created_at = $updated_at = date('Y-m-d H:i:s');
@@ -2191,7 +2190,6 @@ class SettingController extends Controller
         // print_r(isset($settings['template_editor']));
 
         if (isset($settings['organization_id'])) {
-
             DB::table('settings')
                 ->where('name', 'organization_id')
                 ->update([

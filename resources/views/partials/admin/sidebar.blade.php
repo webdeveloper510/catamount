@@ -195,7 +195,7 @@ $powerBiReports = PowerBiReport::all();
                 ||
                 \Request::route()->getName() == 'report.eventanalytic' || \Request::route()->getName() ==
                 'report.customersanalytic' || \Request::route()->getName() == 'report.billinganalytic' ? ' active ' :
-                '')
+                '' || request()->segment(1) == 'powerbi')
 
                 <a href="{{ route('report.leadsanalytic') }}" class="list-group-item list-group-item-action {{ \Request::route()->getName() == 'report.leadsanalytic' ?'active' : ''}}"><span class="fa-stack fa-lg pull-left"><i class="fas fa-address-card"></i></span>
                     <span class="dash-mtext">{{ __('Leads') }} </span></a>
