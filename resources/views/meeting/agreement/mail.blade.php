@@ -14,7 +14,7 @@ Dear {{ $meeting->name }},<br>
 <p>{{$content}}</p><br>
 
 <b>Click the link below to sign the agreement:</b><br>
-<p>{{$url}}</p>
+<p><a href="{{$url}}">Click here</a></p>
 
 Thank you for your time and collaboration.<br>
 Best regards,

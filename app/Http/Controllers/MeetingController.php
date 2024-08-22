@@ -942,7 +942,6 @@ class MeetingController extends Controller
         //     // Get the full path to the temporary file
         //     $tempFilePath = storage_path('app/' . $tempFilePath);
         // }
-
         try {
             config(
                 [
@@ -962,6 +961,7 @@ class MeetingController extends Controller
             //     [
             //         'is_success' => false,
             //         'message' => $e->getMessage(),
+            //         'getLine' => $e->getLine(),
             //     ]
             // );
             return redirect()->back()->with('error', 'Email Not Sent');

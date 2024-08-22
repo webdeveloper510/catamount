@@ -20,12 +20,12 @@ class SendEventMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($meeting,$subject,$content,$agreementinfo)
+    public function __construct($meeting, $subject, $content, $agreementinfo)
     {
-       $this->meeting = $meeting;
-       $this->subject = $subject;
-       $this->content = $content;
-       $this->agreementinfo = $agreementinfo; 
+        $this->meeting = $meeting;
+        $this->subject = $subject;
+        $this->content = $content;
+        $this->agreementinfo = $agreementinfo;
     }
 
     /**
@@ -47,7 +47,6 @@ class SendEventMail extends Mailable
             view: 'meeting.agreement.mail',
             with: ['content' => $this->content],
         );
-        
     }
 
     /**
@@ -64,13 +63,15 @@ class SendEventMail extends Mailable
 
     public function build()
     {
-                    $filePath = storage_path('app/public/Agreement_attachments/'. $this->meeting->id.'/'.$this->agreementinfo->attachments);
-        return $this->subject($this->subject)
-            ->view('lead.mail.view') // Blade view for email content
-            ->with('content',$this->content)
-            ->attach($filePath, [
-                'as' => $this->agreementinfo->attachments, // File name
-                'mime' => Storage::disk('public')->mimeType('Agreement_attachments/'.$this->meeting->id.'/'.$this->agreementinfo->attachments),
-            ]);
+        if ($this->agreementinfo->attachments != '') {
+            $filePath = storage_path('app/public/Agreement_attachments/' . $this->meeting->id . '/' . $this->agreementinfo->attachments);
+            return $this->subject($this->subject)
+                ->view('lead.mail.view') // Blade view for email content
+                ->with('content', $this->content)
+                ->attach($filePath, [
+                    'as' => $this->agreementinfo->attachments, // File name
+                    'mime' => Storage::disk('public')->mimeType('Agreement_attachments/' . $this->meeting->id . '/' . $this->agreementinfo->attachments),
+                ]);
         }
     }
+}

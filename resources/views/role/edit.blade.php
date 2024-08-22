@@ -57,7 +57,7 @@
                 <tbody>
                     @php
                     $modules=['Role','User','Lead','Meeting','Campaign','Contract','Payment','Report'];
-                    $modules=['Role','User','Lead','Training','Invoice','Report','Campaign','Email','Contract'];
+                    $modules=['Role','User','Lead','Training','Invoice','Report','Campaign','Email'];
                     @endphp
                     @foreach($modules as $module)
                     <tr>

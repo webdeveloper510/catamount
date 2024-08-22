@@ -6,6 +6,7 @@ foreach ($pay as $p) {
     $total += $p->amount;
 }
 $total = $total + $billing->deposits + $billing->paymentCredit;
+$total222 = $total + $billing->deposits + $billing->paymentCredit;
 /* $total = 0;
 foreach ($pay as $p) {
     $total += $p->amount;
@@ -97,6 +98,12 @@ foreach ($pay as $p) {
                 <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
 
                 if ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
+                    $bill = 4;
+                } else {
+                    $bill = 3;
+                }
+               
+                if ($event->total == $event->total - $total222) {
                     $bill = 4;
                 } else {
                     $bill = 3;

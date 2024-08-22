@@ -270,11 +270,11 @@ $powerBiReports = PowerBiReport::all();
                     <span class="dash-mtext">{{ __('Emails') }} </span></a>
                 </a>
                 @endif
-                @if(\Request::route()->getName() == 'contracts.index' ||\Request::route()->getName() == 'contracts.create')
+                {{--@if(\Request::route()->getName() == 'contracts.index' ||\Request::route()->getName() == 'contracts.create')
                 <a href="#useradd-1" class="list-group-item list-group-item-action"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file-contract"></i></span>
                     <span class="dash-mtext">{{ __('Contracts') }} </span></a>
                 </a>
-                @endif
+                @endif--}}
                 <!-- <li
                     class="dash-item {{ \Request::route()->getName() == 'calendar' || \Request::route()->getName() == 'calendar.index' ? ' active' : '' }}">
                     <a href="{{ route('calendar.index') }}" class="dash-link">

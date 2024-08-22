@@ -187,7 +187,7 @@ $billing_invoice_data = $billing_data;
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"></td>
                                         <td colspan="2" style="padding:5px 5px; margin-left:5px;font-size:13px;"> </td>
                                         <td style="padding:5px 5px; margin-left:5px;font-size:13px;">
-                                            %{{ $billing->salesTax }}</td>
+                                            {{ $billing->salesTax }}%</td>
                                         <td></td>
                                     </tr>
                                     <tr>

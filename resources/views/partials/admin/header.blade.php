@@ -119,11 +119,11 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                                             <span class="dash-mtext">{{ __('Emails') }}</span></a>
                                     </li>
                                     @endif
-                                    @if(\Auth::user()->type =='super admin' || \Auth::user()->type =='owner' || \Auth::user()->can('Manage Contract'))
+                                    {{--@if(\Auth::user()->type =='super admin' || \Auth::user()->type =='owner' || \Auth::user()->can('Manage Contract'))
                                     <li class="dash-item  {{ (Request::route()->getName() == 'contracts.index' || Request::route()->getName() == 'contract.show') ? 'active' : '' }}">
                                         <a href="{{route('contracts.index')}}" class="dash-link"><span class="dash-mtext">{{__('Contracts')}}</span></a>
                                     </li>
-                                    @endif
+                                    @endif--}}
                                     @if(\Auth::user()->type =='super admin' || \Auth::user()->type =='owner' || \Auth::user()->can('Manage Settings'))
                                     <li class="dash-item  {{ Request::route()->getName() == 'settings' ? 'active' : '' }}">
                                         <a href="{{ route('settings') }}" class="dash-link">
