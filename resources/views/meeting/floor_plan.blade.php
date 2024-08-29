@@ -11,7 +11,7 @@
 
                     <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('End Date')}}</span></dt>
 
-                    <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Guest Count')}}</span></dt>
+                    <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Attendees')}}</span></dt>
 
                     <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Venue')}}</span></dt>
 

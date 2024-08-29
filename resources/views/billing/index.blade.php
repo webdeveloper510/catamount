@@ -75,11 +75,14 @@
                                                     @if(\App\Models\Billing::where('event_id',$event->id)->exists())
                                                     <?php $bill = \App\Models\Billing::where('event_id', $event->id)->pluck('status')->first();
 
-                                                    if ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
+                                                    if (@$deposit->deposits + @$deposit->paymentCredit == 0) {
+                                                        $bill = 2;
+                                                    } elseif ($event->total == ($total + @$deposit->deposits + @$deposit->paymentCredit)) {
                                                         $bill = 4;
                                                     } else {
                                                         $bill = 3;
                                                     }
+
                                                     ?>
                                                     @if($bill == 1)
                                                     <span class=" text-info">{{__(\App\Models\Billing::$status[$bill]) }}</span>

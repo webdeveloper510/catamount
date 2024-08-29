@@ -374,7 +374,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         </div>
                                         <div class="col-6 need_full">
                                             <div class="form-group">
-                                                {{Form::label('guest_count',__('Guest Count'),['class'=>'form-label']) }}
+                                                {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
                                                 {!! Form::number('guest_count', null,array('class' => 'form-control','min'=> 0)) !!}
                                             </div>
                                         </div>

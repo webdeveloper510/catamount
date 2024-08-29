@@ -162,7 +162,7 @@
                                         class="opticy"> dddd</span></th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Any Special Requests') }} <span
                                         class="opticy"> dddd</span></th>
-                                <th scope="col" class="sort" data-sort="name">{{ __('Guest Count') }} <span
+                                <th scope="col" class="sort" data-sort="name">{{ __('Attendees') }} <span
                                         class="opticy"> dddd</span></th>
                                 <th scope="col" class="sort" data-sort="budget">{{ __('Converted To Event') }} <span
                                         class="opticy"> dddd</span></th>

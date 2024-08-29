@@ -233,7 +233,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Type')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->type }}</span></dd>
 
-                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
+                    <dt class="col-md-6"><span class="h6  mb-0">{{__('Attendees')}}</span></dt>
                     <dd class="col-md-6"><span class="">{{ $lead->guest_count }}</span></dd>
 
                     <dt class="col-md-6"><span class="h6  mb-0">{{__('Assigned Staff')}}</span></dt>

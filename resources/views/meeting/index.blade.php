@@ -173,7 +173,7 @@ $token_value = $token_data['access_token'];
                                                 <td class="text-end">
                                                     @if($meeting->status == 0)
                                                     <div class="action-btn bg-primary ms-2">
-                                                        <a href="#" data-size="md" data-url="{{ route('meeting.share', $meeting->id) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Event Details') }}" title="{{ __('Share') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                        <a href="#" data-size="md" data-url="{{ route('meeting.share', $meeting->id) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Training Details') }}" title="{{ __('Share') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-share"></i>
                                                         </a>
                                                     </div>

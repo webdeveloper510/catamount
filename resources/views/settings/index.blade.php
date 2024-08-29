@@ -624,7 +624,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 
                                                         <tr>
                                                             <th scope="row">18</th>
-                                                            <td>Guest Count</td>
+                                                            <td>Attendees</td>
                                                             <td>guest_count</td>
                                                         </tr>
 

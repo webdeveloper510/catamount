@@ -69,7 +69,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                         <dd class="col-md-6 need_half"><span class="">{{date('h:i A', strtotime($event->start_time))}} -
                                 {{date('h:i A', strtotime($event->end_time))}}</span></dd>
 
-                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
+                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Attendees')}}</span></dt>
                         <dd class="col-md-6 need_half"><span class="">{{$event->guest_count}}</span></dd>
 
                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Trainings Location')}}</span></dt>
@@ -116,20 +116,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                         <hr>
                         <img src="{{$event->floor_plan}}" alt="" style="    width: 40% ;" class="need_full">
                     </dl>
-                    @if(isset($payments) && !empty($payments))
-                    <?php
-                    $latefee = 0;
-                    $adj = 0;
-                    $collect_amount = 0;
-                    foreach ($payinfo as $k => $val) {
-                        $latefee += $val->latefee;
-                        $adj += $val->adjustments;
-                    }
-                    foreach ($payments as  $value) {
-                        $collect_amount += $value->amount;
-                    }
 
-                    ?>
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
                             <div class="card-body table-border-style">
@@ -152,6 +139,20 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @if(isset($payments) && !empty($payments))
+                                            <?php
+                                            $latefee = 0;
+                                            $adj = 0;
+                                            $collect_amount = 0;
+                                            foreach ($payinfo as $k => $val) {
+                                                $latefee += $val->latefee;
+                                                $adj += $val->adjustments;
+                                            }
+                                            foreach ($payments as  $value) {
+                                                $collect_amount += $value->amount;
+                                            }
+
+                                            ?>
                                             @foreach($payments as $payKey => $payment)
                                             @php
                                             $total = $event->total;
@@ -189,37 +190,37 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 @endif
                                             </tr>
                                             @endforeach
-
+                                            @endif
                                             <hr>
                                             <tr style="    background: aliceblue;">
                                                 <td></td>
                                                 <td colspan='3'><b>Deposits on File:</b></td>
                                                 <td colspan='3'>
-                                                    {{( $beforedeposit->deposits != 0) ? '$'.$beforedeposit->deposits : '--' }}
+                                                    {{( @$beforedeposit->deposits != 0) ? '$'.@$beforedeposit->deposits : '--' }}
                                                 </td>
                                             </tr>
                                             <tr style="    background: aliceblue;">
                                                 <td></td>
                                                 <td colspan='3'><b>Payments /Credit (-):</b></td>
                                                 <td colspan='3'>
-                                                    {{( $beforedeposit->paymentCredit != 0 ) ? '$'.$beforedeposit->paymentCredit : '--' }}
+                                                    {{( @$beforedeposit->paymentCredit != 0 ) ? '$'.@$beforedeposit->paymentCredit : '--' }}
                                                 </td>
                                             </tr>
                                             <tr style="background: darkgray;">
                                                 <td></td>
                                                 <td colspan='3'><b>Adjustments:</b></td>
-                                                <td colspan='3'>{{($adj != 0) ? '$'.$adj : '--' }}</td>
+                                                <td colspan='3'>{{(@$adj != 0) ? '$'.@$adj : '--' }}</td>
                                             </tr>
                                             <tr style=" background: #c0e3c0;">
                                                 <td></td>
                                                 <td colspan='3'><b>Latefee:</b></td>
-                                                <td colspan='3'>{{ ($latefee != 0) ? '$'. $latefee :'--' }}</td>
+                                                <td colspan='3'>{{ (@$latefee != 0) ? '$'. @$latefee :'--' }}</td>
                                             </tr>
                                             <tr style="    background: floralwhite;">
                                                 <td></td>
                                                 <td colspan='3'><b>Total Amount Recieved:</b></td>
                                                 <td colspan='3'>
-                                                    {{((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + $collect_amount<=0) ? '--' : '$'.((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + $collect_amount)}}
+                                                    {{((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + @$collect_amount<=0) ? '--' : '$'.((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + @$collect_amount)}}
                                                 </td>
                                             </tr>
 
@@ -229,7 +230,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                             </div>
                         </div>
                     </div>
-                    @endif
+
                     <div class="col-lg-12">
                         <div class="card" id="useradd-1">
                             <div class="card-body table-border-style">

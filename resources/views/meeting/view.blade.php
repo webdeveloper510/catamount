@@ -60,7 +60,7 @@
                         @endif
                     </span></dd>
 
-                <dt class="col-md-6"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
+                <dt class="col-md-6"><span class="h6  mb-0">{{__('Attendees')}}</span></dt>
                 <dd class="col-md-6"><span class="">{{$meeting->guest_count}}</span></dd>
 
                 {{--<dt class="col-md-6"><span class="h6  mb-0">{{__('Training Type')}}</span></dt>

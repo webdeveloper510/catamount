@@ -260,7 +260,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                     <h4> {{ucfirst($lead->name)}}</h4>
                                     <hr>
                                     <dl class="row">
-                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Guest Count')}}</span></dt>
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Attendees')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->guest_count }}</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->venue_selection ??'--' }}</span></dd>

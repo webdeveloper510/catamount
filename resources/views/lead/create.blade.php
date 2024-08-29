@@ -173,7 +173,7 @@ $additional_items = json_decode($settings['additional_items'],true);
 
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('guest_count',__('Guest Count'),['class'=>'form-label']) }}
+            {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
             {!! Form::number('guest_count',old('guest_count'),array('class' => 'form-control','min'=> 0)) !!}
         </div>
     </div>

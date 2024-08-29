@@ -39,7 +39,7 @@
                                             <tr>
                                                 <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Lead Type')}}</th>
-                                                <th scope="col" class="sort">{{__('Guest Count')}}</th>
+                                                <th scope="col" class="sort">{{__('Attendees')}}</th>
                                                 <th scope="col" class="sort">{{__('Event Date')}}</th>
                                                 <th scope="col" class="sort">{{__('Function')}}</th>
                                                 <th scope="col" class="sort">{{__('Bar')}}</th>

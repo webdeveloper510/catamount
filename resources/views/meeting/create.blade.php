@@ -370,7 +370,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                         <div class="row">
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
-                                                    {{Form::label('guest_count',__('Guest Count'),['class'=>'form-label']) }}
+                                                    {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
                                                     <span class="text-sm">
                                                         <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                                     </span>

@@ -51,7 +51,7 @@ foreach ($pay as $p) {
             <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Invoice Amount')}}</span></dt>
             <dd class="col-md-6 need_half"><span class="">${{ number_format($event->total) }}</span></dd>
 
-            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__(' Amount Due')}}</span></dt>
+            <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Amount Due')}}</span></dt>
             <dd class="col-md-6 need_half"><span class="">${{ number_format($event->total - $total) }}</span></dd>
 
 
@@ -84,7 +84,6 @@ foreach ($pay as $p) {
                 @endif
                 --}}
                 <?php
-
                 $pay = App\Models\PaymentLogs::where('event_id', $event->id)->get();
                 $deposit = App\Models\Billing::where('event_id', $event->id)->first() ?? [];
                 $total = 0;
@@ -102,12 +101,23 @@ foreach ($pay as $p) {
                 } else {
                     $bill = 3;
                 }
-               
-                if ($event->total == $event->total - $total222) {
+
+                if (@$deposit->deposits == 0 && @$deposit->paymentCredit == 0) {
+                    $bill = 2;
+                } else if ($event->total == $event->total - $total222) {
                     $bill = 4;
                 } else {
                     $bill = 3;
                 }
+
+                /* $data['amount_due'] = $event->total - $total;
+                $data['invoice_amount'] = $event->total;
+                $data['dsgfs'] = $event->total - $total222;
+                $data['11'] = $deposit->deposits;
+                $data['22'] = $deposit->paymentCredit;
+                $data['bill'] = $bill;
+                pr($data); */
+
                 ?>
                 @if($bill == 1)
                 <span class=" text-info">{{__(\App\Models\Billing::$status[$bill]) }}</span>
