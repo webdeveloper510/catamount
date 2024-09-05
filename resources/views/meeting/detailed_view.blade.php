@@ -155,7 +155,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                             ?>
                                             @foreach($payments as $payKey => $payment)
                                             @php
-                                            $total = $event->total;
+                                            $total = $event->totalAmount;
                                             $paid = $payment->amount;
                                             $deposits = $payinfo[$payKey]->deposits ?? 0;
                                             $paymentCredit = $payinfo[$payKey]->paymentCredit ?? 0;
@@ -195,8 +195,15 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                             <tr style="    background: aliceblue;">
                                                 <td></td>
                                                 <td colspan='3'><b>Deposits on File:</b></td>
-                                                <td colspan='3'>
+                                                <td colspan='2'>
                                                     {{( @$beforedeposit->deposits != 0) ? '$'.@$beforedeposit->deposits : '--' }}
+                                                </td>
+                                                <td colspan="1">
+                                                    @if(!empty($beforedeposit) && $beforedeposit->totalAmount != 0)
+                                                    ${{ number_format(floor($beforedeposit->totalAmount - ($beforedeposit->deposits + $beforedeposit->paymentCredit)), 0, '.', ',') }}
+                                                    @else
+                                                    --
+                                                    @endif
                                                 </td>
                                             </tr>
                                             <tr style="    background: aliceblue;">
@@ -223,7 +230,6 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                     {{((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + @$collect_amount<=0) ? '--' : '$'.((isset($beforedeposit->deposits) && isset($beforedeposit->paymentCredit) ? $beforedeposit->deposits + $beforedeposit->paymentCredit : 0) + @$collect_amount)}}
                                                 </td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </div>

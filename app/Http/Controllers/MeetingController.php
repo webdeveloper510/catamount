@@ -1427,8 +1427,7 @@ class MeetingController extends Controller
     public function detailed_info($id)
     {
         $id = decrypt(urldecode($id));
-        $event = Meeting::find($id);
-
+        $event = Meeting::find($id);      
         return view('meeting.detailed_view', compact('event'));
     }
     public function event_user_info($id)
