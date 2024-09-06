@@ -983,7 +983,7 @@ class LeadController extends Controller
         $leaddata = Lead::withTrashed()->find($id);
         $email = $leaddata->email;
         $phone = $leaddata->primary_contact;
-        $leads = Lead::withTrashed()->where('email', $email)->orWhere('primary_contact', $phone)->get();
+        $leads = Lead::withTrashed()->where('email', $email)->Where('primary_contact', $phone)->get();
         foreach ($leads as $lKey => $lValue) {
             $ids[] = $lValue->id;
         }
@@ -991,7 +991,7 @@ class LeadController extends Controller
         $docs = LeadDoc::whereIn('lead_id', $ids)->get();
 
 
-        /* $data['id'] = $id;
+       /*  $data['id'] = $id;
         $data['leads'] = $leads->toArray();
         $data['notes'] = $notes->toArray();
         $data['docs'] = $docs->toArray();
