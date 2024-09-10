@@ -399,7 +399,7 @@ $billing_invoice_data = $billing_data;
                                 </tbody>
                             </table>
                             <input type="hidden" value="{{@$grandtotal}}" name="grandtotal">
-                            <h3 class=" mt-5" style="text-align:center ">TERMS AND CONDITIONS</h3>
+                            {{--<h3 class=" mt-5" style="text-align:center ">TERMS AND CONDITIONS</h3>
                             <h6 class="headings">FOOD AND ALCOHOLIC BEVERAGES and 3RD PARTY / ON-SITE VENDORS</h6>
                             <p class="text">
                                 The Client and their guests agree to not bring in any unauthorized food or beverage into
@@ -852,7 +852,7 @@ $billing_invoice_data = $billing_data;
                                 Please return signed contract with deposit no later than
                                 <b>{{ \Carbon\Carbon::parse($meeting->start_date)->subDays($settings['buffer_day'])->format('d M, Y') }}</b>
                                 or this contract is no longer valid.<br>
-                            </p>
+                            </p>--}}
 
                         </div>
                     </div>
@@ -862,7 +862,7 @@ $billing_invoice_data = $billing_data;
                             <textarea name="comments" id="comments" cols="30" rows="5" class="form-control"></textarea>
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    {{--<div class="row mt-3">
                         <div class="col-md-6">
                             <strong>Authorized Signature:</strong> <br>
                             <img src="{{$base64Image}}" style="width:30%; border-bottom:1px solid black;">
@@ -878,7 +878,7 @@ $billing_invoice_data = $billing_data;
                                 Signature</button>
                             <!-- <button id="clearButton" class="btn btn-danger btn-sm mt-1">Clear Signature</button> -->
                         </div>
-                    </div>
+                    </div>--}}
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <button class="btn btn-success mt-1" style="float:right">Submit</button>

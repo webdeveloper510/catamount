@@ -527,7 +527,7 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <td>email</td>
 
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <th scope="row">3</th>
                                                             <td>Alter Email</td>
                                                             <td>alter_email</td>
@@ -539,21 +539,20 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <td>lead_address</td>
 
                                                         </tr>
-
                                                         <tr>
                                                             <th scope="row">5</th>
                                                             <td>Alter Lead Address</td>
                                                             <td>alter_lead_address</td>
 
-                                                        </tr>
+                                                        </tr> -->
 
                                                         <tr>
-                                                            <th scope="row">6</th>
+                                                            <th scope="row">3</th>
                                                             <td>Event Name</td>
                                                             <td>eventname</td>
 
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <th scope="row">7</th>
                                                             <td>Relationship</td>
                                                             <td>relationship</td>
@@ -565,16 +564,16 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <td>Alter Relationship</td>
                                                             <td>alter_relationship</td>
 
-                                                        </tr>
+                                                        </tr> -->
 
                                                         <tr>
-                                                            <th scope="row">9</th>
+                                                            <th scope="row">4</th>
                                                             <td>Phone Number</td>
                                                             <td>phone</td>
 
                                                         </tr>
 
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <th scope="row">10</th>
                                                             <td>Alter Name</td>
                                                             <td>alter_name</td>
@@ -584,20 +583,20 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <th scope="row">11</th>
                                                             <td>Alter Phone Number</td>
                                                             <td>alter_phone</td>
-                                                        </tr>
+                                                        </tr> -->
                                                         <tr>
-                                                            <th scope="row">12</th>
+                                                            <th scope="row">5</th>
                                                             <td>Company Name</td>
                                                             <td>company_name</td>
 
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row">13</th>
+                                                            <th scope="row">6</th>
                                                             <td>Start Date</td>
                                                             <td>start_date</td>
 
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <th scope="row">14</th>
                                                             <td>End Date</td>
                                                             <td>end_date</td>
@@ -614,15 +613,15 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <th scope="row">16</th>
                                                             <td>End Time</td>
                                                             <td>end_time</td>
-                                                        </tr>
+                                                        </tr> -->
 
                                                         <tr>
-                                                            <th scope="row">17</th>
+                                                            <th scope="row">7</th>
                                                             <td>Description</td>
                                                             <td>description</td>
                                                         </tr>
 
-                                                        <tr>
+                                                        <!--  <tr>
                                                             <th scope="row">18</th>
                                                             <td>Attendees</td>
                                                             <td>guest_count</td>
@@ -668,19 +667,47 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                             <th scope="row">30</th>
                                                             <td>Any allergy</td>
                                                             <td>allergies</td>
-                                                        </tr>
+                                                        </tr> -->
 
                                                         <!-- <tr>
                                                             <th scope="row">33</th>
                                                             <td>Setup Plans</td>
                                                             <td>setup_plans</td>
                                                         </tr>
-
                                                         <tr>
                                                             <th scope="row">34</th>
                                                             <td>Setup Description</td>
                                                             <td>setup_description</td>
                                                         </tr> -->
+                                                        <tr>
+                                                            <th scope="row">8</th>
+                                                            <td>Cancellation</td>
+                                                            <td>cancellation</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">9</th>
+                                                            <td>Cost and Business Terms</td>
+                                                            <td>cost_and_business_terms</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">10</th>
+                                                            <td>Scope of Services</td>
+                                                            <td>scope_of_services</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">11</th>
+                                                            <td>Remarks</td>
+                                                            <td>remarks</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">12</th>
+                                                            <td>Agreement</td>
+                                                            <td>agreement</td>
+                                                        </tr>
 
                                                     </tbody>
                                                 </table>
