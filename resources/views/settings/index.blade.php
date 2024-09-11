@@ -523,192 +523,26 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">2</th>
-                                                            <td>Email</td>
-                                                            <td>email</td>
-
-                                                        </tr>
-                                                        <!-- <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Alter Email</td>
-                                                            <td>alter_email</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">4</th>
-                                                            <td>Lead Address</td>
-                                                            <td>lead_address</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">5</th>
-                                                            <td>Alter Lead Address</td>
-                                                            <td>alter_lead_address</td>
-
-                                                        </tr> -->
-
-                                                        <tr>
-                                                            <th scope="row">3</th>
                                                             <td>Event Name</td>
                                                             <td>eventname</td>
 
                                                         </tr>
-                                                        <!-- <tr>
-                                                            <th scope="row">7</th>
-                                                            <td>Relationship</td>
-                                                            <td>relationship</td>
-
-                                                        </tr>
-
                                                         <tr>
-                                                            <th scope="row">8</th>
-                                                            <td>Alter Relationship</td>
-                                                            <td>alter_relationship</td>
-
-                                                        </tr> -->
-
-                                                        <tr>
-                                                            <th scope="row">4</th>
+                                                            <th scope="row">3</th>
                                                             <td>Phone Number</td>
                                                             <td>phone</td>
-
                                                         </tr>
-
-                                                        <!-- <tr>
-                                                            <th scope="row">10</th>
-                                                            <td>Alter Name</td>
-                                                            <td>alter_name</td>
-                                                        </tr>
-
+                                                        @php
+                                                        $arg = ['Email','Company Name','Start Date','Description','Cancellation', 'Cost and Business Terms', 'Scope of Services', 'Remarks', 'Agreement','Created by name','Created by title','Created by date','Client name','Client title','Client date'];
+                                                        $count = 4;
+                                                        @endphp
+                                                        @foreach ($arg as $data)
                                                         <tr>
-                                                            <th scope="row">11</th>
-                                                            <td>Alter Phone Number</td>
-                                                            <td>alter_phone</td>
-                                                        </tr> -->
-                                                        <tr>
-                                                            <th scope="row">5</th>
-                                                            <td>Company Name</td>
-                                                            <td>company_name</td>
-
+                                                            <th scope="row">{{$count++}}</th>
+                                                            <td>{{$data}}</td>
+                                                            <td>{{strtolower(str_replace(' ', '_', $data))}}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <th scope="row">6</th>
-                                                            <td>Start Date</td>
-                                                            <td>start_date</td>
-
-                                                        </tr>
-                                                        <!-- <tr>
-                                                            <th scope="row">14</th>
-                                                            <td>End Date</td>
-                                                            <td>end_date</td>
-
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">15</th>
-                                                            <td>Start Time</td>
-                                                            <td>start_time</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">16</th>
-                                                            <td>End Time</td>
-                                                            <td>end_time</td>
-                                                        </tr> -->
-
-                                                        <tr>
-                                                            <th scope="row">7</th>
-                                                            <td>Description</td>
-                                                            <td>description</td>
-                                                        </tr>
-
-                                                        <!--  <tr>
-                                                            <th scope="row">18</th>
-                                                            <td>Attendees</td>
-                                                            <td>guest_count</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">22</th>
-                                                            <td>Training Selection</td>
-                                                            <td>training_selection</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">23</th>
-                                                            <td>Special Request</td>
-                                                            <td>spcl_request</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">24</th>
-                                                            <td>Room</td>
-                                                            <td>room</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">27</th>
-                                                            <td>Type</td>
-                                                            <td>type</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">28</th>
-                                                            <td>Add Options </td>
-                                                            <td>ad_opts</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">29</th>
-                                                            <td>Total</td>
-                                                            <td>total</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">30</th>
-                                                            <td>Any allergy</td>
-                                                            <td>allergies</td>
-                                                        </tr> -->
-
-                                                        <!-- <tr>
-                                                            <th scope="row">33</th>
-                                                            <td>Setup Plans</td>
-                                                            <td>setup_plans</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">34</th>
-                                                            <td>Setup Description</td>
-                                                            <td>setup_description</td>
-                                                        </tr> -->
-                                                        <tr>
-                                                            <th scope="row">8</th>
-                                                            <td>Cancellation</td>
-                                                            <td>cancellation</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">9</th>
-                                                            <td>Cost and Business Terms</td>
-                                                            <td>cost_and_business_terms</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">10</th>
-                                                            <td>Scope of Services</td>
-                                                            <td>scope_of_services</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">11</th>
-                                                            <td>Remarks</td>
-                                                            <td>remarks</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th scope="row">12</th>
-                                                            <td>Agreement</td>
-                                                            <td>agreement</td>
-                                                        </tr>
-
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

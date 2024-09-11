@@ -1047,17 +1047,27 @@ class MeetingController extends Controller
     public function signedagreementresponse(Request $request, $id)
     {
         $id = decrypt(urldecode($id));
-        if (!empty($request->imageData)) {
+        /* if (!empty($request->imageData)) {
             $image = $this->uploadSignature($request->imageData);
         } else {
             return redirect()->back()->with('error', ('Please Sign agreement for confirmation'));
-        }
+        } */
         $meeting = Meeting::find($id);
         $settings = Utility::settings();
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
 
         $fixed_cost = Billing::where('event_id', $id)->first();
         $agreement = Agreement::where('event_id', $id)->first();
+
+        if ($fixed_cost) {
+            $fixed_cost_data = unserialize($fixed_cost->data);
+            $item = [];
+            foreach ($fixed_cost_data as $bdKey => $bdValue) {
+                $item[] = $bdValue['cost'] * $bdValue['quantity'];
+            }
+            $fixed_cost->subTotal = $item;
+            $fixed_cost->total = array_sum($item);
+        }
         $data = [
             'agreement' => $agreement,
             'meeting' => $meeting,
@@ -1076,7 +1086,7 @@ class MeetingController extends Controller
         // }
         $agreements = new Agreement();
         $agreements['event_id'] = $id;
-        $agreements['signature'] = $image;
+        // $agreements['signature'] = $image;
         $agreements['notes'] = $request->comments;
         $agreements->save();
         try {
@@ -1427,7 +1437,7 @@ class MeetingController extends Controller
     public function detailed_info($id)
     {
         $id = decrypt(urldecode($id));
-        $event = Meeting::find($id);      
+        $event = Meeting::find($id);
         return view('meeting.detailed_view', compact('event'));
     }
     public function event_user_info($id)
