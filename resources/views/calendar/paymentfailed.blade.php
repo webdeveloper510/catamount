@@ -22,7 +22,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
+            max-width: 500px;
             width: 100%;
             margin: 20px;
             animation: fadeInUp 0.6s ease;

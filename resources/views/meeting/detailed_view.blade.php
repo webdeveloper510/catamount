@@ -155,7 +155,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                             ?>
                                             @foreach($payments as $payKey => $payment)
                                             @php
-                                            $total = $event->totalAmount;
+                                            $total = $event->totalAmount ?? $event->total;
                                             $paid = $payment->amount;
                                             $deposits = $payinfo[$payKey]->deposits ?? 0;
                                             $paymentCredit = $payinfo[$payKey]->paymentCredit ?? 0;
@@ -170,17 +170,21 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
 
                                             // Debugging info
                                             $debugInfo = [
+                                            'event' => $event->toArray(),
+                                            'payinfo' => $payinfo->toArray(),
+                                            'payments' => $payments->toArray(),
                                             'remainingDue' => $remainingDue,
                                             'payKey' => $payKey,
                                             'previousPayKey' => $payKey - 1,
                                             ];
+                                            // pr($debugInfo);
                                             @endphp
 
                                             <tr>
                                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->created_at)->format('M d, Y') }}</td>
                                                 <td>{{ $payment->name_of_card }}</td>
                                                 <td>{{ $payment->transaction_id ?? '--' }}</td>
-                                                <td><a href="{{ Storage::url('app/public/Invoice/'.$payment->event_id.'/'.$payment->invoices) }}" download style="color: #1551c9 !important;">{{ ucfirst($payment->invoices) }}</a></td>
+                                                <td><a href="{{ Storage::url('app/public/Invoice/'.$payment->event_id.'/'.$payment->attachment) }}" download style="color: #1551c9 !important;">{{ ucfirst($payment->name_of_card) }}</a></td>
                                                 <td>${{ $total }}</td>
                                                 <td>${{ $paid }}</td>
                                                 @if($payKey != 0)
@@ -200,7 +204,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 </td>
                                                 <td colspan="1">
                                                     @if(!empty($beforedeposit) && $beforedeposit->totalAmount != 0)
-                                                    ${{ number_format(floor($beforedeposit->totalAmount - ($beforedeposit->deposits + $beforedeposit->paymentCredit)), 0, '.', ',') }}
+                                                    ${{ number_format(floor($beforedeposit->totalAmount - ($beforedeposit->deposits + $beforedeposit->paymentCredit + @$paid)), 0, '.', ',') }}
                                                     @else
                                                     --
                                                     @endif

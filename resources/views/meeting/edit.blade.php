@@ -545,7 +545,7 @@ $user_data = json_decode($meeting->user_data,true);
                                     @foreach($atttachments as $atchKey => $atchValue)
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <img src="{{ asset('storage/' . $atchValue->filepath) }}" alt="{{ $atchValue->filename }}" srcset="" style="width: 100%;">
+                                            <img src="{{ url('storage/app/public/' . $atchValue->filepath) }}" alt="{{ $atchValue->filename }}" srcset="" style="width: 100%;">
                                         </div>
                                     </div>
                                     @endforeach
