@@ -1035,7 +1035,7 @@ $(document).ready(function() {
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
                     func_str = data.function;
-                    func_arr = func_str.split(",");
+                    // func_arr = func_str.split(",");
                     $('input[name ="company_name"]').val(data.company_name);
                     $('input[name ="name"]').val(data.name);
                     $('input[name ="relationship"]').val(data.relationship);
