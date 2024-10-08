@@ -742,6 +742,19 @@ $leadId = decrypt(urldecode(request()->query('lead')));
         var iti2 = initializePhoneInput("#phone-input1", "#country-code1");
     }
 
+    function assignTraner_disable() {
+        document.querySelectorAll('input.inputDisable').forEach(function(input) {
+            var val = input.value;
+            var checked = input.checked;
+            var targetInput = document.getElementById('user_amount_' + val);
+            if (checked) {
+                targetInput.disabled = false;
+            } else {
+                targetInput.disabled = true;
+            }
+        });
+    }
+
 
     $(document).ready(function() {
 
@@ -759,8 +772,15 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {
-                    // console.log(data);
+                    //  console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
+                    //  console.log('secondary_contact');
+
+                    user_data = JSON.parse(data.user_data);
+                    $.each(user_data, function(key, element) {
+                        $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                    });
+
 
                     // func_pack = json_decode(data.func_package);
                     venue_str = data.venue_selection;
@@ -816,20 +836,6 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                             div.style.display = 'none';
                         }
                     });
-
-                    document.querySelectorAll('input.inputDisable').forEach(function(input) {
-                        var val = input.value;
-                        var checked = input.checked;
-                        var targetInput = document.getElementById('user_amount_' + val);
-                        if (checked) {
-                            targetInput.disabled = false;
-                        } else {
-                            targetInput.disabled = true;
-                        }
-                    });
-
-
-
                     var phoneNumber = data.primary_contact;
                     var num = phoneNumber.trim();
                     var lastTenDigits = phoneNumber.substr(-10);
@@ -841,7 +847,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     var lastTenDigits1 = phoneNumber1.substr(-10);
                     var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' + lastTenDigits1.substr(6);
                     $('#phone-input1').val(formattedPhoneNumber1);
-
+                    assignTraner_disable();
                 }
             });
 
@@ -1018,7 +1024,14 @@ $(document).ready(function() {
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
+                    secondary_contact = JSON.parse(data.secondary_contact);
+                    user_data = JSON.parse(data.user_data);
+
+                    $.each(user_data, function(key, element) {
+                        $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                    });
+
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
                     func_str = data.function;
@@ -1031,11 +1044,11 @@ $(document).ready(function() {
 
 
 
-                    $('input[name ="secondary_contact[name]"]').val(data.secondary_contact.name);
-                    $('input[name ="secondary_contact[secondary_contact]"]').val(data.secondary_contact.secondary_contact);
-                    $('input[name ="secondary_contact[email]"]').val(data.secondary_contact.email);
-                    $('input[name ="secondary_contact[lead_address]"]').val(data.secondary_contact.lead_address);
-                    $('input[name ="secondary_contact[relationship]"]').val(data.secondary_contact.relationship);
+                    $('input[name ="secondary_contact[name]"]').val(secondary_contact.name);
+                    $('input[name ="secondary_contact[secondary_contact]"]').val(secondary_contact.secondary_contact);
+                    $('input[name ="secondary_contact[email]"]').val(secondary_contact.email);
+                    $('input[name ="secondary_contact[lead_address]"]').val(secondary_contact.lead_address);
+                    $('input[name ="secondary_contact[relationship]"]').val(secondary_contact.relationship);
 
 
                     // $('input[name ="end_date"]').val(data.end_date);
@@ -1075,7 +1088,7 @@ $(document).ready(function() {
                             div.style.display = 'none';
                         }
                     });
-
+                    assignTraner_disable();
                 }
             });
         });

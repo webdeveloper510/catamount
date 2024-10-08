@@ -798,6 +798,12 @@ class MeetingController extends Controller
     public function get_lead_data(Request $request)
     {
         $lead = Lead::where('id', $request->venue)->first();
+        if ($lead) {
+            $meeting = Meeting::where('user_id', $lead->user_id)->pluck('user_data');
+            $lead->user_data = $meeting->isNotEmpty() ? $meeting : null;
+        } else {
+            $lead = [];
+        }
         return $lead;
     }
 
