@@ -776,14 +776,23 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     secondary_contact = JSON.parse(data.secondary_contact);
                     //  console.log('secondary_contact');
 
-                    try {
-                        const user_data = JSON.parse(data.user_data);
+                    if (data.user_data) {
+                        try {
+                            const user_data = JSON.parse(data.user_data);
 
-                        $.each(user_data, function(key, element) {
-                            $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
-                        });
-                    } catch (error) {
-                        console.error("Error parsing JSON:", error);
+                            // Ensure user_data is an array or an object before iterating
+                            if (Array.isArray(user_data) || typeof user_data === 'object') {
+                                $.each(user_data, function(key, element) {
+                                    // Check if element has the necessary properties
+                                    if (element.checkbox && element.amount !== undefined) {
+                                        $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                                    }
+                                });
+                            }
+                        } catch (error) {
+                            console.error("Error parsing JSON:", error);
+                            console.error("Raw data:", data.user_data);
+                        }
                     }
 
 
@@ -1031,16 +1040,24 @@ $(document).ready(function() {
                 success: function(data) {
                     // console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
-                    try {
-                        const user_data = JSON.parse(data.user_data);
+                    if (data.user_data) {
+                        try {
+                            const user_data = JSON.parse(data.user_data);
 
-                        $.each(user_data, function(key, element) {
-                            $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
-                        });
-                    } catch (error) {
-                        console.error("Error parsing JSON:", error);
+                            // Ensure user_data is an array or an object before iterating
+                            if (Array.isArray(user_data) || typeof user_data === 'object') {
+                                $.each(user_data, function(key, element) {
+                                    // Check if element has the necessary properties
+                                    if (element.checkbox && element.amount !== undefined) {
+                                        $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                                    }
+                                });
+                            }
+                        } catch (error) {
+                            console.error("Error parsing JSON:", error);
+                            console.error("Raw data:", data.user_data);
+                        }
                     }
-
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
                     func_str = data.function;
