@@ -1055,19 +1055,17 @@ $(document).ready(function() {
                             document.querySelectorAll('input.inputDisable').forEach(function(input) {
                                 var val = input.value;
                                 var checked = input.checked;
-                                if (element.checkbox != checked) {
-                                    var targetInput = document.getElementById('user_amount_' + val);
-                                    if (checked) {
-                                        targetInput.disabled = false;
-                                    } else {
-                                        targetInput.disabled = true;
-                                    }
+                                var targetInput = document.getElementById('user_amount_' + val);
+                                if (String(element.checkbox) == val) {
+                                    targetInput.disabled = !checked;
+                                } else {
+                                    targetInput.disabled = true;
                                 }
+
                             });
-
-
                         });
                     }
+
 
 
                     venue_str = data.venue_selection;
