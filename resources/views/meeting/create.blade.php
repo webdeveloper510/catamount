@@ -1069,10 +1069,10 @@ $(document).ready(function() {
                             true);
                     });
 
-                    $.each(func_arr, function(i, val) {
+                    /* $.each(func_arr, function(i, val) {
                         $("input[name='function[]'][value='" + val + "']").prop(
                             'checked', true);
-                    });
+                    }); */
                     $('input[name ="guest_count"]').val(data.guest_count);
                     var checkedFunctions = $('input[name="function[]"]:checked').map(
                         function() {
