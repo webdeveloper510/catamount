@@ -776,10 +776,15 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     secondary_contact = JSON.parse(data.secondary_contact);
                     //  console.log('secondary_contact');
 
-                    user_data = JSON.parse(data.user_data);
-                    $.each(user_data, function(key, element) {
-                        $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
-                    });
+                    try {
+                        const user_data = JSON.parse(data.user_data);
+
+                        $.each(user_data, function(key, element) {
+                            $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                        });
+                    } catch (error) {
+                        console.error("Error parsing JSON:", error);
+                    }
 
 
                     // func_pack = json_decode(data.func_package);
@@ -1026,11 +1031,15 @@ $(document).ready(function() {
                 success: function(data) {
                     // console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
-                    user_data = JSON.parse(data.user_data);
+                    try {
+                        const user_data = JSON.parse(data.user_data);
 
-                    $.each(user_data, function(key, element) {
-                        $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
-                    });
+                        $.each(user_data, function(key, element) {
+                            $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                        });
+                    } catch (error) {
+                        console.error("Error parsing JSON:", error);
+                    }
 
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
