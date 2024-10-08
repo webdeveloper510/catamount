@@ -781,6 +781,21 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 
                         $.each(user_data, function(key, element) {
                             $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+
+                            document.querySelectorAll('input.inputDisable').forEach(function(input) {
+                                var val = input.value;
+                                var checked = input.checked;
+                                if (element.checkbox != checked) {
+                                    var targetInput = document.getElementById('user_amount_' + val);
+                                    if (checked) {
+                                        targetInput.disabled = false;
+                                    } else {
+                                        targetInput.disabled = true;
+                                    }
+                                }
+                            });
+
+
                         });
                     }
 
@@ -1029,13 +1044,32 @@ $(document).ready(function() {
                 success: function(data) {
                     // console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
+
+
                     if (data.user_data) {
                         user_data = JSON.parse(data.user_data);
 
                         $.each(user_data, function(key, element) {
                             $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+
+                            document.querySelectorAll('input.inputDisable').forEach(function(input) {
+                                var val = input.value;
+                                var checked = input.checked;
+                                if (element.checkbox != checked) {
+                                    var targetInput = document.getElementById('user_amount_' + val);
+                                    if (checked) {
+                                        targetInput.disabled = false;
+                                    } else {
+                                        targetInput.disabled = true;
+                                    }
+                                }
+                            });
+
+
                         });
                     }
+
+
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
                     func_str = data.function;
