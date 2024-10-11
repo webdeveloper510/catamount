@@ -173,7 +173,7 @@ class CustomerInformation extends Controller
             ];
             $userid =  \Auth::user()->creatorId();
             Excel::import(new UsersImport($category, $userid), request()->file('users'));
-            return redirect()->back()->with('success', 'Data  imported successfully');
+            return redirect()->back()->with('success', 'Data imported successfully');
         } elseif ($request->customerType == 'addForm') {
             $validator = \Validator::make(
                 $request->all(),

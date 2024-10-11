@@ -71,12 +71,12 @@ $campaign_type = explode(',',$settings['campaign_type']);
                     </div>
                     <div class="col-6 need_full">
                         <div class="form-group">
-                            <label for="category">Training and Bind Training</label>
+                            <label for="category">Category</label>
                             <span class="text-sm">
                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                             </span>
                             <select name="category" id="category" class="form-control" required>
-                                <option value="">Training and Bind Training</option>
+                                <option value="">--</option>
                                 @foreach($campaign_type as $campaign)
                                 <option value="{{$campaign}}" class="form-control">{{$campaign}}</option>
                                 @endforeach

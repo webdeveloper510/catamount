@@ -189,10 +189,10 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 </head>
 
 <body>
-    <div class="paidStemp">
+    <!-- <div class="paidStemp">
         <h2>PAID</h2>
         <h2>{{ date('d/m/Y')}}</h2>
-    </div>
+    </div> -->
     <div class="invoice">
         <div class="bill-to">
             <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
@@ -410,7 +410,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         </tbody>
     </table>
 
-    <div class="row" style="margin-top:20px;padding-top:10px;">
+    {{--<div class="row" style="margin-top:20px;padding-top:10px;">
         <div class="col-md-12">
             <p>This contract defines the terms and conditions under which Lotus Estate, LLC dba Catamount Consulting, (hereinafter referred to as The Bond or The
                 Bond 1786), and <b>{{$meeting['name']}}</b>(hereafter referred to as the Customer) agree to the Customer’s use of Catamount Consulting facilities on <b>{{$startdate}}</b>
@@ -418,10 +418,10 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                 both parties. The contract may not be amended or changed unless executed in writing and signed by Catamount Consulting and the Customer.
             </p>
         </div>
-    </div>
+    </div>--}}
     <div class="row">
         <div class="col-md-12">
-            <h4>Venue Selected</h4>
+            {{--<h4>Venue Selected</h4>
             <p>{{$meeting['venue_selection']}}</p><br><br>
             <p>
                 The venue/s described above has been reserved for you for the date and time stipulated. Please note that the hours assigned to your event include all set-up and
@@ -436,7 +436,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                 The balance is due prior to the event date. Deposits and payments will be made at the time of signing of the Contract. Payments
                 can be made by cash, Bank checks (made payable to <b>Catamount Consulting</b>), on the schedule noted below. A receipt from The Bond
                 1786 will be provided for each.
-            </p>
+            </p>--}}
             <h4>Billing Summary -Estimate</h4>
             <table>
                 <thead>

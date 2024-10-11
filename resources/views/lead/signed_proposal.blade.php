@@ -133,7 +133,7 @@ prx($data); */
         <div class="row">
             <div class="col-sm-12 mt-4 border-new">
                 <div class="img-section">
-                    <img class="logo-img center-new" src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="width: auto;margin:0 250px">
+                    <img class="logo-img center-new" src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="width: 300px;margin:0 200px;padding: 10px 15px;">
                 </div>
             </div>
             <div class="col-sm-12 border-new">
@@ -185,6 +185,7 @@ prx($data); */
                 <h3 class="input-new">
                     <label for="signature">{{__('Signature')}}: </label>
                     <img src="{{__($sign)}}" alt="" srcset="" style="width: 150px;height: 100px;">
+                    <span style="font-family: 'Open Sans', sans-serif;text-decoration: underline;position: relative;left: -18%;">{{ @$_REQUEST['to']['name'] ?? ''}}</span>
                 </h3>
             </div>
             <div class="col-sm-12 border-new border-new1">

@@ -92,7 +92,7 @@ $billing_invoice_data = $billing_data;
                             </table>
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    {{--<div class="row mt-3">
                         <div class="col-md-12">
                             <p class="text"><b>This contract defines the terms and conditions under which Lotus Estate,
                                     LLC
@@ -108,13 +108,13 @@ $billing_invoice_data = $billing_data;
                                     signed by Catamount Consulting and the Customer.</b>
                             </p>
                         </div>
-                    </div>
+                    </div>--}}
                     <div class="row">
                         <div class="col-md-12">
                             <h6 class="headings">Training location</h6>
                             <!-- <h6>Venue Selected</h6> -->
                             <p>{{$meeting->venue_selection}}</p><br>
-                            <h6 class="headings"> No. of Hotel Rooms (Booked)</h6>
+                            {{--<h6 class="headings"> No. of Hotel Rooms (Booked)</h6>
                             <p>{{$meeting->room}}</p><br>
                             <!-- <input type= "number" name ="rooms"min = "0" value = "{{$meeting->room}}" disabled> -->
                             <p class="text">
@@ -137,7 +137,7 @@ $billing_invoice_data = $billing_data;
                                 can be made by cash, Bank checks (made payable to <b>Catamount Consulting</b>), on the schedule
                                 noted below. A receipt from The Bond
                                 1786 will be provided for each.
-                            </p>
+                            </p>--}}
                             <h6 class="headings">Billing Summary</h6>
                             <table class="table table-bordered">
                                 <thead>
