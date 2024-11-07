@@ -136,15 +136,34 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             {!!@$finalProposal['agreement']!!}
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
-                        <div class="col-sm-12 border-new">
+                        <div class="col-sm-12 border-new" style="display: flex;">
                             <div id="sig">
                                 <h5 class="input-new">
                                     <label for="signature">{{__('Signature')}}:</label>
                                     <canvas id="signatureCanvas" width="300" class="signature-canvas"></canvas>
                                     <input type="hidden" name="imageData" id="imageData">
                                 </h5>
+                                <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear Signature</button>
                             </div>
-                            <button type="button" id="clearButton" class="btn btn-danger btn-sm mt-1">Clear Signature</button>
+
+                            <div class="table">
+                                <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+                                    <tr style="border-bottom: 1px solid #ddd;">
+                                        <td style="padding: 8px;">Name</td>
+                                        <!-- <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{isset($proposal_info->to->name) ? $proposal_info->to->name : '' }}"></td> -->
+                                        <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{ @$proposal_info->to->name}}"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #ddd;">
+                                        <td style="padding: 8px;">Title</td>
+                                        <!-- <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{isset($proposal_info->to->name) ? $proposal_info->to->designation : '' }}"></td> -->
+                                        <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{ @$proposal_info->to->designation}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px;">Date</td>
+                                        <td style="padding: 8px;"><input type="date" name="to[date]" id="date" value="{{ @$proposal_info->to->date ?? date('Y-m-d')}}"></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                         <div class="col-sm-12 border-new border-new1">
                             <h5 class="input-new">
@@ -213,23 +232,9 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                     <td style="padding: 8px;">Date</td>
                                     <td style="padding: 8px;">{{__($proposal_info->from->date)}}</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
+                                <!-- <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">For {{ __($lead->company_name) }}</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px;">Name</td>
-                                    <!-- <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{isset($proposal_info->to->name) ? $proposal_info->to->name : '' }}"></td> -->
-                                    <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{ @$proposal_info->to->name}}"></td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px;">Title</td>
-                                    <!-- <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{isset($proposal_info->to->name) ? $proposal_info->to->designation : '' }}"></td> -->
-                                    <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{ @$proposal_info->to->designation}}"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;"><input type="date" name="to[date]" id="date" value="{{ @$proposal_info->to->date ?? date('Y-m-d')}}"></td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </div>
                     </div>

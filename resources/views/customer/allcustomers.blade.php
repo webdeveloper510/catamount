@@ -56,7 +56,18 @@
                                                     </a>
                                                     @endif
                                                 </td>
-                                                <td>{{ucfirst(@$customers->company->company_name)}}</td>
+                                                <td>
+                                                    @if(@$customers['category'] == 'event')
+                                                    <a href="{{route('event.userinfo',urlencode(encrypt(@$customers['ref_id'])))}}" title="{{ __('User Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
+                                                        <b>{{ucfirst(@$customers->company->company_name)}}</b>
+                                                    </a>
+                                                    @else
+                                                    <a href="{{ route('lead.userinfo',urlencode(encrypt(@$customers['ref_id']))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
+                                                        <b>{{ucfirst(@$customers->company->company_name)}}</b>
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                                <!-- <td>{{ucfirst(@$customers->company->company_name)}}</td> -->
                                                 <td>{{ucfirst(@$customers['email'])}}</td>
                                                 <td>{{ucfirst(@$customers['phone'])}}</td>
                                                 <td>{{ucfirst(@$customers['address'])}}</td>

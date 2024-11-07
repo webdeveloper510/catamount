@@ -181,14 +181,34 @@ prx($data); */
                     <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['agreement']!!}</p>
                 </div>
             </div>
-            <div class="col-sm-12 border-new">
-                <h3 class="input-new">
-                    <label for="signature">{{__('Signature')}}: </label>
-                    <img src="{{__($sign)}}" alt="" srcset="" style="width: 150px;height: 100px;">
-                    <span style="font-family: 'Open Sans', sans-serif;text-decoration: underline;position: relative;left: -18%;">{{ @$_REQUEST['to']['name'] ?? ''}}</span>
-                </h3>
+            <div class="col-sm-12 border-new border-new1 mt-5" style="display: flex;">
+                <div class="col-sm-6 signature-div">
+                    <h3 class="input-new">
+                        <label for="signature">{{__('Signature')}}: </label>
+                        <img src="{{__($sign)}}" alt="" srcset="" style="width: 150px;height: 100px;">
+                        <!-- <span style="font-family: 'Open Sans', sans-serif;text-decoration: underline;position: relative;left: -18%;">{{ @$_REQUEST['to']['name'] ?? ''}}</span> -->
+                    </h3>
+                </div>
+                <div class="col-sm-6 cleant-div">
+                    <div class="table">
+                        <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px;">Name</td>
+                                <td style="padding: 8px;">{{ @$_REQUEST['to']['name'] ?? ''}}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px;">Title</td>
+                                <td style="padding: 8px;">{{ @$_REQUEST['to']['designation'] ?? ''}}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px;">Date</td>
+                                <td style="padding: 8px;">{{ @$_REQUEST['to']['date'] ?? ''}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-12 border-new border-new1">
+            <div class="col-sm-12 border-new border-new1 mt-8">
                 <h3 class="input-new">
                     <label for="remarks">{{__('Remarks')}}:</label>
                 </h3>
@@ -284,24 +304,24 @@ prx($data); */
                         <td style="padding: 8px;">Date</td>
                         <td style="padding: 8px;">{{__(@$proposalDataArg->from->date)}}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #ddd;">
+                    <!-- <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">For {{ __($lead->company_name) }}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Name</td>
                         <td style="padding: 8px;">{{ @$_REQUEST['to']['name'] ?? ''}}</td>
-                        <!-- <td style="padding: 8px;">{{__(@$proposalDataArg->to->name)}}</td> -->
+                        <td style="padding: 8px;">{{__(@$proposalDataArg->to->name)}}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Title</td>
                         <td style="padding: 8px;">{{@$_REQUEST['to']['designation'] ?? ''}}</td>
-                        <!-- <td style="padding: 8px;">{{__(@$proposalDataArg->to->designation)}}</td> -->
+                        <td style="padding: 8px;">{{__(@$proposalDataArg->to->designation)}}</td>
                     </tr>
                     <tr>
                         <td style="padding: 8px;">Date</td>
                         <td style="padding: 8px;">{{@$_REQUEST['to']['date'] ?? date('Y-m-d')}}</td>
-                        <!-- <td style="padding: 8px;">{{__(@$proposalDataArg->to->date)}}</td> -->
-                    </tr>
+                        <td style="padding: 8px;">{{__(@$proposalDataArg->to->date)}}</td>
+                    </tr> -->
                 </table>
             </div>
             <!-- <div class="details">

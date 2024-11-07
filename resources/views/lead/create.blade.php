@@ -299,8 +299,8 @@ $additional_items = json_decode($settings['additional_items'],true);
 </div>
 <div class="col-6 need_full">
     <div class="form-group">
-        {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-        <input type="number" name="rooms" id="" placeholder="Enter No. of Room(if required)" min='0' class="form-control" value="{{old('guest_count')}}">
+        {{Form::label('rooms',__('Location'),['class'=>'form-label']) }}
+        <input type="text" name="rooms" id="" placeholder="Location (if required)" class="form-control" value="{{old('guest_count')}}">
     </div>
 </div>
 <div class="col-6 need_full">

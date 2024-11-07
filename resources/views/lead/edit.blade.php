@@ -177,221 +177,226 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                             <!-- <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span> -->
-                                            <select name="venue[]" class="form-select" id="venue">
+                                            {{--<select name="venue[]" class="form-select" id="venue">
                                                 @foreach($venue as $key => $label)
                                                 <option value="{{ $label }}">{{ $label }}</option>
-                                                @endforeach
-                                            </select>
-                                            {{-- @foreach($venue as $key => $label)
+                                            @endforeach
+                                            </select>--}}
+                                            @foreach($venue as $key => $label)
                                             <div>
                                                 <input type="checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, @$venue_function) ? 'checked' : '' }}>
-                                            <label for="{{ $label }}">{{ $label }}</label>
+                                                <label for="{{ $label }}">{{ $label }}</label>
+                                            </div>
+                                            @endforeach
+                                            <div>
+                                                <input type="text" name="venue[]" pattern="[^,]*"  oninput="this.value = this.value.replace(/,/g, '')" 
+                                                onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
+                                                <label for="custom_text">{{ _('Custom Loction') }}</label>
+                                            </div>
                                         </div>
-                                        @endforeach --}}
                                     </div>
-                                </div>
-                                <div class="col-6 need_full">
-                                    <div class="form-group">
-                                        {{ Form::label('start_date', __('Date of Training'), ['class' => 'form-label']) }}
-                                        <span class="text-sm">
-                                            <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                        </span>
-                                        {!! Form::date('start_date', null, ['class' => 'form-control','required'=>'required']) !!}
+                                    <div class="col-6 need_full">
+                                        <div class="form-group">
+                                            {{ Form::label('start_date', __('Date of Training'), ['class' => 'form-label']) }}
+                                            <span class="text-sm">
+                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                            </span>
+                                            {!! Form::date('start_date', null, ['class' => 'form-control','required'=>'required']) !!}
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-6 need_full">
-                                    <div class="form-group">
-                                        {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
-                                        {!! Form::number('guest_count', null,array('class' => 'form-control','min'=>
-                                        0)) !!}
+                                    <div class="col-6 need_full">
+                                        <div class="form-group">
+                                            {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
+                                            {!! Form::number('guest_count', null,array('class' => 'form-control','min'=>
+                                            0)) !!}
+                                        </div>
                                     </div>
-                                </div>
-                                {{--<div class="col-6 need_full">
+                                    {{--<div class="col-6 need_full">
                                         <div class="form-group">
                                             {{ Form::label('function', __('Function'), ['class' => 'form-label']) }}
-                                <!-- <span class="text-sm">
+                                    <!-- <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span> -->
-                                <div class="checkbox-group">
-                                    @foreach($function as $key => $value)
+                                    <div class="checkbox-group">
+                                        @foreach($function as $key => $value)
 
-                                    <label>
-                                        <input type="checkbox" id="{{ $value['function'] }}" name="function[]" value="{{  $value['function'] }}" class="function-checkbox" {{in_array( $value['function'], $function_package) ? 'checked' : '' }}>
+                                        <label>
+                                            <input type="checkbox" id="{{ $value['function'] }}" name="function[]" value="{{  $value['function'] }}" class="function-checkbox" {{in_array( $value['function'], $function_package) ? 'checked' : '' }}>
 
-                                        {{ $value['function'] }}
-                                    </label><br>
-                                    @endforeach
+                                            {{ $value['function'] }}
+                                        </label><br>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                        </div>--}}
-                        <div class="col-6 need_full" id="mailFunctionSection">
-                            @if(isset($function) && !empty($function))
-                            @foreach($function as $key =>$value)
-                            <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
-                                {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
-                                @foreach($value['package'] as $k => $package)
-                                <?php $isChecked = false; ?>
-                                @if(isset($func_package) && !empty($func_package))
-                                @foreach($func_package as $func => $pack)
-                                @foreach($pack as $keypac => $packval)
-                                @if($package == $packval)
-                                <?php $isChecked = true; ?>
-                                @endif
-                                @endforeach
-                                @endforeach
-                                @endif
-                                <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
-                                    {!! Form::checkbox('package_'.str_replace(' ', '',
-                                    strtolower($value['function'])).'[]',$package,
-                                    $isChecked, ['id' => 'package_' .
-                                    $key.$k, 'data-function' => $value['function'], 'class' =>
-                                    'form-check-input']) !!}
-                                    {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
-                                </div>
-                                @endforeach
-                            </div>
-                            @endforeach
-                            @endif
-                        </div>
-                        <div class="col-6 need_full" id="additionalSection">
-                            @if(isset($additional_items) && !empty($additional_items))
-                            {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
-                            @foreach($additional_items as $ad_key =>$ad_value)
-                            @foreach($ad_value as $fun_key =>$packageVal)
-
-                            <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display: none;">
-
-                                {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
-                                @foreach($packageVal as $pac_key =>$item)
-
-                                <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
-                                    <?php $isCheckedif = false; ?>
-
-                                    @if(isset($fun_ad_opts) && !empty($fun_ad_opts ))
-                                    @foreach($fun_ad_opts as $keys=>$valss)
-
-                                    @foreach($valss as $val)
-                                    @if($pac_key == $val)
-                                    <?php $isCheckedif = true; ?>
+                            </div>--}}
+                            <div class="col-6 need_full" id="mailFunctionSection">
+                                @if(isset($function) && !empty($function))
+                                @foreach($function as $key =>$value)
+                                <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['function']}}" id="function_package" style="display: none;">
+                                    {{ Form::label('package', __($value['function']), ['class' => 'form-label']) }}
+                                    @foreach($value['package'] as $k => $package)
+                                    <?php $isChecked = false; ?>
+                                    @if(isset($func_package) && !empty($func_package))
+                                    @foreach($func_package as $func => $pack)
+                                    @foreach($pack as $keypac => $packval)
+                                    @if($package == $packval)
+                                    <?php $isChecked = true; ?>
                                     @endif
                                     @endforeach
                                     @endforeach
                                     @endif
-                                    {!! Form::checkbox('additional_'.str_replace(' ', '_',
-                                    strtolower($fun_key)).'[]',$pac_key, $isCheckedif, ['data-function' =>
-                                    $fun_key,
-                                    'class' => 'form-check-input']) !!}
-                                    {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
+                                    <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$package}}">
+                                        {!! Form::checkbox('package_'.str_replace(' ', '',
+                                        strtolower($value['function'])).'[]',$package,
+                                        $isChecked, ['id' => 'package_' .
+                                        $key.$k, 'data-function' => $value['function'], 'class' =>
+                                        'form-check-input']) !!}
+                                        {{ Form::label($package, $package, ['class' => 'form-check-label']) }}
+                                    </div>
+                                    @endforeach
                                 </div>
                                 @endforeach
+                                @endif
                             </div>
-                            @endforeach
-                            @endforeach
-                            @endif
+                            <div class="col-6 need_full" id="additionalSection">
+                                @if(isset($additional_items) && !empty($additional_items))
+                                {{ Form::label('additional', __('Additional items'), ['class' => 'form-label']) }}
+                                @foreach($additional_items as $ad_key =>$ad_value)
+                                @foreach($ad_value as $fun_key =>$packageVal)
 
+                                <div class="form-group" data-additional-index="{{$fun_key}}" data-additional-value="{{key($packageVal)}}" id="ad_package" style="display: none;">
 
-                        </div>
-                        <div class="col-6 need_full">
-                            <div class="form-group">
-                                {{Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label']) }}
-                                <select class="form-control" name='user'>
-                                    <option value="">Select Staff</option>
-                                    @foreach($users as $user)
-                                    <option class="form-control" value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
-                                        {{$user->name}}
-                                    </option>
+                                    {{ Form::label('additional', __($fun_key), ['class' => 'form-label']) }}
+                                    @foreach($packageVal as $pac_key =>$item)
+
+                                    <div class="form-check" data-additional-index="{{$pac_key}}" data-additional-package="{{$pac_key}}">
+                                        <?php $isCheckedif = false; ?>
+
+                                        @if(isset($fun_ad_opts) && !empty($fun_ad_opts ))
+                                        @foreach($fun_ad_opts as $keys=>$valss)
+
+                                        @foreach($valss as $val)
+                                        @if($pac_key == $val)
+                                        <?php $isCheckedif = true; ?>
+                                        @endif
+                                        @endforeach
+                                        @endforeach
+                                        @endif
+                                        {!! Form::checkbox('additional_'.str_replace(' ', '_',
+                                        strtolower($fun_key)).'[]',$pac_key, $isCheckedif, ['data-function' =>
+                                        $fun_key,
+                                        'class' => 'form-check-input']) !!}
+                                        {{ Form::label($pac_key, $pac_key, ['class' => 'form-check-label']) }}
+                                    </div>
                                     @endforeach
-                                </select>
-                            </div>
-                        </div>
+                                </div>
+                                @endforeach
+                                @endforeach
+                                @endif
 
-                        <div class="col-12  p-0 modaltitle ">
-                            <h5 style="margin-left: 14px;">{{ __('Other Information') }}</h5>
-                        </div>
-                        {{--<div class="col-6 need_full">
+
+                            </div>
+                            <div class="col-6 need_full">
+                                <div class="form-group">
+                                    {{Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label']) }}
+                                    <select class="form-control" name='user'>
+                                        <option value="">Select Staff</option>
+                                        @foreach($users as $user)
+                                        <option class="form-control" value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
+                                            {{$user->name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12  p-0 modaltitle ">
+                                <h5 style="margin-left: 14px;">{{ __('Other Information') }}</h5>
+                            </div>
+                            {{--<div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('allergies',__('Allergies'),['class'=>'form-label']) }}
-                        {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+                            {{Form::text('allergies',null,array('class'=>'form-control','placeholder'=>__('Enter Allergies(if any)')))}}
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 need_full">
-                    <div class="form-group">
-                        {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
-                        {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
+                    <div class="col-6 need_full">
+                        <div class="form-group">
+                            {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
+                            {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
+                        </div>
+                    </div>--}}
+                    <div class="col-12 need_full">
+                        <div class="form-group">
+                            {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
+                            {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
+                        </div>
                     </div>
-                </div>--}}
-                <div class="col-12 need_full">
-                    <div class="form-group">
-                        {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
-                        {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
+                    <div class="col-12  p-0 modaltitle ">
+                        <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
                     </div>
-                </div>
-                <div class="col-12  p-0 modaltitle ">
-                    <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
-                </div>
-                {{--<div class="col-6 need_full">
+                    {{--<div class="col-6 need_full">
                                         <div class="form-group">
                                             {!! Form::label('baropt', 'Bar') !!}
                                             @foreach($baropt as $key => $label)
                                             <div>
                                                 {{ Form::radio('baropt', $label, isset($lead->bar) && $lead->bar == $label ? true : false , ['id' => $label]) }}
-                {{ Form::label('baropt' . ($key + 1), $label) }}
+                    {{ Form::label('baropt' . ($key + 1), $label) }}
+                </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
+            @if(isset($bar_package) && !empty($bar_package))
+            @foreach($bar_package as $key =>$value)
+            <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
+                {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
+                @foreach($value['barpackage'] as $k => $bar)
+                <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
+                    {!! Form::radio('bar'.'_'.str_replace(' ', '',
+                    strtolower($value['bar'])), $bar, false, ['id' => 'bar_' . $key.$k,
+                    'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
+                    {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
+                </div>
+                @endforeach
             </div>
             @endforeach
+            @endif
         </div>
-    </div>
-    <div class="col-6 need_full" id="barpacakgeoptions" style="display: none;">
-        @if(isset($bar_package) && !empty($bar_package))
-        @foreach($bar_package as $key =>$value)
-        <div class="form-group" data-main-index="{{$key}}" data-main-value="{{$value['bar']}}">
-            {{ Form::label('bar', __($value['bar']), ['class' => 'form-label']) }}
-            @foreach($value['barpackage'] as $k => $bar)
-            <div class="form-check" data-main-index="{{$k}}" data-main-package="{{$bar}}">
-                {!! Form::radio('bar'.'_'.str_replace(' ', '',
-                strtolower($value['bar'])), $bar, false, ['id' => 'bar_' . $key.$k,
-                'data-function' => $value['bar'], 'class' => 'form-check-input']) !!}
-                {{ Form::label($bar, $bar, ['class' => 'form-check-label']) }}
+        <div class="col-6 need_full">
+            <div class="form-group">
+                {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
+                <input type="number" name="rooms" value="{{$lead->rooms}}" class="form-control">
             </div>
-            @endforeach
-        </div>
-        @endforeach
-        @endif
-    </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{Form::label('rooms',__('Room'),['class'=>'form-label']) }}
-            <input type="number" name="rooms" value="{{$lead->rooms}}" class="form-control">
-        </div>
-    </div>--}}
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{ Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label']) }}
-            {!! Form::input('time', 'start_time', $lead->start_time, ['class' =>
-            'form-control']) !!}
-        </div>
-    </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{ Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label']) }}
-            {!! Form::input('time', 'end_time', $lead->end_time, ['class' =>
-            'form-control']) !!}
-        </div>
-    </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{ Form::label('name', __('Active'), ['class' => 'form-label']) }}
-            <div>
-                <input type="checkbox" class="form-check-input" name="is_active" {{ $lead->lead_status == 1 ? 'checked' : '' }}>
+        </div>--}}
+        <div class="col-6 need_full">
+            <div class="form-group">
+                {{ Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label']) }}
+                {!! Form::input('time', 'start_time', $lead->start_time, ['class' =>
+                'form-control']) !!}
             </div>
         </div>
+        <div class="col-6 need_full">
+            <div class="form-group">
+                {{ Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label']) }}
+                {!! Form::input('time', 'end_time', $lead->end_time, ['class' =>
+                'form-control']) !!}
+            </div>
+        </div>
+        <div class="col-6 need_full">
+            <div class="form-group">
+                {{ Form::label('name', __('Active'), ['class' => 'form-label']) }}
+                <div>
+                    <input type="checkbox" class="form-check-input" name="is_active" {{ $lead->lead_status == 1 ? 'checked' : '' }}>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="text-end">
+            <button type="button" class="btn  btn-light cancel">Cancel</button>
+            {{ Form::submit(__('Update'), ['class' => 'btn-submit btn btn-primary']) }}
+        </div>
     </div>
-    <hr>
-    <div class="text-end">
-        <button type="button" class="btn  btn-light cancel">Cancel</button>
-        {{ Form::submit(__('Update'), ['class' => 'btn-submit btn btn-primary']) }}
-    </div>
-</div>
 </div>
 {{ Form::close() }}
 </div>
