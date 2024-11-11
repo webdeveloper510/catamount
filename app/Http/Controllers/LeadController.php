@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Crypt;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Mail\SendPdfEmail;
 use App\Mail\LeadWithrawMail;
+use App\Mail\Notification\AssignMail;
 use App\Models\MasterCustomer;
 use App\Models\NotesLeads;
 use Log;
@@ -111,6 +112,9 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
+        $settings = Utility::settings();
+        $tranner = User::find($request->user);
+
         if (\Auth::user()->can('Create Lead')) {
 
             $validator = \Validator::make(
@@ -271,6 +275,50 @@ class LeadController extends Controller
             // } else {
             //     return redirect()->back()->with('error', __('Webhook call failed.') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
             // }
+
+
+            config(
+                [
+                    'mail.driver' => $settings['mail_driver'],
+                    'mail.host' => $settings['mail_host'],
+                    'mail.port' => $settings['mail_port'],
+                    'mail.username' => $settings['mail_username'],
+                    'mail.password' => $settings['mail_password'],
+                    'mail.from.address' => $settings['mail_from_address'],
+                    'mail.from.name' => $settings['mail_from_name'],
+                ]
+            );
+            /* user mail */
+            $mailData = [
+                'view' => 'notification_templates.user',
+                'subject' => "Trainer Assignment Notification",
+                'from' => $settings['mail_from_address'],
+                'fromName' => $settings['mail_from_name'],
+                'userName' => "{$request->email}, {$request->secondary->email}",
+                'trainerName' => "{$tranner->name}",
+                'trainingType' => "{$request->type}",
+                'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time} To End date: {$request->end_date} {$request->end_time}",
+                'trainingMail' => $tranner->email,
+                'leadName' => $request->lead_name,
+            ];
+            Mail::to([$request->email, $request->secondary->email])->send(new AssignMail($mailData));
+            // Mail::to(['nitinkumar@codenomad.net', 'lukesh@codenomad.net'])->send(new AssignMail($mailData));
+            /* tranner mail */
+            $mailData = [
+                'view' => 'notification_templates.trainer',
+                'subject' => "Trainer Assignment Notification",
+                'from' => $settings['mail_from_address'],
+                'fromName' => $settings['mail_from_name'],
+                'userName' => "{$request->email}, {$request->secondary->email}",
+                'trainerName' => "{$tranner->name}",
+                'trainingType' => "{$request->type}",
+                'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time} To End date: {$request->end_date} {$request->end_time}",
+                'trainingMail' => $tranner->email,
+                'leadName' => $request->lead_name,
+            ];
+            Mail::to($tranner->email)->send(new AssignMail($mailData));
+            // Mail::to('harjot@codenomad.net')->send(new AssignMail($mailData));
+
             return redirect()->back()->with('success', __('Lead Created.'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
@@ -681,7 +729,7 @@ class LeadController extends Controller
         $venue = explode(',', $settings['venue']);
         $fixed_cost = json_decode($settings['fixed_billing'], true);
         $additional_items = json_decode($settings['additional_items'], true);
-        
+
         return view('lead.proposal', compact('lead', 'venue', 'settings', 'fixed_cost', 'additional_items', 'users', 'proposal_info'));
     }
     public function proposal_resp(Request $request, $id)
@@ -991,7 +1039,7 @@ class LeadController extends Controller
         $docs = LeadDoc::whereIn('lead_id', $ids)->get();
 
 
-       /*  $data['id'] = $id;
+        /*  $data['id'] = $id;
         $data['leads'] = $leads->toArray();
         $data['notes'] = $notes->toArray();
         $data['docs'] = $docs->toArray();
