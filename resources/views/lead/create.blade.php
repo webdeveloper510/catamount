@@ -151,6 +151,9 @@ $additional_items = json_decode($settings['additional_items'],true);
                 {{ Form::checkbox('venue[]', $label, false, ['id' => 'venue' . ($key + 1)]) }}
                 {{ Form::label($label, $label) }}
                 @endforeach
+                <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
+                    onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="">
+                <label for="custom_text">{{ __('Custom Loction') }}</label>
             </div>
         </div>
     </div>
@@ -257,26 +260,26 @@ $additional_items = json_decode($settings['additional_items'],true);
     {{--<div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('spcl_req',__('Any Special Requirements'),['class'=>'form-label']) }}
-            {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
-        </div>
-    </div>--}}
-    <div class="col-12">
-        <div class="form-group">
-            {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
-            {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
-        </div>
+    {{Form::textarea('spcl_req',null,array('class'=>'form-control','rows'=>2,'placeholder'=>__('Enter Any Special Requirements')))}}
+</div>
+</div>--}}
+<div class="col-12">
+    <div class="form-group">
+        {{Form::label('Description',__('How did you hear about us?'),['class'=>'form-label']) }}
+        {{Form::textarea('description',null,array('class'=>'form-control','rows'=>2))}}
     </div>
-    <div class="col-12  p-0 modaltitle pb-3 mb-3">
-        <!-- <hr class="mt-2 mb-2"> -->
-        <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
-    </div>
-    {{--<div class="col-6 need_full">
+</div>
+<div class="col-12  p-0 modaltitle pb-3 mb-3">
+    <!-- <hr class="mt-2 mb-2"> -->
+    <h5 style="margin-left: 14px;">{{ __('Estimate Billing Summary Details') }}</h5>
+</div>
+{{--<div class="col-6 need_full">
         <div class="form-group">
             {!! Form::label('baropt', 'Bar') !!}
             @foreach($baropt as $key => $label)
             <div>
                 {{ Form::radio('baropt', $label, false, ['id' => $label]) }}
-    {{ Form::label('baropt' . ($key + 1), $label) }}
+{{ Form::label('baropt' . ($key + 1), $label) }}
 </div>
 @endforeach
 </div>
