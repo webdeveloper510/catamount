@@ -191,7 +191,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                             <div>
                                                 <input type="text" name="venue[]" pattern="[^,]*"  oninput="this.value = this.value.replace(/,/g, '')" 
                                                 onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
-                                                <label for="custom_text">{{ _('Custom Loction') }}</label>
+                                                <label for="custom_text">{{ __('Custom Loction') }}</label>
                                             </div>
                                         </div>
                                     </div>

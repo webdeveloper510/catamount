@@ -248,7 +248,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             <div>
                                                 <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
                                                     onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
-                                                <label for="custom_text">{{ _('Custom Loction') }}</label>
+                                                <label for="custom_text">{{ __('Custom Loction') }}</label>
                                             </div>
                                         </div>
                                     </div>
