@@ -20,7 +20,7 @@
         <h3 style="color: #333; font-size: 18px;">Trainer Details:</h3>
         <ul style="font-size: 16px; list-style-type: none; padding: 0;">
             <li><strong>Trainer's Name:</strong> {{$data['trainerName']}}</li>
-            <li><strong>Contact Email:</strong> <a href="mailto:{{trainingMail}}" style="color: #007BFF; text-decoration: none;">{{$data['trainingMail']}}</a></li>
+            <li><strong>Contact Email:</strong> <a href="mailto:{{$data['trainingMail']}}" style="color: #007BFF; text-decoration: none;">{{$data['trainingMail']}}</a></li>
             <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
         </ul>
     </div>
