@@ -37,6 +37,7 @@
                                                     <th scope="col" class="sort">{{__('Event Date')}}</th>
                                                     <th scope="col" class="sort">{{__('Converted to event')}}</th>
                                                     <th scope="col" class="sort">{{__('Created On')}}</th>
+                                                    <th scope="col" class="sort">{{__('Lead Details')}}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -52,6 +53,15 @@
                                                     <td>{{\Auth::user()->dateFormat($lead->start_date)}}</td>
                                                     <td>{{ ($lead->converted_to == 0 ? 'No': 'Yes') }}</td>
                                                     <td>{{\Auth::user()->dateFormat($lead->created_at)}}</td>
+                                                    <td class="text-end">
+                                                        @can('Show Lead')
+                                                        <div class="action-btn bg-warning ms-2">
+                                                            <a href="javascript:void(0);" data-size="md" data-url="{{ route('lead.show',$lead->id) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('View Lead Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                                <i class="ti ti-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                        @endcan
+                                                    </td>
 
                                                 </tr>
                                                 @endforeach
