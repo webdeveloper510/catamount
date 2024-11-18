@@ -336,7 +336,6 @@ class CustomerInformation extends Controller
                 $customrer->company = Lead::find($customrer->ref_id);
                 return $customrer;
             });
-            $importedcustomers = UserImport::distinct()->get();
         } else {
             $allcustomerOLD = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customer) {
                 $customer->company = Lead::find($customer->ref_id);
@@ -348,8 +347,8 @@ class CustomerInformation extends Controller
                 $leads = Lead::where('created_by', \Auth::user()->id)->exists();
                 return $leads;
             });
-            $importedcustomers = UserImport::distinct()->get();
         }
+        $importedcustomers = UserImport::distinct()->get();
 
         return view('customer.allcustomers', compact('allcustomers', 'importedcustomers'));
     }
