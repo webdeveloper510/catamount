@@ -42,6 +42,9 @@
                                         </thead>
                                         <tbody>
                                             @foreach($allcustomers as $customers)
+                                            @php
+                                            pr($customers);
+                                            @endphp
                                             <tr>
                                                 {{--@php
                                                 @$customers = $customers[0];
