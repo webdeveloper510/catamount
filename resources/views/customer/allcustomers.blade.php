@@ -43,7 +43,7 @@
                                         <tbody>
                                             @foreach($allcustomers as $customers)
                                             @php
-                                            pr($customers);
+                                            pr($customers->toArray());
                                             @endphp
                                             <tr>
                                                 {{--@php
