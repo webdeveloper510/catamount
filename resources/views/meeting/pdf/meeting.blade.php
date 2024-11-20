@@ -56,7 +56,7 @@
         <p>COMPANY NAME: {{ $meeting->company_name }}</p>
         <p>FUNCTION : {{ $meeting->function }}</p>
         <p>FUNCTION PACKAGE: {{ $meeting->func_package }}</p>
-        <p>VENUE SELECTION: {{ $meeting->venue_selection }}</p>
+        <p>LOCATION SELECTION: {{ $meeting->venue_selection }}</p>
         <p>ROOMS: {{ $meeting->room }}</p>
         <div class="date-container">
             <p>START TIME: {{ $meeting->start_time }}</p>

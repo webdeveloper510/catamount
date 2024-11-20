@@ -9,7 +9,7 @@ class Billing extends Model
     // protected $table = 'billinginfo';
     protected $table = 'billing';
     public static $status   = [
-        'Create Estimated Invoice',
+        'Create an invoice',
         'Invoice created',
         'Payment Pending',
         'Partially Paid',

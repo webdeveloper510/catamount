@@ -130,7 +130,7 @@ $beforedeposit = App\Models\Billing::where('event_id', $event->id)->first();
                                                 <th scope="col" class="sort" data-sort="completion">{{ __('Transaction Id') }}
                                                 </th>
                                                 <th>{{__('Invoice')}}</th>
-                                                <th scope="col" class="sort" data-sort="completion">{{ __('Event Amount') }}
+                                                <th scope="col" class="sort" data-sort="completion">{{ __('Training Amount') }}
                                                 </th>
                                                 <th scope="col" class="sort" data-sort="completion">{{ __('Amount Collected') }}
                                                 </th>

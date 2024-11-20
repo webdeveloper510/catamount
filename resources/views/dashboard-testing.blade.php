@@ -38,7 +38,7 @@
                                             <i class="ti ti-user"></i>
                                         </div>
                                         <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Total Events') }}</h6>
+                                        <h6 class="mb-3">{{ __('Total trainings') }}</h6>
                                         <h3 class="mb-0">{{ @$totalevent }} </h3>
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                             <i class="fas fa-address-card"></i>
                                         </div>
                                         <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Upcoming Events') }}</h6>
+                                        <h6 class="mb-3">{{ __('Upcoming Trainings') }}</h6>
                                         <h4 class="mb-0">{{ @$upcoming }}</h4>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                             <i class="fas fa-address-card"></i>
                                         </div>
                                         <div class="right_side">
-                                        <h6 class="mb-3">{{ __('Completed Events') }}</h6>
+                                        <h6 class="mb-3">{{ __('Completed Trainings') }}</h6>
                                         <h4 class="mb-0">{{ @$completed }}</h4>
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="inner_col">   
-                            <h5 class="card-title mb-2">Active/Upcoming Events</h5>
+                            <h5 class="card-title mb-2">Active/Upcoming Trainings</h5>
                                 @foreach($activeEvent as $event)
                                     <div class="card">
                                         <div class="card-body">  
@@ -137,7 +137,7 @@
                                 @can('Create Create')
                                     <div class="col-12 text-end mt-3">
                                         <a href="{{ route('meeting.create',['meeting',0]) }}"> 
-                                            <button  data-bs-toggle="tooltip"title="{{ __('Create Event') }}" class="btn btn-sm btn-primary btn-icon m-1">
+                                            <button  data-bs-toggle="tooltip"title="{{ __('Create Training') }}" class="btn btn-sm btn-primary btn-icon m-1">
                                             <i class="ti ti-plus"></i></button>
                                         </a>
                                     </div>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="inner_col">    
-                                <h5 class="card-title mb-2">Past Events</h5>
+                                <h5 class="card-title mb-2">Past Trainings</h5>
                                 @foreach($pastEvents as $event)
                                 <div class="card">
                                     <div class="card-body">                                    

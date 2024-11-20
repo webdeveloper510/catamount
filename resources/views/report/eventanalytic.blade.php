@@ -3,12 +3,12 @@
 {{ __('Report') }}
 @endsection
 @section('title')
-{{ __('Event Analytics') }}
+{{ __('Training Analytics') }}
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
 <li class="breadcrumb-item">{{ __('Report') }}</li>
-<li class="breadcrumb-item">{{ __('Event Analytics') }}</li>
+<li class="breadcrumb-item">{{ __('Training Analytics') }}</li>
 @endsection
 @section('action-btn')
 @endsection
@@ -81,14 +81,14 @@
                     <dl class="row">
                         @if (isset($report['startDateRange']) || isset($report['endDateRange']))
                         <input type="hidden"
-                            value="{{ __('Event Report of') . ' ' . $report['startDateRange'] . ' to ' . $report['endDateRange'] }}"
+                            value="{{ __('Training Report of') . ' ' . $report['startDateRange'] . ' to ' . $report['endDateRange'] }}"
                             id="filesname">
                         @else
-                        <input type="hidden" value="{{ __('Event Report') }}" id="filesname">
+                        <input type="hidden" value="{{ __('Training Report') }}" id="filesname">
                         @endif
 
                         <div class="col">
-                            {{ __('Report') }} : <h6>{{ __('Event Summary') }}</h6>
+                            {{ __('Report') }} : <h6>{{ __('Training Summary') }}</h6>
                         </div>
                         <div class="col">
                             {{ __('Duration') }} : <h6>

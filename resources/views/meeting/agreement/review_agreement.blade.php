@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('page-title')
-{{ __('Event Review') }}
+{{ __('Training Review') }}
 @endsection
 @section('title')
-{{ __('Review Event') }}
+{{ __('Review Training') }}
 @endsection
 @php
 $plansettings = App\Models\Utility::plansettings();
@@ -26,7 +26,7 @@ $additional_items = json_decode($setting['additional_items'],true);
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('meeting.index') }}">{{ __('Event') }}</a></li>
+<li class="breadcrumb-item"><a href="{{ route('meeting.index') }}">{{ __('Training') }}</a></li>
 <li class="breadcrumb-item">{{ __('Review') }}</li>
 @endsection
 @section('content')
@@ -71,7 +71,7 @@ $additional_items = json_decode($setting['additional_items'],true);
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5>{{ __('Event') }}</h5>
+                                            <h5>{{ __('Training') }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ $additional_items = json_decode($setting['additional_items'],true);
                                         @else
                                         <div class="col-12 need_full">
                                             <div class="form-group">
-                                                {{ Form::label('eventname', __('Event Name'), ['class' => 'form-label']) }}
+                                                {{ Form::label('eventname', __('Training Name'), ['class' => 'form-label']) }}
                                                 {{Form::text('eventname',$meeting->eventname,array('class'=>'form-control','required'=>'required','readonly'=>'readonly'))}}
                                             </div>
                                         </div>
@@ -214,7 +214,7 @@ $additional_items = json_decode($setting['additional_items'],true);
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <h5>{{ __('Event Details') }}</h5>
+                                            <h5>{{ __('Training Details') }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -223,13 +223,13 @@ $additional_items = json_decode($setting['additional_items'],true);
 
                                         <div class="col-6 need_full">
                                             <div class="form-group">
-                                                {{Form::label('type',__('Event Type'),['class'=>'form-label']) }}
+                                                {{Form::label('type',__('Training Type'),['class'=>'form-label']) }}
                                                 {!! Form::select('type', $type_arr, null,array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                         <div class="col-6 need_full">
                                             <div class="form-group">
-                                                <label for="venue" class="form-label">{{ __('Venue') }}</label>
+                                                <label for="venue" class="form-label">{{ __('Location') }}</label>
                                                 @foreach($venue as $key => $label)
                                                 <div>
                                                     <input type="checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, $venue_function) ? 'checked' : '' }}>

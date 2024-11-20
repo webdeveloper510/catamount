@@ -95,7 +95,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         <th colspan="3" style="text-align:left;text-align:left; padding:5px 5px; margin-left:5px;">
                             Date:<?php echo date("d/m/Y"); ?> </th>
                         <th style="text-align:left; font-size:13px;padding:5px 5px; margin-left:5px;">
-                            Event: {{ucfirst($lead->type)}}</th>
+                        Training: {{ucfirst($lead->type)}}</th>
                     </tr>
                     <tr style="background-color:#063806;">
                         <th>Description</th>
@@ -318,7 +318,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
                         <dt class="col-md-6"><span class="h6  mb-0">{{__('Address')}}</span></dt>
                         <dd class="col-md-6"><span class="">{{ $lead->lead_address ?? '--'}}</span></dd>
 
-                        <dt class="col-md-6"><span class="h6  mb-0">{{__('Event Date')}}</span></dt>
+                        <dt class="col-md-6"><span class="h6  mb-0">{{__('Training Date')}}</span></dt>
                         <dd class="col-md-6"><span class="">
                                
                                 {{ \Auth::user()->dateFormat($lead->start_date) }}

@@ -96,7 +96,7 @@ $powerBiReports = PowerBiReport::all();
                 <!-- <a href="#venue-settings" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse19')">
                     <span class="fa-stack fa-lg pull-left"><img src="{{asset('icons/location.png')}}" alt=""
                             style="    width: 22px;"></span>
-                    <span class="dash-mtext">{{ __('Venue') }}</span>
+                    <span class="dash-mtext">{{ __('Location') }}</span>
                 </a>
                 <a href="#function-settings" class="list-group-item list-group-item-action border-0"  onclick="showAccordion('collapse19')">
                     <span class="fa-stack fa-lg pull-left"><img src="{{asset('icons/restaurant.png')}}" alt=""
@@ -237,7 +237,7 @@ $powerBiReports = PowerBiReport::all();
                     <span class="dash-mtext">{{ __('Training Details') }} </span></a>
                 <!-- <a href="#event-details" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"><i class="fa fa-info"></i></span>
-                    <span class="dash-mtext">{{ __('Event Details') }} </span></a>
+                    <span class="dash-mtext">{{ __('Training Details') }} </span></a>
                 <a href="#special_req" class="list-group-item list-group-item-action">
                     <span class="fa-stack fa-lg pull-left"></span>
                     <span class="dash-mtext">{{ __('Special Requirements') }} </span></a>

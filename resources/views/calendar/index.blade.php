@@ -11,13 +11,13 @@
 @endsection
 @section('action-btn')
 @can('Create Create')
-<a href="{{ route('meeting.create',['meeting',0]) }}" data-title="{{__('Create New Event')}}"
+<a href="{{ route('meeting.create',['meeting',0]) }}" data-title="{{__('Create New Training')}}"
     class="btn btn-sm btn-info">
-    {{__('Add Events')}}
+    {{__('Add Trainings')}}
 </a>
 @endcan
-<div class="checkbox"><b>COMPLETED EVENTS</b></div>
-<div class="checkbox1"><b>UPCOMING EVENTS</b></div>
+<div class="checkbox"><b>COMPLETED TRAININGS</b></div>
+<div class="checkbox1"><b>UPCOMING TRAININGS</b></div>
 <div class="checkbox2"><b>BLOCKED DATES</b></div>
 @endsection
 @section('filter')
@@ -154,7 +154,7 @@ $setting = App\Models\Utility::settings();
     <div class="col-lg-3">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-4">Next events</h4>
+                <h4 class="mb-4">Next Trainings</h4>
 
                 <ul class="event-cards list-group list-group-flush mt-3 w-100">
                     @php

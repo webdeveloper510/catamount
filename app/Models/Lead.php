@@ -52,7 +52,7 @@ class Lead extends Model
         'Withdrawn',
     ];
     public static $status = [
-        'Share Proposal',
+        'Create a proposal',
         'Waiting For Customer Confirmation',
         'Customer Confirmed / Need Admin Approval',
         'Withdrawn',

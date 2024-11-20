@@ -70,13 +70,13 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
 
 <body>
     <div class="container">
-        <h1>Event Booking Confirmation</h1>
+        <h1>Training Booking Confirmation</h1>
 
         <p>Dear {{ $meeting->name }},</p>
 
-        <p>Thank you for choosing Catamount Consulting for your event. We are pleased to confirm that your event has been booked for {{ $meeting->start_date }}.</p>
+        <p>Thank you for choosing Catamount Consulting for your Training. We are pleased to confirm that your Training has been booked for {{ $meeting->start_date }}.</p>
 
-        <p>Below are the details of your event:</p>
+        <p>Below are the details of your Training:</p>
 
         <table>
             <thead>
@@ -87,7 +87,7 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
             </thead>
             <tbody>
                 <tr>
-                    <td>Event Type</td>
+                    <td>Training Type</td>
                     <td>{{ $meeting->type ?? '--' }}</td>
                 </tr>
                 <tr>
@@ -95,7 +95,7 @@ $logo=\App\Models\Utility::get_file('uploads/logo/');
                     <td>{{ $meeting->guest_count ?? '--' }}</td>
                 </tr>
                 <tr>
-                    <td>Venue</td>
+                    <td>Location</td>
                     <td>{{ $meeting->venue_selection ?? '--' }}</td>
                 </tr>
                 <tr>

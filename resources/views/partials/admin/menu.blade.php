@@ -186,11 +186,11 @@ $defaultView = App\Models\UserDefualtView::select('module','route')->where('user
                     <li class="dash-item {{ \Request::route()->getName() == 'meeting' || \Request::route()->getName() == 'meeting.show' || \Request::route()->getName() == 'meeting.edit' ? ' active' : '' }}">
                         {{-- <a href="{{ !empty(\Auth::user()->getDefualtViewRouteByModule('meeting')) ? route(\Auth::user()->getDefualtViewRouteByModule('meeting')) : route('meeting.index') }}"
                         class="dash-link">
-                        <span class="dash-micon"><i class="ti ti-calendar"></i></span><span class="dash-mtext">{{ __('Event') }}</span>
+                        <span class="dash-micon"><i class="ti ti-calendar"></i></span><span class="dash-mtext">{{ __('Training') }}</span>
                         </a> --}}
                         <a href="{{ array_key_exists('meeting',$defaultView) ? route($defaultView['meeting']) : route('meeting.index') }}"
                             class="dash-link">
-                            <span class="dash-micon"><i class="ti ti-calendar"></i></span><span class="dash-mtext">{{ __('Event') }}</span>
+                            <span class="dash-micon"><i class="ti ti-calendar"></i></span><span class="dash-mtext">{{ __('Training') }}</span>
                         </a>
                     </li>
                     @endcan

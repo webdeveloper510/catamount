@@ -395,6 +395,9 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                         <label for="{{ $label }}">{{ $label }}</label>
                                                     </div>
                                                     @endforeach
+                                                    <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
+                                                        onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="">
+                                                    <label for="custom_text">{{ __('Custom Loction') }}</label>
                                                 </div>
                                                 @if ($errors->has('venue'))
                                                 <span class="invalid-feedback" role="alert">
@@ -403,6 +406,23 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                 @endif
                                             </div>
 
+                                            <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{ Form::label('customer_location', __('Customer Location'), ['class' => 'form-label']) }}
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    {!! Form::text('customer_location', null, ['class' =>
+                                                    'form-control',
+                                                    'required' => 'required']) !!}
+                                                </div>
+                                                @if ($errors->has('customer_location'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('customer_location') }}</strong>
+                                                </span>
+                                                @endif
+
+                                            </div>
 
 
                                             <div class="col-6 need_full">
@@ -820,7 +840,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     $('input[name ="start_date"]').val(data.start_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);
-                    $('input[name ="rooms"]').val(data.rooms);
+                    // $('input[name ="rooms"]').val(data.rooms);
+                    $('input[name ="customer_location"]').val(data.rooms);
                     $('input[name ="email"]').val(data.email);
                     $('input[name ="primary_contact"]').val(data.primary_contact);
 
@@ -1092,7 +1113,8 @@ $(document).ready(function() {
                     $('input[name ="end_time"]').val(data.end_time);
                     $('input[name ="spcl_request"]').val(data.spcl_req);
                     $('input[name ="allergies"]').val(data.allergies);
-                    $('input[name ="rooms"]').val(data.rooms);
+                    // $('input[name ="rooms"]').val(data.rooms);
+                    $('input[name ="customer_location"]').val(data.rooms);
                     $('input[name ="email"]').val(data.email);
                     $('input[name ="lead_address"]').val(data.lead_address);
                     $("select[name='type'] option[value='" + data.type + "']").prop("selected",

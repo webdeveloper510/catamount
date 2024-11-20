@@ -65,7 +65,7 @@
                     <dl class="row">
                         @if (isset($report['startDateRange']) || isset($report['endDateRange']))
                         <input type="hidden"
-                            value="{{ __('Event Report of') . ' ' . $report['startDateRange'] . ' to ' . $report['endDateRange'] }}"
+                            value="{{ __('Training Report of') . ' ' . $report['startDateRange'] . ' to ' . $report['endDateRange'] }}"
                             id="filesname">
                         @else
                         <input type="hidden" value="{{ __('Financial Report') }}" id="filesname">
@@ -102,7 +102,7 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Name') }}</th>
-                                <th scope="col" class="sort" data-sort="budget">{{ __('Event') }}</th>
+                                <th scope="col" class="sort" data-sort="budget">{{ __('Training') }}</th>
                                 <th scope="col" class="sort" data-sort="budget">{{ __('Transaction Id') }}</th>
                                 <th scope="col" class="sort" data-sort="budget">{{ __('Amount') }}</th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Phone') }}</th>

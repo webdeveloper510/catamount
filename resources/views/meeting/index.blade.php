@@ -117,7 +117,7 @@ $token_value = $token_data['access_token'];
                                                     <?php $leaddata = \App\Models\Lead::where('id', $meeting->attendees_lead)->first() ?>
                                                     @if(isset($leaddata) && !empty($leaddata))
                                                     <a href="{{ route('lead.info',urlencode(encrypt($leaddata->id)))}}" data-size="md"
-                                                        data-title="{{ __('Event Details') }}"
+                                                        data-title="{{ __('Training Details') }}"
                                                         class="action-item text-primary"
                                                         style=" color: #1551c9 !important;">
                                                         {{ucfirst($leaddata->leadname)}}
@@ -692,10 +692,10 @@ $token_value = $token_data['access_token'];
                 console.log(data)
                 if (data == 1) {
 
-                    show_toastr('Primary', 'Event Status Updated Successfully', 'success');
+                    show_toastr('Primary', 'Training Status Updated Successfully', 'success');
                     location.reload();
                 } else {
-                    show_toastr('Success', 'Event Status is not updated', 'danger');
+                    show_toastr('Success', 'Training Status is not updated', 'danger');
 
                 }
             }

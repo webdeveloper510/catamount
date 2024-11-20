@@ -164,7 +164,7 @@
                                         class="opticy"> dddd</span></th>
                                 <th scope="col" class="sort" data-sort="name">{{ __('Attendees') }} <span
                                         class="opticy"> dddd</span></th>
-                                <th scope="col" class="sort" data-sort="budget">{{ __('Converted To Event') }} <span
+                                <th scope="col" class="sort" data-sort="budget">{{ __('Converted To Training') }} <span
                                         class="opticy"> dddd</span></th>
                                 <th scope="col" class="sort" data-sort="budget">{{ __('Created At') }} <span
                                         class="opticy"> dddd</span></th>

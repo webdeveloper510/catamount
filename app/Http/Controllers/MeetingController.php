@@ -207,16 +207,27 @@ class MeetingController extends Controller
             $end_time = $request->input('end_time');
             $venue_selected = $request->input('venue');
 
+
+            $users = isset($request->user) ? $request->user : [];
+            $filteredUsers = array_filter($users, function ($user) {
+                return !is_null($user['amount']);
+            });
+
+            foreach ($filteredUsers as $filteredUsersKey => $filteredUsersValue) {
+                $filteredUsersKeys[] = $filteredUsersKey;
+            }
+
             $overlapping_event = Meeting::where('start_date', '<=', $end_date)
                 ->where('end_date', '>=', $start_date)
-                ->where(function ($query) use ($start_date, $end_date, $start_time, $end_time, $venue_selected) {
+                ->where(function ($query) use ($start_date, $end_date, $start_time, $end_time, $venue_selected, $filteredUsersKeys) {
                     foreach ($venue_selected as $v) {
-                        $query->orWhere(function ($q) use ($start_date, $end_date, $start_time, $end_time, $v) {
+                        $query->orWhere(function ($q) use ($start_date, $end_date, $start_time, $end_time, $v, $filteredUsersKeys) {
                             $q->where('venue_selection', 'LIKE', "%$v%")
                                 ->where('end_time', '>', $start_time)
                                 ->where('start_time', '<', $end_time)
                                 ->where('start_date', '<=', $end_date)
-                                ->where('end_date', '>=', $start_date);
+                                ->where('end_date', '>=', $start_date)
+                                ->whereIn('user_id', [implode(',', $filteredUsersKeys)]);
                         });
                     }
                 })->count();
@@ -247,16 +258,6 @@ class MeetingController extends Controller
             $secondary_phone = preg_replace('/\D/', '', $request->input('secondary_contact')['secondary_contact']);
             $_REQUEST['secondary_contact']['secondary_contact'] = $secondary_phone;
             $secondary_contact = json_encode($_REQUEST['secondary_contact']);
-            // prx($secondary_contact);
-            $users = isset($request->user) ? $request->user : [];
-
-            $filteredUsers = array_filter($users, function ($user) {
-                return !is_null($user['amount']);
-            });
-
-            foreach ($filteredUsers as $filteredUsersKey => $filteredUsersValue) {
-                $filteredUsersKeys[] = $filteredUsersKey;
-            }
 
             $_REQUEST['primary_contact'] = preg_replace('/\D/', '', $request->input('primary_contact'));
 
@@ -416,7 +417,7 @@ class MeetingController extends Controller
             // Close connection
             curl_close($ch);
             // if (\Auth::user()) {
-            //     return redirect()->back()->with('success', __('Event created!') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
+            //     return redirect()->back()->with('success', __('Training created!') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
             // } else {
             //     return redirect()->back()->with('error', __('Webhook call failed.') . ((isset($msg) ? '<br> <span class="text-danger">' . $msg . '</span>' : '')));
             // }

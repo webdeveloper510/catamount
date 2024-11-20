@@ -33,7 +33,7 @@
                 <dd class="col-md-5"><span class="text-md">{{date('h:i A', strtotime($user_data->end_time))}}</span>
                 </dd>
 
-                <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Venue')}}</span></dt>
+                <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Location')}}</span></dt>
                 <dd class="col-md-5"><span class="text-md">{{$user_data->venue}}</span></dd>
 
                 <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Purpose')}}</span></dt>

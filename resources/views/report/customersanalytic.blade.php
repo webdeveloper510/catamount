@@ -71,7 +71,7 @@
                     <dl class="row">
                         @if (isset($report['startDateRange']) || isset($report['endDateRange']))
                         <input type="hidden"
-                            value="{{ __('Event Report of') . ' ' . $report['startDateRange'] . ' to ' . $report['endDateRange'] }}"
+                            value="{{ __('Training Report of') . ' ' . $report['startDateRange'] . ' to ' . $report['endDateRange'] }}"
                             id="filesname">
                         @else
                         <input type="hidden" value="{{ __('Customers Report') }}" id="filesname">

@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 @section('page-title')
-{{__('Event Customer')}}
+{{__('Training Customer')}}
 @endsection
 @section('title')
 <div class="page-header-title">
-    {{__('Event Customer')}}
+    {{__('Training Customer')}}
 </div>
 @endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
 <li class="breadcrumb-item"><a href="{{ route('userlist') }}">{{__('Customers')}}</a></li>
-<li class="breadcrumb-item"><a href="{{ route('event_customers') }}">{{__('Event Customers')}}</a></li>
+<li class="breadcrumb-item"><a href="{{ route('event_customers') }}">{{__('Training Customers')}}</a></li>
 <li class="breadcrumb-item">{{__('Customer Details')}}</li>
 @endsection
 @section('action-btn')
@@ -40,7 +40,7 @@
                                                 <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Lead Type')}}</th>
                                                 <th scope="col" class="sort">{{__('Attendees')}}</th>
-                                                <th scope="col" class="sort">{{__('Event Date')}}</th>
+                                                <th scope="col" class="sort">{{__('Training Date')}}</th>
                                                 <th scope="col" class="sort">{{__('Function')}}</th>
                                                 <th scope="col" class="sort">{{__('Bar')}}</th>
                                                 <th scope="col" class="sort">{{__('Status')}}</th>
@@ -62,7 +62,7 @@
                                             <tr>
                                                 <td>
 <!-- 
-                                                    <a href="" data-size="md" title="{{ __('Event Details') }}"
+                                                    <a href="" data-size="md" title="{{ __('Training Details') }}"
                                                         class="action-item text-primary"
                                                         style="color:#1551c9 !important;"> -->
                                                         <b> {{ ucfirst($event->name) }}</b>

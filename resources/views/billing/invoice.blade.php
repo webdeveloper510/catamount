@@ -25,15 +25,15 @@
                                 Dear {{ $event->name }},
                             </p>
                             <p style="font-family: Arial, sans-serif; color: #333333;">
-                                We are delighted to inform you that your payment for the event <strong>{{ $event->type }}</strong> has been successfully processed.
+                                We are delighted to inform you that your payment for the training <strong>{{ $event->type }}</strong> has been successfully processed.
                             </p>
                             <p style="font-family: Arial, sans-serif; color: #333333;">
-                                Here are the event details:
+                                Here are the sraining details:
                             </p>
                             <ul style="font-family: Arial, sans-serif; color: #333333;">
-                                <li><strong>Event Name:</strong> {{ $event->name }}</li>
+                                <li><strong>Training Name:</strong> {{ $event->name }}</li>
                                 <li><strong>Date:</strong> {{ \Carbon\Carbon::parse($event->start_date)->format('M d, Y') }} </li>
-                                <li><strong>Venue:</strong> {{ $event->venue_selection }}</li>
+                                <li><strong>Location:</strong> {{ $event->venue_selection }}</li>
                             </ul>
                             <p style="font-family: Arial, sans-serif; color: #333333;">
                                 Below are the Invoice details:
@@ -44,7 +44,7 @@
                                 <li><strong>Transaction ID:</strong> {{ $newpayment->transaction_id }}</li>
                             </ul>
                             <p style="font-family: Arial, sans-serif; color: #333333;">
-                                Thank you for your booking. We look forward to seeing you at the event!
+                                Thank you for your booking. We look forward to seeing you at the training!
                             </p>
                         </td>
                     </tr>

@@ -23,9 +23,9 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col" class="sort" data-sort="name">{{ __('Name') }} <span class="opticy"> dddd</span></th>
-                                                <th scope="col" class="sort" data-sort="status">{{ __('Event') }} <span class="opticy"> dddd</span></th>
+                                                <th scope="col" class="sort" data-sort="status">{{ __('Training') }} <span class="opticy"> dddd</span></th>
                                                 <th scope="col" class="sort" data-sort="completion">
-                                                    {{ __('Event Date') }} <span class="opticy"> dddd</span>
+                                                    {{ __('Training Date') }} <span class="opticy"> dddd</span>
                                                 </th>
                                                 <th scope="col" class="sort" data-sort="completion">
                                                     {{ __('Payment Status') }} <span class="opticy"> dddd</span>

@@ -345,8 +345,29 @@ $user_data = json_decode($meeting->user_data,true);
                                                     <label for="{{ $label }}">{{ $label }}</label>
                                                 </div>
                                                 @endforeach
+                                                <input type="text" name="venue[]" pattern="[^,]*"  oninput="this.value = this.value.replace(/,/g, '')" 
+                                                onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
+                                                <label for="custom_text">{{ __('Custom Loction') }}</label>
                                             </div>
                                         </div>
+
+                                        <div class="col-6 need_full">
+                                                <div class="form-group">
+                                                    {{ Form::label('room', __('Customer Location'), ['class' => 'form-label']) }}
+                                                    <span class="text-sm">
+                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                                    </span>
+                                                    {!! Form::text('room',null, ['class' =>
+                                                    'form-control',
+                                                    'required' => 'required']) !!}
+                                                </div>
+                                                @if ($errors->has('room'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('room') }}</strong>
+                                                </span>
+                                                @endif
+
+                                            </div>
 
                                         <div class="col-6 need_full">
                                             <div class="form-group">

@@ -517,14 +517,14 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row">1</th>
-                                                            <td>Contractor name or Event name</td>
+                                                            <td>Contractor name or Training name</td>
                                                             <td>name</td>
 
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">2</th>
-                                                            <td>Event Name</td>
-                                                            <td>eventname</td>
+                                                            <td>Training Name</td>
+                                                            <td>Training name</td>
 
                                                         </tr>
                                                         <tr>

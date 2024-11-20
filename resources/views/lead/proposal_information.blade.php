@@ -15,7 +15,7 @@
 @section('action-btn')
 <?php $status = App\Models\Lead::find($decryptedId)->status; ?>
 @if($status > 1)
-<a href="#" data-size="md" data-url="{{ route('lead.shareproposal',urlencode(encrypt($decryptedId))) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Proposal') }}" title="{{ __('Share Proposal') }}" class="btn btn-sm btn-primary btn-icon m-1">
+<a href="#" data-size="md" data-url="{{ route('lead.shareproposal',urlencode(encrypt($decryptedId))) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Proposal') }}" title="{{ __('Create a proposal') }}" class="btn btn-sm btn-primary btn-icon m-1">
     <i class="ti ti-share"></i>
 </a>
 @endif

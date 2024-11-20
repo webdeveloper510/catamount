@@ -13,11 +13,11 @@
 
                     <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Attendees')}}</span></dt>
 
-                    <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Venue')}}</span></dt>
+                    <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Location')}}</span></dt>
 
                     <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Function')}}</span></dt>
 
-                    <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Event Type')}}</span></dt>
+                    <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Training Type')}}</span></dt>
 
                     <dt class="col-md-5"><span class="h6 text-md mb-0">{{__('Attendees Lead')}}</span></dt>
 

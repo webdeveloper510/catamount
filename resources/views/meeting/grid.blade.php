@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('page-title')
-    {{ __('Event') }}
+    {{ __('Training') }}
 @endsection
 @section('title')
-    {{ __('Event') }}
+    {{ __('Training') }}
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item">{{ __('Event') }}</li>
+    <li class="breadcrumb-item">{{ __('Training') }}</li>
 @endsection
 @section('action-btn')
     <a href="{{ route('meeting.index') }}" class="btn btn-sm btn-primary btn-icon m-1" data-bs-toggle="tooltip"
@@ -17,7 +17,7 @@
 
     @can('Create Training')
         <a href="#" data-size="lg" data-url="{{ route('meeting.create', ['meeting', 0]) }}" data-ajax-popup="true"
-            data-bs-toggle="tooltip" data-title="{{ __('Create New Event') }}" title="{{ __('Create') }}"
+            data-bs-toggle="tooltip" data-title="{{ __('Create New Training') }}" title="{{ __('Create') }}"
             class="btn btn-sm btn-primary btn-icon m-1">
             <i class="ti ti-plus"></i>
         </a>
@@ -60,8 +60,8 @@
                                         @can('Show Training')
                                             <a href="#" data-url="{{ route('meeting.show', $meeting->id) }}"
                                                 data-ajax-popup="true"data-size="md" class="dropdown-item"
-                                                data-bs-whatever="{{ __('Event Details') }}" data-bs-toggle="tooltip"
-                                                data-title="{{ __('Event Details') }}"><i class="ti ti-eye"></i>
+                                                data-bs-whatever="{{ __('Training Details') }}" data-bs-toggle="tooltip"
+                                                data-title="{{ __('Training Details') }}"><i class="ti ti-eye"></i>
                                                 {{ __('Details') }}</a>
                                         @endcan
 
@@ -107,8 +107,8 @@
                 <div class="badge bg-primary proj-add-icon">
                     <i class="ti ti-plus"></i>
                 </div>
-                <h6 class="mt-4 mb-2">New Event</h6>
-                <p class="text-muted text-center">Click here to add New Event</p>
+                <h6 class="mt-4 mb-2">New Training</h6>
+                <p class="text-muted text-center">Click here to add New Training</p>
             </a>
         </div>
     </div>
