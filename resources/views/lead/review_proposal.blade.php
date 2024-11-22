@@ -258,7 +258,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span>
-                                            {!! Form::date('start_date', $lead->start_date, ['class' => 'form-control',
+                                            {!! Form::text('start_date', $lead->start_date, ['class' => 'form-control dateChangeFormat',
                                             'required' => 'required']) !!}
                                         </div>
                                     </div>

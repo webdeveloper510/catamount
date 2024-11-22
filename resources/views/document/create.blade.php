@@ -60,13 +60,13 @@
     <div class="col-6">
         <div class="form-group">
             {{Form::label('publish_date',__('Publish Date'),['class'=>'form-label']) }}
-            {!!Form::date('publish_date', date('Y-m-d'),array('class' => 'form-control','required'=>'required')) !!}
+            {!!Form::text('publish_date', date('Y-m-d'),array('class' => 'form-control dateChangeFormat','required'=>'required')) !!}
         </div>
     </div>
     <div class="col-6">
         <div class="form-group">
             {{Form::label('expiration_date',__('Expiration Date'),['class'=>'form-label']) }}
-            {!!Form::date('expiration_date', date('Y-m-d'),array('class' => 'form-control','required'=>'required')) !!}
+            {!!Form::text('expiration_date', date('Y-m-d'),array('class' => 'form-control dateChangeFormat','required'=>'required')) !!}
         </div>
     </div>
 

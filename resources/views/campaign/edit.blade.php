@@ -126,7 +126,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
-                                            {!! Form::date('start_date', date('Y-m-d'), ['class' => 'form-control datepicker', 'required' => 'required']) !!}
+                                            {!! Form::text('start_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat', 'required' => 'required']) !!}
                                         </div>
                                         @error('start_date')
                                             <span class="invalid-start_date" role="alert">
@@ -148,7 +148,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             {{ Form::label('end_date', __('End Date'), ['class' => 'form-label']) }}
-                                            {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control datepicker', 'required' => 'required']) !!}
+                                            {!! Form::text('end_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat', 'required' => 'required']) !!}
                                             @error('end_date')
                                                 <span class="invalid-end_date" role="alert">
                                                     <strong class="text-danger">{{ $message }}</strong>

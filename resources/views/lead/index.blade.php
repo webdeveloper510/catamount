@@ -63,7 +63,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($leads as $lead)                                            
+                                            @foreach($leads as $lead)
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('lead.info',urlencode(encrypt($lead->id))) }}" data-size="md" title="{{ __('Lead Details') }}" class="action-item text-primary" style="color:#1551c9 !important;">
@@ -105,6 +105,13 @@ $proposalstatus = \App\Models\Lead::$status;
                                                     <div class="action-btn bg-primary ms-2">
                                                         <a href="javascript:void(0);" data-size="md" data-url="{{ route('lead.shareproposal',urlencode(encrypt($lead->id))) }}" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{ __('Proposal') }}" title="{{ __('Create a proposal') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-share"></i>
+                                                        </a>
+                                                    </div>
+                                                    @endif
+                                                    @if($lead->status == 2 )
+                                                    <div class="action-btn bg-secondary ms-2">
+                                                        <a href="{{route('lead.signedproposal',urlencode(encrypt($lead->id)))}}" target="_blank" data-size="md" data-bs-toggle="tooltip" data-title="{{ __('View a proposal') }}" title="{{ __('View a proposal') }}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                            <i class="ti ti-receipt"></i>
                                                         </a>
                                                     </div>
                                                     @endif

@@ -182,7 +182,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             {{ Form::label('close_date', __('Close Date'), ['class' => 'form-label']) }}
-                                            {{ Form::date('close_date', date('Y-m-d'), ['class' => 'form-control datepicker', 'placeholder' => __('Enter Phone'), 'required' => 'required']) }}
+                                            {{ Form::text('close_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat', 'placeholder' => __('Enter Phone'), 'required' => 'required']) }}
                                             @error('close_date')
                                                 <span class="invalid-close_date" role="alert">
                                                     <strong class="text-danger">{{ $message }}</strong>

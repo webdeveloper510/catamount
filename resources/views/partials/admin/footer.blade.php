@@ -42,6 +42,7 @@
       const dataTable = new simpleDatatables.DataTable("#pc-dt-simple");
     }
 </script> --}}
+
 <script>
     if ($(".datatable").length > 0) {
         $($(".datatable")).each(function(index, element) {
@@ -154,6 +155,26 @@
 <script>
     var toster_pos = "{{env('SITE_RTL') =='on' ?'left' : 'right'}}";
 </script>
+
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(window).on('load', function() {
+        dfClass = '.dateChangeFormat';
+        dfFormat = '<?= dateFormat() ?>';
+        $(dfClass).datepicker({
+            dateFormat: dfFormat,
+        });
+        $(dfClass).each(function() {
+            var inputValue = $(this).val();
+
+            if (inputValue) {
+                var formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));
+                $(this).val(formattedDate);
+            }
+        });
+    });
+</script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 
 <script>
     var date_picker_locale = {

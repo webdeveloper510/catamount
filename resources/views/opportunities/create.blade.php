@@ -85,7 +85,7 @@
     <div class="col-6">
         <div class="form-group">
             {{Form::label('close_date',__('Close Date'),['class'=>'form-label']) }}
-            {{Form::date('close_date',date('Y-m-d'),array('class'=>'form-control ','placeholder'=>__('Enter Title'),'required'=>'required'))}}
+            {{Form::text('close_date',date('Y-m-d'),array('class'=>'form-control dateChangeFormat','placeholder'=>__('Enter Title'),'required'=>'required'))}}
         </div>
     </div>
     <div class="col-6">

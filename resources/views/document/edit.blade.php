@@ -145,7 +145,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             {{ Form::label('publish_date', __('Publish Date'), ['class' => 'form-label']) }}
-                                            {!! Form::date('publish_date', date('Y-m-d'), ['class' => 'form-control datepicker', 'required' => 'required']) !!}
+                                            {!! Form::text('publish_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat', 'required' => 'required']) !!}
                                             @error('publish_date')
                                                 <span class="invalid-publish_date" role="alert">
                                                     <strong class="text-danger">{{ $message }}</strong>
@@ -156,8 +156,8 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             {{ Form::label('expiration_date', __('Expiration Date'), ['class' => 'form-label']) }}
-                                            {!! Form::date('expiration_date', date('Y-m-d'), [
-                                                'class' => 'form-control datepicker',
+                                            {!! Form::text('expiration_date', date('Y-m-d'), [
+                                                'class' => 'form-control dateChangeFormat',
                                                 'required' => 'required',
                                             ]) !!}
                                             @error('expiration_date')

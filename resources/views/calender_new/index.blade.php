@@ -135,7 +135,7 @@ $venue = explode(',', $settings['venue']);
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
-                                {!! Form::date('start_date', date('Y-m-d'), ['class' => 'form-control', 'required' =>
+                                {!! Form::text('start_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat', 'required' =>
                                 'required']) !!}
                             </div>
                         </div>
@@ -148,7 +148,7 @@ $venue = explode(',', $settings['venue']);
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('end_date', __('End Date'), ['class' => 'form-label']) }}
-                                {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control', 'required' =>
+                                {!! Form::text('end_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat', 'required' =>
                                 'required','required' => 'required']) !!}
                             </div>
                         </div>

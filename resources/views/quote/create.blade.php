@@ -45,7 +45,7 @@
     <div class="col-6">
         <div class="form-group">
             {{ Form::label('date_quoted', __('Date Quoted'), ['class' => 'form-label']) }}
-            {{ Form::date('date_quoted', null, ['class' => 'form-control datepicker', 'required' => 'required']) }}
+            {{ Form::text('date_quoted', null, ['class' => 'form-control dateChangeFormat', 'required' => 'required']) }}
         </div>
     </div>
     <div class="col-6">

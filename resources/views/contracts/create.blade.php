@@ -52,7 +52,7 @@ $plansettings = App\Models\Utility::plansettings();
         <div class="col-6">
             <div class="form-group">
                 {{ Form::label('date', __('Start Date / End Date'),['class'=>'form-label']) }}
-                {{-- {!!Form::date('start_date', null,array('class' => 'form-control','required'=>'required')) !!} --}}
+                {{-- {!!Form::text('start_date', null,array('class' => 'form-control dateChangeFormat','required'=>'required')) !!} --}}
                 {{-- <div class="form-group row">
                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-end">With Input
                                 Group</label>

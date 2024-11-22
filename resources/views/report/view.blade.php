@@ -28,10 +28,10 @@
                         {{ Form::open(array('route' => array('report.show',$report->id),'method'=>'get')) }}
                         <div class="row filter-css">
                             <div class="col-auto">
-                                {{Form::date('start_date',isset($_GET['start_date'])?$_GET['start_date']:'',array('class'=>'form-control datepicker'))}}
+                                {{Form::text('start_date',isset($_GET['start_date'])?$_GET['start_date']:'',array('class'=>'form-control dateChangeFormat'))}}
                             </div>
                             <div class="col-auto">
-                                {{Form::date('end_date',isset($_GET['end_date'])?$_GET['end_date']:'',array('class'=>'form-control datepicker'))}}
+                                {{Form::text('end_date',isset($_GET['end_date'])?$_GET['end_date']:'',array('class'=>'form-control dateChangeFormat'))}}
                             </div>
                             <div class="action-btn bg-primary ms-2">
                             <div class="col-auto">

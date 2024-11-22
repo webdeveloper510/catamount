@@ -372,7 +372,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         <div class="col-6 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
-                                                {!! Form::date('start_date', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                                {!! Form::text('start_date', null, ['class' => 'form-control dateChangeFormat', 'required' => 'required']) !!}
                                             </div>
                                         </div>
                                         <!-- <div class="col-6 need_full">

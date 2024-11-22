@@ -135,7 +135,7 @@ $plansettings = App\Models\Utility::plansettings();
                                 <div class="col-6">
                                     <div class="form-group">
                                         {{Form::label('date_invoice',__('Date Billing'),['class'=>'form-label']) }}
-                                        {{Form::date('date_quoted',date('Y-m-d'),array('class'=>'form-control datepicker','placeholder'=>__('Enter Date Quoted'),'required'=>'required'))}}
+                                        {{Form::text('date_quoted',date('Y-m-d'),array('class'=>'form-control dateChangeFormat','placeholder'=>__('Enter Date Quoted'),'required'=>'required'))}}
                                         @error('date_quoted')
                                         <span class="invalid-date_quoted" role="alert">
                                             <strong class="text-danger">{{ $message }}</strong>

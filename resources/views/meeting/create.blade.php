@@ -156,8 +156,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                         var userAmountInput = document.querySelector(`input#user_amount_${value}`);
                                                         if (!checked) {
                                                             userAmountInput.disabled = true;
+                                                            userAmountInput.value = '';
                                                         } else {
                                                             userAmountInput.disabled = false;
+                                                            userAmountInput.value = '';
                                                         }
                                                     });
                                                 });
@@ -431,8 +433,8 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     <span class="text-sm">
                                                         <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                                     </span>
-                                                    {!! Form::date('start_date', date('Y-m-d'), ['class' =>
-                                                    'form-control',
+                                                    {!! Form::text('start_date', date('Y-m-d'), ['class' =>
+                                                    'form-control dateChangeFormat',
                                                     'required' => 'required']) !!}
                                                 </div>
                                                 @if ($errors->has('start_date'))
@@ -768,19 +770,36 @@ $leadId = decrypt(urldecode(request()->query('lead')));
             var checked = input.checked;
             var targetInput = document.getElementById('user_amount_' + val);
             if (checked) {
+                targetInput.value = '';
                 targetInput.disabled = false;
             } else {
+                targetInput.value = '';
                 targetInput.disabled = true;
             }
         });
+    }
+
+    function dateChangeFormat(data) {
+        var date = new Date(data);
+        var format = date.toLocaleDateString('en-US');
+        return format;
     }
 
 
     $(document).ready(function() {
 
         var leadId = localStorage.getItem('leadId');
-
         if (leadId) {
+            const options = document.querySelectorAll('#lead option');
+            const valuesArray = Array.from(options).find(option => option.value === leadId);
+            if (!valuesArray) {
+                show_toastr('Success', 'Already exist training', 'danger');
+                localStorage.removeItem('leadId');
+                setTimeout(() => {
+                    window.history.back();
+                }, 2000);
+                return false;
+            }
             $('select[name="lead"]').val(leadId);
             // console.log('Lead ID:', leadId);
             var venu = leadId;
@@ -792,7 +811,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {
-                    //  console.log(data);
+                    console.log(data);
                     secondary_contact = JSON.parse(data.secondary_contact);
                     //  console.log('secondary_contact');
 
@@ -808,8 +827,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                 if (element.checkbox != checked) {
                                     var targetInput = document.getElementById('user_amount_' + val);
                                     if (checked) {
+                                        targetInput.value = '';
                                         targetInput.disabled = false;
                                     } else {
+                                        targetInput.value = '';
                                         targetInput.disabled = true;
                                     }
                                 }
@@ -837,7 +858,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     // phoneInput.addEventListener('input', formatToPhone); 
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="relationship"]').val(data.relationship);
-                    $('input[name ="start_date"]').val(data.start_date);
+
+
+                    $('input[name="start_date"]').val(dateChangeFormat(data.start_date));
+                    // $('input[name ="start_date"]').val(data.start_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);
                     // $('input[name ="rooms"]').val(data.rooms);
@@ -1087,8 +1111,6 @@ $(document).ready(function() {
                         });
                     }
 
-
-
                     venue_str = data.venue_selection;
                     venue_arr = venue_str.split(",");
                     func_str = data.function;
@@ -1097,17 +1119,14 @@ $(document).ready(function() {
                     $('input[name ="name"]').val(data.name);
                     $('input[name ="relationship"]').val(data.relationship);
                     $('input[name ="primary_contact"]').val(data.primary_contact);
-                    $('input[name ="start_date"]').val(data.start_date);
-
-
+                    // $('input[name ="start_date"]').val(data.start_date);
+                    $('input[name ="start_date"]').val(dateChangeFormat(data.start_date));
 
                     $('input[name ="secondary_contact[name]"]').val(secondary_contact.name);
                     $('input[name ="secondary_contact[secondary_contact]"]').val(secondary_contact.secondary_contact);
                     $('input[name ="secondary_contact[email]"]').val(secondary_contact.email);
                     $('input[name ="secondary_contact[lead_address]"]').val(secondary_contact.lead_address);
                     $('input[name ="secondary_contact[relationship]"]').val(secondary_contact.relationship);
-
-
                     // $('input[name ="end_date"]').val(data.end_date);
                     $('input[name ="start_time"]').val(data.start_time);
                     $('input[name ="end_time"]').val(data.end_time);
@@ -1126,7 +1145,6 @@ $(document).ready(function() {
                         $("input[name='venue[]'][value='" + val + "']").prop('checked',
                             true);
                     });
-
                     /* $.each(func_arr, function(i, val) {
                         $("input[name='function[]'][value='" + val + "']").prop(
                             'checked', true);

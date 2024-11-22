@@ -24,6 +24,6 @@ if (!function_exists('prx')) {
 if (!function_exists('dateFormat')) {
     function dateFormat()
     {
-        return 'M-dd-Y';
+        return 'mm/dd/yy';
     }
 }

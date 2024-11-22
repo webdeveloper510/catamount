@@ -36,6 +36,7 @@ use App\Mail\SendEventMail;
 use App\Mail\TestingMail;
 use Str;
 use Spatie\Permission\Models\Role;
+use App\Mail\Notification\AssignMail;
 
 class MeetingController extends Controller
 {
@@ -296,7 +297,7 @@ class MeetingController extends Controller
             $meeting['allergies'] = $request->allergies;
             $meeting['secondary_contact'] = $secondary_contact;
             $meeting['created_by'] = \Auth::user()->creatorId();
-            $meeting->save();
+            // $meeting->save(); aaaaaaaaaaaaaaaaaaa
 
             if ($meeting->attendees_lead != 0) {
                 Lead::find($request->lead)
@@ -334,7 +335,7 @@ class MeetingController extends Controller
                     $document->event_id =  $meeting->id; // Assuming you have a lead_id field
                     $document->filename = $filename; // Store original file name
                     $document->filepath = $path; // Store file path
-                    $document->save();
+                    // $document->save(); aaaaaaaaaaaaaaaaaaa
                 } catch (\Exception $e) {
                     Log::error('File upload failed: ' . $e->getMessage());
                     return redirect()->back()->with('error', 'File upload failed');
@@ -350,7 +351,7 @@ class MeetingController extends Controller
                 $customer->address = $request->lead_address ?? '';
                 $customer->category = 'event';
                 $customer->type = $request->type;
-                $customer->save();
+                // $customer->save(); aaaaaaaaaaaaaaaaaaa
             }
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $uArr = [
@@ -430,6 +431,36 @@ class MeetingController extends Controller
             } else {
                 $meetings = Meeting::with('assign_user')->where('user_id', \Auth::user()->id)->orderby('id', 'desc')->get();
             }
+            $settings = Utility::settings();
+            config(
+                [
+                    'mail.driver' => $settings['mail_driver'],
+                    'mail.host' => $settings['mail_host'],
+                    'mail.port' => $settings['mail_port'],
+                    'mail.username' => $settings['mail_username'],
+                    'mail.password' => $settings['mail_password'],
+                    'mail.from.address' => $settings['mail_from_address'],
+                    'mail.from.name' => $settings['mail_from_name'],
+                ]
+            );
+
+            $trainerList = User::whereIn('id', $filteredUsersKeys)->get();
+            $trainerListEmail = $trainerList->pluck('email')->toArray();
+            $trainerListName = $trainerList->pluck('name')->toArray();
+            $mailData = [
+                'view' => 'notification_templates.trainer',
+                'subject' => "Trainer Assignment Notification",
+                'from' => $settings['mail_from_address'],
+                'fromName' => $settings['mail_from_name'],
+                // 'userName' => "{$request['email']}, {$request['secondary']['email']}",
+                'userName' => "",
+                'trainerName' => implode(', ', $trainerListName),
+                'trainingType' => "{$request->type}",
+                'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time}",
+                'trainingMail' => implode(', ', $trainerListEmail),
+                'leadName' => $request->name,
+            ];
+            Mail::to($trainerListEmail)->send(new AssignMail($mailData));
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));
         }
     }

@@ -242,13 +242,13 @@ $additional_items = json_decode($setting['additional_items'],true);
                                         <div class="col-6 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
-                                                {!! Form::date('start_date', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                                {!! Form::text('start_date', null, ['class' => 'form-control dateChangeFormat', 'required' => 'required']) !!}
                                             </div>
                                         </div>
                                         <div class="col-6 need_full">
                                             <div class="form-group">
                                                 {{ Form::label('end_date', __('End Date'), ['class' => 'form-label']) }}
-                                                {!! Form::date('end_date', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                                {!! Form::text('end_date', null, ['class' => 'form-control dateChangeFormat', 'required' => 'required']) !!}
                                             </div>
                                         </div>
                                         <div class="col-6 need_full">

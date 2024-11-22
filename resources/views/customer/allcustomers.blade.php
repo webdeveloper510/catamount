@@ -74,6 +74,12 @@
                                                 <td>{{ucfirst(@$customers['address'])}}</td>
                                                 <td>{{ucfirst(@$customers['type'])}}</td>
                                                 <td class="text-end">
+                                                    @can('Show Training')
+                                                    <div class="action-btn bg-secondary ms-2">
+                                                        <a href="javascript:void(0);" data-size="md" data-url="#" data-bs-toggle="tooltip" data-title="{{ __('Create meeting') }}" title="{{ __('Create Meeting') }}" data-id="{{$customers->company->id}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white convertLink">
+                                                            <i class="ti ti-plus"></i> </a>
+                                                    </div>
+                                                    @endcan
                                                     @can('Show Lead')
                                                     <div class="action-btn bg-warning ms-2">
                                                         <a href="javascript:void(0);" data-size="md" data-url="{{ route('lead.show',$customers->company->id) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('View Lead Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
@@ -130,3 +136,17 @@
 </div>
 </div>
 @endsection
+@push('script-page')
+<script>
+    $(document).ready(function() {
+        $('.convertLink').on('click', function(event) {
+            event.preventDefault();
+            var leadId = $(this).data('id');
+            setTimeout(function() {
+                localStorage.setItem('leadId', leadId);
+                window.location.href = "{{ route('meeting.create',['meeting',0])}}";
+            }, 1000);
+        });
+    });
+</script>
+@endpush

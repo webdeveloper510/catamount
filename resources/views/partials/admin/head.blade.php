@@ -73,6 +73,7 @@
     <link rel="stylesheet" href="{{ asset('libs/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/customizer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 
     @if (isset($settings['cust_darklayout']) && $settings['cust_darklayout'] == 'on')
         <link rel="stylesheet" href="{{ asset('css/custom-dark.css') }}">

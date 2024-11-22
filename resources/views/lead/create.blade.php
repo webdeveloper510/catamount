@@ -164,7 +164,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {!! Form::date('start_date', date('Y-m-d'), ['class' => 'form-control','required' =>'required']) !!}
+            {!! Form::text('start_date', date('Y-m-d'), ['class' => 'form-control dateChangeFormat','required' =>'required']) !!}
         </div>
     </div>
     <!-- <div class="col-6">

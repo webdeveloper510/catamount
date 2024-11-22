@@ -117,7 +117,7 @@
                                                     @elseif($objField->type == 'date')
                                                         <div class="form-group">
                                                             {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}
-                                                            {{ Form::date('field['.$objField->id.']', null, array('class' => 'form-control','required'=>'required','id'=>'field-'.$objField->id)) }}
+                                                            {{ Form::text('field['.$objField->id.']', null, array('class' => 'form-control dateChangeFormat','required'=>'required','id'=>'field-'.$objField->id)) }}
                                                         </div>
                                                     @elseif($objField->type == 'textarea')
                                                         <div class="form-group">
