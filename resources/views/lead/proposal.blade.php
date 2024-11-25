@@ -111,7 +111,8 @@ $secondary_contact = json_decode($lead->secondary_contact);
                         </div>
                         <div class="col-sm-6 border-new">
                             <h5 class="input-new">
-                                <label for="phone">{{__('Phone')}}:</label>{{__($proposal_info->client->phone)}}
+                                <!-- <label for="phone">{{__('Phone')}}:</label>{{__($proposal_info->client->phone)}} -->
+                                <label for="phone">{{__('Phone')}}:</label>{{ phoneFormat($proposal_info->client->phone) }}
                             </h5>
                         </div>
                         <div class="col-sm-6 border-new">
@@ -121,7 +122,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="servicesDate">{{__('Date of service')}}:</label>{{__($proposal_info->client->dateOfService)}}
+                                <label for="servicesDate">{{__('Date of service')}}:</label>{{\Auth::user()->dateFormat($proposal_info->client->dateOfService)}}
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new">
@@ -160,7 +161,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                     </tr>
                                     <tr>
                                         <td style="padding: 8px;">Date</td>
-                                        <td style="padding: 8px;"><input type="date" name="to[date]" id="date" value="{{ @$proposal_info->to->date ?? date('Y-m-d')}}"></td>
+                                        <td style="padding: 8px;"><input type="text" name="to[date]" class="dateChangeFormat" id="date" value="{{ @$proposal_info->to->date ?? date('Y-m-d')}}"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -174,7 +175,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new">
-                                <label for="date">{{__('Date')}}: {{__($lead->start_date)}}</label>
+                                <label for="date">{{__('Date')}}: {{\Auth::user()->dateFormat($lead->start_date)}}</label>
                             </h5>
                         </div>
                         <div class="col-sm-12  mt-5">
@@ -230,7 +231,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;">Date</td>
-                                    <td style="padding: 8px;">{{__($proposal_info->from->date)}}</td>
+                                    <td style="padding: 8px;">{{\Auth::user()->dateFormat($proposal_info->from->date)}}</td>
                                 </tr>
                                 <!-- <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">For {{ __($lead->company_name) }}</td>

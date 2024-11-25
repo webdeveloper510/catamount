@@ -112,7 +112,7 @@ prx($data); */
         }
 
         .col-sm-6 {
-            width: 49.7% !important;
+            width: 50% !important;
             float: left;
         }
     }
@@ -123,7 +123,15 @@ prx($data); */
     }
 
     .col-sm-6 {
-        width: 49.7% !important;
+        width: 50% !important;
+        float: left;
+    }
+    .col-sm-4 {
+        width: 40% !important;
+        float: left;
+    }
+    .col-sm-8 {
+        width: 60% !important;
         float: left;
     }
 </style>
@@ -150,12 +158,12 @@ prx($data); */
         </div>
         <div class="row">
             <div class="sidebyside">
-                <div class="col-sm-6 border-new">
+                <div class="col-sm-4 border-new">
                     <h3 class="input-new">
-                        <label for="phone">{{__('Phone')}}: </label><span>{{__(@$proposalDataArg->client->phone)}}</span>
+                        <label for="phone">{{__('Phone')}}: </label><span>{{ phoneFormat(@$proposalDataArg->client->phone)}}</span>
                     </h3>
                 </div>
-                <div class="col-sm-6 border-new">
+                <div class="col-sm-8 border-new">
                     <h3 class="input-new">
                         <label for="email2">{{__('Email')}}: </label><span>{{__(@$lead->email)}}</span>
                     </h3>
@@ -165,7 +173,7 @@ prx($data); */
         <div class="row">
             <div class="col-sm-12 border-new">
                 <h3 class="input-new">
-                    <label for="servicesDate">{{__('Date of service')}}: </label><span>{{__($proposalDataArg->client->dateOfService)}}</span>
+                    <label for="servicesDate">{{__('Date of service')}}: </label><span>{{\Auth::user()->dateFormat($proposalDataArg->client->dateOfService)}}</span>
                 </h3>
             </div>
             <div class="col-sm-12 border-new">
@@ -202,7 +210,7 @@ prx($data); */
                             </tr>
                             <tr>
                                 <td style="padding: 8px;">Date</td>
-                                <td style="padding: 8px;">{{ @$_REQUEST['to']['date'] ?? ''}}</td>
+                                <td style="padding: 8px;">{{ \Auth::user()->dateFormat(@$_REQUEST['to']['date']) ?? ''}}</td>
                             </tr>
                         </table>
                     </div>
@@ -218,7 +226,7 @@ prx($data); */
             </div>
             <div class="col-sm-12">
                 <h3 class="input-new">
-                    <label for="date">{{__('Date')}}: </label> <span>{{__(@$lead->start_date)}}</span>
+                    <label for="date">{{__('Date')}}: </label> <span>{{\Auth::user()->dateFormat(@$lead->start_date)}}</span>
                 </h3>
             </div>
             <div class="col-sm-12  mt-5">
@@ -302,7 +310,7 @@ prx($data); */
                     </tr>
                     <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;">Date</td>
-                        <td style="padding: 8px;">{{__(@$proposalDataArg->from->date)}}</td>
+                        <td style="padding: 8px;">{{\Auth::user()->dateFormat(@$proposalDataArg->from->date)}}</td>
                     </tr>
                     <!-- <tr style="border-bottom: 1px solid #ddd;">
                         <td style="padding: 8px;" colspan="2" style="text-align: center; background-color: #f2f2f2; font-weight: bold;">For {{ __($lead->company_name) }}</td>

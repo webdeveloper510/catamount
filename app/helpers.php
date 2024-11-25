@@ -27,3 +27,9 @@ if (!function_exists('dateFormat')) {
         return 'mm/dd/yy';
     }
 }
+if (!function_exists('phoneFormat')) {
+    function phoneFormat($phone)
+    {
+        return "(" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6);
+    }
+}

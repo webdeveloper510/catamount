@@ -766,7 +766,7 @@ class LeadController extends Controller
         $proposals['to_designation'] = $request->to_designation;
         $proposals['to_date'] = $request->to_date;
         $proposals['proposal_id'] = isset($request->proposal) && ($request->proposal != '') ? $request->proposal : '';
-        $proposals->save();
+        // $proposals->save();
         $lead = Lead::find($id);
         Lead::where('id', $id)->update(['status' => 2]);
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
@@ -789,7 +789,7 @@ class LeadController extends Controller
         // return view('lead.signed_proposal', $data);
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
 
-        try {
+        /* try {
             $filename = 'proposal_' . time() . '.pdf';
             $folder = 'Proposal_response/' . $id;
             $path = Storage::disk('public')->put($folder . '/' . $filename, $pdf->output());
@@ -814,14 +814,14 @@ class LeadController extends Controller
                 ]
             );
             Mail::to($lead->email)->cc($emails)->send(new ProposalResponseMail($proposals, $lead));
-            /* foreach ($users as  $user) {
-                Mail::to($lead->email)->cc($user->email)->send(new ProposalResponseMail($proposals, $lead));
-            } */
+            // foreach ($users as  $user) {
+            //     Mail::to($lead->email)->cc($user->email)->send(new ProposalResponseMail($proposals, $lead));
+            // }
             $upd = Lead::where('id', $id)->update(['status' => 2]);
         } catch (\Exception $e) {
             // return response()->json(['is_success' => false,'message' => $e->getMessage(),]);
             return redirect()->back()->with('success', 'Email Not Sent');
-        }
+        } */
         return $pdf->stream('proposal.pdf');
         return redirect()->back()->with('success', 'Email Sent');
     }
