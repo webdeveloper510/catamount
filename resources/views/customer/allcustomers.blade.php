@@ -82,7 +82,7 @@
                                                     @endcan
                                                     @can('Show Lead')
                                                     <div class="action-btn bg-warning ms-2">
-                                                        <a href="javascript:void(0);" data-size="md" data-url="{{ route('lead.show',$customers->company->id) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('View Lead Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                        <a href="javascript:void(0);" data-size="md" data-url="{{ route('lead.show',@$customers->company->id) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('View Lead Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
                                                             <i class="ti ti-eye"></i>
                                                         </a>
                                                     </div>
