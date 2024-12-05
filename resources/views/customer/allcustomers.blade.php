@@ -76,7 +76,7 @@
                                                 <td class="text-end">
                                                     @can('Show Training')
                                                     <div class="action-btn bg-secondary ms-2">
-                                                        <a href="javascript:void(0);" data-size="md" data-url="#" data-bs-toggle="tooltip" data-title="{{ __('Create Training') }}" title="{{ __('Create Training') }}" data-id="{{$customers->company->id}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white convertLink">
+                                                        <a href="javascript:void(0);" data-size="md" data-url="#" data-bs-toggle="tooltip" data-title="{{ __('Create Training') }}" title="{{ __('Create Training') }}" data-id="{{@$customers->company->id}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white convertLink">
                                                             <i class="ti ti-plus"></i> </a>
                                                     </div>
                                                     @endcan
