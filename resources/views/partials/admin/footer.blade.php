@@ -158,18 +158,23 @@
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-    $(window).on('load', function() {
+    $(window).on('load', async function() {
         dfClass = '.dateChangeFormat';
         dfFormat = '<?= dateFormat() ?>';
         $(dfClass).datepicker({
             dateFormat: dfFormat,
         });
-        $(dfClass).each(function() {
+        await $(dfClass).each(async function() {
             var inputValue = $(this).val();
-
-            if (inputValue) {
-                var formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));
-                $(this).val(formattedDate);
+            if (inputValue && !isNaN(new Date(inputValue).getTime())) {
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        var formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));
+                        $(this).val(formattedDate);
+                        $(this).attr('value', formattedDate);
+                        resolve();
+                    }, 0);
+                });
             }
         });
     });
