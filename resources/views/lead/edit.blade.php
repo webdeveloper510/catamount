@@ -201,7 +201,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                             <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span>
-                                            {!! Form::text('start_date', null, ['class' => 'form-control dateChangeFormat', 'required'=>'required']) !!}
+                                            {!! Form::text('start_date', null, ['class' => 'form-control dateChangeFormat', 'required'=>'required','data-date-value' => $lead->start_date]) !!}
                                         </div>
                                     </div>
 

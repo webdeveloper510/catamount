@@ -166,7 +166,7 @@
         });
         await $(dfClass).each(async function() {
             var inputValue = $(this).val();
-            if (inputValue && !isNaN(new Date(inputValue).getTime())) {
+            if (inputValue || !isNaN(new Date(inputValue).getTime())) {
                 await new Promise((resolve) => {
                     setTimeout(() => {
                         var formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));

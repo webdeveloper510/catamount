@@ -4,6 +4,8 @@
 *'date_format_javascript' => 'M/D/YYYY',
 */
 
+use Carbon\Carbon;
+
 if (!function_exists('pr')) {
     function pr($arg)
     {
@@ -31,5 +33,11 @@ if (!function_exists('phoneFormat')) {
     function phoneFormat($phone)
     {
         return "(" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6);
+    }
+}
+if (!function_exists('carbonDateFormat')) {
+    function carbonDateFormat($date)
+    {
+        return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
     }
 }

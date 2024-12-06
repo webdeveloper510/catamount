@@ -202,8 +202,8 @@ class MeetingController extends Controller
             $package = json_encode($package);
             $additional = json_encode($additional);
             $bar_pack = json_encode($bar_pack);
-            $start_date = $request->input('start_date');
-            $end_date = $request->input('start_date');
+            $start_date = carbonDateFormat($request->input('start_date'));
+            $end_date = carbonDateFormat($request->input('start_date'));
             $start_time = $request->input('start_time');
             $end_time = $request->input('end_time');
             $venue_selected = $request->input('venue');
@@ -267,8 +267,8 @@ class MeetingController extends Controller
             $meeting['user_id'] = isset($filteredUsersKeys) ? implode(',', $filteredUsersKeys) : [];
             $meeting['user_data'] = isset($filteredUsers) ? json_encode($filteredUsers) : [];
             $meeting['name'] = $request->name;
-            $meeting['start_date'] = $request->start_date;
-            $meeting['end_date'] = $request->start_date;
+            $meeting['start_date'] = carbonDateFormat($request->start_date);
+            $meeting['end_date'] = carbonDateFormat($request->start_date);
             $meeting['email'] = $request->email;
             $meeting['lead_address'] = $request->lead_address ?? '';
             $meeting['company_name'] = $request->company_name;
@@ -278,7 +278,7 @@ class MeetingController extends Controller
             $meeting['func_package'] = $package;
             // $meeting['function'] = implode(',', $request->function);
             $meeting['guest_count'] = $request->guest_count;
-            $meeting['room'] = $request->rooms ?? 0;
+            $meeting['room'] = $request->room ?? 0;
             $meeting['meal'] = $request->meal ?? '';
             $meeting['bar'] = $request->baropt;
             $meeting['bar_package'] = $bar_pack;
@@ -305,7 +305,7 @@ class MeetingController extends Controller
                         'converted_to' => 1,
                         'lead_status' => 0,
                         'name' => $request->name,
-                        'start_date' => $request->start_date,
+                        'start_date' => carbonDateFormat($request->start_date),
                         'email' => $request->email,
                         'lead_address' => $request->lead_address ?? '',
                         'company_name' => $request->company_name,
@@ -315,7 +315,7 @@ class MeetingController extends Controller
                         'func_package' => $package,
                         // 'function' => implode(',', $request->function),
                         'guest_count' => $request->guest_count,
-                        'rooms' => $request->rooms ?? 0,
+                        'room' => $request->room ?? 0,
                         'bar' => $request->baropt,
                         'bar_package' => $bar_pack,
                         'spcl_req' => $request->spcl_request,
@@ -356,8 +356,8 @@ class MeetingController extends Controller
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $uArr = [
                 'meeting_name' => $request->name,
-                'meeting_start_date' => $request->start_date,
-                'meeting_due_date' => $request->start_date,
+                'meeting_start_date' => carbonDateFormat($request->start_date),
+                'meeting_due_date' => carbonDateFormat($request->start_date),
             ];
             $userDecode = $request->user;
             foreach ($userDecode as $udKey => $udValue) {
@@ -366,8 +366,8 @@ class MeetingController extends Controller
                 if (isset($setting['twilio_meeting_create']) && $setting['twilio_meeting_create'] == 1) {
                     $uArr = [
                         'meeting_name' => $request->name,
-                        'meeting_start_date' => $request->start_date,
-                        'meeting_due_date' => $request->start_date,
+                        'meeting_start_date' => carbonDateFormat($request->start_date),
+                        'meeting_due_date' => carbonDateFormat($request->start_date),
                         'user_name' => \Auth::user()->name,
                     ];
                     Utility::send_twilio_msg($Assign_user_phone->phone, 'new_meeting', $uArr);
@@ -377,8 +377,8 @@ class MeetingController extends Controller
                 $type = 'meeting';
                 $request1 = new Meeting();
                 $request1->title = $request->name;
-                $request1->start_date = $request->start_date;
-                $request1->end_date = $request->start_date;
+                $request1->start_date = carbonDateFormat($request->start_date);
+                $request1->end_date = carbonDateFormat($request->start_date);
                 Utility::addCalendarData($request1, $type);
             }
             $url = 'https://fcm.googleapis.com/fcm/send';
@@ -551,8 +551,8 @@ class MeetingController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             }
-            $start_date = $request->input('start_date');
-            $end_date = $request->input('start_date');
+            $start_date = carbonDateFormat($request->input('start_date'));
+            $end_date = carbonDateFormat($request->input('start_date'));
             $start_time = $request->input('start_time');
             $end_time = $request->input('end_time');
             $venue_selected = $request->input('venue');
@@ -653,8 +653,8 @@ class MeetingController extends Controller
             $meeting['user_id'] = isset($filteredUsersKeys) ? implode(',', $filteredUsersKeys) : [];
             $meeting['user_data'] = isset($filteredUsers) ? json_encode($filteredUsers) : [];
             $meeting['name'] = $request->name;
-            $meeting['start_date'] = $request->start_date;
-            $meeting['end_date'] = $request->start_date;
+            $meeting['start_date'] = carbonDateFormat($request->start_date);
+            $meeting['end_date'] = carbonDateFormat($request->start_date);
             $meeting['relationship'] = $request->relationship;
             $meeting['type'] = $request->type;
             $meeting['venue_selection'] = $request->venue_selection;
@@ -664,7 +664,7 @@ class MeetingController extends Controller
             $meeting['venue_selection'] = $venue;
             $meeting['func_package'] = $package;
             $meeting['guest_count'] = $request->guest_count;
-            $meeting['room'] = $request->rooms;
+            $meeting['room'] = $request->room;
             $meeting['meal'] = $meal ?? '';
             $meeting['bar'] = $request->baropt;
             $meeting['bar_package'] = $bar_pack;
@@ -857,8 +857,8 @@ class MeetingController extends Controller
         }
 
         $venue_selected = $request->input('venue');
-        $start_date = $request->input('start_date');
-        $end_date = $request->input('end_date');
+        $start_date = carbonDateFormat($request->input('start_date'));
+        $end_date = carbonDateFormat($request->input('end_date'));
         // $start_time = $request->input('start_time');
         // $end_time = $request->input('end_time');
 
@@ -1310,8 +1310,8 @@ class MeetingController extends Controller
         $packagesArray = implode(',', array($break_package, $lunch_package, $dinner_package, $wedding_package));
         $meeting['user_id']           = implode(',', $request->user);
         $meeting['name']              = $request->name;
-        $meeting['start_date']        = $request->start_date;
-        $meeting['end_date']          = $request->start_date;
+        $meeting['start_date']        = carbonDateFormat($request->start_date);
+        $meeting['end_date']          = carbonDateFormat($request->start_date);
         $meeting['relationship']       = $request->relationship;
         $meeting['type']               = $request->type;
         $meeting['email']              = $request->email;
@@ -1321,7 +1321,7 @@ class MeetingController extends Controller
         $meeting['venue_selection']    = $venue;
         $meeting['func_package']       = $packagesArray;
         $meeting['guest_count']        = $request->guest_count;
-        $meeting['room']                = $request->rooms;
+        $meeting['room']                = $request->room;
         $meeting['meal']                = $meal ?? '';
         $meeting['bar']                 = $request->baropt;
         $meeting['spcl_request']        = $request->spcl_request;

@@ -178,7 +178,7 @@ prx($data); */
             </div>
             <div class="col-sm-12 border-new">
                 <h3 class="input-new">
-                    <label for="services">{{__('Services')}}: </label><span>{{__(@$proposalDataArg->client->services)}}</span>
+                    <label for="services">{{__('Services')}}: </label><span>{{__(nl2br(@$proposalDataArg->client->services))}}</span>
                 </h3>
             </div>
             <div class="col-sm-12 border-new border-new1">
@@ -186,7 +186,7 @@ prx($data); */
                     <label for="agreement">{{__('Agreement')}}: </label>
                 </h3>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['agreement']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['agreement'])!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 border-new border-new1 mt-5" style="display: flex;">
@@ -221,7 +221,7 @@ prx($data); */
                     <label for="remarks">{{__('Remarks')}}:</label>
                 </h3>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['remarks']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['remarks'])!!}</p>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -244,7 +244,7 @@ prx($data); */
                     <label for="scopeServices">{{__('Scope of Services')}}:</label>
                 </h3>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['scopeOfService']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['scopeOfService'])!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -252,7 +252,7 @@ prx($data); */
                     <label for="schedule">{{__('Schedule')}}:</label>
                 </h3>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$proposal_settings->schedule!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$proposal_settings->schedule)!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -260,7 +260,7 @@ prx($data); */
                     <label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label>
                 </h3>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['costBusiness']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['costBusiness'])!!}</p>
                 </div>
             </div>
             <div class="col-sm-12 mt-5">
@@ -268,7 +268,7 @@ prx($data); */
                     <label for="cencellation">{{__('CANCELLATION')}}:</label>
                 </h3>
                 <div class="textarea">
-                    <p style="font-family: 'Open Sans', sans-serif;">{!!@$finalProposal['cancenllation']!!}</p>
+                    <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['cancenllation'])!!}</p>
                 </div>
             </div>
             <!-- <div class="col-sm-12 border-new1">

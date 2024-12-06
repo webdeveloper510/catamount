@@ -790,8 +790,10 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 
         var leadId = localStorage.getItem('leadId');
         if (leadId) {
-            const options = document.querySelectorAll('#lead option');
+            /* const options = document.querySelectorAll('#lead option');
             const valuesArray = Array.from(options).find(option => option.value === leadId);
+            console.log('options', options);
+            console.log('valuesArray', valuesArray);
             if (!valuesArray) {
                 show_toastr('Success', 'Already exist training', 'danger');
                 localStorage.removeItem('leadId');
@@ -799,7 +801,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                     window.history.back();
                 }, 2000);
                 return false;
-            }
+            } */
             $('select[name="lead"]').val(leadId);
             // console.log('Lead ID:', leadId);
             var venu = leadId;

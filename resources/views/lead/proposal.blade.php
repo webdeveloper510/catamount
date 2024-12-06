@@ -127,14 +127,14 @@ $secondary_contact = json_decode($lead->secondary_contact);
                         </div>
                         <div class="col-sm-12 border-new">
                             <h5 class="input-new">
-                                <label for="services">{{__('Services')}}:</label>{{__($proposal_info->client->services)}}
+                                <label for="services">{{__('Services')}}:</label>{{__(nl2br($proposal_info->client->services))}}
                             </h5>
                         </div>
                         <div class="col-sm-12 border-new border-new1">
                             <h5 class="input-new">
                                 <label for="agreement">{{__('Agreement')}}:</label>
                             </h5>
-                            {!!@$finalProposal['agreement']!!}
+                            {!!nl2br(@$finalProposal['agreement'])!!}
                             <!-- <textarea name="agreement" id="agreement" class="agreement"></textarea> -->
                         </div>
                         <div class="col-sm-12 border-new" style="display: flex;">
@@ -170,7 +170,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                             <h5 class="input-new">
                                 <label for="remarks">{{__('Remarks')}}:</label>
                             </h5>
-                            {!!@$finalProposal['remarks']!!}
+                            {!!nl2br(@$finalProposal['remarks'])!!}
                             <!-- <textarea name="remarks" id="remarks" class="remarks"></textarea> -->
                         </div>
                         <div class="col-sm-12 mt-5">
@@ -199,20 +199,20 @@ $secondary_contact = json_decode($lead->secondary_contact);
                         </div>
                         <div class="col-sm-12  mt-5">
                             <h5 class="input-new"><label for="scopeServices">{{__('Scope of Services')}}:</label></h5>
-                            <p>{!!@$finalProposal['scopeOfService']!!}</p>
+                            <p>{!!nl2br(@$finalProposal['scopeOfService'])!!}</p>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="schedule">{{__('Schedule')}}:</label></h5>
-                            <p>{!!@$proposal_settings->schedule!!}</p>
+                            <p>{!!nl2br(@$proposal_settings->schedule)!!}</p>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="costBusinessTerms">{{__('Cost and Business Terms')}}:</label></h5>
-                            <p>{!!@$finalProposal['costBusiness']!!}</p>
+                            <p>{!!nl2br(@$finalProposal['costBusiness'])!!}</p>
                         </div>
                         <div class="col-sm-12 mt-5">
                             <h5 class="input-new"><label for="cencellation">{{__('CANCELLATION')}}:</label></h5>
                             <div class="textarea">
-                                <p>{!!@$finalProposal['cancenllation']!!}</p>
+                                <p>{!!nl2br(@$finalProposal['cancenllation'])!!}</p>
                             </div>
                         </div>
                         <!-- <div class="col-sm-12 mt-5">

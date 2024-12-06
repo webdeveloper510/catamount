@@ -175,8 +175,8 @@ class LeadController extends Controller
             $lead['lead_address'] = $request->lead_address;
             $lead['company_name'] = $request->company_name;
             $lead['relationship'] = $request->relationship;
-            $lead['start_date'] = $request->start_date;
-            $lead['end_date'] = $request->start_date;
+            $lead['start_date'] = carbonDateFormat($request->start_date);
+            $lead['end_date'] = carbonDateFormat($request->start_date);
             $lead['type'] = $request->type;
             $lead['venue_selection'] = isset($request->venue) ? implode(',', $request->venue) : [];
             $lead['guest_count'] = $request->guest_count ?? 0;
@@ -442,8 +442,8 @@ class LeadController extends Controller
             $lead['lead_address'] = $request->lead_address;
             $lead['company_name'] = $request->company_name;
             $lead['relationship'] = $request->relationship;
-            $lead['start_date'] = $request->start_date;
-            $lead['end_date'] = $request->start_date;
+            $lead['start_date'] = carbonDateFormat($request->start_date);
+            $lead['end_date'] = carbonDateFormat($request->end_date);
             $lead['type'] = $request->type;
             $lead['venue_selection'] = isset($venue_function) && (!empty($venue_function)) ? $venue_function : '';
             $lead['function'] = $function;
