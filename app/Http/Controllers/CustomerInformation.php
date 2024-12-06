@@ -348,8 +348,6 @@ class CustomerInformation extends Controller
                 return $leads;
             });
         }
-        unset($allcustomers[0]);
-        // prx($allcustomers);
         $importedcustomers = UserImport::distinct()->get();
 
         return view('customer.allcustomers', compact('allcustomers', 'importedcustomers'));
