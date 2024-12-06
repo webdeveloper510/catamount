@@ -348,9 +348,7 @@ class CustomerInformation extends Controller
                 return $leads;
             });
         }
-        $allcustomers->filter(function ($item) {
-            return !empty($item->company);
-        });
+        unset($allcustomers[0]);
         prx($allcustomers);
         $importedcustomers = UserImport::distinct()->get();
 
