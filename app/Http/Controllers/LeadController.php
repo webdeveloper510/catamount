@@ -709,12 +709,12 @@ class LeadController extends Controller
             Mail::to($request->email)->send(new SendPdfEmail($lead, $subject, $content, $proposalinfo, $propid));
             $upd = Lead::where('id', $id)->update(['status' => 1]);
         } catch (\Exception $e) {
-            //   return response()->json(
-            //             [
-            //                 'is_success' => false,
-            //                 'message' => $e->getMessage(),
-            //             ]
-            //         );
+              return response()->json(
+                        [
+                            'is_success' => false,
+                            'message' => $e->getMessage(),
+                        ]
+                    );
             return redirect()->back()->with('success', 'Email Not Sent');
         }
         return redirect()->back()->with('success', 'Email Sent Successfully');
