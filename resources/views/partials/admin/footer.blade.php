@@ -170,14 +170,30 @@
                 await new Promise((resolve) => {
                     setTimeout(() => {
                         var formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));
+                        $(this).text(formattedDate);
                         $(this).val(formattedDate);
                         $(this).attr('value', formattedDate);
                         resolve();
-                    }, 0);
+                    }, 2000);
                 });
             }
         });
     });
+    /* $(window).on('load', async function() {
+        const dfClass = '.dateChangeFormat';
+        const dfFormat = 'mm/dd/yy';
+        $(dfClass).datepicker({
+            dateFormat: dfFormat,
+        });
+        $(dfClass).each(function() {
+            const inputValue = $(this).val();
+            if (inputValue && !isNaN(new Date(inputValue).getTime())) {
+                const formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));
+                $(this).val(formattedDate);
+                $(this).attr('value', formattedDate);
+            }
+        });
+    }); */
 </script>
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 

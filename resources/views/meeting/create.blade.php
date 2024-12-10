@@ -790,132 +790,126 @@ $leadId = decrypt(urldecode(request()->query('lead')));
 
         var leadId = localStorage.getItem('leadId');
         if (leadId) {
-            /* const options = document.querySelectorAll('#lead option');
+            const options = document.querySelectorAll('#lead option');
             const valuesArray = Array.from(options).find(option => option.value === leadId);
-            console.log('options', options);
-            console.log('valuesArray', valuesArray);
             if (!valuesArray) {
-                show_toastr('Success', 'Already exist training', 'danger');
                 localStorage.removeItem('leadId');
-                setTimeout(() => {
-                    window.history.back();
-                }, 2000);
                 return false;
-            } */
-            $('select[name="lead"]').val(leadId);
-            // console.log('Lead ID:', leadId);
-            var venu = leadId;
-            $.ajax({
-                url: "{{ route('meeting.lead') }}",
-                type: 'POST',
-                data: {
-                    "venue": venu,
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(data) {
-                    console.log(data);
-                    secondary_contact = JSON.parse(data.secondary_contact);
-                    //  console.log('secondary_contact');
+            } else {
+                $('select[name="lead"]').val(leadId);
+                var venu = leadId;
+                $.ajax({
+                    url: "{{ route('meeting.lead') }}",
+                    type: 'POST',
+                    data: {
+                        "venue": venu,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        secondary_contact = JSON.parse(data.secondary_contact);
+                        //  console.log('secondary_contact');
 
-                    if (data.user_data) {
-                        user_data = JSON.parse(data.user_data);
+                        if (data.user_data) {
+                            user_data = JSON.parse(data.user_data);
 
-                        $.each(user_data, function(key, element) {
-                            $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
+                            $.each(user_data, function(key, element) {
+                                $(`input[name="user[${element.checkbox}][amount]"]`).val(element.amount);
 
-                            document.querySelectorAll('input.inputDisable').forEach(function(input) {
-                                var val = input.value;
-                                var checked = input.checked;
-                                if (element.checkbox != checked) {
-                                    var targetInput = document.getElementById('user_amount_' + val);
-                                    if (checked) {
-                                        targetInput.value = '';
-                                        targetInput.disabled = false;
-                                    } else {
-                                        targetInput.value = '';
-                                        targetInput.disabled = true;
+                                document.querySelectorAll('input.inputDisable').forEach(function(input) {
+                                    var val = input.value;
+                                    var checked = input.checked;
+                                    if (element.checkbox != checked) {
+                                        var targetInput = document.getElementById('user_amount_' + val);
+                                        if (checked) {
+                                            targetInput.value = '';
+                                            targetInput.disabled = false;
+                                        } else {
+                                            targetInput.value = '';
+                                            targetInput.disabled = true;
+                                        }
                                     }
-                                }
+                                });
+
+
                             });
-
-
-                        });
-                    }
-
-
-                    // func_pack = json_decode(data.func_package);
-                    venue_str = data.venue_selection;
-                    venue_arr = venue_str.split(",");
-                    // func_str = data.function;
-                    // func_arr = func_str.split(",");
-                    $('input[name ="company_name"]').val(data.company_name);
-                    $('input[name ="name"]').val(data.name);
-                    $('input[name ="allergies"]').val(data.allergies);
-                    $('input[name ="spcl_request"]').val(data.spcl_req);
-                    // Phone number formatting
-                    // var phoneInput = $('input[name ="phone"]');
-                    // phoneInput.val(data.phone);
-                    // phoneInput.trigger('input');
-                    // phoneInput.addEventListener('input', enforceFormat);
-                    // phoneInput.addEventListener('input', formatToPhone); 
-                    // $('input[name ="end_date"]').val(data.end_date);
-                    $('input[name ="relationship"]').val(data.relationship);
-
-
-                    $('input[name="start_date"]').val(dateChangeFormat(data.start_date));
-                    // $('input[name ="start_date"]').val(data.start_date);
-                    $('input[name ="start_time"]').val(data.start_time);
-                    $('input[name ="end_time"]').val(data.end_time);
-                    // $('input[name ="rooms"]').val(data.rooms);
-                    $('input[name ="customer_location"]').val(data.rooms);
-                    $('input[name ="email"]').val(data.email);
-                    $('input[name ="primary_contact"]').val(data.primary_contact);
-
-
-                    $('input[name ="secondary_contact[name]"]').val(secondary_contact.name);
-                    $('input[name ="secondary_contact[secondary_contact]"]').val(secondary_contact.secondary_contact);
-                    $('input[name ="secondary_contact[email]"]').val(secondary_contact.email);
-                    $('input[name ="secondary_contact[lead_address]"]').val(secondary_contact.lead_address);
-                    $('input[name ="secondary_contact[relationship]"]').val(secondary_contact.relationship);
-
-
-                    $('input[name ="lead_address"]').val(data.lead_address);
-                    $("select[name='type'] option[value='" + data.type + "']").prop("selected", true);
-                    $("input[name='bar'][value='" + data.bar + "']").prop('checked', true);
-                    // $("input[name='user[]'][value='" + data.assigned_user + "']").prop('checked', true);
-                    $("input[name='user[" + data.assigned_user + "][checkbox]'][value='" + data.assigned_user + "']").prop('checked', true);
-                    $.each(venue_arr, function(i, val) {
-                        $("input[name='venue[]'][value='" + val + "']").prop('checked', true);
-                    });
-                    $('input[name ="guest_count"]').val(data.guest_count);
-
-                    // $.each(func_arr, function(i, val) {$("input[name='function[]'][value='" + val + "']").prop('checked', true);});
-                    // var checkedFunctions = $('input[name="function[]"]:checked').map(function() {return $(this).val();}).get();
-                    var mailFunctionSection = document.getElementById('mailFunctionSection');
-                    var divs = mailFunctionSection.querySelectorAll('.form-group');
-                    divs.forEach(function(div) {
-                        var mainValue = div.getAttribute('data-main-value');
-                        if (checkedFunctions.includes(mainValue)) {
-                            div.style.display = 'block';
-                        } else {
-                            div.style.display = 'none';
                         }
-                    });
-                    var phoneNumber = data.primary_contact;
-                    var num = phoneNumber.trim();
-                    var lastTenDigits = phoneNumber.substr(-10);
-                    var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
-                    $('#phone-input').val(formattedPhoneNumber);
 
-                    var phoneNumber1 = secondary_contact.secondary_contact;
-                    var num = phoneNumber1.trim();
-                    var lastTenDigits1 = phoneNumber1.substr(-10);
-                    var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' + lastTenDigits1.substr(6);
-                    $('#phone-input1').val(formattedPhoneNumber1);
-                    assignTraner_disable();
-                }
-            });
 
+                        // func_pack = json_decode(data.func_package);
+                        venue_str = data.venue_selection;
+                        venue_arr = venue_str.split(",");
+                        // func_str = data.function;
+                        // func_arr = func_str.split(",");
+                        $('input[name ="company_name"]').val(data.company_name);
+                        $('input[name ="name"]').val(data.name);
+                        $('input[name ="allergies"]').val(data.allergies);
+                        $('input[name ="spcl_request"]').val(data.spcl_req);
+                        // Phone number formatting
+                        // var phoneInput = $('input[name ="phone"]');
+                        // phoneInput.val(data.phone);
+                        // phoneInput.trigger('input');
+                        // phoneInput.addEventListener('input', enforceFormat);
+                        // phoneInput.addEventListener('input', formatToPhone); 
+                        // $('input[name ="end_date"]').val(data.end_date);
+                        $('input[name ="relationship"]').val(data.relationship);
+
+
+                        $('input[name="start_date"]').val(dateChangeFormat(data.start_date));
+                        // $('input[name ="start_date"]').val(data.start_date);
+                        $('input[name ="start_time"]').val(data.start_time);
+                        $('input[name ="end_time"]').val(data.end_time);
+                        // $('input[name ="rooms"]').val(data.rooms);
+                        $('input[name ="customer_location"]').val(data.rooms);
+                        $('input[name ="email"]').val(data.email);
+                        $('input[name ="primary_contact"]').val(data.primary_contact);
+
+
+                        $('input[name ="secondary_contact[name]"]').val(secondary_contact.name);
+                        $('input[name ="secondary_contact[secondary_contact]"]').val(secondary_contact.secondary_contact);
+                        $('input[name ="secondary_contact[email]"]').val(secondary_contact.email);
+                        $('input[name ="secondary_contact[lead_address]"]').val(secondary_contact.lead_address);
+                        $('input[name ="secondary_contact[relationship]"]').val(secondary_contact.relationship);
+
+
+                        $('input[name ="lead_address"]').val(data.lead_address);
+                        $("select[name='type'] option[value='" + data.type + "']").prop("selected", true);
+                        $("input[name='bar'][value='" + data.bar + "']").prop('checked', true);
+                        // $("input[name='user[]'][value='" + data.assigned_user + "']").prop('checked', true);
+                        $("input[name='user[" + data.assigned_user + "][checkbox]'][value='" + data.assigned_user + "']").prop('checked', true);
+                        $.each(venue_arr, function(i, val) {
+                            $("input[name='venue[]'][value='" + val + "']").prop('checked', true);
+                        });
+                        $('#custom_text').val(venue_arr[venue_arr.length-1]);
+                        $('input[name ="guest_count"]').val(data.guest_count);
+
+                        // $.each(func_arr, function(i, val) {$("input[name='function[]'][value='" + val + "']").prop('checked', true);});
+                        // var checkedFunctions = $('input[name="function[]"]:checked').map(function() {return $(this).val();}).get();
+                        var mailFunctionSection = document.getElementById('mailFunctionSection');
+                        var divs = mailFunctionSection.querySelectorAll('.form-group');
+                        divs.forEach(function(div) {
+                            var mainValue = div.getAttribute('data-main-value');
+                            if (checkedFunctions.includes(mainValue)) {
+                                div.style.display = 'block';
+                            } else {
+                                div.style.display = 'none';
+                            }
+                        });
+                        var phoneNumber = data.primary_contact;
+                        var num = phoneNumber.trim();
+                        var lastTenDigits = phoneNumber.substr(-10);
+                        var formattedPhoneNumber = '(' + lastTenDigits.substr(0, 3) + ') ' + lastTenDigits.substr(3, 3) + '-' + lastTenDigits.substr(6);
+                        $('#phone-input').val(formattedPhoneNumber);
+
+                        var phoneNumber1 = secondary_contact.secondary_contact;
+                        var num = phoneNumber1.trim();
+                        var lastTenDigits1 = phoneNumber1.substr(-10);
+                        var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' + lastTenDigits1.substr(6);
+                        $('#phone-input1').val(formattedPhoneNumber1);
+                        assignTraner_disable();
+                    }
+                });
+            }
 
             // localStorage.removeItem('leadId');
         }
