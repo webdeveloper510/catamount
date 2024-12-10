@@ -38,6 +38,9 @@ if (!function_exists('phoneFormat')) {
 if (!function_exists('carbonDateFormat')) {
     function carbonDateFormat($date)
     {
-        return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+        $date = new DateTimeImmutable($date);
+        $formattedDate = $date->format('Y-m-d');
+        return $formattedDate;
+        // return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
     }
 }
