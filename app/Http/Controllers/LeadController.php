@@ -766,7 +766,7 @@ class LeadController extends Controller
         $proposals['to_designation'] = $request->to_designation;
         $proposals['to_date'] = $request->to_date;
         $proposals['proposal_id'] = isset($request->proposal) && ($request->proposal != '') ? $request->proposal : '';
-        // $proposals->save();
+        $proposals->save();
         $lead = Lead::find($id);
         Lead::where('id', $id)->update(['status' => 2]);
         $users = User::where('type', 'owner')->orwhere('type', 'Admin')->get();
