@@ -297,7 +297,7 @@ class MeetingController extends Controller
             $meeting['allergies'] = $request->allergies;
             $meeting['secondary_contact'] = $secondary_contact;
             $meeting['created_by'] = \Auth::user()->creatorId();
-            // $meeting->save(); aaaaaaaaaaaaaaaaaaa
+            $meeting->save();
 
             if ($meeting->attendees_lead != 0) {
                 Lead::find($request->lead)
@@ -335,7 +335,7 @@ class MeetingController extends Controller
                     $document->event_id =  $meeting->id; // Assuming you have a lead_id field
                     $document->filename = $filename; // Store original file name
                     $document->filepath = $path; // Store file path
-                    // $document->save(); aaaaaaaaaaaaaaaaaaa
+                    $document->save();
                 } catch (\Exception $e) {
                     Log::error('File upload failed: ' . $e->getMessage());
                     return redirect()->back()->with('error', 'File upload failed');
@@ -351,7 +351,7 @@ class MeetingController extends Controller
                 $customer->address = $request->lead_address ?? '';
                 $customer->category = 'event';
                 $customer->type = $request->type;
-                // $customer->save(); aaaaaaaaaaaaaaaaaaa
+                $customer->save();
             }
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $uArr = [
