@@ -44,3 +44,12 @@ if (!function_exists('carbonDateFormat')) {
         // return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
     }
 }
+if (!function_exists('dateFormat_blade')) {
+    function dateFormat_blade($date)
+    {
+        $date = new DateTimeImmutable($date);
+        $formattedDate = $date->format('m/d/Y');
+        return $formattedDate;
+        // return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+    }
+}
