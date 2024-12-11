@@ -46,33 +46,33 @@ $(document).ready(function () {
         });
     });
     $(function () {
-        
-             $(".show_confirmdlt").click(function (event) {
+        $(".show_confirmdlt").click(function (event) {
             event.preventDefault();
             var form = $(this).closest("form");
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger",
                 },
-                buttonsStyling: false
-            })
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "This action can not be undone. Do you want to continue?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            })
+                buttonsStyling: false,
+            });
+            swalWithBootstrapButtons
+                .fire({
+                    title: "Are you sure?",
+                    text: "This action can not be undone. Do you want to continue?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    reverseButtons: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
         });
-    
-    
+
         // $(document).on("click", ".show_confirm", function () {
         $(".show_confirm").click(function (event) {
             event.preventDefault();
@@ -621,6 +621,7 @@ $(document).on(
                 // common_bind("#commonModal");
                 // common_bind_select("#commonModal");
                 select2();
+                dateFormatdsada();
             },
             error: function (data) {
                 data = data.responseJSON;

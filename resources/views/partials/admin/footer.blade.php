@@ -158,6 +158,30 @@
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+    function dateFormatdsada() {
+        dfClass = ".dateChangeFormat";
+        dfFormat = "mm/dd/yy";
+        $(dfClass).datepicker({
+            dateFormat: dfFormat,
+        });
+        $(dfClass).each(async function() {
+            var inputValue = $(this).val();
+            if (inputValue || !isNaN(new Date(inputValue).getTime())) {
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        var formattedDate = $.datepicker.formatDate(
+                            dfFormat,
+                            new Date(inputValue)
+                        );
+                        $(this).text(formattedDate);
+                        $(this).val(formattedDate);
+                        $(this).attr("value", formattedDate);
+                        resolve();
+                    }, 2000);
+                });
+            }
+        });
+    }
     $(window).on('load', async function() {
         dfClass = '.dateChangeFormat';
         dfFormat = '<?= dateFormat() ?>';
