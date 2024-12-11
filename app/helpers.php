@@ -50,6 +50,5 @@ if (!function_exists('dateFormat_blade')) {
         $date = new DateTimeImmutable($date);
         $formattedDate = $date->format('m/d/Y');
         return $formattedDate;
-        // return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
     }
 }
