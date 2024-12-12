@@ -299,11 +299,14 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                             </div>
                             <div class="col-6 need_full">
                                 <div class="form-group">
-                                    {{Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label']) }}
-                                    <select class="form-control" name='user'>
+                                    {{Form::label('user',__('Assign Staff'),['class'=>'form-label']) }}
+                                    <span class="text-sm">
+                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+                                    </span>
+                                    <select class="form-control" name='user' id='user' required>
                                         <option value="">Select Staff</option>
                                         @foreach($users as $user)
-                                        <option class="form-control" value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
+                                        <option value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
                                             {{$user->name}}
                                         </option>
                                         @endforeach

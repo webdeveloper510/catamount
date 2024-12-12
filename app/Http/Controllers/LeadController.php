@@ -377,17 +377,23 @@ class LeadController extends Controller
     public function update(Request $request, Lead $lead)
     {
         if (\Auth::user()->can('Edit Lead')) {
-
+      
             $validator = \Validator::make(
                 $request->all(),
                 [
                     'name' => 'required|max:120',
                     'primary_contact' => 'required',
                     'venue' => 'required',
+                    'user' => 'required',
+                    'type' => 'required',
                     // 'function' => 'required'
 
-                ]
+                ],
+                /* [
+                    'user.required' => 'abc',
+                ] */
             );
+
             if ($validator->fails()) {
                 $messages = $validator->getMessageBag();
                 return redirect()->back()->with('error', $messages->first())
@@ -395,6 +401,11 @@ class LeadController extends Controller
                     ->withInput();
                 // return redirect()->back()->with('error', $messages->first());
             }
+            /* else{
+                echo "all validate";
+            }
+
+            die; */
             $data = $request->all();
             $package = [];
             $additional = [];
@@ -475,7 +486,7 @@ class LeadController extends Controller
             return redirect()->route('lead.index', compact('leads', 'statuss'))->with('success', __('Lead successfully updated!'));
             // return view('lead.index', compact('leads','statuss'))->with('success', __('Lead  Updated.'));
             // return redirect()->back()->with('success', __('Lead Updated.'));
-        } else {
+        } else {      
             return redirect()->back()->with('error', 'permission Denied');
         }
     }
