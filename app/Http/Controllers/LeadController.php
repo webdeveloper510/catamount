@@ -301,7 +301,8 @@ class LeadController extends Controller
                 'trainingMail' => $tranner->email,
                 'leadName' => $request->lead_name,
             ];
-            Mail::to([$request['email'], $request['secondary']['email']])->send(new AssignMail($mailData));
+            $mailsAdds = array_filter([$request['email'], $request['secondary']['email']]);
+            Mail::to($mailsAdds)->send(new AssignMail($mailData));
             // Mail::to(['nitinkumar@codenomad.net', 'lukesh@codenomad.net'])->send(new AssignMail($mailData));
             /* tranner mail */
             $mailData = [
