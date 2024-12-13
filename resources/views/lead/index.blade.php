@@ -97,7 +97,7 @@ $proposalstatus = \App\Models\Lead::$status;
                                                 <td class="text-end">
                                                     @if($lead->status == 4 && $lead->converted_to == 0)
                                                     <div class="action-btn bg-secondary ms-2">
-                                                        <a href="{{ route('meeting.create',['meeting',0])}}" id="convertLink" data-size="md" data-url="#" data-bs-toggle="tooltip" data-title="{{ __('Convert') }}" title="{{ __('Convert To Trainings') }}" data-id="{{$lead->id}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                        <a href="{{ route('meeting.create',['meeting',0])}}" data-size="md" data-url="#" data-bs-toggle="tooltip" data-title="{{ __('Convert') }}" title="{{ __('Convert To Trainings') }}" data-id="{{$lead->id}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white convertLink">
                                                             <i class="fas fa-exchange-alt"></i> </a>
                                                     </div>
                                                     @endif
@@ -185,7 +185,7 @@ $proposalstatus = \App\Models\Lead::$status;
 
 <script>
     $(document).ready(function() {
-        $('#convertLink').on('click', function(event) {
+        $('.convertLink').on('click', function(event) {
             event.preventDefault();
             var leadId = $(this).data('id');
             setTimeout(function() {
