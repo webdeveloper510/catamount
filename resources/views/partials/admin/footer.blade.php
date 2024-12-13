@@ -203,23 +203,7 @@
             }
         });
     });
-    /* $(window).on('load', async function() {
-        const dfClass = '.dateChangeFormat';
-        const dfFormat = 'mm/dd/yy';
-        $(dfClass).datepicker({
-            dateFormat: dfFormat,
-        });
-        $(dfClass).each(function() {
-            const inputValue = $(this).val();
-            if (inputValue && !isNaN(new Date(inputValue).getTime())) {
-                const formattedDate = $.datepicker.formatDate(dfFormat, new Date(inputValue));
-                $(this).val(formattedDate);
-                $(this).attr('value', formattedDate);
-            }
-        });
-    }); */
 </script>
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 
 <script>
     var date_picker_locale = {
@@ -256,10 +240,9 @@
         list: '{{__("list")}}'
     };
 </script>
-{{--
-@if(Session::has('success'))
-    <script>
-        toastrs('{{__("Success")}}', '{!! session("success") !!}', 'success');
+{{-- @if(Session::has('success'))
+<script>
+    toastrs('{{__("Success")}}', '{!! session("success") !!}', 'success');
 </script>
 {{ Session::forget('success') }}
 @endif
@@ -282,13 +265,6 @@
 </script>
 {{ Session::forget('error') }}
 @endif
-
-
-
-
-
-
-
 
 @stack('script-page')
 

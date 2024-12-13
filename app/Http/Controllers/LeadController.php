@@ -360,7 +360,16 @@ class LeadController extends Controller
             $venue_function = explode(',', $lead->venue_selection);
             $function_package =  explode(',', $lead->function);
             $status = Lead::$status;
-            $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            // $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
+                $users = User::all();
+            } else {
+                $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            }
             return view('lead.edit', compact('venue_function', 'function_package', 'lead', 'users', 'status'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
@@ -378,7 +387,7 @@ class LeadController extends Controller
     public function update(Request $request, Lead $lead)
     {
         if (\Auth::user()->can('Edit Lead')) {
-      
+
             $validator = \Validator::make(
                 $request->all(),
                 [
@@ -387,12 +396,7 @@ class LeadController extends Controller
                     'venue' => 'required',
                     'user' => 'required',
                     'type' => 'required',
-                    // 'function' => 'required'
-
                 ],
-                /* [
-                    'user.required' => 'abc',
-                ] */
             );
 
             if ($validator->fails()) {
@@ -402,11 +406,6 @@ class LeadController extends Controller
                     ->withInput();
                 // return redirect()->back()->with('error', $messages->first());
             }
-            /* else{
-                echo "all validate";
-            }
-
-            die; */
             $data = $request->all();
             $package = [];
             $additional = [];
@@ -487,7 +486,7 @@ class LeadController extends Controller
             return redirect()->route('lead.index', compact('leads', 'statuss'))->with('success', __('Lead successfully updated!'));
             // return view('lead.index', compact('leads','statuss'))->with('success', __('Lead  Updated.'));
             // return redirect()->back()->with('success', __('Lead Updated.'));
-        } else {      
+        } else {
             return redirect()->back()->with('error', 'permission Denied');
         }
     }
@@ -801,7 +800,7 @@ class LeadController extends Controller
         // return view('lead.signed_proposal', $data);
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
 
-        /* try {
+        try {
             $filename = 'proposal_' . time() . '.pdf';
             $folder = 'Proposal_response/' . $id;
             $path = Storage::disk('public')->put($folder . '/' . $filename, $pdf->output());
@@ -833,7 +832,7 @@ class LeadController extends Controller
         } catch (\Exception $e) {
             // return response()->json(['is_success' => false,'message' => $e->getMessage(),]);
             return redirect()->back()->with('success', 'Email Not Sent');
-        } */
+        }
         return $pdf->stream('proposal.pdf');
         return redirect()->back()->with('success', 'Email Sent');
     }
@@ -850,7 +849,6 @@ class LeadController extends Controller
     }
     public function review_proposal($id)
     {
-
         $id = decrypt(urldecode($id));
         $lead = Lead::find($id);
         $venue_function = explode(',', $lead->venue_selection);
@@ -1050,12 +1048,6 @@ class LeadController extends Controller
         $notes = NotesLeads::whereIn('lead_id', $ids)->orderby('id', 'desc')->get();
         $docs = LeadDoc::whereIn('lead_id', $ids)->get();
 
-
-        /*  $data['id'] = $id;
-        $data['leads'] = $leads->toArray();
-        $data['notes'] = $notes->toArray();
-        $data['docs'] = $docs->toArray();
-        prx($data); */
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
 

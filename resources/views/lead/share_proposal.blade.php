@@ -118,7 +118,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date of service')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[client][dateOfService]" class="form-control" id="dateOfService" value="{{ @$proposalDataArg->client->dateOfService ? $proposalDataArg->client->dateOfService : $lead->start_date }}">
+                        <input type="text" name="pdf[client][dateOfService]" class="form-control dateChangeFormat" id="dateOfService" value="{{ @$proposalDataArg->client->dateOfService ? $proposalDataArg->client->dateOfService : $lead->start_date }}">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Services')}}</span></dt>
                     <dd class="col-md-10">
@@ -138,7 +138,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date of service')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="text" name="pdf[client][dateOfService]" class="form-control" id="dateOfService" value="{{ $lead->start_date }}">
+                        <input type="text" name="pdf[client][dateOfService]" class="form-control dateChangeFormat" id="dateOfService" value="{{ $lead->start_date }}">
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Services')}}</span></dt>
                     <dd class="col-md-10">
@@ -176,7 +176,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     </dd>
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date')}}</span></dt>
                     <dd class="col-md-4">
-                        <input type="date" name="pdf[from][date]" class="form-control" id="client" value="{{ @$proposalDataArg->from->date ?? date('Y-m-d') }}">
+                        <input type="text" name="pdf[from][date]" class="form-control dateChangeFormat" id="client" value="{{ @$proposalDataArg->from->date ?? date('Y-m-d') }}">
                     </dd>
                     <hr class="mt-4 mb-4">
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Name')}}</span></dt>
@@ -192,7 +192,7 @@ $cancenllation = isset($proposalDataArg->settings->cancenllation) ? $proposalDat
                     <dt class="col-md-2"><span class="h6 mb-0">{{__('Date')}}</span></dt>
                     <dd class="col-md-4">
                         <!-- <input type="date" name="pdf[to][date]" class="form-control" id="client" value="{{ @$proposalDataArg->to->date ? $proposalDataArg->to->date : $lead->start_date }}"> -->
-                        <input type="date" name="pdf[to][date]" class="form-control" id="client" value="">
+                        <input type="text" name="pdf[to][date]" class="form-control dateChangeFormat" id="client" value="">
                     </dd>
 
                 </dl>

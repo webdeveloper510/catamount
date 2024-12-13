@@ -71,7 +71,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
-                                            {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))}}
+                                            {{Form::text('company_name',null,array('class'=>'form-control','required'=>'required','placeholder'=>__('Enter Company Name')))}}
                                         </div>
                                     </div>
                                     <div class="col-12  p-0 modaltitle ">
@@ -139,7 +139,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('email',__('Email'),['class'=>'form-label']) }}
-                                            {{Form::text('secondary[email]',@$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email'),'required' =>'required'))}}
+                                            {{Form::text('secondary[email]',@$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email')))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">
@@ -174,27 +174,73 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             <label for="venue" class="form-label">{{ __('Training Location') }}</label>
-                                            <!-- <span class="text-sm">
-                                                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                            </span> -->
-                                            {{--<select name="venue[]" class="form-select" id="venue">
-                                                @foreach($venue as $key => $label)
-                                                <option value="{{ $label }}">{{ $label }}</option>
-                                            @endforeach
-                                            </select>--}}
                                             @foreach($venue as $key => $label)
                                             <div>
-                                                <input type="checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, @$venue_function) ? 'checked' : '' }}>
+                                                <!-- Add the class 'venue-checkbox' to each checkbox -->
+                                                <input type="checkbox" class="venue-checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, @$venue_function) ? 'checked' : '' }}>
                                                 <label for="{{ $label }}">{{ $label }}</label>
                                             </div>
                                             @endforeach
+
                                             <div>
-                                                <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
+                                                <!-- Use a different name for the custom text input to avoid conflicts -->
+                                                <input type="text" name="venue[]" class="custom-text-field" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
                                                     onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
-                                                <label for="custom_text">{{ __('Custom Loction') }}</label>
+                                                <label for="custom_text">{{ __('Custom Location') }}</label>
+                                            </div>
+
+                                            <div id="validation-error" style="display: none;">
+                                                <span id="error-message" style="color: red;"></span>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const venueCheckboxes = document.querySelectorAll('.venue-checkbox');
+                                            const textField = document.querySelector('.custom-text-field');
+                                            const errorMessageElement = document.getElementById('error-message');
+                                            const errorContainer = document.getElementById('validation-error');
+                                            venueCheckboxes.forEach(function(checkbox) {
+                                                checkbox.addEventListener('change', validateFields);
+                                            });
+                                            textField.addEventListener('input', validateFields);
+                                            validateFields();
+
+                                            function validateFields() {
+                                                const checkboxesChecked = document.querySelectorAll('.venue-checkbox:checked').length;
+                                                const textInputValue = textField.value.trim();
+                                                if (textInputValue !== "") {
+                                                    errorContainer.style.display = "none";
+                                                    venueCheckboxes.forEach(function(checkbox) {
+                                                        checkbox.removeAttribute("required");
+                                                    });
+                                                    textField.removeAttribute("required");
+                                                } else if (textInputValue === "" && checkboxesChecked === 0) {
+                                                    errorMessageElement.textContent = "Please select at least one training location or provide a custom location.";
+                                                    errorContainer.style.display = "block";
+                                                    venueCheckboxes.forEach(function(checkbox) {
+                                                        checkbox.setAttribute("required", "true");
+                                                    });
+                                                    textField.setAttribute("required", "true");
+                                                } else if (textInputValue === "" && checkboxesChecked > 0) {
+                                                    errorContainer.style.display = "none";
+                                                    venueCheckboxes.forEach(function(checkbox) {
+                                                        checkbox.removeAttribute("required");
+                                                    });
+                                                    textField.removeAttribute("required");
+                                                } else {
+                                                    errorContainer.style.display = "none";
+                                                    venueCheckboxes.forEach(function(checkbox) {
+                                                        checkbox.removeAttribute("required");
+                                                    });
+                                                    textField.removeAttribute("required");
+                                                }
+                                            }
+                                        });
+                                    </script>
+
+
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{ Form::label('start_date', __('Date of Training'), ['class' => 'form-label']) }}
@@ -306,9 +352,7 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
                                     <select class="form-control" name='user' id='user' required>
                                         <option value="">Select Staff</option>
                                         @foreach($users as $user)
-                                        <option value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>
-                                            {{$user->name}}
-                                        </option>
+                                        <option value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>{{$user->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -376,14 +420,14 @@ $fun_ad_opts = json_decode($lead->ad_opts,true);
             <div class="form-group">
                 {{ Form::label('start_time', __('Estimated Start Time'), ['class' => 'form-label']) }}
                 {!! Form::input('time', 'start_time', $lead->start_time, ['class' =>
-                'form-control']) !!}
+                'form-control','required'=>'required']) !!}
             </div>
         </div>
         <div class="col-6 need_full">
             <div class="form-group">
                 {{ Form::label('end_time', __('Estimated End Time'), ['class' => 'form-label']) }}
                 {!! Form::input('time', 'end_time', $lead->end_time, ['class' =>
-                'form-control']) !!}
+                'form-control','required'=>'required']) !!}
             </div>
         </div>
         <div class="col-6 need_full">

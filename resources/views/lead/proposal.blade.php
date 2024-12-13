@@ -152,16 +152,16 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                     <tr style="border-bottom: 1px solid #ddd;">
                                         <td style="padding: 8px;">Name</td>
                                         <!-- <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{isset($proposal_info->to->name) ? $proposal_info->to->name : '' }}"></td> -->
-                                        <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{ @$proposal_info->to->name}}"></td>
+                                        <td style="padding: 8px;"><input type="text" name="to[name]" id="name" value="{{ @$proposal_info->to->name}}" required></td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #ddd;">
                                         <td style="padding: 8px;">Title</td>
                                         <!-- <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{isset($proposal_info->to->name) ? $proposal_info->to->designation : '' }}"></td> -->
-                                        <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{ @$proposal_info->to->designation}}"></td>
+                                        <td style="padding: 8px;"><input type="text" name="to[designation]" id="designation" value="{{ @$proposal_info->to->designation}}" required></td>
                                     </tr>
                                     <tr>
                                         <td style="padding: 8px;">Date</td>
-                                        <td style="padding: 8px;"><input type="text" name="to[date]" class="dateChangeFormat" id="date" value="{{ @$proposal_info->to->date ?? date('Y-m-d')}}"></td>
+                                        <td style="padding: 8px;"><input type="text" name="to[date]" class="dateChangeFormat" id="date" value="{{ @$proposal_info->to->date ?? date('Y-m-d')}}" required></td>
                                     </tr>
                                 </table>
                             </div>

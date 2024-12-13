@@ -307,10 +307,14 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $lead->end_date)->format('d
         $('#phone-input').text(formattedPhoneNumber);
 
         var phoneNumber1 = "<?php echo @$secondary_contact->secondary_contact ?>";
+        if(phoneNumber1) {
         var num = phoneNumber1.trim();
         var lastTenDigits1 = phoneNumber1.substr(-10);
         var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' +
             lastTenDigits1.substr(6);
         $('#phone-input1').text(formattedPhoneNumber1);
+        } else {
+            $('#phone-input1').text();
+        }
     });
 </script>

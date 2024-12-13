@@ -603,6 +603,50 @@ function select2() {
     }
 }
 
+function validateFields() {
+    var checkboxes = document.querySelectorAll(".venue-checkbox:checked");
+    var textInput = document.querySelector(".custom-text-field").value.trim();
+    var errorMessageElement = document.getElementById("error-message");
+    var errorContainer = document.getElementById("validation-error");
+    var textField = document.querySelector(".custom-text-field");
+    var venueCheckboxes = document.querySelectorAll(".venue-checkbox");
+
+    // Case when the text field is filled
+    if (textInput !== "") {
+        // Hide error message and remove required from checkboxes
+        errorContainer.style.display = "none";
+        venueCheckboxes.forEach(function (checkbox) {
+            checkbox.removeAttribute("required");
+        });
+        textField.removeAttribute("required"); // If the text field is filled, it's no longer required
+    } else if (textInput === "" && checkboxes.length === 0) {
+        // Case when text input is empty and no checkboxes are selected
+        errorMessageElement.textContent =
+            "Please select at least one training mode or provide a custom location.";
+        errorContainer.style.display = "block";
+
+        // Apply 'required' to both checkboxes and the text input
+        venueCheckboxes.forEach(function (checkbox) {
+            checkbox.setAttribute("required", "true");
+        });
+        textField.setAttribute("required", "true");
+    } else if (textInput === "" && checkboxes.length > 0) {
+        // Case when text input is empty but some checkboxes are selected
+        errorContainer.style.display = "none";
+        venueCheckboxes.forEach(function (checkbox) {
+            checkbox.removeAttribute("required"); // If checkboxes are selected, no need for text input
+        });
+        textField.removeAttribute("required");
+    } else {
+        // Case when text field has content and checkboxes are selected, no error and no required
+        errorContainer.style.display = "none";
+        venueCheckboxes.forEach(function (checkbox) {
+            checkbox.removeAttribute("required");
+        });
+        textField.removeAttribute("required");
+    }
+}
+
 $(document).on(
     "click",
     'a[data-ajax-popup="true"], button[data-ajax-popup="true"], div[data-ajax-popup="true"]',
@@ -622,6 +666,7 @@ $(document).on(
                 // common_bind_select("#commonModal");
                 select2();
                 dateFormatdsada();
+                validateFields();
             },
             error: function (data) {
                 data = data.responseJSON;

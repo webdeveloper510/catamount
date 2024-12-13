@@ -41,7 +41,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
-            {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))}}
+            {{Form::text('company_name',null,array('class'=>'form-control','required' =>'required','placeholder'=>__('Enter Company Name')))}}
         </div>
     </div>
     <div class="col-12  p-0 modaltitle pb-3 mb-3">
@@ -74,7 +74,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('email',null,array('class'=>'form-control','placeholder'=>__('Enter Email')))}}
+            {{Form::text('email',null,array('class'=>'form-control','required' =>'required','placeholder'=>__('Enter Email')))}}
         </div>
     </div>
     <div class="col-6 need_full">
@@ -145,18 +145,34 @@ $additional_items = json_decode($settings['additional_items'],true);
     @if(isset($venue) && !empty($venue))
     <div class="col-6 need_full">
         <div class="form-group">
-            {{ Form::label('venue_selection', __('Mode of Trainings'), ['class' => 'form-label']) }}
+            {{ Form::label('venue', __('Mode of Trainings'), ['class' => 'form-label']) }}
             <div>
                 @foreach($venue as $key => $label)
-                {{ Form::checkbox('venue[]', $label, false, ['id' => 'venue' . ($key + 1)]) }}
+                {{ Form::checkbox('venue[]', $label, false, ['id' => 'venue' . ($key + 1), 'class' => 'venue-checkbox']) }}
                 {{ Form::label($label, $label) }}
                 @endforeach
-                <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
-                    onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="">
-                <label for="custom_text">{{ __('Custom Loction') }}</label>
+
+                <input type="text" name="venue[]" pattern="[^,]*"
+                    oninput="this.value = this.value.replace(/,/g, '')"
+                    onkeydown="if(event.key === ',') event.preventDefault()"
+                    id="custom_text" value="" class="custom-text-field">
+                <label for="custom_text">{{ __('Custom Location') }}</label>
+
+                <!-- Error Message -->
+                <div id="validation-error" style="color: red; display: none;">
+                    <p id="error-message"></p>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.venue-checkbox').forEach(function(checkbox) {
+            checkbox.addEventListener('change', validateFields);
+        });
+        document.querySelector('.custom-text-field').addEventListener('input', validateFields);
+        validateFields();
+    </script>
     @endif
     <div class="col-6 need_full">
         <div class="form-group">
@@ -177,7 +193,7 @@ $additional_items = json_decode($settings['additional_items'],true);
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
-            {!! Form::number('guest_count',old('guest_count'),array('class' => 'form-control','min'=> 0)) !!}
+            {!! Form::number('guest_count',old('guest_count'),array('class' => 'form-control','required'=>'required','min'=> 1)) !!}
         </div>
     </div>
     @if(isset($function) && !empty($function))
@@ -238,8 +254,11 @@ $additional_items = json_decode($settings['additional_items'],true);
     @endif
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label']) }}
-            <select class="form-control" name='user'>
+            {{Form::label('user',__('Assign Staff'),['class'=>'form-label']) }}
+            <span class="text-sm">
+                <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
+            </span>
+            <select class="form-control" name='user' required>
                 <option value="">Select Staff</option>
                 @foreach($users as $user)
                 <option class="form-control" value="{{$user->id}}">{{$user->name}}</option>
@@ -309,13 +328,13 @@ $additional_items = json_decode($settings['additional_items'],true);
 <div class="col-6 need_full">
     <div class="form-group">
         {{ Form::label('start_time', __('Estimated Start Time (24-Hour Format)'), ['class' => 'form-label']) }}
-        {!! Form::input('time', 'start_time', 'null', ['class' => 'form-control']) !!}
+        {!! Form::input('time', 'start_time', 'null', ['class' => 'form-control','required'=>'required']) !!}
     </div>
 </div>
 <div class="col-6 need_full">
     <div class="form-group">
         {{ Form::label('end_time', __('Estimated End Time (24-Hour Format)'), ['class' => 'form-label']) }}
-        {!! Form::input('time', 'end_time', 'null', ['class' => 'form-control']) !!}
+        {!! Form::input('time', 'end_time', 'null', ['class' => 'form-control','required'=>'required']) !!}
     </div>
 </div>
 <div class="col-6 need_full">

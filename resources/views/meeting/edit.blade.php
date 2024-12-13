@@ -105,7 +105,6 @@ $user_data = json_decode($meeting->user_data,true);
                                                 <div class="col-12  p-0 modaltitle pb-3 mb0">
                                                     <h5 style="margin-left: 14px;" class="mb-0">{{ __('Assigned Trainer') }}</h5>
                                                 </div>
-                                                {{-- Form::label('Assigned Staff',__('Assigned Staff'),['class'=>'form-label']) --}}
                                                 @foreach($users as $user)
                                                 @if(\Auth::user()->type == 'owner' || (\Auth::user()->id == $user->id && str_contains(\Auth::user()->type, 'Trainer')))
                                                 <div class="form-check">
@@ -333,7 +332,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         <div class="col-6 need_full">
                                             <div class="form-group">
                                                 {{Form::label('type',__('Training Type'),['class'=>'form-label']) }}
-                                                {!! Form::select('type', $type_arr, null,array('class' => 'form-control')) !!}
+                                                {!! Form::select('type', $type_arr, null,array('class' => 'form-control','required'=>'required')) !!}
                                             </div>
                                         </div>
                                         <div class="col-6 need_full">
@@ -341,33 +340,81 @@ $user_data = json_decode($meeting->user_data,true);
                                                 <label for="venue" class="form-label">{{ __('Trainings') }}</label>
                                                 @foreach($venue as $key => $label)
                                                 <div>
-                                                    <input type="checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, $venue_function) ? 'checked' : '' }}>
+                                                    <input type="checkbox" class="venue-checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, $venue_function) ? 'checked' : '' }}>
                                                     <label for="{{ $label }}">{{ $label }}</label>
                                                 </div>
                                                 @endforeach
-                                                <input type="text" name="venue[]" pattern="[^,]*"  oninput="this.value = this.value.replace(/,/g, '')" 
-                                                onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
-                                                <label for="custom_text">{{ __('Custom Loction') }}</label>
+                                                <input type="text" name="venue[]" class="custom-text-field" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
+                                                    onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
+                                                <label for="custom_text">{{ __('Custom Loction') }}</label>+
+
+                                                <div id="validation-error" style="display: none;">
+                                                    <span id="error-message" style="color: red;"></span>
+                                                </div>
                                             </div>
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function() {
+                                                    const venueCheckboxes = document.querySelectorAll('.venue-checkbox');
+                                                    const textField = document.querySelector('.custom-text-field');
+                                                    const errorMessageElement = document.getElementById('error-message');
+                                                    const errorContainer = document.getElementById('validation-error');
+                                                    venueCheckboxes.forEach(function(checkbox) {
+                                                        checkbox.addEventListener('change', validateFields);
+                                                    });
+                                                    textField.addEventListener('input', validateFields);
+                                                    validateFields();
+
+                                                    function validateFields() {
+                                                        const checkboxesChecked = document.querySelectorAll('.venue-checkbox:checked').length;
+                                                        const textInputValue = textField.value.trim();
+                                                        if (textInputValue !== "") {
+                                                            errorContainer.style.display = "none";
+                                                            venueCheckboxes.forEach(function(checkbox) {
+                                                                checkbox.removeAttribute("required");
+                                                            });
+                                                            textField.removeAttribute("required");
+                                                        } else if (textInputValue === "" && checkboxesChecked === 0) {
+                                                            errorMessageElement.textContent = "Please select at least one training location or provide a custom location.";
+                                                            errorContainer.style.display = "block";
+                                                            venueCheckboxes.forEach(function(checkbox) {
+                                                                checkbox.setAttribute("required", "true");
+                                                            });
+                                                            textField.setAttribute("required", "true");
+                                                        } else if (textInputValue === "" && checkboxesChecked > 0) {
+                                                            errorContainer.style.display = "none";
+                                                            venueCheckboxes.forEach(function(checkbox) {
+                                                                checkbox.removeAttribute("required");
+                                                            });
+                                                            textField.removeAttribute("required");
+                                                        } else {
+                                                            errorContainer.style.display = "none";
+                                                            venueCheckboxes.forEach(function(checkbox) {
+                                                                checkbox.removeAttribute("required");
+                                                            });
+                                                            textField.removeAttribute("required");
+                                                        }
+                                                    }
+                                                });
+                                            </script>
                                         </div>
 
                                         <div class="col-6 need_full">
-                                                <div class="form-group">
-                                                    {{ Form::label('room', __('Customer Location'), ['class' => 'form-label']) }}
-                                                    <span class="text-sm">
-                                                        <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
-                                                    </span>
-                                                    {!! Form::text('room',null, ['class' =>
-                                                    'form-control',
-                                                    'required' => 'required']) !!}
-                                                </div>
-                                                @if ($errors->has('room'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('room') }}</strong>
+                                            <div class="form-group">
+                                                {{ Form::label('room', __('Customer Location'), ['class' => 'form-label']) }}
+                                                <span class="text-sm">
+                                                    <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                                 </span>
-                                                @endif
-
+                                                {!! Form::text('room',null, ['class' =>
+                                                'form-control',
+                                                'required' => 'required']) !!}
                                             </div>
+                                            @if ($errors->has('room'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('room') }}</strong>
+                                            </span>
+                                            @endif
+
+                                        </div>
 
                                         <div class="col-6 need_full">
                                             <div class="form-group">
@@ -396,7 +443,7 @@ $user_data = json_decode($meeting->user_data,true);
                                         <div class="col-6 need_full">
                                             <div class="form-group">
                                                 {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
-                                                {!! Form::number('guest_count', null,array('class' => 'form-control','min'=> 0)) !!}
+                                                {!! Form::number('guest_count', null,array('class' => 'form-control','min'=> 1,'required'=>'required')) !!}
                                             </div>
                                         </div>
                                         {{--<div class="col-6 need_full">

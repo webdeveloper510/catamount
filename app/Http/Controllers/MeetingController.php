@@ -165,6 +165,9 @@ class MeetingController extends Controller
                     // 'function' => 'required|max:120',
                     'guest_count' => 'required',
                     'user' => 'required'
+                ],
+                [
+                    'user' => 'The assigned trainer field is required.',
                 ]
             );
             if ($validator->fails()) {
@@ -498,7 +501,16 @@ class MeetingController extends Controller
         if (\Auth::user()->can('Edit Training')) {
             $status = Meeting::$status;
             $attendees_lead = Lead::where('id', $meeting->attendees_lead)->where('lead_status', 1)->get()->pluck('leadname')->first();
-            $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            // $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            @$user_roles = \Auth::user()->user_roles;
+            @$useRole = Role::find($user_roles)->roleType;
+            $useType = \Auth::user()->type;
+            $useType = $useRole == 'company' ? 'owner' : $useType;
+            if ($useType == 'owner') {
+                $users = User::all();
+            } else {
+                $users = User::where('created_by', \Auth::user()->creatorId())->get();
+            }
             $function_p = explode(',', $meeting->function);
             $venue_function = explode(',', $meeting->venue_selection);
             $food_package =  json_decode($meeting->func_package, true);

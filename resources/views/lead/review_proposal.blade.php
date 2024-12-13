@@ -125,7 +125,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
-                                            {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))}}
+                                            {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name'),'required'=>'required'))}}
                                         </div>
                                     </div>
                                     <div class="col-12  p-0 modaltitle pb-3 mb-3">
@@ -234,23 +234,66 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span>
-                                            {{--<select name="venue[]" class="form-select" id="venue">
-                                                @foreach($venue as $key => $label)
-                                                <option value="{{ $label }}">{{ $label }}</option>
-                                                @endforeach
-                                            </select>--}}
                                             @foreach($venue as $key => $label)
                                             <div>
-                                                <input type="checkbox" name="venue[]" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, @$venue_function) ? 'checked' : '' }}>
+                                                <input type="checkbox" name="venue[]" class="venue-checkbox" id="{{ $label }}" value="{{ $label }}" {{ in_array($label, @$venue_function) ? 'checked' : '' }}>
                                                 <label for="{{ $label }}">{{ $label }}</label>
                                             </div>
                                             @endforeach
                                             <div>
-                                                <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
+                                                <input type="text" name="venue[]" pattern="[^,]*" class="custom-text-field" oninput="this.value = this.value.replace(/,/g, '')"
                                                     onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="{{ (!in_array(end($venue_function), $venue)) ? end($venue_function) : '' }}">
                                                 <label for="custom_text">{{ __('Custom Loction') }}</label>
                                             </div>
+                                            <div id="validation-error" style="display: none;">
+                                                <span id="error-message" style="color: red;"></span>
+                                            </div>
                                         </div>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                const venueCheckboxes = document.querySelectorAll('.venue-checkbox');
+                                                const textField = document.querySelector('.custom-text-field');
+                                                const errorMessageElement = document.getElementById('error-message');
+                                                const errorContainer = document.getElementById('validation-error');
+                                                venueCheckboxes.forEach(function(checkbox) {
+                                                    checkbox.addEventListener('change', validateFields);
+                                                });
+                                                textField.addEventListener('input', validateFields);
+                                                validateFields();
+
+                                                function validateFields() {
+                                                    const checkboxesChecked = document.querySelectorAll('.venue-checkbox:checked').length;
+                                                    const textInputValue = textField.value.trim();
+                                                    if (textInputValue !== "") {
+                                                        errorContainer.style.display = "none";
+                                                        venueCheckboxes.forEach(function(checkbox) {
+                                                            checkbox.removeAttribute("required");
+                                                        });
+                                                        textField.removeAttribute("required");
+                                                    } else if (textInputValue === "" && checkboxesChecked === 0) {
+                                                        errorMessageElement.textContent = "Please select at least one training location or provide a custom location.";
+                                                        errorContainer.style.display = "block";
+                                                        venueCheckboxes.forEach(function(checkbox) {
+                                                            checkbox.setAttribute("required", "true");
+                                                        });
+                                                        textField.setAttribute("required", "true");
+                                                    } else if (textInputValue === "" && checkboxesChecked > 0) {
+                                                        errorContainer.style.display = "none";
+                                                        venueCheckboxes.forEach(function(checkbox) {
+                                                            checkbox.removeAttribute("required");
+                                                        });
+                                                        textField.removeAttribute("required");
+                                                    } else {
+                                                        errorContainer.style.display = "none";
+                                                        venueCheckboxes.forEach(function(checkbox) {
+                                                            checkbox.removeAttribute("required");
+                                                        });
+                                                        textField.removeAttribute("required");
+                                                    }
+                                                }
+                                            });
+                                        </script>
                                     </div>
                                     <div class="col-6 need_full">
                                         <div class="form-group">
@@ -275,7 +318,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             {{Form::label('guest_count',__('Attendees'),['class'=>'form-label']) }}
 
                                             {!! Form::number('guest_count', null,array('class' => 'form-control','min'=>
-                                            0)) !!}
+                                            1)) !!}
                                         </div>
                                     </div>
 
@@ -364,8 +407,8 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                     </div>
                                     <div class="col-6 need_full">
                                         <div class="form-group">
-                                            {{Form::label('Assign Staff',__('Assign Staff'),['class'=>'form-label']) }}
-                                            <select class="form-control" name='user'>
+                                            {{Form::label('user',__('Assign Staff'),['class'=>'form-label']) }}
+                                            <select class="form-control" name='user' required>
                                                 <option value="">Select Staff</option>
                                                 @foreach($users as $user)
                                                 <option class="form-control" value="{{$user->id}}" {{ $user->id == $lead->assigned_user ? 'selected' : '' }}>

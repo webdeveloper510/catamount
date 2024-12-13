@@ -180,7 +180,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                             <div class="col-6 need_full">
                                                 <div class="form-group">
                                                     {{Form::label('company_name',__('Company Name'),['class'=>'form-label']) }}
-                                                    {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))}}
+                                                    {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name'),'required'=>'required'))}}
                                                 </div>
                                                 @if ($errors->has('company_name'))
                                                 <span class="invalid-feedback" role="alert">
@@ -393,14 +393,63 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                                                     </span>
                                                     @foreach($venue as $key => $label)
                                                     <div>
-                                                        <input type="checkbox" name="venue[]" value="{{ $label }}" id="venue{{ $key + 1 }}">
+                                                        <input type="checkbox" name="venue[]" class="venue-checkbox" value="{{ $label }}" id="venue{{ $key + 1 }}">
                                                         <label for="{{ $label }}">{{ $label }}</label>
                                                     </div>
                                                     @endforeach
-                                                    <input type="text" name="venue[]" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
+                                                    <input type="text" name="venue[]" class="custom-text-field" pattern="[^,]*" oninput="this.value = this.value.replace(/,/g, '')"
                                                         onkeydown="if(event.key === ',') event.preventDefault()" id="custom_text" value="">
                                                     <label for="custom_text">{{ __('Custom Loction') }}</label>
+
+                                                    <div id="validation-error" style="display: none;">
+                                                        <span id="error-message" style="color: red;"></span>
+                                                    </div>
                                                 </div>
+
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function() {
+                                                        const venueCheckboxes = document.querySelectorAll('.venue-checkbox');
+                                                        const textField = document.querySelector('.custom-text-field');
+                                                        const errorMessageElement = document.getElementById('error-message');
+                                                        const errorContainer = document.getElementById('validation-error');
+                                                        venueCheckboxes.forEach(function(checkbox) {
+                                                            checkbox.addEventListener('change', validateFields);
+                                                        });
+                                                        textField.addEventListener('input', validateFields);
+                                                        validateFields();
+
+                                                        function validateFields() {
+                                                            const checkboxesChecked = document.querySelectorAll('.venue-checkbox:checked').length;
+                                                            const textInputValue = textField.value.trim();
+                                                            if (textInputValue !== "") {
+                                                                errorContainer.style.display = "none";
+                                                                venueCheckboxes.forEach(function(checkbox) {
+                                                                    checkbox.removeAttribute("required");
+                                                                });
+                                                                textField.removeAttribute("required");
+                                                            } else if (textInputValue === "" && checkboxesChecked === 0) {
+                                                                errorMessageElement.textContent = "Please select at least one training location or provide a custom location.";
+                                                                errorContainer.style.display = "block";
+                                                                venueCheckboxes.forEach(function(checkbox) {
+                                                                    checkbox.setAttribute("required", "true");
+                                                                });
+                                                                textField.setAttribute("required", "true");
+                                                            } else if (textInputValue === "" && checkboxesChecked > 0) {
+                                                                errorContainer.style.display = "none";
+                                                                venueCheckboxes.forEach(function(checkbox) {
+                                                                    checkbox.removeAttribute("required");
+                                                                });
+                                                                textField.removeAttribute("required");
+                                                            } else {
+                                                                errorContainer.style.display = "none";
+                                                                venueCheckboxes.forEach(function(checkbox) {
+                                                                    checkbox.removeAttribute("required");
+                                                                });
+                                                                textField.removeAttribute("required");
+                                                            }
+                                                        }
+                                                    });
+                                                </script>
                                                 @if ($errors->has('venue'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('venue') }}</strong>
@@ -880,7 +929,7 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                         $.each(venue_arr, function(i, val) {
                             $("input[name='venue[]'][value='" + val + "']").prop('checked', true);
                         });
-                        $('#custom_text').val(venue_arr[venue_arr.length-1]);
+                        $('#custom_text').val(venue_arr[venue_arr.length - 1]);
                         $('input[name ="guest_count"]').val(data.guest_count);
 
                         // $.each(func_arr, function(i, val) {$("input[name='function[]'][value='" + val + "']").prop('checked', true);});
@@ -907,14 +956,12 @@ $leadId = decrypt(urldecode(request()->query('lead')));
                         var formattedPhoneNumber1 = '(' + lastTenDigits1.substr(0, 3) + ') ' + lastTenDigits1.substr(3, 3) + '-' + lastTenDigits1.substr(6);
                         $('#phone-input1').val(formattedPhoneNumber1);
                         assignTraner_disable();
+                        validateFields();
                     }
                 });
             }
-
             // localStorage.removeItem('leadId');
         }
-
-
     });
 </script>
 <style>
