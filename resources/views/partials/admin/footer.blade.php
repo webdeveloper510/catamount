@@ -176,6 +176,7 @@
                         $(this).text(formattedDate);
                         $(this).val(formattedDate);
                         $(this).attr("value", formattedDate);
+                        console.log('inputValue', formattedDate);
                         resolve();
                     }, 2000);
                 });
@@ -183,7 +184,8 @@
         });
     }
     $(window).on('load', async function() {
-        dfClass = '.dateChangeFormat';
+        dateFormatdsada();
+        /* dfClass = '.dateChangeFormat';
         dfFormat = '<?= dateFormat() ?>';
         $(dfClass).datepicker({
             dateFormat: dfFormat,
@@ -201,7 +203,7 @@
                     }, 2000);
                 });
             }
-        });
+        }); */
     });
 </script>
 

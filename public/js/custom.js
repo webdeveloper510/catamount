@@ -652,6 +652,7 @@ $(document).on(
     'a[data-ajax-popup="true"], button[data-ajax-popup="true"], div[data-ajax-popup="true"]',
     function () {
         var title = $(this).data("title");
+        var originalTitle = $(this).data("bs-original-title");
         var size = $(this).data("size") == "" ? "md" : $(this).data("size");
         var url = $(this).data("url");
         $("#commonModal .modal-title").html(title);
@@ -665,8 +666,10 @@ $(document).on(
                 // common_bind("#commonModal");
                 // common_bind_select("#commonModal");
                 select2();
+                if (originalTitle == "Create") {
+                    validateFields();
+                }
                 dateFormatdsada();
-                validateFields();
             },
             error: function (data) {
                 data = data.responseJSON;

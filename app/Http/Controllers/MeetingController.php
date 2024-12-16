@@ -548,7 +548,7 @@ class MeetingController extends Controller
                     'start_date' => 'required',
                     // 'end_date' => 'required',
                     'email' => 'required|email|max:120',
-                    'lead_address' => 'required|max:120',
+                    // 'lead_address' => 'required|max:120',
                     'type' => 'required',
                     'venue' => 'required|max:120',
                     // 'function' => 'required|max:120',
