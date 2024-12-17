@@ -178,7 +178,7 @@
                         $(this).attr("value", formattedDate);
                         console.log('inputValue', formattedDate);
                         resolve();
-                    }, 2000);
+                    }, 0);
                 });
             }
         });

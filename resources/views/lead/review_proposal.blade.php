@@ -179,7 +179,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                             <span class="text-sm">
                                                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                             </span>
-                                            {{Form::text('secondary_contact[name]',@$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name'),'required'=>'required'))}}
+                                            {{Form::text('secondary_contact[name]',@$secondary_contact['name'],array('class'=>'form-control','placeholder'=>__('Enter Name')))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">
@@ -194,7 +194,7 @@ $leaddata['food_package_cost'] = $totalFoodPackageCost;
                                     <div class="col-6 need_full">
                                         <div class="form-group">
                                             {{Form::label('email',__('Email'),['class'=>'form-label']) }}
-                                            {{Form::text('secondary_contact[email]',@$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email'),'required' =>'required'))}}
+                                            {{Form::text('secondary_contact[email]',@$secondary_contact['email'],array('class'=>'form-control','placeholder'=>__('Enter Email')))}}
                                         </div>
                                     </div>
                                     <div class="col-6 need_full">

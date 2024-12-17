@@ -404,7 +404,7 @@ $user_data = json_decode($meeting->user_data,true);
                                                 <span class="text-sm">
                                                     <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
                                                 </span>
-                                                {!! Form::text('room',null, ['class' =>
+                                                {!! Form::text('room',$meeting->room, ['class' =>
                                                 'form-control',
                                                 'required' => 'required']) !!}
                                             </div>

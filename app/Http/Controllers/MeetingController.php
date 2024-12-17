@@ -152,7 +152,7 @@ class MeetingController extends Controller
 
     // WORKING  17-01-2024
     public function store(Request $request)
-    {
+    {   
         if (\Auth::user()->can('Create Training')) {
             $validator = \Validator::make(
                 $request->all(),
@@ -281,7 +281,7 @@ class MeetingController extends Controller
             $meeting['func_package'] = $package;
             // $meeting['function'] = implode(',', $request->function);
             $meeting['guest_count'] = $request->guest_count;
-            $meeting['room'] = $request->room ?? 0;
+            $meeting['room'] = $request->customer_location ?? '';
             $meeting['meal'] = $request->meal ?? '';
             $meeting['bar'] = $request->baropt;
             $meeting['bar_package'] = $bar_pack;
@@ -318,7 +318,7 @@ class MeetingController extends Controller
                         'func_package' => $package,
                         // 'function' => implode(',', $request->function),
                         'guest_count' => $request->guest_count,
-                        'room' => $request->room ?? 0,
+                        'room' => $request->room ?? '',
                         'bar' => $request->baropt,
                         'bar_package' => $bar_pack,
                         'spcl_req' => $request->spcl_request,

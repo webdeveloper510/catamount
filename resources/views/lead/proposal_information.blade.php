@@ -50,8 +50,9 @@
                                                 <td>{{App\Models\Lead::where('id',$info->lead_id)->first()->name}}</td>
                                                 <!-- <td>{{App\Models\Lead::where('id',$info->lead_id)->first()->email}}</td> -->
                                                 <td>{{$info->notes ?? '--'}}</td>
-                                                <td><a href="{{route('lead.viewproposal',urlencode(encrypt($info->lead_id))) }}" style=" color: teal;">View
-                                                        Document</a></td>
+                                                <td><!-- <a href="{{route('lead.viewproposal',urlencode(encrypt($info->lead_id))) }}" style=" color: teal;">View Document</a></br> -->
+                                                    <a href="{{asset('storage/Proposal_response/'.$info->lead_id.'/'.$info->proposal_response) }}" style=" color: teal;">View Document</a>
+                                                </td>
                                                 <td>{{ \Auth::user()->dateFormat($info->created_at) }}</td>
                                             </tr>
                                             @endforeach

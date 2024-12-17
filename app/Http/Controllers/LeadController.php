@@ -772,10 +772,10 @@ class LeadController extends Controller
         $proposals['remarks'] = $remarks;
         $proposals['name'] = $request->name;
         $proposals['designation'] = $request->designation;
-        $proposals['date'] = $request->date;
+        $proposals['date'] = carbonDateFormat($request->date);
         $proposals['to_name'] = $request->to_name;
         $proposals['to_designation'] = $request->to_designation;
-        $proposals['to_date'] = $request->to_date;
+        $proposals['to_date'] = carbonDateFormat($request->to_date);
         $proposals['proposal_id'] = isset($request->proposal) && ($request->proposal != '') ? $request->proposal : '';
         $proposals->save();
         $lead = Lead::find($id);
@@ -854,7 +854,16 @@ class LeadController extends Controller
         $venue_function = explode(',', $lead->venue_selection);
         $function_package =  explode(',', $lead->function);
         $status   = Lead::$status;
-        $users     = User::where('created_by', \Auth::user()->creatorId())->get();
+        // $users     = User::where('created_by', \Auth::user()->creatorId())->get();
+        @$user_roles = \Auth::user()->user_roles;
+        @$useRole = Role::find($user_roles)->roleType;
+        $useType = \Auth::user()->type;
+        $useType = $useRole == 'company' ? 'owner' : $useType;
+        if ($useType == 'owner') {
+            $users = User::all();
+        } else {
+            $users = User::where('created_by', \Auth::user()->creatorId())->get();
+        }
         // $proposal = ProposalInfo::where('lead_id',$id)->orderby('id','desc')->first();
         return view('lead.review_proposal', compact('lead', 'venue_function', 'function_package', 'users', 'status'));
     }
@@ -903,8 +912,8 @@ class LeadController extends Controller
             'lead_address' => $request->lead_address,
             'company_name' => $request->company_name,
             'relationship' => $request->relationship,
-            'start_date' => $request->start_date,
-            'end_date' => $request->start_date,
+            'start_date' => carbonDateFormat($request->start_date),
+            'end_date' => carbonDateFormat($request->start_date),
             'type' => $request->type,
             'venue_selection' => $venue_function,
             'function' => $function,
