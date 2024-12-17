@@ -232,7 +232,7 @@ $venue = explode(',', $settings['venue']);
                         var start_time = moment(start, 'HH:mm:ss').format('h:mm A');
                         var end = element.end_time;
                         var end_time = moment(end, 'HH:mm:ss').format('h:mm A');
-                        var start_date = moment(element.start_date).format('D MMM, YYYY');
+                        var start_date = moment(element.start_date).format('M/D/YYYY');
                         // var id = element.id;
                         // var url = '{{route("meeting.detailview", urlencode(encrypt('.id.'))) }}';
                         var id = element.id;
@@ -341,7 +341,7 @@ $venue = explode(',', $settings['venue']);
                                 var start_time = moment(start, 'HH:mm:ss').format('h:mm A');
                                 var end = element.end_time;
                                 var end_time = moment(end, 'HH:mm:ss').format('h:mm A');
-                                var start_date = moment(element.start_date).format('D MMM, YYYY');
+                                var start_date = moment(element.start_date).format('M/D/YYYY');
                                 var id = element.id;
                                 $.ajax({
                                     url: '{{ route("get.encoded.id", ":id") }}'.replace(':id', id),
@@ -423,7 +423,7 @@ $venue = explode(',', $settings['venue']);
                         var end = element.end_time;
                         var end_time = moment(end, 'HH:mm:ss').format(
                             'h:mm A');
-                        var start_date = moment(element.start_date).format('D MMM, YYYY');
+                        var start_date = moment(element.start_date).format('M/D/YYYY');
                         var id = element.id;
                         $.ajax({
                             url: '{{ route("get.encoded.id", ":id") }}'.replace(':id',
@@ -579,57 +579,37 @@ $venue = explode(',', $settings['venue']);
                                     .then(response => response.json())
                                     .then(data => {
                                         const JSON = data.events;
-                                        // console.log(JSON);
+                                        console.log('JSON',JSON);
 
                                         if (JSON.length != 0) {
                                             Json = [];
-                                            JSON.forEach((event, index,
-                                                array) => {
-                                                var start = event
-                                                    .start_time;
-                                                var start_time =
-                                                    moment(
-                                                        start,
-                                                        'HH:mm:ss')
-                                                    .format(
-                                                        'h:mm A');
-                                                var end = event
-                                                    .end_time;
-                                                var end_time =
-                                                    moment(end,
-                                                        'HH:mm:ss')
-                                                    .format(
-                                                        'h:mm A');
-                                                if (event
-                                                    .attendees_lead ==
-                                                    0) {
-                                                    eventname =
-                                                        event
-                                                        .eventname;
+                                            JSON.forEach((event, index, array) => {
+                                                var start = event.start_time;
+                                                var start_time = moment(start, 'HH:mm:ss').format('h:mm A');
+                                                var end = event.end_time;
+                                                var end_time = moment(end, 'HH:mm:ss').format('h:mm A');
+                                                if (event.attendees_lead == 0) {
+                                                    eventname = event.eventname;
                                                 } else {
-                                                    eventname =
-                                                        'training';
+                                                    eventname = 'training';
                                                 }
                                                 lists = `
-                                        <li class="list-group-item card mb-3" data-index="${index}">
-                                        
-                                            <div class="row align-items-center justify-content-between">
-                                                <div class="col-auto mb-3 mb-sm-0">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="theme-avtar bg-info">
-                                                            <i class="ti ti-calendar-event"></i>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <h6 class="m-0">${eventname} (${event.name})</h6>
-                                                            
-                                                            <small class="text-muted">${start_time} - ${end_time}</small>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                    </li>
+                    <li class="list-group-item card mb-3" data-index="${index}">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-auto mb-3 mb-sm-0">
+                                <div class="d-flex align-items-center">
+                                    <div class="theme-avtar bg-info">
+                                        <i class="ti ti-calendar-event"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="m-0">${eventname} (${event.name})</h6>
+                                        <small class="text-muted">${start_time} - ${end_time}</small><br>
+                                        <small class="text-muted">${event.venue_selection.replaceAll(',',', ')}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                                     `;
                                                 Json.push(lists);
                                             });

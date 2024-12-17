@@ -104,10 +104,10 @@
                                         </h5>
 
                                         @if($lead['start_date'] == $lead['end_date'])
-                                        <p>{{ Carbon\Carbon::parse($lead['start_date'])->format('M d')}}</p>
+                                        <p>{{ \Auth::user()->dateFormat($lead['start_date']) }}</p>
                                         @else
-                                        <p>{{ Carbon\Carbon::parse($lead['start_date'])->format('M d')}} -
-                                            {{ \Auth::user()->dateFormat($lead['end_date'])}}
+                                        <p>{{ \Auth::user()->dateFormat($lead['start_date']) }} -
+                                            {{ \Auth::user()->dateFormat($lead['end_date']) }}
                                         </p>
                                         @endif
                                         @can('Show Lead')
@@ -161,9 +161,9 @@
                                                 </div>
                                             </span></h5>
                                         @if($event['start_date'] == $event['end_date'])
-                                        <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d')}}</p>
+                                        <p>{{ \Auth::user()->dateFormat($event['start_date']) }}</p>
                                         @else
-                                        <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d')}} -
+                                        <p>{{ \Auth::user()->dateFormat($event['start_date']) }} -
                                             {{ \Auth::user()->dateFormat($event['end_date'])}}
                                         </p>
                                         @endif
@@ -220,12 +220,12 @@
 
                                                 <div class="date-y">
                                                     @if($event['start_date'] == $event['end_date'])
-                                                    <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d, Y')}}
+                                                    <p>{{ \Auth::user()->dateFormat($event['start_date']) }}
                                                     </p>
                                                     @else
-                                                    <p>{{ Carbon\Carbon::parse($event['start_date'])->format('M d, Y')}}
+                                                    <p>{{ \Auth::user()->dateFormat($event['start_date']) }}
                                                         -
-                                                        {{ \Auth::user()->dateFormat($event['end_date'])}}
+                                                        {{ \Auth::user()->dateFormat($event['end_date']) }}
                                                     </p>
                                                     @endif
                                                 </div>

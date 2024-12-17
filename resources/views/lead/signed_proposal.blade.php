@@ -53,13 +53,7 @@ prx($data); */
 
     .border-new {
         border: 1px solid #000 !important;
-        /* padding: 15px 0; */
     }
-
-    /* .border-new1 {
-        padding: 10px 0 40px 0;
-    }
- */
     .input-new:nth-child(2) {
         justify-content: center;
     }
@@ -112,7 +106,7 @@ prx($data); */
         }
 
         .col-sm-6 {
-            width: 50% !important;
+            width: 100% !important;
             float: left;
         }
     }
@@ -181,7 +175,7 @@ prx($data); */
                     <label for="services">{{__('Services')}}: </label><span>{{__(nl2br(@$proposalDataArg->client->services))}}</span>
                 </h3>
             </div>
-            <div class="col-sm-12 border-new border-new1">
+            <div class="col-sm-12 border-new">
                 <h3 class="input-new">
                     <label for="agreement">{{__('Agreement')}}: </label>
                 </h3>
@@ -189,7 +183,7 @@ prx($data); */
                     <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['agreement'])!!}</p>
                 </div>
             </div>
-            <div class="col-sm-12 border-new border-new1 mt-5" style="display: flex;">
+            <div class="col-sm-12 border-new">
                 <div class="col-sm-6 signature-div">
                     <h3 class="input-new">
                         <label for="signature">{{__('Signature')}}: </label>
@@ -216,7 +210,7 @@ prx($data); */
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 border-new border-new1 mt-8">
+            <div class="col-sm-12 border-new">
                 <h3 class="input-new">
                     <label for="remarks">{{__('Remarks')}}:</label>
                 </h3>
@@ -229,7 +223,7 @@ prx($data); */
                     <label for="date">{{__('Date')}}: </label> <span>{{dateFormat_blade(@$lead->start_date)}}</span>
                 </h3>
             </div>
-            <div class="col-sm-12  mt-5">
+            <div class="col-sm-12 mt-5">
                 <p class="input-new">
                     {{$lead->company_name}}<br><br>
                     {{$lead->name}}</br>
@@ -239,7 +233,7 @@ prx($data); */
                     The following proposal provide the scope of service, schedule, cost and business terms.
                 </p>
             </div>
-            <div class="col-sm-12  mt-5">
+            <div class="col-sm-12 mt-5">
                 <h3 class="input-new">
                     <label for="scopeServices">{{__('Scope of Services')}}:</label>
                 </h3>
@@ -271,7 +265,7 @@ prx($data); */
                     <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['cancenllation'])!!}</p>
                 </div>
             </div>
-            <!-- <div class="col-sm-12 border-new1">
+            <!-- <div class="col-sm-12 ">
                 <h3 class="input-new">
                     <label for="scopeServices">{{__('Scope of Services')}}: </label>
                 </h3>

@@ -195,17 +195,18 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
         <h2>{{ date('d/m/Y')}}</h2>
     </div> -->
     <div class="invoice">
-        <div class="bill-to">
-            <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
-            <hr style="border: 1px solid #000">
-            <h5>{{ $meeting->name }}</h5>
-            <p>{{ $meeting->lead_address }}</p>
+
+        <div class="logo">
+            <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="min-width: 150px; min-height:100px" alt="Catamount Consulting">
+            <h2 class="logoTxt">Catamount Consulting</h2>
+            <p class="logoTxt">PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
         </div>
         <div class="header">
-            <div class="logo">
-                <img src="{{ url('storage/uploads/logo/3_logo-light.png')}}" style="min-width: 150px; min-height:100px" alt="Catamount Consulting">
-                <h2 class="logoTxt">Catamount Consulting</h2>
-                <p class="logoTxt">PO Box 442<br>Warrensburg, NY 12885<br>Ph: (518) 623-2352</p>
+            <div class="bill-to">
+                <h2 style="position: relative; left: 10%; top: 1%">Bill To</h2>
+                <hr style="border: 1px solid #000">
+                <h5>{{ $meeting->name }}</h5>
+                <p>{{ $meeting->lead_address }}</p>
             </div>
             <div class="invoice-details">
                 <h2>Invoice</h2>
@@ -215,7 +216,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
                         <td class="strong">Invoice #</td>
                     </tr>
                     <tr>
-                        <td style="width: 80px;">{{ date_format($billing->created_at,dateFormat()) }}</td>
+                        <td style="width: 80px;">{{ date_format($billing->created_at,'m/d/Y') }}</td>
                         <td style="width: 80px;">{{ $billing->invoiceID }}</td>
                     </tr>
                 </table>

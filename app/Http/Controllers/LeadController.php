@@ -661,6 +661,7 @@ class LeadController extends Controller
         ];
 
         $pdf = Pdf::loadView('lead.signed_proposal', $data);
+        // return view('lead.signed_proposal', $data);
         // return $pdf->stream('proposal.pdf');
         return response($pdf->output(), 200)
             ->header('Content-Type', 'application/pdf')

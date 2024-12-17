@@ -11,16 +11,13 @@
     <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto;">
         <h2 style="color: #007BFF; font-size: 24px;">Trainer Assignment Notification for {{$data['leadName']}}</h2>
 
-        <p style="font-size: 16px;">Dear <strong>{{$data['trainerName']}},</strong></p>
+        <p style="font-size: 16px;">Hi <strong>{{$data['trainerName']}},</strong></p>
 
-        <p style="font-size: 16px;">We are pleased to inform you that a users has been assigned to assist you with your <strong>{{$data['trainingType']}}</strong>. <strong>{{$data['userName']}}</strong>, our experienced trainer, will be guiding you through the training sessions to ensure you gain the knowledge and skills you need.</p>
+        <p style="font-size: 16px;">We have scheduled you to provide <strong>{{$data['trainingType']}}</strong> for <strong>{{$data['companyName']}}</strong>. Your contact is <strong>{{$data['primaryContact']}}</strong> and training will take place on <strong>{{$data['trainingSchedule']}}</strong> at <strong>{{$data['customerLocation']}}</strong>. Please see the details below with payment information.</p>
 
-        <!-- <h3 style="color: #333; font-size: 18px;">Users Details:</h3>
-        <ul style="font-size: 16px; list-style-type: none; padding: 0;">
-            <li><strong>Trainer's Name:</strong> {{$data['trainerName']}}</li>
-            <li><strong>Contact Email:</strong> <a href="mailto:{{$data['trainingMail']}}" style="color: #007BFF; text-decoration: none;">{{$data['trainingMail']}}</a></li>
-            <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
-        </ul> -->
+        <p style="font-size: 16px;">If they fill any amount against trainer that needs to be filled here.</p>
+
+        <p style="font-size: 16px;"><strong>Thank you</strong></p>
     </div>
 </body>
 

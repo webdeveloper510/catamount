@@ -152,7 +152,7 @@ class MeetingController extends Controller
 
     // WORKING  17-01-2024
     public function store(Request $request)
-    {   
+    {
         if (\Auth::user()->can('Create Training')) {
             $validator = \Validator::make(
                 $request->all(),
@@ -462,6 +462,9 @@ class MeetingController extends Controller
                 'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time}",
                 'trainingMail' => implode(', ', $trainerListEmail),
                 'leadName' => $request->name,
+                'companyName' => $request->company_name,
+                'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
+                'customerLocation' => $request->room,
             ];
             Mail::to($trainerListEmail)->send(new AssignMail($mailData));
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));
@@ -841,14 +844,15 @@ class MeetingController extends Controller
     }
     public function get_lead_data(Request $request)
     {
-        $lead = Lead::where('id', $request->venue)->first();
-        if ($lead) {
+        $lead = Lead::Find($request->venue);
+        return $lead;
+        // $lead = Lead::where('id', $request->venue)->first();
+        /*  if ($lead) {
             $meeting = Meeting::where('user_id', $lead->user_id)->pluck('user_data');
             $lead->user_data = $meeting->isNotEmpty() ? $meeting : null;
         } else {
             $lead = [];
-        }
-        return $lead;
+        } */
     }
 
     // 22-01-2024
