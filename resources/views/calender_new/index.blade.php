@@ -227,7 +227,7 @@ $venue = explode(',', $settings['venue']);
                 var html = '';
                 if (data.length != 0) {
                     $(data).each(function(index, element) {
-                        console.log(element);
+                        // console.log(element);
                         var start = element.start_time;
                         var start_time = moment(start, 'HH:mm:ss').format('h:mm A');
                         var end = element.end_time;
@@ -579,11 +579,11 @@ $venue = explode(',', $settings['venue']);
                                     .then(response => response.json())
                                     .then(data => {
                                         const JSON = data.events;
-                                        console.log('JSON',JSON);
-
+                                        // console.log('JSON',JSON);
                                         if (JSON.length != 0) {
                                             Json = [];
                                             JSON.forEach((event, index, array) => {
+                                                // console.log('event',event)
                                                 var start = event.start_time;
                                                 var start_time = moment(start, 'HH:mm:ss').format('h:mm A');
                                                 var end = event.end_time;
@@ -604,7 +604,8 @@ $venue = explode(',', $settings['venue']);
                                     <div class="ms-3">
                                         <h6 class="m-0">${eventname} (${event.name})</h6>
                                         <small class="text-muted">${start_time} - ${end_time}</small><br>
-                                        <small class="text-muted">${event.venue_selection.replaceAll(',',', ')}</small>
+                                        <small class="text-muted">${event.venue_selection.replaceAll(',',', ')}</small><br>
+                                        <small class="text-muted">${event.calenderData}</small>                                        
                                     </div>
                                 </div>
                             </div>

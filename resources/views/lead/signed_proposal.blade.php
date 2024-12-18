@@ -54,6 +54,7 @@ prx($data); */
     .border-new {
         border: 1px solid #000 !important;
     }
+
     .input-new:nth-child(2) {
         justify-content: center;
     }
@@ -106,8 +107,12 @@ prx($data); */
         }
 
         .col-sm-6 {
-            width: 100% !important;
+            width: 50% !important;
             float: left;
+        }
+
+        .col-sm-12 {
+            width: 100% !important;
         }
     }
 
@@ -120,10 +125,12 @@ prx($data); */
         width: 50% !important;
         float: left;
     }
+
     .col-sm-4 {
         width: 40% !important;
         float: left;
     }
+
     .col-sm-8 {
         width: 60% !important;
         float: left;
@@ -183,7 +190,7 @@ prx($data); */
                     <p style="font-family: 'Open Sans', sans-serif;">{!!nl2br(@$finalProposal['agreement'])!!}</p>
                 </div>
             </div>
-            <div class="col-sm-12 border-new">
+            <div class="col-sm-12 border-new" style="min-height: 150px;">
                 <div class="col-sm-6 signature-div">
                     <h3 class="input-new">
                         <label for="signature">{{__('Signature')}}: </label>

@@ -23,7 +23,7 @@ if (isset($billing) && !empty($billing)) {
 }
 $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->exists();
 ?>
-<div class="row card" style="display:none">
+<!-- <div class="row card" style="display:none">
     <div class="col-md-12">
         <h5 class="headings"><b>Billing Summary - ESTIMATE</b></h5>
         <table class="table table-bordered">
@@ -180,7 +180,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
 
         </table>
     </div>
-</div>
+</div> -->
 <div class="container-field">
     <div id="wrapper">
         <div id="page-content-wrapper">
@@ -201,6 +201,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Address')}}</th>
                                                 <th scope="col" class="sort">{{__('Status')}}</th>
                                                 <th scope="col" class="sort">{{__('Training')}}</th>
+                                                <th scope="col" class="sort">{{__('Date')}}</th>
                                                 <th scope="col" class="sort">{{__('Converted to Training')}}</th>
                                             </tr>
                                         </thead>
@@ -215,6 +216,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
 
                                                 <td>{{ __(\App\Models\Lead::$stat[$lead->lead_status]) }}</td>
                                                 <td>{{$lead->type}}</td>
+                                                <td>{{ \Auth::user()->dateFormat($lead->start_date)}}</td>
                                                 @if(App\Models\Meeting::where('attendees_lead',$lead->id)->exists())
                                                 <td> Yes </td>
                                                 @else
@@ -264,6 +266,8 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->guest_count }}</span></dd>
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Training Location')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{ $lead->venue_selection ??'--' }}</span></dd>
+                                        <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Date')}}</span></dt>
+                                        <dd class="col-md-6 need_half"><span class="">{{ \Auth::user()->dateFormat($lead->start_date) }}</span></dd>
                                         {{--<dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Function')}}</span></dt>
                                         <dd class="col-md-6 need_half"><span class="">{{$lead->function ?? '--'}}</span></dd>--}}
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Assigned Trainer')}}</span></dt>
@@ -359,6 +363,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                                 <th scope="col" class="sort" data-sort="name">{{__('Created On')}}</th>
                                                 <th scope="col" class="sort" data-sort="name">{{__('Training Name')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Name')}}</th>
+                                                <th scope="col" class="sort" data-sort="budget">{{__('Date')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Amount')}}</th>
                                                 <th scope="col" class="sort" data-sort="budget">{{__('Due')}}</th>
 
@@ -384,6 +389,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                                     echo "<td>" . Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $lastpaid->created_at)->format('M d, Y') . "</td>";
                                                     echo "<td>" . $event->name . "</td>";
                                                     echo "<td>" . $lead->name . "</td>";
+                                                    echo "<td>" . \Auth::user()->dateFormat($lead->start_date) . "</td>";
                                                     echo "<td>" . $amount->amount . "</td>";
                                                     echo "<td>" . $amount->amounttobepaid - $amountpaid . "</td>";
                                                     echo "</tr>";

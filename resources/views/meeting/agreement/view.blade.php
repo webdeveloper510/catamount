@@ -44,7 +44,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
             font-weight: bold;
             font-size: 16px;
             width: 70%;
-            left: 20%;
+            left: 23%;
         }
 
         .logo img {
@@ -66,7 +66,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .bill-to {
             position: relative;
-            left: 6%;
+            left: 0;
             top: -2%;
             border: 1px solid #000;
             width: 40%;
@@ -123,7 +123,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .invoice-details {
             position: relative;
-            right: -70%;
+            right: -72%;
             top: -16%;
             width: 20%;
         }
@@ -170,7 +170,7 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
 
         .contactTable table:nth-child(2) {
             position: relative;
-            left: 380px;
+            left: 463px;
             top: -38px;
         }
 
@@ -185,6 +185,10 @@ $enddate = \Carbon\Carbon::createFromFormat('Y-m-d', $meeting['end_date'])->form
             transform: rotate(-22deg);
             font-weight: 700;
             font-size: 22px;
+        }
+        .lateFee {
+            position: relative;
+            left: 8%;
         }
     </style>
 </head>

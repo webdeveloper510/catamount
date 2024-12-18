@@ -32,7 +32,12 @@ if (!function_exists('dateFormat')) {
 if (!function_exists('phoneFormat')) {
     function phoneFormat($phone)
     {
-        return "(" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6);
+        if($phone) {
+            $format = "(" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6);
+        } else {
+            $format = '';
+        }
+        return $format;
     }
 }
 if (!function_exists('carbonDateFormat')) {

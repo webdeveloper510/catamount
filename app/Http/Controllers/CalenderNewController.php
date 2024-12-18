@@ -21,7 +21,16 @@ class CalenderNewController extends Controller
     }
     public function get_event_data(Request $request)
     {
-        $events = Meeting::where('start_date', $request->start)->get();
+        $events = Meeting::where('start_date', $request->start)->get()->map(function ($event) {
+            $user_data = json_decode($event->user_data);
+            foreach ($user_data as $udKey => $udValue) {
+                $trainerName = \App\Models\User::find($udKey)->name;
+                $user_datas[] = "{$trainerName} - &dollar;{$udValue->amount}";
+            }
+            $user_datas = implode(", ", $user_datas);
+            $event->calenderData = $user_datas;
+            return $event;
+        });
         return response()->json(["events" => $events]);
     }
     public function blockeddateinfo()
