@@ -465,6 +465,8 @@ class MeetingController extends Controller
                 'companyName' => $request->company_name,
                 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
                 'customerLocation' => $request->room,
+                'paymentInfo' => true,
+                'paymentInfoData' => $filteredUsers,
             ];
             Mail::to($trainerListEmail)->send(new AssignMail($mailData));
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));

@@ -305,7 +305,7 @@ class LeadController extends Controller
             Mail::to($mailsAdds)->send(new AssignMail($mailData));
             // Mail::to(['nitinkumar@codenomad.net', 'lukesh@codenomad.net'])->send(new AssignMail($mailData));
             /* tranner mail */
-            $mailData = [
+           /*  $mailData = [
                 'view' => 'notification_templates.trainer',
                 'subject' => "Trainer Assignment Notification",
                 'from' => $settings['mail_from_address'],
@@ -319,8 +319,10 @@ class LeadController extends Controller
                 'companyName' => $request->company_name,
                 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
                 'customerLocation' => $request->room,
+                'paymentInfo' => false,
+                'paymentInfoData' => '',
             ];
-            Mail::to($tranner->email)->send(new AssignMail($mailData));
+            Mail::to($tranner->email)->send(new AssignMail($mailData)); */
             // Mail::to('harjot@codenomad.net')->send(new AssignMail($mailData));
 
             return redirect()->back()->with('success', __('Lead Created.'));
