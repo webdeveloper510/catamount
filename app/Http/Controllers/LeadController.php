@@ -316,6 +316,9 @@ class LeadController extends Controller
                 'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time} To End date: {$request->end_date} {$request->end_time}",
                 'trainingMail' => $tranner->email,
                 'leadName' => $request->lead_name,
+                'companyName' => $request->company_name,
+                'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
+                'customerLocation' => $request->room,
             ];
             Mail::to($tranner->email)->send(new AssignMail($mailData));
             // Mail::to('harjot@codenomad.net')->send(new AssignMail($mailData));
