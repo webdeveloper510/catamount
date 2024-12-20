@@ -289,15 +289,16 @@ class LeadController extends Controller
                 ]
             );
             /* user mail */
+            $usrLst = array_filter([$request['name'], $request['secondary']['name']]);
             $mailData = [
                 'view' => 'notification_templates.user',
                 'subject' => "Trainer Assignment Notification",
                 'from' => $settings['mail_from_address'],
                 'fromName' => $settings['mail_from_name'],
-                'userName' => "{$request['email']}, {$request['secondary']['email']}",
+                'userName' => implode(", ", $usrLst),
                 'trainerName' => "{$tranner->name}",
                 'trainingType' => "{$request->type}",
-                'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time} To End date: {$request->end_date} {$request->end_time}",
+                'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time} To End: {$request->end_date} {$request->end_time}",
                 'trainingMail' => $tranner->email,
                 'leadName' => $request->lead_name,
             ];
@@ -305,7 +306,7 @@ class LeadController extends Controller
             Mail::to($mailsAdds)->send(new AssignMail($mailData));
             // Mail::to(['nitinkumar@codenomad.net', 'lukesh@codenomad.net'])->send(new AssignMail($mailData));
             /* tranner mail */
-           /*  $mailData = [
+            /*  $mailData = [
                 'view' => 'notification_templates.trainer',
                 'subject' => "Trainer Assignment Notification",
                 'from' => $settings['mail_from_address'],

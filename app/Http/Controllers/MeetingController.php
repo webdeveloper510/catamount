@@ -455,7 +455,6 @@ class MeetingController extends Controller
                 'subject' => "Trainer Assignment Notification",
                 'from' => $settings['mail_from_address'],
                 'fromName' => $settings['mail_from_name'],
-                // 'userName' => "{$request['email']}, {$request['secondary']['email']}",
                 'userName' => "",
                 'trainerName' => implode(', ', $trainerListName),
                 'trainingType' => "{$request->type}",
@@ -468,7 +467,8 @@ class MeetingController extends Controller
                 'paymentInfo' => true,
                 'paymentInfoData' => $filteredUsers,
             ];
-            Mail::to($trainerListEmail)->send(new AssignMail($mailData));
+            Mail::to('harjot@codenomad.net')->send(new AssignMail($mailData));
+            // Mail::to($trainerListEmail)->send(new AssignMail($mailData));
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));
         }
     }

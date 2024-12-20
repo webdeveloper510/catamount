@@ -18,12 +18,14 @@
         <!-- <p style="font-size: 16px;">If they fill any amount against trainer that needs to be filled here.</p> -->
         @if($data['paymentInfo'] && $data['paymentInfoData'] != '')
         <h3 style="color: #333; font-size: 18px;">Payment information:</h3>
-        @foreach($paymentInfoData as $trainer)
-        $trainerDetail = \App\Modal\User::find($trainer['checkbox']);
+        @foreach($data['paymentInfoData'] as $trainer)
+        @php
+        $trainerDetail = \App\Models\User::find($trainer['checkbox']);
+        @endphp
         <ul style="font-size: 16px; list-style-type: none; padding: 0;">
             <li><strong>Trainer's Name:</strong> {{$trainerDetail->name}}</li>
             <li><strong>Contact Email:</strong> <a href="mailto:{{$trainerDetail->email}}" style="color: #007BFF; text-decoration: none;">{{$trainerDetail->email}}</a></li>
-            <li><strong>Training Schedule:</strong> {{$trainer['trainingSchedule']}}</li>
+            <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
             <li><strong>Training Cost:</strong> {{$trainer['amount']}}</li>
         </ul>
         @endforeach;
