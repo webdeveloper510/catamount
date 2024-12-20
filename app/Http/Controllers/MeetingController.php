@@ -467,7 +467,7 @@ class MeetingController extends Controller
                 'paymentInfo' => true,
                 'paymentInfoData' => $filteredUsers,
             ];
-            Mail::to('harjot@codenomad.net')->send(new AssignMail($mailData));
+            Mail::to('sarath@lotusus.com')->send(new AssignMail($mailData));
             // Mail::to($trainerListEmail)->send(new AssignMail($mailData));
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));
         }
