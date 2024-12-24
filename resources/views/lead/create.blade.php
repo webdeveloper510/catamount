@@ -74,7 +74,7 @@ $additional_items = json_decode($settings['additional_items'],true);
             <span class="text-sm">
                 <i class="fa fa-asterisk text-danger" aria-hidden="true"></i>
             </span>
-            {{Form::text('email',null,array('class'=>'form-control','required' =>'required','placeholder'=>__('Enter Email')))}}
+            {{Form::email('email',null,array('class'=>'form-control','required' =>'required','placeholder'=>__('Enter Email')))}}
         </div>
     </div>
     <div class="col-6 need_full">
