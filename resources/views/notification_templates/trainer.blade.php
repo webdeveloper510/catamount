@@ -16,8 +16,9 @@
         <p style="font-size: 16px;">We have scheduled you to provide <strong>{{$data['trainingType']}}</strong> for <strong>{{$data['companyName']}}</strong>. Your contact is <strong>{{$data['primaryContact'] ?? 'N/A'}}</strong> and training will take place on <strong>{{$data['trainingSchedule']}}</strong> at <strong>{{$data['customerLocation']}}</strong>. {{ $data['paymentInfo'] ? 'Please see the details below with payment information.' : '' }}</p>
 
         <!-- <p style="font-size: 16px;">If they fill any amount against trainer that needs to be filled here.</p> -->
-        @if($data['paymentInfo'] && $data['paymentInfoData'] != '')
         <h3 style="color: #333; font-size: 18px;">Payment information:</h3>
+        @if (is_array($data['paymentInfoData']) && count($data['paymentInfoData']) > 1)
+        @if($data['paymentInfo'] && $data['paymentInfoData'] != '')
         @foreach($data['paymentInfoData'] as $trainer)
         @php
         $trainerDetail = \App\Models\User::find($trainer['checkbox']);
@@ -30,7 +31,14 @@
         </ul>
         @endforeach
         @endif
-
+        @else
+        <ul style="font-size: 16px; list-style-type: none; padding: 0;">
+            <li><strong>Trainer's Name:</strong> {{$data['paymentInfoData']->name}}</li>
+            <li><strong>Contact Email:</strong> <a href="mailto:{{$data['paymentInfoData']->email}}" style="color: #007BFF; text-decoration: none;">{{$data['paymentInfoData']->email}}</a></li>
+            <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
+            <li><strong>Training Cost:</strong> {{$data['paymentInfoData']->amount}}</li>
+        </ul>
+        @endif
         <p style="font-size: 16px;"><strong>Thank you</strong></p>
     </div>
 </body>
