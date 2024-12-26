@@ -32,9 +32,12 @@
         @endforeach
         @endif
         @else
+        @php
+        $trainerDetailElse = \App\Models\User::find($data['paymentInfoData']->checkbox);
+        @endphp
         <ul style="font-size: 16px; list-style-type: none; padding: 0;">
-            <li><strong>Trainer's Name:</strong> {{$data['paymentInfoData']->name}}</li>
-            <li><strong>Contact Email:</strong> <a href="mailto:{{$data['paymentInfoData']->email}}" style="color: #007BFF; text-decoration: none;">{{$data['paymentInfoData']->email}}</a></li>
+            <li><strong>Trainer's Name:</strong> {{$trainerDetailElse->name}}</li>
+            <li><strong>Contact Email:</strong> <a href="mailto:{{$trainerDetailElse->email}}" style="color: #007BFF; text-decoration: none;">{{$trainerDetailElse->email}}</a></li>
             <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
             <li><strong>Training Cost:</strong> {{$data['paymentInfoData']->amount}}</li>
         </ul>
