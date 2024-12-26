@@ -21,13 +21,13 @@
         @if($data['paymentInfo'] && $data['paymentInfoData'] != '')
         @foreach($data['paymentInfoData'] as $trainer)
         @php
-        $trainerDetail = \App\Models\User::find($trainer->checkbox);
+        $trainerDetail = \App\Models\User::find($trainer['checkbox']);
         @endphp
         <ul style="font-size: 16px; list-style-type: none; padding: 0;">
             <li><strong>Trainer's Name:</strong> {{$trainerDetail->name}}</li>
             <li><strong>Contact Email:</strong> <a href="mailto:{{$trainerDetail->email}}" style="color: #007BFF; text-decoration: none;">{{$trainerDetail->email}}</a></li>
             <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
-            <li><strong>Training Cost:</strong> {{$trainer->amount}}</li>
+            <li><strong>Training Cost:</strong> {{$trainer['amount']}}</li>
         </ul>
         @endforeach
         @endif
