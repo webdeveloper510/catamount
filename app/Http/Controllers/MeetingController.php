@@ -462,7 +462,7 @@ class MeetingController extends Controller
             ];
             
              if($request->phone != '') {
-        $sda = $request->phone;
+        $sda = "Your contact is {$request->phone} and ";
     } /*
     elseif($request->email){
         $sda = $request->email;
@@ -489,7 +489,7 @@ class MeetingController extends Controller
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
                     // 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
-                    'primaryContact' => "Your contact is {$sda} and ",
+                    'primaryContact' => $sda,
                     'customerLocation' => $request->room,
                     'paymentInfo' => true,
                     'paymentInfoData' => $filteredUsers,
@@ -545,7 +545,7 @@ class MeetingController extends Controller
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
                     // 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
-                    'primaryContact' => "Your contact is {$sda} and ",
+                    'primaryContact' => $sda,
                     'customerLocation' => $request->room,
                     'paymentInfo' => true,
                     'paymentInfoData' => $trainer,
