@@ -460,6 +460,19 @@ class MeetingController extends Controller
                     'email' => 'harjot@codenomad.net'
                 ]
             ];
+            
+             if($request->phone != '') {
+        $sda = $request->phone;
+    } /*
+    elseif($request->email){
+        $sda = $request->email;
+    }  elseif($request->email && $request->phone){
+        $sda = "{$request->email} {$request->phone}";
+    }
+    */ else {
+        $sda = "N/A";
+    }
+    
             foreach ($dummyMail as $trainer) {
                 $mailData = [
                     'view' => 'notification_templates.trainer',
@@ -475,7 +488,8 @@ class MeetingController extends Controller
                     // 'trainingMail' => implode(', ', $trainerListEmail),
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
-                    'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
+                    // 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
+                    'primaryContact' => "Your contact is <strong>{$sda}</strong> and ",
                     'customerLocation' => $request->room,
                     'paymentInfo' => true,
                     'paymentInfoData' => $filteredUsers,
@@ -530,7 +544,8 @@ class MeetingController extends Controller
                     // 'trainingMail' => implode(', ', $trainerListEmail),
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
-                    'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
+                    // 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
+                    'primaryContact' => "Your contact is <strong>{$sda}</strong> and ",
                     'customerLocation' => $request->room,
                     'paymentInfo' => true,
                     'paymentInfoData' => $trainer,
