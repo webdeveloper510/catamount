@@ -44,7 +44,6 @@
         @endif
         <p style="font-size: 16px;"><strong>Thank you</strong></p>
     </div>
-    
 </body>
 
 </html>
