@@ -511,6 +511,7 @@ class MeetingController extends Controller
                 $item->detail = \App\Models\User::find($item->checkbox)->email;
                 return $item;
                 }, $dummyMailTrainer); */
+                
             $filteredUsers = array_map(function ($item) {
                 $item = (object)$item;
                 $item->trData = \App\Models\User::find($item->checkbox);
