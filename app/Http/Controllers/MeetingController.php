@@ -460,23 +460,7 @@ class MeetingController extends Controller
                     'email' => 'harjot@codenomad.net'
                 ]
             ];
-<<<<<<< HEAD
 
-=======
-            
-             if($request->phone != '') {
-        $sda = "Your contact is {$request->phone} and ";
-    } /*
-    elseif($request->email){
-        $sda = $request->email;
-    }  elseif($request->email && $request->phone){
-        $sda = "{$request->email} {$request->phone}";
-    }
-    */ else {
-        $sda = "";
-    }
-    
->>>>>>> f6892c1 (fix: trainer mail (contact number))
             foreach ($dummyMail as $trainer) {
                 $mailData = [
                     'view' => 'notification_templates.trainer',
