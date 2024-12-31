@@ -18,7 +18,9 @@ $proposalstatus = \App\Models\Lead::$status;
 
 @endsection
 @section('action-btn')
-
+<a href="{{ route('lead.index') }}" data-size="lg" data-bs-toggle="tooltip" title="{{__('Sync')}}" class="btn btn-sm btn-primary btn-icon m-1">
+    <i class="ti bi-arrow-clockwise"></i>
+</a>
 @can('Create Lead')
 <a href="#" data-url="{{ route('lead.create',['lead',0]) }}" data-size="lg" data-ajax-popup="true" data-bs-toggle="tooltip" data-title="{{__('Create New Lead')}}" title="{{__('Create')}}" class="btn btn-sm btn-primary btn-icon m-1">
     <i class="ti ti-plus"></i>

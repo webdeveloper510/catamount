@@ -460,19 +460,7 @@ class MeetingController extends Controller
                     'email' => 'harjot@codenomad.net'
                 ]
             ];
-            
-             if($request->phone != '') {
-        $sda = "Your contact is {$request->phone} and ";
-    } /*
-    elseif($request->email){
-        $sda = $request->email;
-    }  elseif($request->email && $request->phone){
-        $sda = "{$request->email} {$request->phone}";
-    }
-    */ else {
-        $sda = "N/A";
-    }
-    
+
             foreach ($dummyMail as $trainer) {
                 $mailData = [
                     'view' => 'notification_templates.trainer',
@@ -488,8 +476,7 @@ class MeetingController extends Controller
                     // 'trainingMail' => implode(', ', $trainerListEmail),
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
-                    // 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
-                    'primaryContact' => $sda,
+                    'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($request->primary_contact) ? $request->primary_contact : 'N/A') . " )",
                     'customerLocation' => $request->room,
                     'paymentInfo' => true,
                     'paymentInfoData' => $filteredUsers,
@@ -544,8 +531,7 @@ class MeetingController extends Controller
                     // 'trainingMail' => implode(', ', $trainerListEmail),
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
-                    // 'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
-                    'primaryContact' => $sda,
+                    'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($request->primary_contact) ? $request->primary_contact : 'N/A') . " )",
                     'customerLocation' => $request->room,
                     'paymentInfo' => true,
                     'paymentInfoData' => $trainer,

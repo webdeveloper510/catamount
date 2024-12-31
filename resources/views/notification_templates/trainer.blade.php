@@ -13,7 +13,7 @@
 
         <p style="font-size: 16px;">Hi <strong>{{$data['trainerName']}},</strong></p>
 
-        <p style="font-size: 16px;">We have scheduled you to provide <strong>{{$data['trainingType']}}</strong> for <strong>{{$data['companyName']}}</strong>. {{$data['primaryContact']}}Training will take place on <strong>{{$data['trainingSchedule']}}</strong> at <strong>{{$data['customerLocation']}}</strong>. {{ $data['paymentInfo'] ? 'Please see the details below with payment information.' : '' }}</p>
+        <p style="font-size: 16px;">We have scheduled you to provide <strong>{{$data['trainingType']}}</strong> for <strong>{{$data['companyName']}}</strong>. Your contact is {{$data['primaryContact']}} and training will take place on <strong>{{$data['trainingSchedule']}}</strong> at <strong>{{$data['customerLocation']}}</strong>. {{ $data['paymentInfo'] ? 'Please see the details below with payment information.' : '' }}</p>
 
         <!-- <p style="font-size: 16px;">If they fill any amount against trainer that needs to be filled here.</p> -->
         <h3 style="color: #333; font-size: 18px;">Payment information:</h3>
