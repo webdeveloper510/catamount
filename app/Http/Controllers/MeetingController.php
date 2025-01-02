@@ -454,8 +454,8 @@ class MeetingController extends Controller
                     'email' => $request->email
                 ],
                 [
-                    'name' => $request->secondary_contact->name,
-                    'email' => $request->secondary_contact->email
+                    'name' => @$request->secondary_contact->name,
+                    'email' => @$request->secondary_contact->email
                 ]
             ];
 
