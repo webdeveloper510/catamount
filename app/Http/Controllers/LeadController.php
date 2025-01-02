@@ -289,7 +289,7 @@ class LeadController extends Controller
                 ]
             );
             /* user mail */
-            $usrLst = array_filter([$request['name'], $request['secondary']['name']]);
+            /* $usrLst = array_filter([$request['name'], $request['secondary']['name']]);
             $mailData = [
                 'view' => 'notification_templates.user',
                 'subject' => "Trainer Assignment Notification",
@@ -303,7 +303,7 @@ class LeadController extends Controller
                 'leadName' => $request->lead_name,
             ];
             $mailsAdds = array_filter([$request['email'], $request['secondary']['email']]);
-            Mail::to($mailsAdds)->send(new AssignMail($mailData));
+            Mail::to($mailsAdds)->send(new AssignMail($mailData)); */
             // Mail::to(['nitinkumar@codenomad.net', 'lukesh@codenomad.net'])->send(new AssignMail($mailData));
             /* tranner mail */
             /*  $mailData = [
