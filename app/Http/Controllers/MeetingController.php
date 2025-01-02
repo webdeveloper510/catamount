@@ -318,7 +318,7 @@ class MeetingController extends Controller
                         'func_package' => $package,
                         // 'function' => implode(',', $request->function),
                         'guest_count' => $request->guest_count,
-                        'room' => $request->room ?? '',
+                        'room' => $request->customer_location ?? '',
                         'bar' => $request->baropt,
                         'bar_package' => $bar_pack,
                         'spcl_req' => $request->spcl_request,
@@ -447,18 +447,7 @@ class MeetingController extends Controller
                 ]
             );
 
-            // $trainerList = User::whereIn('id', $filteredUsersKeys)->get();
-            $dummyMail = [
-                [
-                    'name' => $request->name,
-                    'email' => $request->email
-                ],
-                [
-                    'name' => @$request->secondary_contact->name,
-                    'email' => @$request->secondary_contact->email
-                ]
-            ];
-
+            $dummyMail = [['name' => $request->name, 'email' => $request->email], ['name' => @$request->secondary_contact->name, 'email' => @$request->secondary_contact->email]];
             $dummyMail = array_filter($dummyMail, function ($item) {
                 return !empty($item['email']);
             });
@@ -466,19 +455,44 @@ class MeetingController extends Controller
                 return (object) $item;
             }, $dummyMail);
 
-            foreach ($dummyMail as $trainer) {
+            $trainerList = User::whereIn('id', $filteredUsersKeys)->get();
+            $trainerListEmail = $trainerList->pluck('email')->toArray();
+            $trainerListName = $trainerList->pluck('name')->toArray();
+
+            $mailData = [
+                'mode' => 'trainer',
+                'view' => 'notification_templates.trainer',
+                'subject' => "Trainer Assignment Notification",
+                'from' => $settings['mail_from_address'],
+                'fromName' => $settings['mail_from_name'],
+                'userName' => implode(', ', array_column($dummyMail, 'name')),
+                'trainerName' => implode(', ', $trainerListName),
+                'trainingMail' => implode(', ', $trainerListEmail),
+                // 'trainingType' => "{$request->type}",
+                'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time}",
+                'leadName' => $request->name,
+                'companyName' => $request->company_name,
+                'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($_REQUEST['primary_contact']) ? $request->primary_contact : 'N/A') . " )",
+                'customerLocation' => $request->customer_location,
+                'paymentInfo' => true,
+                'paymentInfoData' => $filteredUsers,
+            ];
+            Mail::to(array_column($dummyMail, 'email'))->send(new AssignMail($mailData));
+
+            /* foreach ($dummyMail as $trainer) {
                 $mailData = [
+                    'mode' => 'trainer',
                     'view' => 'notification_templates.trainer',
-                    'subject' => "Trainer Assignment Notification",
+                    'subject' => "Training Assignment Notification",
                     'from' => $settings['mail_from_address'],
                     'fromName' => $settings['mail_from_name'],
                     'userName' => "",
-                    'trainerName' => $trainer->name,
-                    // 'trainerName' => implode(', ', $trainerListName),
-                    'trainingType' => "{$request->type}",
+                    // 'trainerName' => $trainer->name,
+                    'trainerName' => implode(', ', $trainerListName),
+                    // 'trainingType' => "{$request->type}",
                     'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time}",
-                    'trainingMail' => $trainer->email,
-                    // 'trainingMail' => implode(', ', $trainerListEmail),
+                    // 'trainingMail' => $trainer->email,
+                    'trainingMail' => implode(', ', $trainerListEmail),
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
                     'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($request->primary_contact) ? $request->primary_contact : 'N/A') . " )",
@@ -487,7 +501,7 @@ class MeetingController extends Controller
                     'paymentInfoData' => $filteredUsers,
                 ];
                 Mail::to($trainer->email)->send(new AssignMail($mailData));
-            }
+            } */
             // $trainerListEmail = $trainerList->pluck('email')->toArray();
             // $trainerListName = $trainerList->pluck('name')->toArray();
 
@@ -523,6 +537,7 @@ class MeetingController extends Controller
             }, $filteredUsers);
             foreach ($filteredUsers as $trainer) {
                 $mailData = [
+                    'mode' => 'trainer',
                     'view' => 'notification_templates.trainer',
                     'subject' => "Trainer Assignment Notification",
                     'from' => $settings['mail_from_address'],
@@ -536,14 +551,13 @@ class MeetingController extends Controller
                     // 'trainingMail' => implode(', ', $trainerListEmail),
                     'leadName' => $request->name,
                     'companyName' => $request->company_name,
-                    'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($request->primary_contact) ? $request->primary_contact : 'N/A') . " )",
-                    'customerLocation' => $request->room,
+                    'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($_REQUEST['primary_contact']) ? $request->primary_contact : 'N/A') . " )",
+                    'customerLocation' => $request->customer_location,
                     'paymentInfo' => true,
                     'paymentInfoData' => $trainer,
                 ];
                 Mail::to($trainer->trData->email)->send(new AssignMail($mailData));
             }
-
             return redirect()->route('meeting.index', compact('meetings'))->with('success', __('Trainings created!'));
         }
     }

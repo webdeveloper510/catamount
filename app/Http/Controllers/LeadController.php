@@ -186,7 +186,7 @@ class LeadController extends Controller
             $lead['start_time'] = $request->start_time ?? '';
             $lead['end_time'] = $request->end_time ?? '';
             $lead['ad_opts'] = isset($additional) && !empty($additional) ? $additional : '';
-            $lead['rooms'] = $request->rooms ?? 0;
+            $lead['rooms'] = $request->rooms ?? '';
             $lead['lead_status'] = ($request->is_active == 'on') ? 1 : 0;
             $lead['created_by'] = \Auth::user()->creatorId();
             // $lead['function'] = isset($request->function) ? implode(',', $request->function) : '';
@@ -302,28 +302,30 @@ class LeadController extends Controller
                 'trainingMail' => $tranner->email,
                 'leadName' => $request->lead_name,
             ];
-            $mailsAdds = array_filter([$request['email'], $request['secondary']['email']]);
             Mail::to($mailsAdds)->send(new AssignMail($mailData)); */
             // Mail::to(['nitinkumar@codenomad.net', 'lukesh@codenomad.net'])->send(new AssignMail($mailData));
             /* tranner mail */
-            /*  $mailData = [
+            $mailsAdds = array_filter([$request['email'], $request['secondary']['email']]);
+            $tranner = User::find($request->user);
+            $mailData = [
+                'mode' => 'lead',
                 'view' => 'notification_templates.trainer',
-                'subject' => "Trainer Assignment Notification",
+                'subject' => "Lead Assignment Notification",
                 'from' => $settings['mail_from_address'],
                 'fromName' => $settings['mail_from_name'],
-                'userName' => "{$request['email']}, {$request['secondary']['email']}",
+                'userName' => implode(', ', $mailsAdds),
                 'trainerName' => "{$tranner->name}",
                 'trainingType' => "{$request->type}",
                 'trainingSchedule' => "Start date: {$request->start_date} {$request->start_time} To End date: {$request->end_date} {$request->end_time}",
                 'trainingMail' => $tranner->email,
                 'leadName' => $request->lead_name,
                 'companyName' => $request->company_name,
-                'primaryContact' => "{$request->name} ({$request->email})" . $request->phone ? ", {$request->phone}" : '',
-                'customerLocation' => $request->room,
+                'primaryContact' => "{$request->name} ({$request->email}, " . (!empty($request->primary_contact) ? $request->primary_contact : 'N/A') . " )",
+                'customerLocation' => $request->rooms ?? '[Not-Provided]',
                 'paymentInfo' => false,
                 'paymentInfoData' => '',
             ];
-            Mail::to($tranner->email)->send(new AssignMail($mailData)); */
+            Mail::to($tranner->email)->send(new AssignMail($mailData));
             // Mail::to('harjot@codenomad.net')->send(new AssignMail($mailData));
 
             return redirect()->back()->with('success', __('Lead Created.'));
