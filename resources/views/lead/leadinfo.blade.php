@@ -322,7 +322,7 @@ $converted_to_event = App\Models\Meeting::where('attendees_lead', $lead->id)->ex
                                         @if($imgPath)
                                         <dt class="col-md-6 need_half"><span class="h6  mb-0">{{__('Proposal signature')}}</span>
                                         </dt>
-                                        <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="{{ asset('upload/' . @$imgPathss[1]) }}" alt="" srcset=""></span></dd>
+                                        <dd class="col-md-6 need_half" style="border: 1px solid #000;"><span class=""><img src="{{ asset('upload/' . @end($imgPathss)) }}" alt="" srcset=""></span></dd>
                                         @endif
                                     </dl>
                                     {{--@php
