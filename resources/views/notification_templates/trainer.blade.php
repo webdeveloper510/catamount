@@ -11,8 +11,8 @@
     <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto;">
         @if($data['mode'] === 'lead')
         {{-- lead --}}
-        <p style="font-size: 16px;">Hi <strong>{{$data['trainerName']}},</strong></p>
-        <p style="font-size: 16px;">We have assigned a lead to provide {{$data['leadName']}} for {{$data['companyName']}}. Your point of contact is {{$data['primaryContact']}} and training is expected to be On Start date: {{$data['trainingSchedule']}} at {{$data['customerLocation']}}.</p>
+        <p style="font-size: 16px;">Hi <strong>{{$data['trainerName']}}</strong>,</p>
+        <p style="font-size: 16px;">We have assigned a lead to provide <strong>{{$data['leadName']}}</strong> for <strong>{{$data['companyName']}}</strong>. Your point of contact is <strong>{{$data['primaryContact']}}</strong> and training is expected to be On Start date: <strong>{{$data['trainingSchedule']}}</strong> at <strong>{{$data['customerLocation']}}</strong>.</p>
         {{-- lead end --}}
         @else
         {{-- trainer --}}
@@ -28,9 +28,11 @@
         })->toArray();
         $emailLinks = implode(' / ', $emails);
         @endphp
+        <h3 style="color: #333; font-size: 18px;">Training Details:</h3>
         <ul style="font-size: 16px; list-style-type: none; padding: 0;">
-            <li><strong>Trainer's Name:</strong> {{$name}}</li>
-            <li><strong>Contact Email:</strong> {!!$emailLinks!!}</li>
+            <li><strong>Training:</strong>{{$data['leadName']}}</li>
+            <li><strong>Trainer(s):</strong>{{$name}}</li>
+            <li><strong>Contact Email:</strong>{!!$emailLinks!!}</li>
             <li><strong>Location:</strong> {{$data['customerLocation']}}</li>
             <li><strong>Training Schedule:</strong> {{$data['trainingSchedule']}}</li>
         </ul>
@@ -40,7 +42,7 @@
         $trainerDetail = \App\Models\User::find($data['paymentInfoData']->checkbox);
         @endphp
         <p style="font-size: 16px;">Hi <strong>{{$data['trainerName']}},</strong></p>
-        <p style="font-size: 16px;">We have scheduled you to provide {{$data['leadName']}}. Your contact is {{$data['primaryContact']}} and training will take place on {{$data['trainingSchedule']}} at {{$data['customerLocation']}} . Please see the details below with payment information.</p>
+        <p style="font-size: 16px;">We have scheduled you to provide <strong>{{$data['leadName']}}</strong>. Your contact is <strong>{{$data['primaryContact']}}</strong> and training will take place on <strong>{{$data['trainingSchedule']}}</strong> at <strong>{{$data['customerLocation']}}</strong> . Please see the details below with payment information.</p>
         <h3 style="color: #333; font-size: 18px;">Payment information:</h3>
         <ul style="font-size: 16px; list-style-type: none; padding: 0;">
             <li><strong>Trainer:</strong> {{$trainerDetail->name}}</li>
@@ -54,13 +56,6 @@
         {{-- trainer end --}}
 
         @endif
-
-
-
-
-
-
-
         <p style="font-size: 16px;"><strong>Thank you</strong></p>
     </div>
 </body>
