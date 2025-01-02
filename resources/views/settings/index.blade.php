@@ -277,10 +277,17 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
         margin: 26px;
     }
 
-    canvas#signatureCanvas {
+    /* canvas#signatureCanvas {
         border: 1px solid black;
         width: 100%;
         height: 167px;
+        border-radius: 8px;
+    } */
+
+    canvas#signatureCanvas {
+        border: 1px solid black;
+        width: auto;
+        height: auto;
         border-radius: 8px;
     }
 
@@ -4975,6 +4982,8 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var canvas = document.getElementById('signatureCanvas');
+        canvas.width = 400;
+        canvas.height = 200;
         var signaturePad = new SignaturePad(canvas);
 
         function clearCanvas() {
