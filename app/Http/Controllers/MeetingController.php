@@ -447,19 +447,24 @@ class MeetingController extends Controller
                 ]
             );
 
-            $trainerList = User::whereIn('id', $filteredUsersKeys)->get();
-            // $trainerListEmail = $trainerList->pluck('email')->toArray();
-            // $trainerListName = $trainerList->pluck('name')->toArray();
+            // $trainerList = User::whereIn('id', $filteredUsersKeys)->get();
             $dummyMail = [
-                (object)[
-                    'name' => 'Sarath',
-                    'email' => 'sarath@lotusus.com'
+                [
+                    'name' => $request->name,
+                    'email' => $request->email
                 ],
-                (object)[
-                    'name' => 'Harjot',
-                    'email' => 'harjot@codenomad.net'
+                [
+                    'name' => $request->secondary_contact->name,
+                    'email' => $request->secondary_contact->email
                 ]
             ];
+
+            $dummyMail = array_filter($dummyMail, function ($item) {
+                return !empty($item['email']);
+            });
+            $dummyMail = array_map(function ($item) {
+                return (object) $item;
+            }, $dummyMail);
 
             foreach ($dummyMail as $trainer) {
                 $mailData = [
@@ -483,8 +488,8 @@ class MeetingController extends Controller
                 ];
                 Mail::to($trainer->email)->send(new AssignMail($mailData));
             }
-            $trainerListEmail = $trainerList->pluck('email')->toArray();
-            $trainerListName = $trainerList->pluck('name')->toArray();
+            // $trainerListEmail = $trainerList->pluck('email')->toArray();
+            // $trainerListName = $trainerList->pluck('name')->toArray();
 
             /*
             $dummyMailTrainer = [
