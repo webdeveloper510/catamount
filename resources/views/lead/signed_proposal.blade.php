@@ -237,7 +237,7 @@ prx($data); */
                     {{$lead->lead_address}}</br><br>
                     Dear {{$lead->name}},</br></br>
                     Catamount Consulting is pleased to provide you with this proposal for {{$lead->type}} for {{$lead->company_name}}.</br>
-                    The following proposal provide the scope of service, schedule, cost and business terms.
+                    The following proposal provides the scope of service, schedule, cost and business terms.
                 </p>
             </div>
             <div class="col-sm-12 mt-5">
