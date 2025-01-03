@@ -184,7 +184,7 @@ $secondary_contact = json_decode($lead->secondary_contact);
                                 {{$lead->name}}</br>
                                 {{$lead->lead_address}}</br><br>
                                 Dear {{$lead->name}},</br></br>
-                                Catamount Consulting is pleased to provide you with this proposal for {{$lead->type}} for {{$lead->company_name}}.</br>
+                                Catamount Consulting is pleased to provides you with this proposal for {{$lead->type}} for {{$lead->company_name}}.</br>
                                 The following proposal provide the scope of service, schedule, cost and business terms.
                             </p>
                             <!-- <h5 class="input-new">
