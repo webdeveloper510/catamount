@@ -172,8 +172,14 @@ class CustomerInformation extends Controller
                 'category' => $request->input('category'),
             ];
             $userid =  \Auth::user()->creatorId();
-            Excel::import(new UsersImport($category, $userid), request()->file('users'));
-            return redirect()->back()->with('success', 'Data imported successfully');
+            /* Excel::import(new UsersImport($category, $userid), request()->file('users'));
+            return redirect()->back()->with('success', 'Data imported successfully'); */
+            try {
+                Excel::import(new UsersImport($category, $userid), request()->file('users'));
+                return redirect()->back()->with('success', 'File uploaded successfully.');
+            } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+                return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+            }
         } elseif ($request->customerType == 'addForm') {
             $validator = \Validator::make(
                 $request->all(),
