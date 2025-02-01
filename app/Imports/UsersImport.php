@@ -59,7 +59,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
         return [
             'name'         => 'required|string',
             'email'        => 'required|email|unique:import_users,email',
-            'phone'        => 'nullable|numeric',
+            'phone'        => 'nullable|string',
             'address'      => 'nullable|string',
             'organization' => 'nullable|string',
             'category'     => 'nullable|string',
