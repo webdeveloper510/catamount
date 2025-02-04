@@ -57,13 +57,13 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'name'         => 'required|string',
-            'email'        => 'required|email|unique:import_users,email',
-            'phone'        => 'nullable|string',
-            'address'      => 'nullable|string',
-            'organization' => 'nullable|string',
-            'category'     => 'nullable|string',
-            'notes'        => 'nullable|string',
+            'name'         => 'required',
+            'email'        => 'required',
+            'phone'        => 'nullable',
+            'address'      => 'nullable',
+            'organization' => 'nullable',
+            'category'     => 'nullable',
+            'notes'        => 'nullable',
         ];
     }
 
