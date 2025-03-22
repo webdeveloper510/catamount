@@ -605,14 +605,19 @@ function select2() {
 
 function validateFields() {
     var checkboxes = document.querySelectorAll(".venue-checkbox:checked");
-    var textInput = document.querySelector(".custom-text-field").value.trim();
+    var textInput = document.querySelector(".custom-text-field")
+    if (textInput) {
+        var textInput = document.querySelector(".custom-text-field").value.trim();
+    } else {
+        var textInput = null;
+    }
     var errorMessageElement = document.getElementById("error-message");
     var errorContainer = document.getElementById("validation-error");
     var textField = document.querySelector(".custom-text-field");
     var venueCheckboxes = document.querySelectorAll(".venue-checkbox");
 
     // Case when the text field is filled
-    if (textInput !== "") {
+    if (textInput !== "" && textInput) {
         // Hide error message and remove required from checkboxes
         errorContainer.style.display = "none";
         venueCheckboxes.forEach(function (checkbox) {
@@ -639,11 +644,13 @@ function validateFields() {
         textField.removeAttribute("required");
     } else {
         // Case when text field has content and checkboxes are selected, no error and no required
-        errorContainer.style.display = "none";
+        if (textInput) {
+            errorContainer.style.display = "none";
+            textField.removeAttribute("required");
+        }
         venueCheckboxes.forEach(function (checkbox) {
             checkbox.removeAttribute("required");
         });
-        textField.removeAttribute("required");
     }
 }
 

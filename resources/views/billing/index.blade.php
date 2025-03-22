@@ -10,6 +10,14 @@
 <li class="breadcrumb-item">{{ __('Invoice') }}</li>
 @endsection
 @section('content')
+@section('action-btn')
+@can('Create Invoice')
+<div class="action-btn bg-primary ms-2 text-set">
+    <a href="#" data-size="md" data-url="{{ route('billing.quick_create_invoice') }}" data-bs-toggle="tooltip" title="" data-ajax-popup="true" data-title="Quick Invoice" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white " data-bs-original-title="Create"><i class="ti ti-plus"></i></a>
+</div>
+@endcan
+@endsection
+
 <div class="container-field">
     <div id="wrapper">
         <div id="page-content-wrapper">

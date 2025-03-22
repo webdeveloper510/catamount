@@ -14,6 +14,8 @@ $lang = \App\Models\Utility::getValByName('default_language');
 $EmailTemplates = App\Models\EmailTemplate::all();
 $venue = explode(',',$settings['venue']);
 $venue = array_combine($venue,$venue);
+$quick_company = explode(',',$settings['quick_company']);
+$quick_company = array_combine($quick_company,$quick_company);
 if(!empty($settings['function'])){
 $function =json_decode($settings['function']);
 }
@@ -1056,6 +1058,56 @@ $base64Image = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base
                                         </div>
                                     </div>
                                     @endif
+                                    <div id="quick-invoice-settings" class="card">
+                                        <div class="col-md-12">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                        <h5>{{ __('Quick invoice Settings') }}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mt-3">
+                                                    {{ Form::open(['route' => 'quickinvoice.setting', 'method' => 'post']) }}
+                                                    @csrf
+                                                    <div class="form-group col-md-12">
+                                                        {{ Form::label('quick_company', __('Invoice Company name'), ['class' => 'form-label']) }}
+                                                        {{ Form::text('quick_company',null,['class' => 'form-control ', 'placeholder' => __('Enter invoice company name'), 'required' => 'required']) }}
+                                                    </div>
+                                                    <div class="text-end">
+                                                        {{ Form::submit(__('Save'), ['class' => 'btn-submit btn btn-primary']) }}
+                                                    </div>
+                                                    {{ Form::close() }}
+                                                </div>
+                                                @if(isset($quick_company) && !empty($quick_company))
+                                                <div class="row mt-3">
+                                                    <div class="form-group col-md-12">
+                                                        <label class="form-label">Invoice company</label>
+                                                        <div class="badges">
+                                                            @foreach ($quick_company as $value)
+                                                            @if($value)
+                                                            <span class="badge rounded p-2 m-1 px-3 bg-primary" style="cursor:pointer">
+                                                                {{ $value }}
+                                                                @if(Gate::check('Delete Role'))
+                                                                @can('Delete Role')
+                                                                <div class="action-btn  ms-2">
+                                                                    <a href="javascript:void(0)" class="mx-3 btn btn-sm  align-items-center text-white venue_show_confirm" data-bs-toggle="tooltip" title='Delete' data-url="{{ route('delete_quickinvoice.setting') }}" data-token="{{ csrf_token() }}">
+                                                                        <i class="ti ti-trash"></i>
+                                                                    </a>
+                                                                </div>
+                                                                @endcan
+                                                                @endif
+                                                            </span>
+                                                            @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div id="eventsettings" class="accordion-item card mt-2">
                                         <h2 class="accordion-header" id="heading-2-15">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">

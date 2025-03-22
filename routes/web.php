@@ -457,6 +457,7 @@ Route::group(['middleware' => ['verified']], function () {
             Route::post('billing/addpaymentinfooncopy/{id}', [BillingController::class, 'addpayinfooncopyurl'])->name('billing.addpayinfooncopyurl');
             Route::get('billing/edit/{id}', [BillingController::class, 'edit'])->name('billing.update');
             Route::post('billing/update/{id}', [BillingController::class, 'edit_invoice'])->name('billing.edit');
+            Route::get('billing/quick-invoice/create', [BillingController::class, 'quick_create_invoice'])->name('billing.quick_create_invoice');
         }
     );
     Route::group(
@@ -1503,3 +1504,5 @@ Route::post('/get-contract-url', [ContractsController::class, 'getContractUrl'])
 Route::post('/send-contract-email', [ContractsController::class, 'sendContractEmail']);
 Route::any('/upload-docs', [MeetingController::class, 'uploadDoc']);
 Route::post('setting/update-organization-id', [SettingController::class, 'updateOrganizationId']);
+Route::post('setting/quick-company', [SettingController::class, 'quick_invoice_company'])->name('quickinvoice.setting');
+Route::post('setting/quick-company-delete', [SettingController::class, 'delete_quick_invoice_company'])->name('delete_quickinvoice.setting');

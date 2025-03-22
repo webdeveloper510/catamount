@@ -2222,4 +2222,55 @@ class SettingController extends Controller
             return true;
         }
     }
+
+public function quick_invoice_company(Request $request)
+    {
+        $user = \Auth::user();
+        $inputValue =  $request->input('quick_company');
+        $settings = Utility::settings();
+        $created_at = $updated_at = date('Y-m-d H:i:s');
+        $existingValue = $settings['quick_company'] ?? '';
+        $newValue = $existingValue . ($existingValue ? ',' : '') . $inputValue;
+        if (isset($settings['quick_company']) && !empty($settings['quick_company'])) {
+            DB::table('settings')
+                ->where('name', 'quick_company')
+                ->update([
+                    'value' => $newValue,
+                    'created_by' => $user->id,
+                    'created_at' => $created_at,
+                    'updated_at' => $updated_at
+                ]);
+        } else {
+            \DB::insert(
+                'INSERT INTO settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`), `updated_at` = VALUES(`updated_at`) ',
+                [
+                    $inputValue,
+                    'quick_company',
+                    $user->id,
+                    $created_at,
+                    $updated_at,
+                ]
+            );
+        }
+        return redirect()->back()->with('success', __('Quick company name added.'));
+    }
+    public function delete_quick_invoice_company(Request $request)
+    {
+        $user = \Auth::user();
+        $setting = Utility::settings();
+        $existingValues = explode(',', $setting['quick_company']);
+        $updatedValues = array_diff($existingValues, [$request->badge]);
+        $newvalue = implode(',', $updatedValues);
+        $created_at = $updated_at = date('Y-m-d H:i:s');
+
+        DB::table('settings')
+            ->where('name', 'quick_company')
+            ->update([
+                'value' => $newvalue,
+                'created_by' => $user->id,
+                'created_at' => $created_at,
+                'updated_at' => $updated_at
+            ]);
+        return true;
+    }
 }

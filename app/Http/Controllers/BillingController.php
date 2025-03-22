@@ -19,6 +19,7 @@ use App\Models\Utility;
 use App\Mail\PaymentLink;
 use Mail;
 use Spatie\Permission\Models\Role;
+use stdClass;
 
 class BillingController extends Controller
 {
@@ -51,11 +52,39 @@ class BillingController extends Controller
     {
         if (\Auth::user()->can('Create Payment')) {
             $event = Meeting::find($id);
-            return view('billing.create', compact('type', 'id', 'event'));
+            $primaryData = [
+                "name" => $event->name,
+                "other_contact" => $event->phone,
+                "email" => $event->email,
+                "lead_address" => $event->lead_address,
+                "relationship" => $event->relationship,
+            ];
+            $quick_contact['primary'] = $primaryData;
+            $quick_contact['secondary'] = json_decode($event->secondary_contact, true);
+            $quick_contact['secondary']['other_contact'] = $quick_contact['secondary']['secondary_contact'];
+            $quick_contact['other'] = [];
+            $payable = \App\Models\Billing::pluck('other_contact', 'id');
+            $payableArray = [];
+            foreach ($payable as $key => $value) {
+                $quick_contact["payable_{$key}"] = json_decode($value, true);
+            }
+            return view('billing.create', compact('type', 'id', 'event', 'quick_contact', 'payable'));
         }
     }
     public function store(Request $request, $id)
     {
+        $secondary_contact = preg_replace('/\D/', '', $_REQUEST['other']['other_contact']);
+        $_REQUEST['other']['other_contact'] = $secondary_contact;
+        $scondData = json_encode($_REQUEST['other']);
+        if (isset($request->quick_conatct) && $request->quick_conatct != 'primary' && $request->quick_conatct != 'secondary') {
+            $id = null;
+            $type = 'other';
+            $other_contact = $scondData;
+        } else {
+            $id = $id;
+            $type = 'lead';
+            $other_contact = null;
+        }
         $items = $request->billing;
         /* $totalCost = 0;
          foreach ($items as $item) {
@@ -65,6 +94,8 @@ class BillingController extends Controller
         */
         $billing = new Billing();
         $billing['event_id'] = $id;
+        $billing['invoice_type'] = $type;
+        $billing['other_contact'] = $other_contact;
         $billing['data'] = serialize($items);
         $billing['status'] = 1;
         $billing['salesTax'] = $request->salesTax ?? 0;
@@ -74,6 +105,7 @@ class BillingController extends Controller
         $billing['terms'] = $request->terms ?? 0;
         $billing['deposits'] = $request->deposits ?? 0;
         $billing['invoiceID'] = rand(1000, 9999);
+        $billing['created_by'] = 3;
         $billing->save();
         Meeting::where('id', $id)->update(['total' => $request->totalAmount]);
         return redirect()->back()->with('success', __('Estimated Invoice Created Successfully'));
@@ -269,6 +301,36 @@ class BillingController extends Controller
             return redirect()->back()->with('success', __(' Invoice Updated Successfully'));
         } else {
             return redirect()->back()->with('error', 'permission Denied');
+        }
+    }
+
+    public function quick_create_invoice()
+    {
+        if (\Auth::user()->can('Create Payment')) {
+
+            $event = Meeting::all();
+            foreach ($event as $key => $item) {
+                $primaryData = [
+                    "name" => $item->name,
+                    "other_contact" => $item->phone,
+                    "email" => $item->email,
+                    "lead_address" => $item->lead_address,
+                    "relationship" => $item->relationship,
+                ];
+                $quick_contact["primary_{$key}"] = $primaryData;
+                $quick_contact["secondary_{$key}"] = json_decode($item->secondary_contact, true);
+                $quick_contact["secondary_{$key}"]['other_contact'] = $quick_contact["secondary_{$key}"]['secondary_contact'];
+            }
+            $quick_contact['other'] = [];
+            $payable = \App\Models\Billing::pluck('other_contact', 'id');
+            $payableArray = [];
+            foreach ($payable as $key => $value) {
+                $decodedValue = json_decode($value, true);
+                if (!empty($decodedValue)) {
+                    $quick_contact["payable_{$key}"] = $decodedValue;
+                }
+            }
+            return view('billing.quickcreate', compact('quick_contact','payable'));
         }
     }
 }
