@@ -32,12 +32,9 @@ $type_company = explode(',', $settings['quick_company']);
                 <optgroup label="Secondary Contact">
                     @foreach($quick_contact as $key => $value)
                     @php
-                    if ($value === null) {
-                    continue;
-                    }
-                    $df = isset($key) ? "{$key}" : '';
-                    $name = isset($value['name']) ? $value['name'] : 'Default Name';
-                    if (strpos($key, 'secondary_') === 0) {
+                    if (strpos($key, 'secondary_') === 0 && isset($value['name']) && $value['name'] !== null) {
+                    $df = $key;
+                    $name = $value['name'];
                     @endphp
                     <option value="{{$df}}">{{$name}}</option>
                     @php
