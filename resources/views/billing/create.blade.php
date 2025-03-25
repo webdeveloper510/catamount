@@ -197,12 +197,14 @@ $meetingData['setup_cost'] = '';
     </div>
     <script>
         function updateFormValues(data = null) {
-            document.querySelector('input[name="other[name]"]').value = data.name || null;
-            document.querySelector('input[name="other[company_name]"]').value = data.company_name || null;
-            document.querySelector('input[name="other[other_contact]"]').value = data.other_contact || null;
-            document.querySelector('input[name="other[email]"]').value = data.email || null;
-            document.querySelector('input[name="other[lead_address]"]').value = data.lead_address || null;
-            document.querySelector('input[name="other[relationship]"]').value = data.relationship || null;
+            data.forEach(function(index, value) {
+                document.querySelector(`input[name="other[${value}]"]`).value = value || null;
+            })
+            // document.querySelector('input[name="other[company_name]"]').value = data.company_name || null;
+            // document.querySelector('input[name="other[other_contact]"]').value = data.other_contact || null;
+            // document.querySelector('input[name="other[email]"]').value = data.email || null;
+            // document.querySelector('input[name="other[lead_address]"]').value = data.lead_address || null;
+            // document.querySelector('input[name="other[relationship]"]').value = data.relationship || null;
         }
         const isNumericInput = (event) => {
             const key = event.keyCode;
