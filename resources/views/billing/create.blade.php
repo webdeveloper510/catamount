@@ -201,7 +201,10 @@ $meetingData['setup_cost'] = '';
             //     document.querySelector(`input[name="other[${value}]"]`).value = value || null;
             // })
             Object.entries(data).forEach(function([key, value]) {
-                document.querySelector(`input[name="other[${key}]"]`).value = value || null;
+                const inputElement = document.querySelector(`input[name="other[${key}]"]`);
+                if (inputElement) {
+                    inputElement.value = value || null;
+                }
             });
             // document.querySelector('input[name="other[company_name]"]').value = data.company_name || null;
             // document.querySelector('input[name="other[other_contact]"]').value = data.other_contact || null;
