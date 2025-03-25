@@ -197,9 +197,12 @@ $meetingData['setup_cost'] = '';
     </div>
     <script>
         function updateFormValues(data = null) {
-            data.forEach(function(index, value) {
-                document.querySelector(`input[name="other[${value}]"]`).value = value || null;
-            })
+            // data.forEach(function(index, value) {
+            //     document.querySelector(`input[name="other[${value}]"]`).value = value || null;
+            // })
+            Object.entries(data).forEach(function([key, value]) {
+                document.querySelector(`input[name="other[${key}]"]`).value = value || null;
+            });
             // document.querySelector('input[name="other[company_name]"]').value = data.company_name || null;
             // document.querySelector('input[name="other[other_contact]"]').value = data.other_contact || null;
             // document.querySelector('input[name="other[email]"]').value = data.email || null;
