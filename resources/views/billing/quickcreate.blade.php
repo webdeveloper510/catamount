@@ -125,12 +125,12 @@ $type_company = explode(',', $settings['quick_company']);
     </div>
     <script>
         function updateFormValues(data = null) {
-            document.querySelector('input[name="other[name]"]').value = data.name || '';
-            document.querySelector('input[name="other[company_name]"]').value = data.company_name || '';
-            document.querySelector('input[name="other[other_contact]"]').value = data.other_contact || '';
-            document.querySelector('input[name="other[email]"]').value = data.email || '';
-            document.querySelector('input[name="other[lead_address]"]').value = data.lead_address || '';
-            document.querySelector('input[name="other[relationship]"]').value = data.relationship || '';
+            Object.entries(data).forEach(function([key, value]) {
+                const inputElement = document.querySelector(`input[name="other[${key}]"]`);
+                if (inputElement) {
+                    inputElement.value = value || null;
+                }
+            });
         }
         const isNumericInput = (event) => {
             const key = event.keyCode;
