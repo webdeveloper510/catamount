@@ -298,6 +298,7 @@ $meetingData['setup_cost'] = '';
                         $('div.company_name').show();
                     }
                 }
+                console.log('input',input)
                 updateFormValues(inputs)
             })
         });
