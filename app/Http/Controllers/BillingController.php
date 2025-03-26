@@ -52,6 +52,7 @@ class BillingController extends Controller
     {
         if (\Auth::user()->can('Create Payment')) {
             $event = Meeting::find($id);
+            $company_name = Meeting::all()->pluck('company_name')->unique();
             $primaryData = [
                 "name" => $event->name,
                 "other_contact" => $event->phone,
@@ -68,7 +69,7 @@ class BillingController extends Controller
             foreach ($payable as $key => $value) {
                 $quick_contact["payable_{$key}"] = json_decode($value, true);
             }
-            return view('billing.create', compact('type', 'id', 'event', 'quick_contact', 'payable'));
+            return view('billing.create', compact('type', 'id', 'event', 'quick_contact', 'payable', 'company_name'));
         }
     }
     public function store(Request $request, $id)
@@ -309,6 +310,7 @@ class BillingController extends Controller
         if (\Auth::user()->can('Create Payment')) {
 
             $event = Meeting::all();
+            $company_name = Meeting::all()->pluck('company_name')->unique();
             foreach ($event as $key => $item) {
                 $primaryData = [
                     "name" => $item->name,
@@ -316,9 +318,11 @@ class BillingController extends Controller
                     "email" => $item->email,
                     "lead_address" => $item->lead_address,
                     "relationship" => $item->relationship,
+                    "eventname" => $item->eventname,
                 ];
                 $quick_contact["primary_{$key}"] = $primaryData;
                 $quick_contact["secondary_{$key}"] = json_decode($item->secondary_contact, true);
+                $quick_contact["secondary_{$key}"]['eventname'] = $item->eventname;
                 $quick_contact["secondary_{$key}"]['other_contact'] = $quick_contact["secondary_{$key}"]['secondary_contact'];
             }
             $quick_contact['other'] = [];
@@ -330,7 +334,36 @@ class BillingController extends Controller
                     $quick_contact["payable_{$key}"] = $decodedValue;
                 }
             }
-            return view('billing.quickcreate', compact('quick_contact','payable'));
+
+
+            foreach ($quick_contact as $key => $value) {
+                // Check if the key is "primary_X" or "secondary_X"
+                if (strpos($key, 'primary_') === 0) {
+                    // Extract index (0 or 1)
+                    $index = substr($key, -1);
+
+                    // Find the corresponding secondary key (e.g., "secondary_X")
+                    $secondaryKey = 'secondary_' . $index;
+
+                    // If the secondary key exists, merge it with the primary
+                    if (isset($quick_contact[$secondaryKey])) {
+                        // Get the lead name for the primary key
+                        $leadName = $quick_contact[$key]['eventname'];
+
+                        $selectResult[$leadName] = [ // Use the lead name as the new key
+                            0 => $quick_contact[$key], // primary data
+                            1 => $quick_contact[$secondaryKey], // secondary data
+                        ];
+                    }
+                }
+                // For keys that are not primary or secondary, copy them as is
+                /* elseif ($key === 'other') {
+                    $selectResult[$key] = $value;
+                } */
+            }
+
+
+            return view('billing.quickcreate', compact('quick_contact', 'payable', 'company_name','selectResult'));
         }
     }
 }
