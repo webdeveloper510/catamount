@@ -195,10 +195,12 @@ class LeadController extends Controller
             // $lead['bar_package'] = isset($bar_pack) && !empty($bar_pack) ? $bar_pack : '';
             $lead->save();
 
+            $fsdf = Lead::where('email',$request->email)->whereNull('deleted_at')->pluck('id')->first();
+
             $existingcustomer = MasterCustomer::where('email', $lead->email)->first();
             if (!$existingcustomer) {
                 $customer = new MasterCustomer();
-                $customer->ref_id = $lead->id;
+                $customer->ref_id = $fsdf ?? $lead->id;
                 $customer->name = $request->name;
                 $customer->email = $request->email ?? '';
                 // $customer->primary_contact = $primary_contact;
