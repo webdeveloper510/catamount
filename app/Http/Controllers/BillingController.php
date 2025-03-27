@@ -337,30 +337,23 @@ class BillingController extends Controller
 
 
             foreach ($quick_contact as $key => $value) {
-                // Check if the key is "primary_X" or "secondary_X"
                 if (strpos($key, 'primary_') === 0) {
-                    // Extract index (0 or 1)
                     $index = substr($key, -1);
-
-                    // Find the corresponding secondary key (e.g., "secondary_X")
                     $secondaryKey = 'secondary_' . $index;
-
-                    // If the secondary key exists, merge it with the primary
                     if (isset($quick_contact[$secondaryKey])) {
-                        // Get the lead name for the primary key
                         $leadName = $quick_contact[$key]['eventname'];
-
-                        $selectResult[$leadName] = [ // Use the lead name as the new key
-                            0 => $quick_contact[$key], // primary data
-                            1 => $quick_contact[$secondaryKey], // secondary data
+                        $selectResult[$leadName] = [
+                            0 => $quick_contact[$key],
+                            1 => $quick_contact[$secondaryKey],
                         ];
                     }
                 }
-                // For keys that are not primary or secondary, copy them as is
                 /* elseif ($key === 'other') {
                     $selectResult[$key] = $value;
                 } */
             }
+
+            // prx($quick_contact);
 
 
             return view('billing.quickcreate', compact('quick_contact', 'payable', 'company_name', 'selectResult'));

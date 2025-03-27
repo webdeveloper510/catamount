@@ -20,67 +20,8 @@ $type_company = explode(',', $settings['quick_company']);
         </div>
     </div>
     <div class="col-6 need_full">
-        <div class="form-group">            
+        <div class="form-group">
             <div id="account_payable_contact"></div>
-            {{--<select name="quick_contact" id="quick_contact" class="form-control">
-                <option value="">Choose contact</option>
-                @foreach($selectResult as $key => $value)
-                <optgroup label="{{$key}}">
-            @foreach($value as $key1 => $value1)
-            @php
-            $kkName = $key1 == 0 ? 'primary_' : 'secondary_';
-            @endphp
-            <option value="{{ $kkName . $key1 }}">{{$value1['name']}}</option>
-            @endforeach
-            </optgroup>
-            @endforeach
-            </select>
-            <select name="quick_contact" id="quick_contact" class="form-control">
-                <option value="">Choose contact</option>
-                <optgroup label="Primary Contact">
-                    @foreach($quick_contact as $key => $value)
-                    @php
-                    if ($value === null) {
-                    continue;
-                    }
-                    $df = isset($key) ? "{$key}" : '';
-                    $name = isset($value['name']) ? $value['name'] : 'Default Name';
-                    if (strpos($key, 'primary_') === 0) {
-                    @endphp
-                    <option value="{{$df}}">{{$name}}</option>
-                    @php
-                    }
-                    @endphp
-                    @endforeach
-                </optgroup>
-                <optgroup label="Secondary Contact">
-                    @foreach($quick_contact as $key => $value)
-                    @php
-                    if (strpos($key, 'secondary_') === 0 && isset($value['name']) && $value['name'] !== null) {
-                    $df = $key;
-                    $name = $value['name'];
-                    @endphp
-                    <option value="{{$df}}">{{$name}}</option>
-                    @php
-                    }
-                    @endphp
-                    @endforeach
-                </optgroup>
-                <optgroup label="Accounts Payables">
-                    @foreach($payable as $key => $value)
-                    @php
-                    $pay_data = json_decode($value, true);
-                    if ($pay_data === null) {
-                    continue;
-                    }
-                    $df = isset($key) ? "payable_{$key}" : 'payable_';
-                    $name = isset($pay_data['name']) ? $pay_data['name'] : 'Default Name';
-                    @endphp
-                    <option value="{{$df}}">{{$name}}</option>
-                    @endforeach
-                </optgroup>
-                <option value="other">Other</option>
-            </select>--}}
         </div>
     </div>
     <div class="col-6 need_full">
@@ -92,7 +33,6 @@ $type_company = explode(',', $settings['quick_company']);
     <div class="col-6 company_name" style="display: none;">
         <div class="form-group">
             {{Form::label('company_name',__('Company name'),['class'=>'form-label']) }}
-            {{--Form::text('other[company_name]',@$other['company_name'],array('class'=>'form-control','placeholder'=>__('Enter company name')))--}}
             <select name="other[company_name]" id="company_name" class="form-control">
                 <option value="">Choose company</option>
                 @if(isset($type_company) && !empty($type_company))
@@ -149,12 +89,17 @@ $type_company = explode(',', $settings['quick_company']);
     </div>
     <script>
         function updateFormValues(data = null) {
-            if (data && typeof data === 'object') {
+            if (data && typeof data === 'object' && Object.keys(data).length > 0) {
                 Object.entries(data).forEach(function([key, value]) {
                     var inputElement = document.querySelector(`input[name="other[${key}]"]`);
                     if (inputElement) {
-                        inputElement.value = value || null;
+                        inputElement.value = value || '';
                     }
+                });
+            } else {
+                var inputs = document.querySelectorAll('input[name^="other["]');
+                inputs.forEach(function(input) {
+                    input.value = '';
                 });
             }
         }
@@ -229,12 +174,15 @@ $type_company = explode(',', $settings['quick_company']);
         }
 
         $(document).ready(function() {
-            function selectFun() {
-                phoneFormat();
+            phoneFormat();
+
+            function selectFun(companyValue, inputs3) {
                 $("select[name=quick_contact]").on('change', function() {
                     var selectedValue = $(this).val();
-                    var quickContactData = @json($quick_contact);
-                    if (selectedValue == 'primary') {
+                    var quickContactData = inputs3[selectedValue];
+                    console.log('quickContactData');
+                    console.log(quickContactData);
+                    /* if (selectedValue == 'primary') {
                         inputs = quickContactData['primary'];
                         $('div.company_name').hide();
                     } else if (selectedValue == 'secondary') {
@@ -247,8 +195,8 @@ $type_company = explode(',', $settings['quick_company']);
                         if (selectedValue == 'other') {
                             $('div.company_name').show();
                         }
-                    }
-                    updateFormValues(inputs)
+                    } */
+                    updateFormValues(quickContactData)
                 })
             }
             $("select[name=organization_name]").on('change', function() {
@@ -273,7 +221,7 @@ $type_company = explode(',', $settings['quick_company']);
                                 selectHTML += `<optgroup label="${value1['primary'].eventname} Contact">`
                                 $.each(value1, function(index2, value2) {
                                     selectHTML += `<optgroup label="${index2} Contact">`
-                                    selectHTML += `<option value="${index2}_${index1}">${value2.name}</option>`
+                                    selectHTML += `<option value="${index2}">${value2.name}</option>`
                                     selectHTML += `</optgroup>`
                                 });
                                 selectHTML += `</optgroup>`
@@ -281,7 +229,7 @@ $type_company = explode(',', $settings['quick_company']);
                         });
                         selectHTML += `</select>`
                         $('div#account_payable_contact').html(selectHTML);
-                        selectFun();
+                        selectFun(companyName, data[companyName][0]);
                     }
                 });
             });
