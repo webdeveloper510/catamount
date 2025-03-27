@@ -340,7 +340,7 @@ class CustomerInformation extends Controller
         if ($useType == 'owner') {
             $allcustomers = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customrer) {
                 $idd = Lead::where('email', $customrer->email)->where('deleted_at', null)->orderBy('deleted_at', 'desc')->pluck('id')->first();
-                $sdasd['owmwe'] = $idd->toArray();
+                $sdasd['owmwe'] = $idd;
                 pr($sdasd);
                 $customrer->company = Lead::find($idd);
                 return $customrer;
