@@ -77,14 +77,13 @@ class BillingController extends Controller
         $secondary_contact = preg_replace('/\D/', '', $_REQUEST['other']['other_contact']);
         $_REQUEST['other']['other_contact'] = $secondary_contact;
         $scondData = json_encode($_REQUEST['other']);
-        if (isset($request->quick_conatct) && $request->quick_conatct != 'primary' && $request->quick_conatct != 'secondary') {
-            $id = null;
+        $id = $id ?? null;
+        $other_contact = $scondData ?? null;
+        $organization_name = $request->organization_name ?? null;
+        if (isset($request->quick_contact) && strpos($request->quick_contact, 'primary') !== 0 && strpos($request->quick_contact, 'secondary') !== 0) {
             $type = 'other';
-            $other_contact = $scondData;
         } else {
-            $id = $id;
             $type = 'lead';
-            $other_contact = null;
         }
         $items = $request->billing;
         /* $totalCost = 0;
@@ -96,6 +95,7 @@ class BillingController extends Controller
         $billing = new Billing();
         $billing['event_id'] = $id;
         $billing['invoice_type'] = $type;
+        $billing['organization_name'] = $organization_name;
         $billing['other_contact'] = $other_contact;
         $billing['data'] = serialize($items);
         $billing['status'] = 1;
@@ -363,7 +363,58 @@ class BillingController extends Controller
             }
 
 
-            return view('billing.quickcreate', compact('quick_contact', 'payable', 'company_name','selectResult'));
+            return view('billing.quickcreate', compact('quick_contact', 'payable', 'company_name', 'selectResult'));
         }
+    }
+
+    public function get_groupby_company(Request $request)
+    {
+        $companyName = $request->companyName;
+        $groupedData = Meeting::select('company_name', 'name', 'email', 'lead_address', 'eventname', 'relationship', 'phone', 'secondary_contact')->where('company_name', $companyName)->get()->groupBy('company_name');
+
+        $quick_contact = [];
+
+        foreach ($groupedData as $key => $item) {
+            foreach ($item as $key1 => $item1) {
+                $primaryData = [
+                    "name" => $item1->name,
+                    "other_contact" => $item1->phone,
+                    "email" => $item1->email,
+                    "lead_address" => $item1->lead_address,
+                    "relationship" => $item1->relationship,
+                    "eventname" => $item1->eventname,
+                ];
+                $quick_contact[$item1->company_name]["primary_{$key1}"] = $primaryData;
+                $secondaryData = json_decode($item1->secondary_contact, true);
+                $secondaryData['eventname'] = $item1->eventname;
+                $secondaryData['other_contact'] = $secondaryData['secondary_contact'];
+
+                $quick_contact[$item1->company_name]["secondary_{$key1}"] = $secondaryData;
+            }
+        }
+        $chunked_contact = [];
+
+        foreach ($quick_contact as $companyName => $companyData) {
+            $pairs = [];
+            foreach ($companyData as $key => $contactData) {
+                if (strpos($key, 'primary') === 0) {
+                    $secondaryKey = str_replace('primary', 'secondary', $key);
+                    if (isset($companyData[$secondaryKey])) {
+                        $pair = [
+                            'primary' => $companyData[$key],
+                            'secondary' => $companyData[$secondaryKey],
+                            /* 'eventname' => [
+                                'primary_event' => $companyData[$key]['eventname'],
+                                'secondary_event' => $companyData[$secondaryKey]['eventname']
+                            ] */
+                        ];
+                        $pairs[] = $pair;
+                    }
+                }
+            }
+            $chunked_contact[$companyName] = $pairs;
+        }
+
+        return $chunked_contact;
     }
 }

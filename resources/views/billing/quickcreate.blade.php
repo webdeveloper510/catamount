@@ -10,21 +10,32 @@ $type_company = explode(',', $settings['quick_company']);
 <div class="row">
     <div class="col-6 need_full">
         <div class="form-group">
-            {{Form::label('account_payable_contact',__('Accounts Payables Contact'),['class'=>'form-label']) }}
-            <select name="quick_contact" id="quick_contact" class="form-control">
+            {{Form::label('organization_name',__('Organization name'),['class'=>'form-label']) }}
+            <select name="organization_name" id="organization_name" class="form-control">
+                <option value="">Choose contact</option>
+                @foreach($company_name as $key => $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col-6 need_full">
+        <div class="form-group">            
+            <div id="account_payable_contact"></div>
+            {{--<select name="quick_contact" id="quick_contact" class="form-control">
                 <option value="">Choose contact</option>
                 @foreach($selectResult as $key => $value)
                 <optgroup label="{{$key}}">
-                    @foreach($value as $key1 => $value1)
-                    @php
-                    $kkName = $key1 == 0 ? 'primary_' : 'secondary_';
-                    @endphp
-                    <option value="{{ $kkName . $key1 }}">{{$value1['name']}}</option>
-                    @endforeach
-                </optgroup>
-                @endforeach
+            @foreach($value as $key1 => $value1)
+            @php
+            $kkName = $key1 == 0 ? 'primary_' : 'secondary_';
+            @endphp
+            <option value="{{ $kkName . $key1 }}">{{$value1['name']}}</option>
+            @endforeach
+            </optgroup>
+            @endforeach
             </select>
-            {{--<select name="quick_contact" id="quick_contact" class="form-control">
+            <select name="quick_contact" id="quick_contact" class="form-control">
                 <option value="">Choose contact</option>
                 <optgroup label="Primary Contact">
                     @foreach($quick_contact as $key => $value)
@@ -70,17 +81,6 @@ $type_company = explode(',', $settings['quick_company']);
                 </optgroup>
                 <option value="other">Other</option>
             </select>--}}
-        </div>
-    </div>
-    <div class="col-6 need_full">
-        <div class="form-group">
-            {{Form::label('organization_name',__('Organization name'),['class'=>'form-label']) }}
-            <select name="organization_name" id="organization_name" class="form-control">
-                <option value="">Choose contact</option>
-                @foreach($company_name as $key => $value)
-                <option value="{{$key}}">{{$value}}</option>
-                @endforeach
-            </select>
         </div>
     </div>
     <div class="col-6 need_full">
@@ -229,26 +229,62 @@ $type_company = explode(',', $settings['quick_company']);
         }
 
         $(document).ready(function() {
-            phoneFormat();
-            $("select[name=quick_contact]").on('change', function() {
-                var selectedValue = $(this).val();
-                var quickContactData = @json($quick_contact);
-                if (selectedValue == 'primary') {
-                    inputs = quickContactData['primary'];
-                    $('div.company_name').hide();
-                } else if (selectedValue == 'secondary') {
-                    inputs = quickContactData['secondary'];
-                    $('div.company_name').hide();
-                } else if (selectedValue != 'secondary' && selectedValue != 'primary' && selectedValue != 'other') {
-                    inputs = quickContactData[selectedValue];
-                } else {
-                    inputs = quickContactData['other'];
-                    if (selectedValue == 'other') {
-                        $('div.company_name').show();
+            function selectFun() {
+                phoneFormat();
+                $("select[name=quick_contact]").on('change', function() {
+                    var selectedValue = $(this).val();
+                    var quickContactData = @json($quick_contact);
+                    if (selectedValue == 'primary') {
+                        inputs = quickContactData['primary'];
+                        $('div.company_name').hide();
+                    } else if (selectedValue == 'secondary') {
+                        inputs = quickContactData['secondary'];
+                        $('div.company_name').hide();
+                    } else if (selectedValue != 'secondary' && selectedValue != 'primary' && selectedValue != 'other') {
+                        inputs = quickContactData[selectedValue];
+                    } else {
+                        inputs = quickContactData['other'];
+                        if (selectedValue == 'other') {
+                            $('div.company_name').show();
+                        }
                     }
-                }
-                updateFormValues(inputs)
-            })
+                    updateFormValues(inputs)
+                })
+            }
+            $("select[name=organization_name]").on('change', function() {
+                companyName = $(this).val();
+                $.ajax({
+                    url: "{{route('companybyname')}}",
+                    type: 'POST',
+                    data: {
+                        "companyName": companyName,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    error: function(data) {
+                        data = data.responseJSON;
+                        toastrs("Error", data.error, "error");
+                    },
+                    success: function(data) {
+                        selectHTML = ''
+                        selectHTML += `{{Form::label('account_payable_contact',__('Accounts Payables Contact'),['class'=>'form-label']) }}`
+                        selectHTML += `<select name="quick_contact" id="quick_contact" class="form-control"><option value="">Choose contact</option>`
+                        $.each(data, function(index, value) {
+                            $.each(value, function(index1, value1) {
+                                selectHTML += `<optgroup label="${value1['primary'].eventname} Contact">`
+                                $.each(value1, function(index2, value2) {
+                                    selectHTML += `<optgroup label="${index2} Contact">`
+                                    selectHTML += `<option value="${index2}_${index1}">${value2.name}</option>`
+                                    selectHTML += `</optgroup>`
+                                });
+                                selectHTML += `</optgroup>`
+                            });
+                        });
+                        selectHTML += `</select>`
+                        $('div#account_payable_contact').html(selectHTML);
+                        selectFun();
+                    }
+                });
+            });
         });
     </script>
     <div class="col-md-12">

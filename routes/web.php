@@ -1452,6 +1452,7 @@ Route::get('/testview', function () {
 });
 
 Route::get('/paypal-payment-success', [BillingController::class, 'paypalpaymentsuccess']);
+Route::post('/get-company-name', [BillingController::class, 'get_groupby_company'])->name('companybyname');
 // Dashboard Testing route
 Route::get('/dashboard-testing', [DashboardTestingController::class, 'index']);
 Route::group(
