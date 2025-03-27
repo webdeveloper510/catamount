@@ -209,6 +209,7 @@ $type_company = explode(',', $settings['quick_company']);
                                     selectHTML += `</optgroup>`
                                 });
                                 selectHTML += `</optgroup>`
+                                selectHTML += `<option value=other">other</option>`
                             });
                         });
                         selectHTML += `</select>`

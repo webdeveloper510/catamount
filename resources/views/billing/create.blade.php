@@ -6,7 +6,8 @@ $additional_items = json_decode($settings['additional_items'], true);
 $type_arr = explode(',', $settings['event_type']);
 $type_arr = array_combine($type_arr, $type_arr);
 
-$type_company = explode(',', $settings['quick_company']);
+// $type_company = explode(',', $settings['quick_company']);
+$type_company = App\Models\Meeting::all()->pluck('company_name')->unique();
 
 $labels =
     [
