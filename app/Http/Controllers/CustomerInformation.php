@@ -339,13 +339,17 @@ class CustomerInformation extends Controller
         $useType = $useRole == 'company' ? 'owner' : $useType;
         if ($useType == 'owner') {
             $allcustomers = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customrer) {
-                $idd = Lead::where('email',$customrer->email)->where('deleted_at',null)->first();
+                $idd = Lead::where('email',$customrer->email)->where('deleted_at',null)->orderBy('deleted_at', 'desc')->first();
+                $sdasd['owmwe'] = $idd->toArray();
+                pr($sdasd);
                 $customrer->company = Lead::find($idd);
                 return $customrer;
             });
         } else {
             $allcustomerOLD = MasterCustomer::orderBy('id', 'desc')->get()->map(function ($customer) {
-                $idd = Lead::where('email',$customer->email)->where('deleted_at',null)->first();
+                $idd = Lead::where('email',$customer->email)->where('deleted_at',null)->orderBy('deleted_at', 'desc')->first();
+                $sdasd['other'] = $idd->toArray();
+                pr($sdasd);
                 $customer->company = Lead::find($idd);
                 return $customer;
             });
