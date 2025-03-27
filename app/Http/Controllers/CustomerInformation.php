@@ -350,10 +350,11 @@ class CustomerInformation extends Controller
 
             $allcustomers = $allcustomerOLD->filter(function ($customer) {
                 $masterID = $customer->ref_id;
-                $leads = Lead::where('created_by', 3);
+                $leads = Lead::where('created_by', \Auth::user()->id)->exists();
                 return $leads;
             });
         }
+        prx($allcustomers->toArray());
         $importedcustomers = UserImport::distinct()->get();
 
         return view('customer.allcustomers', compact('allcustomers', 'importedcustomers'));
