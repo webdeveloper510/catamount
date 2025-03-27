@@ -180,22 +180,6 @@ $type_company = explode(',', $settings['quick_company']);
                 $("select[name=quick_contact]").on('change', function() {
                     var selectedValue = $(this).val();
                     var quickContactData = inputs3[selectedValue];
-                    console.log('quickContactData');
-                    console.log(quickContactData);
-                    /* if (selectedValue == 'primary') {
-                        inputs = quickContactData['primary'];
-                        $('div.company_name').hide();
-                    } else if (selectedValue == 'secondary') {
-                        inputs = quickContactData['secondary'];
-                        $('div.company_name').hide();
-                    } else if (selectedValue != 'secondary' && selectedValue != 'primary' && selectedValue != 'other') {
-                        inputs = quickContactData[selectedValue];
-                    } else {
-                        inputs = quickContactData['other'];
-                        if (selectedValue == 'other') {
-                            $('div.company_name').show();
-                        }
-                    } */
                     updateFormValues(quickContactData)
                 })
             }
