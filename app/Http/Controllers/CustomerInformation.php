@@ -350,7 +350,7 @@ class CustomerInformation extends Controller
 
             $allcustomers = $allcustomerOLD->filter(function ($customer) {
                 $masterID = $customer->ref_id;
-                $leads = Lead::where('created_by', \Auth::user()->id)->exists();
+                $leads = Lead::where('created_by', 3);
                 return $leads;
             });
         }
