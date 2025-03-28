@@ -1,4 +1,6 @@
 <?php
+// echo "sdfsd";
+// die;
 $settings = App\Models\Utility::settings();
 $billings = json_decode($settings['fixed_billing'], true);
 $additional_items = json_decode($settings['additional_items'], true);
@@ -135,7 +137,7 @@ $meetingData['setup_cost'] = '';
             {{Form::text('other[name]',@$other['other_name'],array('class'=>'form-control','placeholder'=>__('Enter Name'), 'required' => 'required'))}}
         </div>
     </div>
-    <div class="col-md-6 need_full company_name" style="display: none;">
+    <!-- <div class="col-md-6 need_full company_name" style="display: none;">
         <div class="form-group">
             {{Form::label('company_name',__('Company name'),['class'=>'form-label']) }}
             {{--Form::text('other[company_name]',@$other['company_name'],array('class'=>'form-control','placeholder'=>__('Enter company name')))--}}
@@ -150,7 +152,7 @@ $meetingData['setup_cost'] = '';
                 @endif
             </select>
         </div>
-    </div>
+    </div> -->
     <div class="col-md-6 need_full">
         <div class="form-group intl-tel-input">
             {{ Form::label('phone', __('Phone'), ['class' => 'form-label']) }}
@@ -499,3 +501,13 @@ $meetingData['setup_cost'] = '';
         width: 100%;
     }
 </style>
+<!-- 3/28/2028 -->
+<script>
+document.getElementById('quick_contact').addEventListener('change', function() {
+    if (this.value === 'other') {
+        let form = this.closest('form');
+        form.reset(); // Reset the form
+        this.value = 'other'; // Re-select "Other" after reset
+    }
+});
+</script>

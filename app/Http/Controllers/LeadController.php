@@ -1060,7 +1060,9 @@ class LeadController extends Controller
         }
         $notes = NotesLeads::whereIn('lead_id', $ids)->orderby('id', 'desc')->get();
         $docs = LeadDoc::whereIn('lead_id', $ids)->get();
-
+        // echo "<PRE>";
+        // print_r($leads);
+        // die;
         return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
     }
 

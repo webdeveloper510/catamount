@@ -202,7 +202,7 @@ $type_company = explode(',', $settings['quick_company']);
                         selectHTML += `<select name="quick_contact" id="quick_contact" class="form-control"><option value="">Choose contact</option>`
                         $.each(data, function(index, value) {
                             $.each(value, function(index1, value1) {
-                                selectHTML += `<optgroup label="${value1['primary'].eventname} Contact">`
+                                selectHTML += `<optgroup label="${value1['primary'].eventname}">`
                                 $.each(value1, function(index2, value2) {
                                     selectHTML += `<optgroup label="${index2} Contact">`
                                     selectHTML += `<option value="${index2}">${value2.name}</option>`

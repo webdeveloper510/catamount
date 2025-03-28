@@ -32,6 +32,8 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
+                                                    <th scope="col" class="sort">{{__('Primary Contact')}}</th>
+                                                    <th scope="col" class="sort">{{__('Secondary Contact')}}</th>
                                                     <th scope="col" class="sort" data-sort="budget">{{__('Training Type')}}</th>
                                                     <th scope="col" class="sort">{{__('Attendees')}}</th>
                                                     <th scope="col" class="sort">{{__('Training Date')}}</th>
@@ -42,10 +44,16 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($leads as $lead)
+                                                @php
+                                                    $secondaryContact = json_decode($lead->secondary_contact, true);
+                                                @endphp
                                                 <tr>
                                                     <td>
                                                         {{ ucfirst($lead->name) }}
                                                     </td>
+                                                    <td><b> {{ ucfirst($lead->primary_contact) }}</b></td>
+                                                    <td><b>{{ ucfirst($secondaryContact['secondary_contact'] ?? 'N/A') }}</b></td>
+
                                                     <td><b> {{ ucfirst($lead->type) }}</b></td>
                                                     <td>
                                                         <span class="budget">{{ $lead->guest_count }}</span>
