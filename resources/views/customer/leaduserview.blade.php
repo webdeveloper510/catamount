@@ -32,8 +32,8 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="sort" data-sort="name">{{__('Name')}}</th>
-                                                    <th scope="col" class="sort">{{__('Primary Contact')}}</th>
-                                                    <th scope="col" class="sort">{{__('Secondary Contact')}}</th>
+                                                    <!-- <th scope="col" class="sort">{{__('Primary Contact')}}</th>
+                                                    <th scope="col" class="sort">{{__('Secondary Contact')}}</th> -->
                                                     <th scope="col" class="sort" data-sort="budget">{{__('Training Type')}}</th>
                                                     <th scope="col" class="sort">{{__('Attendees')}}</th>
                                                     <th scope="col" class="sort">{{__('Training Date')}}</th>
@@ -51,8 +51,8 @@
                                                     <td>
                                                         {{ ucfirst($lead->name) }}
                                                     </td>
-                                                    <td><b> {{ ucfirst($lead->primary_contact) }}</b></td>
-                                                    <td><b>{{ ucfirst($secondaryContact['secondary_contact'] ?? 'N/A') }}</b></td>
+                                                    <!-- <td><b> {{ ucfirst($lead->primary_contact) }}</b></td>
+                                                    <td><b>{{ ucfirst($secondaryContact['secondary_contact'] ?? 'N/A') }}</b></td> -->
 
                                                     <td><b> {{ ucfirst($lead->type) }}</b></td>
                                                     <td>
@@ -85,6 +85,59 @@
 
                 <div class="container-fluid xyz mt-3">
                     <div class="row">
+                    <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body table-border-style">
+                    <h3>Primary Contact</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ ucfirst($lead->name) }}</td>
+                                    <td>{{ $lead->email }}</td>
+                                    <td>{{ $lead->primary_contact }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body table-border-style">
+                    <h3>Secondary Contact</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $secondaryContact = json_decode($lead->secondary_contact, true);
+                                @endphp
+                                <tr>
+                                    <td>{{ ucfirst($secondaryContact['name'] ?? 'N/A') }}</td>
+                                    <td>{{ $secondaryContact['email'] ?? 'N/A' }}</td>
+                                    <td>{{ $secondaryContact['secondary_contact'] ?? 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
                         <div class="col-lg-6">
                             <div class="card" id="useradd-1">
                                 <div class="card-body table-border-style">
