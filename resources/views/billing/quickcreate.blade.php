@@ -219,7 +219,14 @@ $type_company = explode(',', $settings['quick_company']);
                         $.each(data, function(companyKey, companyData) {
                             $.each(companyData, function(contactKey, contactValue) {
                                 if (contactKey.startsWith('primary') || contactKey.startsWith('secondary')) {
-                                    selectHTML += `<optgroup label="${contactValue.eventname}">`;
+                                    if (contactKey.startsWith('primary')) {
+                                        label = `Primary contact`;
+                                    } else if (contactKey.startsWith('secondary')) {
+                                        label = `Secondary contact`;
+                                    } else {
+                                        label = `Other contact`;
+                                    }
+                                    selectHTML += `<optgroup label="${label}">`;
                                     selectHTML += `<option value="${contactKey}">${contactValue.name || 'No Entries'}</option>`;
                                     selectHTML += `</optgroup>`;
                                 }
