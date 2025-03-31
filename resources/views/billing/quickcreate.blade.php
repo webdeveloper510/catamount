@@ -224,14 +224,14 @@ $type_company = explode(',', $settings['quick_company']);
                                     } else if (contactKey.startsWith('secondary')) {
                                         label = `Secondary contact`;
                                     } else {
-                                        label = `Other contact`;
+                                        label = `Others contact`;
                                     }
                                     selectHTML += `<optgroup label="${label}">`;
                                     selectHTML += `<option value="${contactKey}">${contactValue.name || 'No Entries'}</option>`;
                                     selectHTML += `</optgroup>`;
                                 }
                             });
-                            selectHTML += `<optgroup label="Payable Contact">`;
+                            selectHTML += `<optgroup label="Others contact">`;
                             $.each(companyData, function(contactKey, contactValue) {
                                 if (contactKey.startsWith('payable')) {
                                     selectHTML += `<option value="${contactKey}">${contactValue.name || 'No Entries'}</option>`;
