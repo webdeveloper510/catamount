@@ -1077,9 +1077,10 @@ class LeadController extends Controller
                 @$other_fdsfsdf[$other_keys]['type'] = 'other';
             }
         }
-        @$dfdsf = array_merge(@$other_fdsfsdf ?? [], $contactdetails);
-
-        pr($dfdsf);
+        @$dsadasd = array_merge(@$other_fdsfsdf ?? [], $contactdetails);
+        $dfdsf = array_filter($dsadasd, function($item) {
+            return !empty($item['name']);
+        });
 
         return view('customer.leaduserview', compact('leads', 'docs', 'notes', 'dfdsf'));
     }
