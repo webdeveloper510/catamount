@@ -398,7 +398,7 @@ class BillingController extends Controller
             }
         }
         return $quick_contact;
-        prx($quick_contact);
+        // prx($quick_contact);
         $chunked_contact = [];
 
         foreach ($quick_contact as $companyName => $companyData) {
