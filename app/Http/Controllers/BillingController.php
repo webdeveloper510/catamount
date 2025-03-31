@@ -16,6 +16,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PaymentInfo;
 use App\Models\PaymentLogs;
 use App\Models\Utility;
+use App\Models\UserImport;
 use App\Mail\PaymentLink;
 use Mail;
 use Spatie\Permission\Models\Role;
@@ -310,7 +311,9 @@ class BillingController extends Controller
         if (\Auth::user()->can('Create Payment')) {
 
             $event = Meeting::all();
-            $company_name = Meeting::all()->pluck('company_name')->unique();
+            $meeting_org = Meeting::all()->pluck('company_name')->unique();
+            $import_org = UserImport::all()->pluck('organization')->unique();
+            $company_names = $meeting_org->merge($import_org)->unique();
             foreach ($event as $key => $item) {
                 $primaryData = [
                     "name" => $item->name,
@@ -340,11 +343,13 @@ class BillingController extends Controller
                 if (strpos($key, 'primary_') === 0) {
                     $index = substr($key, -1);
                     $secondaryKey = 'secondary_' . $index;
+                    // $payableKey = 'payable_' . $index;
                     if (isset($quick_contact[$secondaryKey])) {
                         $leadName = $quick_contact[$key]['eventname'];
                         $selectResult[$leadName] = [
                             0 => $quick_contact[$key],
                             1 => $quick_contact[$secondaryKey],
+                            // 2 => $quick_contact[$payableKey],
                         ];
                     }
                 }
@@ -356,7 +361,7 @@ class BillingController extends Controller
             // prx($quick_contact);
 
 
-            return view('billing.quickcreate', compact('quick_contact', 'payable', 'company_name', 'selectResult'));
+            return view('billing.quickcreate', compact('quick_contact', 'payable', 'company_names', 'selectResult'));
         }
     }
 
@@ -384,11 +389,26 @@ class BillingController extends Controller
 
                 $quick_contact[$item1->company_name]["secondary_{$key1}"] = $secondaryData;
             }
+            $payable = \App\Models\Billing::pluck('other_contact', 'id');
+            foreach ($payable as $key => $value) {
+                $decodedValue = json_decode($value, true);
+                if (!empty($decodedValue)) {
+                    $quick_contact[$item1->company_name]["payable_{$key}"] = $decodedValue;
+                }
+            }
         }
+        return $quick_contact;
+        prx($quick_contact);
         $chunked_contact = [];
 
         foreach ($quick_contact as $companyName => $companyData) {
             $pairs = [];
+            $payableRecords = [];
+            foreach ($companyData as $key => $contactData) {
+                if (strpos($key, 'payable') === 0) {
+                    $payableRecords[] = $contactData;
+                }
+            }
             foreach ($companyData as $key => $contactData) {
                 if (strpos($key, 'primary') === 0) {
                     $secondaryKey = str_replace('primary', 'secondary', $key);
@@ -396,10 +416,6 @@ class BillingController extends Controller
                         $pair = [
                             'primary' => $companyData[$key],
                             'secondary' => $companyData[$secondaryKey],
-                            /* 'eventname' => [
-                                'primary_event' => $companyData[$key]['eventname'],
-                                'secondary_event' => $companyData[$secondaryKey]['eventname']
-                            ] */
                         ];
                         $pairs[] = $pair;
                     }
@@ -407,6 +423,8 @@ class BillingController extends Controller
             }
             $chunked_contact[$companyName] = $pairs;
         }
+
+        // prx($chunked_contact);
 
         return $chunked_contact;
     }

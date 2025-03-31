@@ -45,7 +45,7 @@
                                             <tbody>
                                                 @foreach($leads as $lead)
                                                 @php
-                                                    $secondaryContact = json_decode($lead->secondary_contact, true);
+                                                $secondaryContact = json_decode($lead->secondary_contact, true);
                                                 @endphp
                                                 <tr>
                                                     <td>
@@ -85,59 +85,35 @@
 
                 <div class="container-fluid xyz mt-3">
                     <div class="row">
-                    <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body table-border-style">
-                    <h3>Primary Contact</h3>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Contact</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ ucfirst($lead->name) }}</td>
-                                    <td>{{ $lead->email }}</td>
-                                    <td>{{ $lead->primary_contact }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body table-border-style">
-                    <h3>Secondary Contact</h3>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Contact</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $secondaryContact = json_decode($lead->secondary_contact, true);
-                                @endphp
-                                <tr>
-                                    <td>{{ ucfirst($secondaryContact['name'] ?? 'N/A') }}</td>
-                                    <td>{{ $secondaryContact['email'] ?? 'N/A' }}</td>
-                                    <td>{{ $secondaryContact['secondary_contact'] ?? 'N/A' }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body table-border-style">
+                                    <h3>Payable Contact</h3>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Contact</th>
+                                                    <th>Contact type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($dfdsf as $key => $value)
+                                                <tr>
+                                                    <td>{{ ucfirst($value['name']) }}</td>
+                                                    <td>{{ $value['email'] }}</td>
+                                                    <td>{{ $value['contact'] }}</td>
+                                                    <td>{{ $value['type'] }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="card" id="useradd-1">
                                 <div class="card-body table-border-style">

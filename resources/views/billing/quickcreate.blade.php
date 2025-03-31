@@ -6,14 +6,29 @@ $type_arr = array_combine($type_arr, $type_arr);
 
 $type_company = explode(',', $settings['quick_company']);
 ?>
+@extends('layouts.admin')
+@section('page-title')
+{{ __('Quick invoice') }}
+@endsection
+@section('title')
+{{ __('Quick invoice') }}
+@endsection
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
+<li class="breadcrumb-item">{{ __('Quick invoice') }}</li>
+@endsection
+@section('content')
+@section('action-btn')
+@endsection
+
 {{Form::open(array('route' => ['billing.addbilling', $id = 00],'method'=>'post','enctype'=>'multipart/form-data' ,'id'=>'formdata'))}}
 <div class="row">
     <div class="col-6 need_full">
         <div class="form-group">
             {{Form::label('organization_name',__('Organization name'),['class'=>'form-label']) }}
-            <select name="organization_name" id="organization_name" class="form-control">
+            <select name="organization_name" id="organization_name" class="form-control select2">
                 <option value="">Choose contact</option>
-                @foreach($company_name as $key => $value)
+                @foreach($company_names as $key => $value)
                 <option value="{{$value}}">{{$value}}</option>
                 @endforeach
             </select>
@@ -102,6 +117,7 @@ $type_company = explode(',', $settings['quick_company']);
                     input.value = '';
                 });
             }
+            phoneFormat();
         }
         var isNumericInput1 = (event) => {
             var key = event.keyCode;
@@ -174,7 +190,7 @@ $type_company = explode(',', $settings['quick_company']);
         }
 
         $(document).ready(function() {
-            phoneFormat();
+            phoneFormat()
 
             function selectFun(companyValue, inputs3) {
                 $("select[name=quick_contact]").on('change', function() {
@@ -200,21 +216,26 @@ $type_company = explode(',', $settings['quick_company']);
                         selectHTML = ''
                         selectHTML += `{{Form::label('account_payable_contact',__('Accounts Payables Contact'),['class'=>'form-label']) }}`
                         selectHTML += `<select name="quick_contact" id="quick_contact" class="form-control"><option value="">Choose contact</option>`
-                        $.each(data, function(index, value) {
-                            $.each(value, function(index1, value1) {
-                                selectHTML += `<optgroup label="${value1['primary'].eventname}">`
-                                $.each(value1, function(index2, value2) {
-                                    selectHTML += `<optgroup label="${index2} Contact">`
-                                    selectHTML += `<option value="${index2}">${value2.name}</option>`
-                                    selectHTML += `</optgroup>`
-                                });
-                                selectHTML += `</optgroup>`
-                                selectHTML += `<option value=other">other</option>`
+                        $.each(data, function(companyKey, companyData) {
+                            $.each(companyData, function(contactKey, contactValue) {
+                                if (contactKey.startsWith('primary') || contactKey.startsWith('secondary')) {
+                                    selectHTML += `<optgroup label="${contactValue.eventname}">`;
+                                    selectHTML += `<option value="${contactKey}">${contactValue.name || 'No Entries'}</option>`;
+                                    selectHTML += `</optgroup>`;
+                                }
                             });
+                            selectHTML += `<optgroup label="Payable Contact">`;
+                            $.each(companyData, function(contactKey, contactValue) {
+                                if (contactKey.startsWith('payable')) {
+                                    selectHTML += `<option value="${contactKey}">${contactValue.name || 'No Entries'}</option>`;
+                                }
+                            });
+                            selectHTML += `</optgroup>`;
                         });
-                        selectHTML += `</select>`
+                        selectHTML += `<option value="other">Other</option>`;
+                        selectHTML += `</select>`;
                         $('div#account_payable_contact').html(selectHTML);
-                        selectFun(companyName, data[companyName][0]);
+                        selectFun(companyName, data[companyName]);
                     }
                 });
             });
@@ -398,3 +419,4 @@ $type_company = explode(',', $settings['quick_company']);
         width: 100%;
     }
 </style>
+@endsection

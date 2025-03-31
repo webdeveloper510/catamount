@@ -195,7 +195,7 @@ class LeadController extends Controller
             // $lead['bar_package'] = isset($bar_pack) && !empty($bar_pack) ? $bar_pack : '';
             $lead->save();
 
-            $fsdf = Lead::where('email',$request->email)->whereNull('deleted_at')->pluck('id')->first();
+            $fsdf = Lead::where('email', $request->email)->whereNull('deleted_at')->pluck('id')->first();
 
             $existingcustomer = MasterCustomer::where('email', $lead->email)->first();
             if (!$existingcustomer) {
@@ -1060,10 +1060,25 @@ class LeadController extends Controller
         }
         $notes = NotesLeads::whereIn('lead_id', $ids)->orderby('id', 'desc')->get();
         $docs = LeadDoc::whereIn('lead_id', $ids)->get();
-        // echo "<PRE>";
-        // print_r($leads);
-        // die;
-        return view('customer.leaduserview', compact('leads', 'docs', 'notes'));
+
+
+        foreach ($leads as $key => $values) {
+            $contactdetails[$key]['name'] = $values->name;
+            $contactdetails[$key]['email'] = $values->email;
+            $contactdetails[$key]['contact'] = $values->primary_contact;
+            $contactdetails[$key]['type'] = 'primary';
+            $contactdetails[$key+1] = json_decode($values->secondary_contact, true);
+            $contactdetails[$key+1]['contact'] = $contactdetails[$key+1]['secondary_contact'];
+            $contactdetails[$key+1]['type'] = 'secondary';
+            $contactdedtails['other'] = Billing::where('organization_name', $values->company_name)->pluck('other_contact');
+            foreach ($contactdedtails['other'] as $other_keys => $other) {
+                $other_fdsfsdf[$other_keys] = json_decode($other, true);
+                $other_fdsfsdf[$other_keys]['contact'] =$other_fdsfsdf[$other_keys]['other_contact'];
+                $other_fdsfsdf[$other_keys]['type'] = 'other';
+            }
+        }
+        $dfdsf = array_merge($other_fdsfsdf,$contactdetails);
+        return view('customer.leaduserview', compact('leads', 'docs', 'notes', 'dfdsf'));
     }
 
     public function lead_upload($id)

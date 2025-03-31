@@ -132,13 +132,11 @@ $powerBiReports = PowerBiReport::all();
                     <span class="fa-stack fa-lg pull-left"><img src="{{asset('icons/power-bi.png')}}" alt="" style="    width: 22px;"></span>
                     <span class="dash-mtext">{{ __('Power BI') }}</span>
                 </a>
-
                 @endif
                 @endif
-                @if(\Request::route()->getName() == 'billing.index')
-                <a href="#useradd-1" class="list-group-item list-group-item-action">
-                    <span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span>
-                    <span class="dash-mtext">{{ __('Invoice') }} </span></a>
+                @if(\Request::route()->getName() == 'billing.index' || \Request::route()->getName() == 'billing.quick_create_invoice')
+                <a href="#useradd-1" class="list-group-item list-group-item-action"><span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span><span class="dash-mtext">{{ __('Invoice') }} </span></a>
+                <a href="{{route('billing.quick_create_invoice')}}" class="list-group-item list-group-item-action  @if(\Request::route()->getName() == 'billing.quick_create_invoice') active @endif" ><span class="fa-stack fa-lg pull-left"><i class="fas fa-file-invoice"></i></span><span class="dash-mtext">{{ __('Quick invoice') }} </span></a>
                 @endif
                 @if(\Request::route()->getName() == 'calendernew.index')
                 <a href="#useradd-1" class="list-group-item list-group-item-action">

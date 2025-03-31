@@ -113,9 +113,13 @@ $meetingData['setup_cost'] = '';
         {{Form::label('account_payable_contact',__('Accounts Payables Contact'),['class'=>'form-label']) }}
         <select name="quick_contact" id="quick_contact" class="form-control">
             <option value="">Choose contact</option>
-            <option value="primary">Primary contact: {{$quick_contact['primary']['name']}}</option>
-            <option value="secondary">Secondary contact: {{$quick_contact['secondary']['name']}}</option>
-            <optgroup label="Accounts Payables">
+            <optgroup label="Primary contact">
+                <option value="primary">{{$quick_contact['primary']['name']}}</option>
+            </optgroup>
+            <optgroup label="Secondary contact">
+                <option value="secondary">{{$quick_contact['secondary']['name']}}</option>
+            </optgroup>
+            <optgroup label="Others">
                 @foreach($payable as $key => $value)
                 @php
                 $pay_data = json_decode($value, true);
@@ -503,11 +507,11 @@ $meetingData['setup_cost'] = '';
 </style>
 <!-- 3/28/2028 -->
 <script>
-document.getElementById('quick_contact').addEventListener('change', function() {
-    if (this.value === 'other') {
-        let form = this.closest('form');
-        form.reset(); // Reset the form
-        this.value = 'other'; // Re-select "Other" after reset
-    }
-});
+    document.getElementById('quick_contact').addEventListener('change', function() {
+        if (this.value === 'other') {
+            let form = this.closest('form');
+            form.reset(); // Reset the form
+            this.value = 'other'; // Re-select "Other" after reset
+        }
+    });
 </script>
