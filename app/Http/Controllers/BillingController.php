@@ -37,13 +37,16 @@ class BillingController extends Controller
         $useType = $useRole == 'company' ? 'owner' : $useType;
         if ($useType == 'owner') {
             $billing = Billing::all();
+            $billings = Billing::where('invoice_type', 'other')->get();
             $events = Meeting::where('status', '!=', 5)->orderby('id', 'desc')->get();
-            return view('billing.index', compact('billing', 'events'));
+            // return view('billing.index', compact('billing', 'events'));
         } else {
             $billing = Billing::where('created_by', \Auth::user()->creatorId())->get();
+            $billings = Billing::where('created_by', \Auth::user()->creatorId())->where('invoice_type', 'other')->get();
             $events = Meeting::where('status', '!=', 4)->where('created_by', \Auth::user()->id)->orderby('id', 'desc')->get();
-            return view('billing.index', compact('billing', 'events'));
+            // return view('billing.index', compact('billing', 'events'));
         }
+        return view('billing.index', compact('billing', 'events', 'billings'));
     }
 
     /**
@@ -82,9 +85,9 @@ class BillingController extends Controller
         $other_contact = $scondData ?? null;
         $organization_name = $request->organization_name ?? null;
         if (isset($request->quick_contact) && strpos($request->quick_contact, 'primary') !== 0 && strpos($request->quick_contact, 'secondary') !== 0) {
-            $type = 'other';
-        } else {
             $type = 'lead';
+        } else {
+            $type = 'other';
         }
         $items = $request->billing;
         /* $totalCost = 0;
@@ -368,7 +371,7 @@ class BillingController extends Controller
     public function get_groupby_company(Request $request)
     {
         $companyName = $request->companyName;
-        $groupedData = Meeting::select('company_name', 'name', 'email', 'lead_address', 'eventname', 'relationship', 'phone', 'secondary_contact')->where('company_name', $companyName)->get()->groupBy('company_name');
+        $groupedData = Meeting::select('company_name', 'name', 'email', 'lead_address', 'eventname', 'relationship', 'phone', 'secondary_contact', 'type')->where('company_name', $companyName)->get()->groupBy('company_name');
 
         $quick_contact = [];
 
@@ -381,10 +384,12 @@ class BillingController extends Controller
                     "lead_address" => $item1->lead_address,
                     "relationship" => $item1->relationship,
                     "eventname" => $item1->eventname,
+                    "type" => $item1->type,
                 ];
                 $quick_contact[$item1->company_name]["primary_{$key1}"] = $primaryData;
                 $secondaryData = json_decode($item1->secondary_contact, true);
                 $secondaryData['eventname'] = $item1->eventname;
+                $secondaryData['type'] = $item1->type;
                 $secondaryData['other_contact'] = $secondaryData['secondary_contact'];
 
                 $quick_contact[$item1->company_name]["secondary_{$key1}"] = $secondaryData;

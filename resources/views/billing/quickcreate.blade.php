@@ -195,6 +195,11 @@ $type_company = explode(',', $settings['quick_company']);
             function selectFun(companyValue, inputs3) {
                 $("select[name=quick_contact]").on('change', function() {
                     var selectedValue = $(this).val();
+                    $('div.company_name').hide();
+                    if (selectedValue == 'other') {
+                        $('div.company_name').show();
+                    }
+
                     var quickContactData = inputs3[selectedValue];
                     updateFormValues(quickContactData)
                 })
@@ -210,7 +215,7 @@ $type_company = explode(',', $settings['quick_company']);
                     },
                     error: function(data) {
                         data = data.responseJSON;
-                        toastrs("Error", data.error, "error");
+                        console.error(data);
                     },
                     success: function(data) {
                         selectHTML = ''

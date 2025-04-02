@@ -174,6 +174,50 @@
                                                 </td>
                                             </tr>
                                             @endforeach
+
+
+
+                                            @foreach ($billings as $bill)
+                                            @php
+                                            $billName = json_decode($bill->other_contact);
+                                            $billData = json_decode($bill->data);
+                                            @endphp
+                                            <tr>
+                                                <td><a href="" data-size="md" data-title="{{ __('Invoice Details') }}" class="action-item text-primary"><a href="" data-size="md" data-title="{{ __('Invoice Details') }}" class="action-item text-primary"><a href="{{route('meeting.detailview',urlencode(encrypt($bill->id)))}}" data-size="md" title="{{ __('Detailed view ') }}" style="color: #1551c9 !important;">{{$billName->name}}</a></a>
+                                                </td>
+                                                <td>{{$billName->type}}</td>
+                                                <td>{{\Auth::user()->dateFormat($bill->created_at)}}</td>
+                                                <td><span class=" text-info">{{__(\App\Models\Billing::$status[1]) }}</span></td>
+                                                <td>${{$bill->totalAmount}}</td>
+                                                <td>${{$bill->deposits + $bill->paymentCredit}}</td>
+                                                <td class="text-end">
+                                                    @can('Create Payment')
+                                                    <div class="action-btn bg-primary ms-2">
+                                                        <a href="#" data-size="md" data-url="{{ route('billing.create',['billing',$bill->id]) }}" data-bs-toggle="tooltip" title="{{__('Create')}}" data-ajax-popup="true" data-title="{{__('Invoice Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                            <i class="ti ti-plus"></i>
+                                                        </a>
+                                                    </div>
+                                                    @endcan
+                                                    {{--@can('Manage Payment')
+                                                    <div class="action-btn bg-warning ms-2">
+                                                        <a href="#" data-size="md" data-url="{{ route('billing.show',$bill->id) }}" data-bs-toggle="tooltip" title="{{__('Quick View')}}" data-ajax-popup="true" data-title="{{__('Invoice Details')}}" class="mx-3 btn btn-sm d-inline-flex align-items-center text-white ">
+                                                            <i class="ti ti-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                    @endcan--}}
+                                                    @can('Delete Payment')
+                                                    <div class="action-btn bg-danger ms-2">
+                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['billing.destroy', $event->id]]) !!}
+                                                        <a href="#!" class="mx-3 btn btn-sm  align-items-center text-white show_confirm" data-bs-toggle="tooltip" title='Delete'>
+                                                            <i class="ti ti-trash"></i>
+                                                        </a>
+                                                        {!! Form::close() !!}
+                                                    </div>
+                                                    @endcan
+
+                                                </td>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
