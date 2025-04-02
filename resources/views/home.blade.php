@@ -196,6 +196,7 @@
                             <div class="scrol-card">
                                 <div class="card">
                                     <div class="card-body">
+                                        @if($events && count($events) > 0)
                                         @foreach($events as $event)
                                         <?php
 
@@ -240,6 +241,7 @@
                                             </div>
                                         </div>
                                         @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>
